@@ -29,6 +29,9 @@
       "web": {
          "favicon": "./assets/favicon.png"
       },
-      "entryPoint": "./src/App.tsx"
+      "extends": [
+         "@env"
+      ],
+      "entryPoint": "./src/index.tsx"
    }
 }
