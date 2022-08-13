@@ -3,11 +3,18 @@ import { Image, KeyboardAvoidingView, View } from "react-native";
 
 import { Link } from "@react-navigation/native";
 
-import { Formik, FormikHelpers } from "formik";
+import {
+   Formik,
+   FormikHelpers,
+   FormikValues,
+   useFormik,
+   useFormikContext,
+} from "formik";
 import {
    Button,
    HelperText,
    Snackbar,
+   Text,
    TextInput,
    useTheme,
 } from "react-native-paper";
@@ -22,8 +29,6 @@ import { loginStyles } from "./LoginStyles";
 export const Login = (props: any) => {
    const [formFeedbackModal, setFormFeedbackModal] = useState(false);
 
-   const theme = useTheme();
-
    const formInitialValues: ILogin = {
       email: "",
       password: "",
@@ -34,6 +39,8 @@ export const Login = (props: any) => {
       values: ILogin,
       actions: FormikHelpers<ILogin>
    ) => {
+      actions.validateForm(values);
+
       try {
          await signInWithEmailAndPassword(
             firebaseAuth,
@@ -44,8 +51,6 @@ export const Login = (props: any) => {
          actions.resetForm();
       } catch (error: any) {
          const fireError = error as FirebaseError;
-
-         console.log(fireError.message);
 
          if (fireError.message.includes("wrong-password")) {
             actions.setFieldError("password", "The entered password is wrong.");
@@ -64,6 +69,26 @@ export const Login = (props: any) => {
       }
    };
 
+   const formValidate = (values: FormikValues) => {
+      const errors: ILogin = { email: "", password: "" };
+
+      if (!values.email.length) {
+         errors.email = "Email is required";
+      } else if (
+         !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+      ) {
+         errors.email = "Something is missing. please type a valid email";
+      }
+
+      if (!values.password.length) {
+         errors.password = "Password is required";
+      } else if (values.password.length < 3) {
+         errors.password = "The password is too weak";
+      }
+
+      return errors;
+   };
+
    return (
       <KeyboardAvoidingView
          enabled={false}
@@ -76,7 +101,10 @@ export const Login = (props: any) => {
                   style={loginStyles.logoWrapper}
                   to={{ screen: "Onboarding" }}
                >
-                  <Image source={require("../../../assets/logo.png")}></Image>
+                  <Image
+                     style={loginStyles.logo}
+                     source={require("../../../assets/logo.png")}
+                  ></Image>
                </Link>
 
                <Formik
@@ -84,12 +112,15 @@ export const Login = (props: any) => {
                   onSubmit={(values: ILogin, actions) => {
                      formSubmitHandler(values, actions);
                   }}
+                  validate={formValidate}
                >
                   {(formik) => (
                      <View>
                         <View style={loginStyles.formGroup}>
                            <TextInput
                               label="Email"
+                              autoComplete="email"
+                              keyboardType="email-address"
                               onChangeText={formik.handleChange("email")}
                               value={formik.values.email}
                               placeholder="Your email"
@@ -126,11 +157,14 @@ export const Login = (props: any) => {
                         </View>
 
                         <Button
-                           labelStyle={{ color: "white" }}
+                           uppercase={false}
+                           style={loginStyles.formButton}
                            mode="contained"
                            onPress={() => formik.handleSubmit()}
                         >
-                           Login
+                           <Text style={loginStyles.formButtonText}>
+                              Log In
+                           </Text>
                         </Button>
                      </View>
                   )}
@@ -182,6 +216,7 @@ export const Login = (props: any) => {
 
             <Snackbar
                visible={formFeedbackModal}
+               wrapperStyle={{ left: 15 }}
                onDismiss={() => setFormFeedbackModal(false)}
                action={{
                   label: "Close",
@@ -190,7 +225,7 @@ export const Login = (props: any) => {
                   },
                }}
             >
-               Hey there! I'm a Snackbar.
+               Ooops something went wrong. Please try again
             </Snackbar>
          </View>
       </KeyboardAvoidingView>
