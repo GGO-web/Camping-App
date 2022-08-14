@@ -15,6 +15,20 @@ export const globalStyles = StyleSheet.create({
       fontSize: 16,
       backgroundColor: '#fafafa',
       color: '#3F3F46',
+      borderWidth: 1,
+      borderRadius: 12,
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+      borderColor: '#3f3f46',
+   },
+   label: {
+      fontSize: 16,
+      color: '#71717A',
+      marginBottom: 8,
+   },
+   validationMessage: {
+      marginLeft: 'auto',
+      marginTop: 4,
    },
    button: {
       borderRadius: 12,

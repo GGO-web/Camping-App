@@ -15,8 +15,6 @@ import { loginStyles } from "./LoginStyles";
 import { LoginForm } from "./components/LoginForm/LoginForm";
 import { LoginProviders } from "./components/LoginProviders/LoginProviders";
 
-// TODO: Add signIn with Providers
-
 export const Login = (props: any) => {
    const [formFeedbackModal, setFormFeedbackModal] = useState(false);
 
@@ -29,8 +27,6 @@ export const Login = (props: any) => {
       values: ILogin,
       actions: FormikHelpers<ILogin>
    ) => {
-      actions.validateForm(values);
-
       try {
          await signInWithEmailAndPassword(
             firebaseAuth,
@@ -38,9 +34,9 @@ export const Login = (props: any) => {
             values.password
          );
 
-         actions.resetForm();
-
          props.navigation.navigate("Homepage");
+
+         actions.resetForm();
       } catch (error: any) {
          const fireError = error as FirebaseError;
 
@@ -60,26 +56,6 @@ export const Login = (props: any) => {
             setFormFeedbackModal(true);
          }
       }
-   };
-
-   const formValidate = (values: FormikValues) => {
-      const errors: ILogin = { email: "", password: "" };
-
-      if (!values.email.length) {
-         errors.email = "Email is required";
-      } else if (
-         !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-      ) {
-         errors.email = "Something is missing. please type a valid email";
-      }
-
-      if (!values.password.length) {
-         errors.password = "Password is required";
-      } else if (values.password.length < 3) {
-         errors.password = "The password is too weak";
-      }
-
-      return errors;
    };
 
    return (
@@ -105,7 +81,6 @@ export const Login = (props: any) => {
                   onSubmit={(values: ILogin, actions) => {
                      formSubmitHandler(values, actions);
                   }}
-                  validate={formValidate}
                >
                   {(formik) => (
                      <LoginForm
