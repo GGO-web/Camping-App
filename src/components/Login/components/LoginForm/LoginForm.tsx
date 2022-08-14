@@ -3,10 +3,11 @@ import { View } from "react-native";
 import { Button, HelperText, Text, TextInput } from "react-native-paper";
 import { FormikProps, useFormikContext } from "formik";
 
-import { ILogin } from "../Login.model";
+import { ILogin } from "../../Login.model";
 
 import { loginFormStyles } from "./LoginFormStyles";
-import { globalStyles, mergeStyles } from "../../../styles/global";
+
+import { globalStyles, mergeStyles } from "../../../../styles/global";
 
 export const LoginForm = ({
    formSubmitHandler,

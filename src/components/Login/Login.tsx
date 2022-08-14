@@ -4,13 +4,7 @@ import { Image, KeyboardAvoidingView, View } from "react-native";
 import { Link } from "@react-navigation/native";
 
 import { Formik, FormikHelpers, FormikValues } from "formik";
-import {
-   Button,
-   HelperText,
-   Snackbar,
-   Text,
-   TextInput,
-} from "react-native-paper";
+import { Divider, Snackbar, Text } from "react-native-paper";
 
 import { FirebaseError } from "firebase/app";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -18,9 +12,10 @@ import { firebaseAuth } from "../../firebase/firebase";
 
 import { ILogin } from "./Login.model";
 import { loginStyles } from "./LoginStyles";
-import { LoginForm } from "./LoginForm/LoginForm";
+import { LoginForm } from "./components/LoginForm/LoginForm";
+import { LoginProviders } from "./components/LoginProviders/LoginProviders";
 
-// TODO: Add correct input styles, Add signIn with Providers
+// TODO: Add signIn with Providers
 
 export const Login = (props: any) => {
    const [formFeedbackModal, setFormFeedbackModal] = useState(false);
@@ -90,7 +85,7 @@ export const Login = (props: any) => {
    return (
       <KeyboardAvoidingView
          enabled={false}
-         behavior="padding"
+         behavior="height"
          style={{ flex: 1 }}
       >
          <View style={loginStyles.wrapper}>
@@ -120,48 +115,7 @@ export const Login = (props: any) => {
                   )}
                </Formik>
 
-               {/* <div className="login__auth mt-5 mb-5">
-               <h2 className="login__auth-title text-muted text-center mt-3 mb-3">
-                  <span>or continue with</span>
-               </h2>
-
-               <Row
-                  xs="auto"
-                  className="login__auth-providers d-flex justify-content-center"
-               >
-                  <Col>
-                     <Button
-                        onClick={() => loginWith(FacebookAuthProvider)}
-                        className="login__auth-button btn-reset"
-                     >
-                        <img
-                           className="login__auth-img"
-                           src="images/facebook.svg"
-                           alt="facebook"
-                        />
-                     </Button>
-                  </Col>
-                  <Col>
-                     <Button
-                        onClick={() => loginWith(GoogleAuthProvider)}
-                        className="login__auth-button btn-reset"
-                     >
-                        <img
-                           className="login__auth-img"
-                           src="images/google.svg"
-                           alt="google"
-                        />
-                     </Button>
-                  </Col>
-               </Row>
-            </div> */}
-
-               {/* <p className="authentication__text-moveback text-center text-muted">
-               Don't have an account?{" "}
-               <NavLink className="link-primary" to="/signup">
-                  Sign up
-               </NavLink>
-            </p> */}
+               <LoginProviders></LoginProviders>
             </View>
 
             <Snackbar

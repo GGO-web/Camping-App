@@ -23,6 +23,15 @@ export const globalStyles = StyleSheet.create({
       color: '#fff',
       fontWeight: '500',
    },
+   buttonOutlined: {
+      borderRadius: 12,
+      borderWidth: 1,
+      borderColor: '#84CC16',
+   },
+   buttonTextOutlined: {
+      color: '#84CC16',
+      fontWeight: '500',
+   },
 });
 
 export const mergeStyles = <T>(...styles: [StyleProp<T>]) => {
