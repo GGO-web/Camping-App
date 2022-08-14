@@ -3,20 +3,13 @@ import { Image, KeyboardAvoidingView, View } from "react-native";
 
 import { Link } from "@react-navigation/native";
 
-import {
-   Formik,
-   FormikHelpers,
-   FormikValues,
-   useFormik,
-   useFormikContext,
-} from "formik";
+import { Formik, FormikHelpers, FormikValues } from "formik";
 import {
    Button,
    HelperText,
    Snackbar,
    Text,
    TextInput,
-   useTheme,
 } from "react-native-paper";
 
 import { FirebaseError } from "firebase/app";
@@ -25,6 +18,9 @@ import { firebaseAuth } from "../../firebase/firebase";
 
 import { ILogin } from "./Login.model";
 import { loginStyles } from "./LoginStyles";
+import { LoginForm } from "./LoginForm/LoginForm";
+
+// TODO: Add correct input styles, Add signIn with Providers
 
 export const Login = (props: any) => {
    const [formFeedbackModal, setFormFeedbackModal] = useState(false);
@@ -32,7 +28,6 @@ export const Login = (props: any) => {
    const formInitialValues: ILogin = {
       email: "",
       password: "",
-      formFeedback: "",
    };
 
    const formSubmitHandler = async (
@@ -49,8 +44,12 @@ export const Login = (props: any) => {
          );
 
          actions.resetForm();
+
+         props.navigation.navigate("Homepage");
       } catch (error: any) {
          const fireError = error as FirebaseError;
+
+         console.log(fireError.message);
 
          if (fireError.message.includes("wrong-password")) {
             actions.setFieldError("password", "The entered password is wrong.");
@@ -63,7 +62,6 @@ export const Login = (props: any) => {
                "The user with the given email is not found."
             );
          } else {
-            actions.setFieldError("formFeedback", fireError.message);
             setFormFeedbackModal(true);
          }
       }
@@ -115,58 +113,10 @@ export const Login = (props: any) => {
                   validate={formValidate}
                >
                   {(formik) => (
-                     <View>
-                        <View style={loginStyles.formGroup}>
-                           <TextInput
-                              label="Email"
-                              autoComplete="email"
-                              keyboardType="email-address"
-                              onChangeText={formik.handleChange("email")}
-                              value={formik.values.email}
-                              placeholder="Your email"
-                              mode="outlined"
-                              error={!!formik.errors.email}
-                           />
-
-                           <HelperText
-                              type="error"
-                              padding="none"
-                              visible={!!formik.errors.email}
-                           >
-                              {formik.errors.email}
-                           </HelperText>
-                        </View>
-
-                        <View style={loginStyles.formGroup}>
-                           <TextInput
-                              label="Password"
-                              onChangeText={formik.handleChange("password")}
-                              value={formik.values.password}
-                              placeholder="Your password"
-                              mode="outlined"
-                              error={!!formik.errors.password}
-                           />
-
-                           <HelperText
-                              type="error"
-                              padding="none"
-                              visible={!!formik.errors.password}
-                           >
-                              {formik.errors.password}
-                           </HelperText>
-                        </View>
-
-                        <Button
-                           uppercase={false}
-                           style={loginStyles.formButton}
-                           mode="contained"
-                           onPress={() => formik.handleSubmit()}
-                        >
-                           <Text style={loginStyles.formButtonText}>
-                              Log In
-                           </Text>
-                        </Button>
-                     </View>
+                     <LoginForm
+                        formSubmitHandler={formSubmitHandler}
+                        formik={formik}
+                     ></LoginForm>
                   )}
                </Formik>
 
