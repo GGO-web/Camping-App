@@ -30,12 +30,15 @@ export const LoginForm = ({
                onChangeText={formik.handleChange("email")}
                validationMessageStyle={globalStyles.validationMessage}
                labelStyle={mergeStyles([globalStyles.text, globalStyles.label])}
+               autoCapitalize="none"
                fieldStyle={mergeStyles([
                   globalStyles.text,
                   globalStyles.input,
-                  formik.errors.email
-                     ? globalStyles.isError
-                     : globalStyles.isValid,
+                  formik.touched.email
+                     ? formik.errors.email
+                        ? globalStyles.isError
+                        : globalStyles.isValid
+                     : null,
                ])}
                enableErrors={true}
                validateOnChange={true}
@@ -59,12 +62,15 @@ export const LoginForm = ({
                value={formik.values.password}
                validationMessageStyle={globalStyles.validationMessage}
                labelStyle={mergeStyles([globalStyles.text, globalStyles.label])}
+               autoCapitalize="none"
                fieldStyle={mergeStyles([
                   globalStyles.text,
                   globalStyles.input,
-                  formik.errors.password
-                     ? globalStyles.isError
-                     : globalStyles.isValid,
+                  formik.touched.password
+                     ? formik.errors.password
+                        ? globalStyles.isError
+                        : globalStyles.isValid
+                     : null,
                ])}
                enableErrors={true}
                validateOnChange={true}

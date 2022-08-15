@@ -4,26 +4,39 @@ import { Image, TouchableOpacity, View } from "react-native";
 import { Divider, Text } from "react-native-paper";
 
 import * as Google from "expo-auth-session/providers/google";
+import * as AuthSession from "expo-auth-session";
 
 import { globalStyles, mergeStyles } from "../../../../styles/global";
 
 import { loginProvidersStyles } from "./LoginProvidersStyle";
 import { firebaseAuth } from "../../../../firebase/firebase";
 import { GoogleAuthProvider, signInWithCredential } from "firebase/auth";
+import { RevokeTokenRequestConfig } from "expo-auth-session";
+import { useAuth } from "reactfire";
+
+const authConfig = {
+   clientId: process.env.REACT_APP_CLIENT_ID,
+   scopes: ["profile", "email"],
+};
 
 export const LoginProviders = ({ navigation }: { navigation: any }) => {
-   const [, response, promptAsync]: any = Google.useIdTokenAuthRequest({
-      clientId: process.env.REACT_APP_CLIENT_ID,
-   });
+   const [request, response, promptAsync]: any =
+      Google.useAuthRequest(authConfig);
 
    const loginWithGoogle = async () => {
       // Get the users ID token
       try {
-         if (response?.type === "success") {
-            const { id_token } = response.params;
+         console.log(response?.type === "success" && !firebaseAuth.currentUser);
+
+         if (response?.type === "success" && firebaseAuth.currentUser == null) {
+            const { id_token } = response.authentication;
+            const { access_token } = response.params;
 
             // Create a Google credential with the token
-            const googleCredential = GoogleAuthProvider.credential(id_token);
+            const googleCredential = GoogleAuthProvider.credential(
+               id_token,
+               access_token
+            );
 
             // Sign-in the user with the credential
             signInWithCredential(firebaseAuth, googleCredential);
