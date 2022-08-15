@@ -3,11 +3,44 @@ import React from "react";
 import { Image, TouchableOpacity, View } from "react-native";
 import { Divider, Text } from "react-native-paper";
 
+import * as Google from "expo-auth-session/providers/google";
+
 import { globalStyles, mergeStyles } from "../../../../styles/global";
 
 import { loginProvidersStyles } from "./LoginProvidersStyle";
+import { firebaseAuth } from "../../../../firebase/firebase";
+import { GoogleAuthProvider, signInWithCredential } from "firebase/auth";
 
-export const LoginProviders = () => {
+export const LoginProviders = ({ navigation }: { navigation: any }) => {
+   const [request, response, promptAsync]: any = Google.useIdTokenAuthRequest({
+      clientId: process.env.REACT_APP_CLIENT_ID,
+   });
+
+   const loginWithGoogle = async () => {
+      // Get the users ID token
+      try {
+         promptAsync();
+      } catch (err: any) {
+         console.log(err.message);
+      }
+   };
+
+   // if user is already signIn set firebase google auth credenticals
+   React.useEffect(() => {
+      if (response?.type === "success") {
+         const { id_token } = response.params;
+
+         // Create a Google credential with the token
+         const googleCredential = GoogleAuthProvider.credential(id_token);
+
+         // Sign-in the user with the credential
+         signInWithCredential(firebaseAuth, googleCredential);
+
+         // redirect to homepage
+         navigation.navigate("Homepage");
+      }
+   }, [response]);
+
    return (
       <View>
          <Text variant="bodyLarge" style={loginProvidersStyles.headline}>
@@ -21,6 +54,7 @@ export const LoginProviders = () => {
                   loginProvidersStyles.icon,
                ])}
                activeOpacity={0.8}
+               onPress={() => loginWithGoogle()}
             >
                <Image
                   source={{
@@ -31,44 +65,6 @@ export const LoginProviders = () => {
                ></Image>
             </TouchableOpacity>
          </View>
-         {/* <div className="login__auth mt-5 mb-5">
-
-      <Row
-         xs="auto"
-         className="login__auth-providers d-flex justify-content-center"
-      >
-         <Col>
-            <Button
-               onClick={() => loginWith(FacebookAuthProvider)}
-               className="login__auth-button btn-reset"
-            >
-               <img
-                  className="login__auth-img"
-                  src="images/facebook.svg"
-                  alt="facebook"
-               />
-            </Button>
-         </Col>
-         <Col>
-            <Button
-               onClick={() => loginWith(GoogleAuthProvider)}
-               className="login__auth-button btn-reset"
-            >
-               <img
-                  className="login__auth-img"
-                  src="images/google.svg"
-                  alt="google"
-               />
-            </Button>
-         </Col>
-      </Row>
-   </div> */}
-         {/* <p className="authentication__text-moveback text-center text-muted">
-      Don't have an account?{" "}
-      <NavLink className="link-primary" to="/signup">
-         Sign up
-      </NavLink>
-   </p> */}
       </View>
    );
 };

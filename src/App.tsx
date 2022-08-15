@@ -13,7 +13,7 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
    const [loaded] = useFonts({
-      "SFPro": require("../assets/fonts/SFProDisplay-Medium.ttf"),
+      SFPro: require("../assets/fonts/SFProDisplay-Medium.ttf"),
    });
 
    if (!loaded) {

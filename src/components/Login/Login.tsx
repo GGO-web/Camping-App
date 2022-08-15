@@ -3,8 +3,8 @@ import { Image, KeyboardAvoidingView, View } from "react-native";
 
 import { Link } from "@react-navigation/native";
 
-import { Formik, FormikHelpers, FormikValues } from "formik";
-import { Divider, Snackbar, Text } from "react-native-paper";
+import { Formik, FormikHelpers } from "formik";
+import { Snackbar } from "react-native-paper";
 
 import { FirebaseError } from "firebase/app";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -90,7 +90,7 @@ export const Login = (props: any) => {
                   )}
                </Formik>
 
-               <LoginProviders></LoginProviders>
+               <LoginProviders navigation={props.navigation}></LoginProviders>
             </View>
 
             <Snackbar
