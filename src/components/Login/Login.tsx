@@ -50,8 +50,7 @@ export const Login = (props: any) => {
       } catch (error: any) {
          const fireError = error as FirebaseError;
 
-         console.log(fireError.message);
-
+         // firebase errors validation
          if (fireError.message.includes("wrong-password")) {
             actions.setFieldError("password", "The entered password is wrong.");
          } else if (

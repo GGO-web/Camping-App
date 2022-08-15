@@ -14,12 +14,18 @@ export const globalStyles = StyleSheet.create({
    input: {
       fontSize: 16,
       backgroundColor: '#fafafa',
-      color: '#3F3F46',
       borderWidth: 1,
       borderRadius: 12,
       paddingVertical: 10,
       paddingHorizontal: 20,
       borderColor: '#3f3f46',
+   },
+   isError: {
+      borderColor: '#EA1601',
+   },
+   isValid: {
+      borderColor: '#84CC16',
+      color: '#84CC16',
    },
    label: {
       fontSize: 16,

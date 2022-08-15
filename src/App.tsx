@@ -11,6 +11,9 @@ import { SignUp } from "./components/SignUp/SignUp";
 
 const Stack = createNativeStackNavigator();
 
+import { Colors } from "react-native-ui-lib";
+Colors.loadColors({ primary: "#84CC16", red: "#EA1601", dark: "#3F3F46" });
+
 export default function App() {
    const [loaded] = useFonts({
       SFPro: require("../assets/fonts/SFProDisplay-Medium.ttf"),

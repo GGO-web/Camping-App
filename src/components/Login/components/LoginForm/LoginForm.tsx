@@ -30,13 +30,24 @@ export const LoginForm = ({
                onChangeText={formik.handleChange("email")}
                validationMessageStyle={globalStyles.validationMessage}
                labelStyle={mergeStyles([globalStyles.text, globalStyles.label])}
-               fieldStyle={mergeStyles([globalStyles.text, globalStyles.input])}
+               fieldStyle={mergeStyles([
+                  globalStyles.text,
+                  globalStyles.input,
+                  formik.errors.email
+                     ? globalStyles.isError
+                     : globalStyles.isValid,
+               ])}
                enableErrors={true}
                validateOnChange={true}
                validateOnBlur={true}
                onBlur={formik.handleBlur("email")}
-               validate={[() => !formik.errors.email]}
+               validate={[() => false]}
                validationMessage={[formik.errors.email]}
+               style={
+                  formik.errors.email
+                     ? globalStyles.isError
+                     : globalStyles.isValid
+               }
             />
          </View>
 
@@ -48,13 +59,24 @@ export const LoginForm = ({
                value={formik.values.password}
                validationMessageStyle={globalStyles.validationMessage}
                labelStyle={mergeStyles([globalStyles.text, globalStyles.label])}
-               fieldStyle={mergeStyles([globalStyles.text, globalStyles.input])}
+               fieldStyle={mergeStyles([
+                  globalStyles.text,
+                  globalStyles.input,
+                  formik.errors.password
+                     ? globalStyles.isError
+                     : globalStyles.isValid,
+               ])}
                enableErrors={true}
                validateOnChange={true}
                validateOnBlur={true}
                onBlur={formik.handleBlur("password")}
-               validate={[() => !formik.errors.password]}
+               validate={[() => false]}
                validationMessage={[formik.errors.password]}
+               style={
+                  formik.errors.password
+                     ? globalStyles.isError
+                     : globalStyles.isValid
+               }
             />
          </View>
 
