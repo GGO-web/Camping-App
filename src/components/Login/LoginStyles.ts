@@ -2,10 +2,14 @@ import { StyleSheet } from 'react-native';
 
 export const loginStyles = StyleSheet.create({
    logoWrapper: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      resizeMode: 'center',
+      textAlign: 'center',
       height: 100,
+      marginBottom: 32,
+   },
+   logo: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
    },
    wrapper: {
       flex: 1,

@@ -2,7 +2,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import { registerRootComponent } from "expo";
 import { NavigationContainer } from "@react-navigation/native";
-import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
+import { Provider as PaperProvider } from "react-native-paper";
 
 import { store } from "./redux/store";
 
@@ -15,18 +15,7 @@ import {
 
 import App from "./App";
 
-const theme = {
-   ...DefaultTheme,
-   roundness: 2,
-   version: 3,
-   colors: {
-      ...DefaultTheme.colors,
-      primary: "#84CC16",
-      secondary: "#f1c40f",
-      tertiary: "#a1b2c3",
-      text: "#000",
-   },
-};
+import { theme } from "./matherialTheme";
 
 registerRootComponent(() => {
    return (
