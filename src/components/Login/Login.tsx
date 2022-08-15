@@ -4,6 +4,7 @@ import { Image, KeyboardAvoidingView, View } from "react-native";
 import { Link } from "@react-navigation/native";
 
 import { Formik, FormikHelpers } from "formik";
+import * as Yup from "yup";
 import { Snackbar } from "react-native-paper";
 
 import { FirebaseError } from "firebase/app";
@@ -14,6 +15,15 @@ import { ILogin } from "./Login.model";
 import { loginStyles } from "./LoginStyles";
 import { LoginForm } from "./components/LoginForm/LoginForm";
 import { LoginProviders } from "./components/LoginProviders/LoginProviders";
+
+export const signInSchema = Yup.object().shape({
+   email: Yup.string()
+      .email("Something is missing. please type a valid email")
+      .required("Email is required"),
+   password: Yup.string()
+      .min(7, "Password is too short")
+      .required("Password is required"),
+});
 
 export const Login = (props: any) => {
    const [formFeedbackModal, setFormFeedbackModal] = useState(false);
@@ -81,6 +91,7 @@ export const Login = (props: any) => {
                   onSubmit={(values: ILogin, actions) => {
                      formSubmitHandler(values, actions);
                   }}
+                  validationSchema={signInSchema}
                >
                   {(formik) => (
                      <LoginForm

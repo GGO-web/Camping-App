@@ -12,34 +12,31 @@ import { firebaseAuth } from "../../../../firebase/firebase";
 import { GoogleAuthProvider, signInWithCredential } from "firebase/auth";
 
 export const LoginProviders = ({ navigation }: { navigation: any }) => {
-   const [request, response, promptAsync]: any = Google.useIdTokenAuthRequest({
+   const [, response, promptAsync]: any = Google.useIdTokenAuthRequest({
       clientId: process.env.REACT_APP_CLIENT_ID,
    });
 
    const loginWithGoogle = async () => {
       // Get the users ID token
       try {
-         promptAsync();
+         if (response?.type === "success") {
+            const { id_token } = response.params;
+
+            // Create a Google credential with the token
+            const googleCredential = GoogleAuthProvider.credential(id_token);
+
+            // Sign-in the user with the credential
+            signInWithCredential(firebaseAuth, googleCredential);
+
+            // redirect to homepage
+            navigation.navigate("Homepage");
+         } else {
+            promptAsync();
+         }
       } catch (err: any) {
          console.log(err.message);
       }
    };
-
-   // if user is already signIn set firebase google auth credenticals
-   React.useEffect(() => {
-      if (response?.type === "success") {
-         const { id_token } = response.params;
-
-         // Create a Google credential with the token
-         const googleCredential = GoogleAuthProvider.credential(id_token);
-
-         // Sign-in the user with the credential
-         signInWithCredential(firebaseAuth, googleCredential);
-
-         // redirect to homepage
-         navigation.navigate("Homepage");
-      }
-   }, [response]);
 
    return (
       <View>

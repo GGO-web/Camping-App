@@ -32,12 +32,11 @@ export const LoginForm = ({
                labelStyle={mergeStyles([globalStyles.text, globalStyles.label])}
                fieldStyle={mergeStyles([globalStyles.text, globalStyles.input])}
                enableErrors={true}
-               validate={["required", "email"]}
                validateOnChange={true}
-               validationMessage={[
-                  "Email is required",
-                  "Something is missing. Please type a valid email",
-               ]}
+               validateOnBlur={true}
+               onBlur={formik.handleBlur("email")}
+               validate={[() => !formik.errors.email]}
+               validationMessage={[formik.errors.email]}
             />
          </View>
 
@@ -51,12 +50,11 @@ export const LoginForm = ({
                labelStyle={mergeStyles([globalStyles.text, globalStyles.label])}
                fieldStyle={mergeStyles([globalStyles.text, globalStyles.input])}
                enableErrors={true}
-               validate={["required", (value: string) => value.length > 6]}
                validateOnChange={true}
-               validationMessage={[
-                  "Password is required",
-                  "Password is too weak",
-               ]}
+               validateOnBlur={true}
+               onBlur={formik.handleBlur("password")}
+               validate={[() => !formik.errors.password]}
+               validationMessage={[formik.errors.password]}
             />
          </View>
 
@@ -64,6 +62,7 @@ export const LoginForm = ({
             uppercase={false}
             style={globalStyles.button}
             mode="contained"
+            disabled={!formik.isValid}
             onPress={() => formSubmitHandler(formik.values, actions)}
          >
             <Text
