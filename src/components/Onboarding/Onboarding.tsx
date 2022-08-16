@@ -63,9 +63,7 @@ export const Onboarding = ({ navigation }: { navigation: any }) => {
                      <View>
                         <Image
                            style={onboardingStyles.carouselImage}
-                           source={{
-                              uri: item.imageSrc,
-                           }}
+                           source={item.image}
                         />
                         <Text
                            style={mergeStyles([
@@ -132,7 +130,7 @@ export const Onboarding = ({ navigation }: { navigation: any }) => {
                         uppercase={false}
                         style={mergeStyles([
                            globalStyles.button,
-                           { marginBottom: 16 },
+                           { width: "100%", marginBottom: 16 },
                         ])}
                         mode="contained"
                         onPress={() => navigation.navigate("Login")}

@@ -5,12 +5,14 @@ export const onboardingStyles = StyleSheet.create({
       alignItems: 'flex-start',
    },
    carousel: {
-      justifyContent: 'flex-start',
+      alignItems: 'center',
+      justifyContent: 'center',
       height: '100%',
    },
    carouselImage: {
-      width: 224,
-      height: 228,
+      resizeMode: 'cover',
+      margin: 'auto',
+      alignSelf: 'center',
       marginBottom: 40,
    },
    carouselTitle: {
@@ -21,6 +23,7 @@ export const onboardingStyles = StyleSheet.create({
       marginBottom: 32,
    },
    pagination: {
+      width: '100%',
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
