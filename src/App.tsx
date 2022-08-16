@@ -11,11 +11,9 @@ import { SignUp } from "./components/SignUp/SignUp";
 
 const Stack = createNativeStackNavigator();
 
-import { Colors } from "react-native-ui-lib";
-Colors.loadColors({ primary: "#84CC16", red: "#EA1601", dark: "#3F3F46" });
-
 export default function App() {
    const [loaded] = useFonts({
+      SFProSemibold: require("../assets/fonts/SFProDisplay-Semibold.ttf"),
       SFProMedium: require("../assets/fonts/SFProDisplay-Medium.ttf"),
       SFProRegular: require("../assets/fonts/SFProDisplay-Regular.ttf"),
    });
@@ -27,7 +25,7 @@ export default function App() {
    return (
       <Stack.Navigator
          screenOptions={{ headerShown: false }}
-         initialRouteName="Login"
+         initialRouteName="Onboarding"
       >
          <Stack.Screen name="Login" component={Login}></Stack.Screen>
          <Stack.Screen name="SignUp" component={SignUp}></Stack.Screen>
