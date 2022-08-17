@@ -1,4 +1,5 @@
 import { StyleProp, StyleSheet } from 'react-native';
+import { Colors } from 'react-native-ui-lib';
 
 export const globalStyles = StyleSheet.create({
    text: {
@@ -7,7 +8,7 @@ export const globalStyles = StyleSheet.create({
    },
    container: {
       flex: 1,
-      paddingHorizontal: 15,
+      paddingHorizontal: 20,
       justifyContent: 'center',
       backgroundColor: '#fff',
    },
@@ -39,6 +40,7 @@ export const globalStyles = StyleSheet.create({
    },
    button: {
       borderRadius: 12,
+      backgroundColor: Colors.primary,
    },
    buttonText: {
       fontFamily: 'SFProMedium',
@@ -54,6 +56,12 @@ export const globalStyles = StyleSheet.create({
       fontFamily: 'SFProMedium',
       color: '#84CC16',
       fontWeight: '500',
+   },
+   visuallyHidden: {
+      display: 'none',
+      opacity: 0,
+      backgroundColor: 'transparent',
+      height: 0,
    },
 });
 

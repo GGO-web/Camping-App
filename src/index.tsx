@@ -13,9 +13,9 @@ import {
    FirestoreProvider,
 } from "reactfire";
 
-import App from "./App";
+import { theme } from "./matherialUI";
 
-import { theme } from "./matherialTheme";
+import App from "./App";
 
 registerRootComponent(() => {
    return (
