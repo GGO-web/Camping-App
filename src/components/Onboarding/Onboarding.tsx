@@ -55,7 +55,6 @@ export const Onboarding = ({ navigation }: { navigation: any }) => {
             initialPage={currentPage}
             pageControlProps={{ currentPage: currentPage }}
             onChangePage={moveTo}
-            itemSpacings={30}
          >
             {onboardingScreens.map((item, index) => {
                return (
@@ -127,6 +126,7 @@ export const Onboarding = ({ navigation }: { navigation: any }) => {
                      </View>
 
                      <Button
+                        backgroundColor={Colors.primary}
                         uppercase={false}
                         style={mergeStyles([
                            globalStyles.button,

@@ -5,16 +5,20 @@ import { Link } from "@react-navigation/native";
 
 import { Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import { Snackbar } from "react-native-paper";
+
+import { Toast } from "react-native-ui-lib/src/incubator";
+import { Text } from "react-native-ui-lib";
 
 import { FirebaseError } from "firebase/app";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { firebaseAuth } from "../../firebase/firebase";
 
 import { ILogin } from "./Login.model";
-import { loginStyles } from "./LoginStyles";
 import { LoginForm } from "./components/LoginForm/LoginForm";
 import { LoginProviders } from "./components/LoginProviders/LoginProviders";
+
+import { loginStyles } from "./LoginStyles";
+import { globalStyles, mergeStyles } from "../../styles/global";
 
 export const signInSchema = Yup.object().shape({
    email: Yup.string()
@@ -61,6 +65,7 @@ export const Login = (props: any) => {
                "email",
                "The user with the given email is not found."
             );
+            setFormFeedbackModal(true);
          } else {
             setFormFeedbackModal(true);
          }
@@ -91,6 +96,7 @@ export const Login = (props: any) => {
                      formSubmitHandler(values, actions);
                   }}
                   validationSchema={signInSchema}
+                  validateOnMount={true}
                >
                   {(formik) => (
                      <LoginForm
@@ -103,19 +109,18 @@ export const Login = (props: any) => {
                <LoginProviders navigation={props.navigation}></LoginProviders>
             </View>
 
-            <Snackbar
+            <Toast
                visible={formFeedbackModal}
-               wrapperStyle={{ left: 15 }}
+               position={"bottom"}
+               autoDismiss={3000}
                onDismiss={() => setFormFeedbackModal(false)}
-               action={{
-                  label: "Close",
-                  onPress: () => {
-                     setFormFeedbackModal(false);
-                  },
-               }}
             >
-               Ooops something went wrong. Please try again
-            </Snackbar>
+               <Text
+                  style={mergeStyles([globalStyles.text, loginStyles.feedback])}
+               >
+                  Ooops something went wrong. Please try again
+               </Text>
+            </Toast>
          </View>
       </KeyboardAvoidingView>
    );

@@ -1,14 +1,14 @@
 import React, { useCallback } from "react";
 import { View } from "react-native";
-import { Button, Text } from "react-native-paper";
 import { FormikProps, useFormikContext } from "formik";
+
+import { Button, Colors, Text } from "react-native-ui-lib";
+import { TextField } from "react-native-ui-lib/src/incubator";
 
 import { ILogin } from "../../Login.model";
 
 import { loginFormStyles } from "./LoginFormStyles";
-
 import { globalStyles, mergeStyles } from "../../../../styles/global";
-import { TextField } from "react-native-ui-lib/src/incubator";
 
 export const LoginForm = ({
    formSubmitHandler,
@@ -95,9 +95,10 @@ export const LoginForm = ({
          </View>
 
          <Button
-            uppercase={false}
             style={globalStyles.button}
             mode="contained"
+            backgroundColor={Colors.primary}
+            disabledBackgroundColor={Colors.gray400}
             disabled={!formik.isValid}
             onPress={() => formSubmitHandler(formik.values, actions)}
          >

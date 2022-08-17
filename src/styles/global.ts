@@ -40,7 +40,6 @@ export const globalStyles = StyleSheet.create({
    },
    button: {
       borderRadius: 12,
-      backgroundColor: Colors.primary,
    },
    buttonText: {
       fontFamily: 'SFProMedium',

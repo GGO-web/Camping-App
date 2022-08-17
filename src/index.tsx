@@ -2,7 +2,6 @@ import React from "react";
 import { Provider } from "react-redux";
 import { registerRootComponent } from "expo";
 import { NavigationContainer } from "@react-navigation/native";
-import { Provider as PaperProvider } from "react-native-paper";
 
 import { store } from "./redux/store";
 
@@ -13,7 +12,7 @@ import {
    FirestoreProvider,
 } from "reactfire";
 
-import { theme } from "./matherialUI";
+import "./matherialUI";
 
 import App from "./App";
 
@@ -25,9 +24,7 @@ registerRootComponent(() => {
                <Provider store={store}>
                   <NavigationContainer>
                      {/* App component start! */}
-                     <PaperProvider theme={theme}>
-                        <App />
-                     </PaperProvider>
+                     <App />
                      {/* App component end! */}
                   </NavigationContainer>
                </Provider>

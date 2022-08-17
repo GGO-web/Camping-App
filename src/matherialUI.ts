@@ -1,5 +1,3 @@
-import { DefaultTheme } from 'react-native-paper';
-
 import { Colors, Typography } from 'react-native-ui-lib';
 
 Colors.loadColors({
@@ -9,6 +7,7 @@ Colors.loadColors({
    red: '#EA1601',
    dark: '#3F3F46',
    gray: '#F4F4F5',
+   gray300: '#A1A1AA',
 });
 
 Typography.loadTypographies({
@@ -35,14 +34,3 @@ Typography.loadTypographies({
       marginRight: 'auto',
    },
 });
-
-export const theme = {
-   ...DefaultTheme,
-   roundness: 12,
-   version: 3,
-   colors: {
-      ...DefaultTheme.colors,
-      ...Colors,
-      text: '#000',
-   },
-};

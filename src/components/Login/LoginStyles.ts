@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { Colors } from 'react-native-ui-lib';
 
 export const loginStyles = StyleSheet.create({
    logoWrapper: {
@@ -24,5 +25,12 @@ export const loginStyles = StyleSheet.create({
    },
    formGroup: {
       marginBottom: 20,
+   },
+   feedback: {
+      textAlign: 'center',
+      padding: 10,
+      backgroundColor: Colors.red,
+      justifyContent: 'center',
+      color: '#fff',
    },
 });

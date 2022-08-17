@@ -1,18 +1,14 @@
 import React from "react";
 
 import { Image, TouchableOpacity, View } from "react-native";
-import { Divider, Text } from "react-native-paper";
 
 import * as Google from "expo-auth-session/providers/google";
-import * as AuthSession from "expo-auth-session";
-
-import { globalStyles, mergeStyles } from "../../../../styles/global";
-
-import { loginProvidersStyles } from "./LoginProvidersStyle";
 import { firebaseAuth } from "../../../../firebase/firebase";
 import { GoogleAuthProvider, signInWithCredential } from "firebase/auth";
-import { RevokeTokenRequestConfig } from "expo-auth-session";
-import { useAuth } from "reactfire";
+
+import { globalStyles, mergeStyles } from "../../../../styles/global";
+import { loginProvidersStyles } from "./LoginProvidersStyle";
+import { Text } from "react-native-ui-lib";
 
 const authConfig = {
    clientId: process.env.REACT_APP_CLIENT_ID,
@@ -56,7 +52,7 @@ export const LoginProviders = ({ navigation }: { navigation: any }) => {
          <Text variant="bodyLarge" style={loginProvidersStyles.headline}>
             or continue with
          </Text>
-         <Divider style={loginProvidersStyles.divider} bold={true}></Divider>
+
          <View style={loginProvidersStyles.icons}>
             <TouchableOpacity
                style={mergeStyles([
