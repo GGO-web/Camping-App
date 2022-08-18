@@ -45,7 +45,6 @@ export const SignUp = (props: any) => {
    const formInitialValues: ISignUp = {
       username: "",
       email: "",
-      phone: "",
       password: "",
    };
 
@@ -64,13 +63,14 @@ export const SignUp = (props: any) => {
             displayName: values.username,
          });
 
-         props.navigation.navigate("Login");
+         props.navigation.navigate("Hurrey", {
+            page: "Login",
+            text: "Your registration is successful. please go back and log-in.",
+         });
 
          actions.resetForm();
       } catch (error: any) {
          const fireError = error as FirebaseError;
-
-         console.log(fireError.message);
 
          // firebase errors validation
          if (fireError.message.includes("wrong-password")) {

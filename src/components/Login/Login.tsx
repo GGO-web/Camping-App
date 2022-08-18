@@ -102,6 +102,7 @@ export const Login = (props: any) => {
                      <LoginForm
                         formSubmitHandler={formSubmitHandler}
                         formik={formik}
+                        navigation={props.navigation}
                      ></LoginForm>
                   )}
                </Formik>

@@ -13,9 +13,11 @@ import { authStyles } from "../../../../styles/auth";
 export const LoginForm = ({
    formSubmitHandler,
    formik,
+   navigation,
 }: {
    formSubmitHandler: Function;
    formik: FormikProps<ILogin>;
+   navigation: any;
 }) => {
    const actions = useFormikContext();
 
@@ -95,7 +97,7 @@ export const LoginForm = ({
          </View>
 
          <Button
-            style={globalStyles.button}
+            style={mergeStyles([globalStyles.button, { marginBottom: 20 }])}
             mode="contained"
             backgroundColor={Colors.primary}
             disabledBackgroundColor={Colors.gray400}
@@ -106,6 +108,22 @@ export const LoginForm = ({
                style={mergeStyles([globalStyles.text, globalStyles.buttonText])}
             >
                Log In
+            </Text>
+         </Button>
+
+         <Button
+            style={globalStyles.buttonOutlined}
+            backgroundColor={Colors.primary}
+            mode="outlined"
+            onPress={() => navigation.navigate("SignUp")}
+         >
+            <Text
+               style={mergeStyles([
+                  globalStyles.text,
+                  globalStyles.buttonTextOutlined,
+               ])}
+            >
+               Register
             </Text>
          </Button>
       </View>

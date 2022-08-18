@@ -64,6 +64,11 @@ export const globalStyles = StyleSheet.create({
       backgroundColor: 'transparent',
       height: 0,
    },
+   imageCenter: {
+      resizeMode: 'cover',
+      margin: 'auto',
+      alignSelf: 'center',
+   },
 });
 
 export const mergeStyles = <T>(...styles: [StyleProp<T>]) => {
