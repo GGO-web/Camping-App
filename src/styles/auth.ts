@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { Colors } from 'react-native-ui-lib';
 
-export const loginStyles = StyleSheet.create({
+export const authStyles = StyleSheet.create({
    logoWrapper: {
       textAlign: 'center',
       height: 100,
@@ -24,7 +24,7 @@ export const loginStyles = StyleSheet.create({
       justifyContent: 'center',
    },
    formGroup: {
-      marginBottom: 20,
+      marginBottom: 10,
    },
    feedback: {
       textAlign: 'center',
