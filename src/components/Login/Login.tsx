@@ -17,8 +17,8 @@ import { ILogin } from "./Login.model";
 import { LoginForm } from "./components/LoginForm/LoginForm";
 import { LoginProviders } from "./components/LoginProviders/LoginProviders";
 
-import { loginStyles } from "./LoginStyles";
 import { globalStyles, mergeStyles } from "../../styles/global";
+import { authStyles } from "../../styles/auth";
 
 export const signInSchema = Yup.object().shape({
    email: Yup.string()
@@ -78,14 +78,14 @@ export const Login = (props: any) => {
          behavior="height"
          style={{ flex: 1 }}
       >
-         <View style={loginStyles.wrapper}>
-            <View style={loginStyles.form}>
+         <View style={authStyles.wrapper}>
+            <View style={authStyles.form}>
                <Link
-                  style={loginStyles.logoWrapper}
+                  style={authStyles.logoWrapper}
                   to={{ screen: "Onboarding" }}
                >
                   <Image
-                     style={loginStyles.logo}
+                     style={authStyles.logo}
                      source={require("../../../assets/logo.png")}
                   ></Image>
                </Link>
@@ -102,6 +102,7 @@ export const Login = (props: any) => {
                      <LoginForm
                         formSubmitHandler={formSubmitHandler}
                         formik={formik}
+                        navigation={props.navigation}
                      ></LoginForm>
                   )}
                </Formik>
@@ -116,7 +117,7 @@ export const Login = (props: any) => {
                onDismiss={() => setFormFeedbackModal(false)}
             >
                <Text
-                  style={mergeStyles([globalStyles.text, loginStyles.feedback])}
+                  style={mergeStyles([globalStyles.text, authStyles.feedback])}
                >
                   Ooops something went wrong. Please try again
                </Text>

@@ -1,5 +1,4 @@
 import { StyleProp, StyleSheet } from 'react-native';
-import { Colors } from 'react-native-ui-lib';
 
 export const globalStyles = StyleSheet.create({
    text: {
@@ -40,6 +39,7 @@ export const globalStyles = StyleSheet.create({
    },
    button: {
       borderRadius: 12,
+      elevation: 5,
    },
    buttonText: {
       fontFamily: 'SFProMedium',
@@ -47,9 +47,11 @@ export const globalStyles = StyleSheet.create({
       color: '#fff',
    },
    buttonOutlined: {
+      elevation: 5,
       borderRadius: 12,
       borderWidth: 1,
       borderColor: '#84CC16',
+      backgroundColor: '#fff',
    },
    buttonTextOutlined: {
       fontFamily: 'SFProMedium',
@@ -61,6 +63,11 @@ export const globalStyles = StyleSheet.create({
       opacity: 0,
       backgroundColor: 'transparent',
       height: 0,
+   },
+   imageCenter: {
+      resizeMode: 'cover',
+      margin: 'auto',
+      alignSelf: 'center',
    },
 });
 

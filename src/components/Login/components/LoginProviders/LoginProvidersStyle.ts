@@ -1,17 +1,17 @@
 import { StyleSheet } from 'react-native';
+import { Colors } from 'react-native-ui-lib';
 
 export const loginProvidersStyles = StyleSheet.create({
    headline: {
       textAlign: 'center',
-      marginVertical: 20,
-   },
-   divider: {
-      backgroundColor: 'gray',
+      paddingVertical: 20,
+      borderBottomColor: Colors.gray,
+      borderBottomWidth: 1,
    },
    icons: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      marginVertical: 30,
+      marginVertical: 10,
       alignItems: 'center',
       justifyContent: 'center',
       margin: -10,

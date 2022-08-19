@@ -5,24 +5,58 @@ import { FormikProps, useFormikContext } from "formik";
 import { Button, Colors, Text } from "react-native-ui-lib";
 import { TextField } from "react-native-ui-lib/src/incubator";
 
-import { ILogin } from "../../Login.model";
-
 import { globalStyles, mergeStyles } from "../../../../styles/global";
+import { ISignUp } from "../../SignUp.model";
 import { authStyles } from "../../../../styles/auth";
 
-export const LoginForm = ({
+export const SignUpForm = ({
    formSubmitHandler,
    formik,
    navigation,
 }: {
    formSubmitHandler: Function;
-   formik: FormikProps<ILogin>;
+   formik: FormikProps<ISignUp>;
    navigation: any;
 }) => {
    const actions = useFormikContext();
 
    return (
       <View>
+         <View style={authStyles.formGroup}>
+            <TextField
+               label="Name"
+               autoComplete="name"
+               caretHidden={false}
+               value={formik.values.username}
+               onChangeText={formik.handleChange("username")}
+               validationMessageStyle={globalStyles.validationMessage}
+               labelStyle={mergeStyles([globalStyles.text, globalStyles.label])}
+               fieldStyle={mergeStyles([
+                  globalStyles.text,
+                  globalStyles.input,
+                  formik.touched.username
+                     ? formik.errors.username
+                        ? globalStyles.isError
+                        : globalStyles.isValid
+                     : null,
+               ])}
+               onChange={useCallback(() => {
+                  formik.setFieldTouched("username", true, true);
+               }, [formik.touched.username])}
+               enableErrors={true}
+               validateOnChange={true}
+               validateOnBlur={true}
+               onBlur={formik.handleBlur("username")}
+               validate={[() => false]}
+               validationMessage={[formik.errors.username]}
+               style={
+                  formik.errors.username
+                     ? globalStyles.isError
+                     : globalStyles.isValid
+               }
+            />
+         </View>
+
          <View style={authStyles.formGroup}>
             <TextField
                label="Email"
@@ -107,7 +141,7 @@ export const LoginForm = ({
             <Text
                style={mergeStyles([globalStyles.text, globalStyles.buttonText])}
             >
-               Log In
+               Register
             </Text>
          </Button>
 
@@ -115,7 +149,7 @@ export const LoginForm = ({
             style={globalStyles.buttonOutlined}
             backgroundColor={Colors.primary}
             mode="outlined"
-            onPress={() => navigation.navigate("SignUp")}
+            onPress={() => navigation.navigate("Login")}
          >
             <Text
                style={mergeStyles([
@@ -123,7 +157,7 @@ export const LoginForm = ({
                   globalStyles.buttonTextOutlined,
                ])}
             >
-               Register
+               Login
             </Text>
          </Button>
       </View>

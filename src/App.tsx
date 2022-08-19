@@ -1,4 +1,5 @@
 import React from "react";
+import { ActivityIndicator } from "react-native";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -7,7 +8,7 @@ import { useFonts } from "expo-font";
 import { Login } from "./components/Login/Login";
 import { Onboarding } from "./components/Onboarding/Onboarding";
 import { SignUp } from "./components/SignUp/SignUp";
-import { ActivityIndicator } from "react-native";
+import { Hurrey } from "./components/common/Hurrey";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +31,7 @@ export default function App() {
          <Stack.Screen name="Login" component={Login}></Stack.Screen>
          <Stack.Screen name="SignUp" component={SignUp}></Stack.Screen>
          <Stack.Screen name="Onboarding" component={Onboarding}></Stack.Screen>
+         <Stack.Screen name="Hurrey" component={Hurrey}></Stack.Screen>
       </Stack.Navigator>
    );
 }
