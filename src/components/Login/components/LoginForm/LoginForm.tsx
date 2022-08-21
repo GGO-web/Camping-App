@@ -2,8 +2,9 @@ import React, { useCallback } from "react";
 import { View } from "react-native";
 import { FormikProps, useFormikContext } from "formik";
 
-import { Button, Colors, Text } from "react-native-ui-lib";
+import { Button, Colors, Text, Typography } from "react-native-ui-lib";
 import { TextField } from "react-native-ui-lib/src/incubator";
+import { Link } from "@react-navigation/native";
 
 import { ILogin } from "../../Login.model";
 
@@ -95,6 +96,18 @@ export const LoginForm = ({
                }
             />
          </View>
+
+         <Link
+            style={mergeStyles([
+               Typography.paragraph2,
+               Typography.textCenter,
+               Typography.textMuted,
+               { marginBottom: 24 },
+            ])}
+            to={{ screen: "ResetPassword" }}
+         >
+            Forgot Password?
+         </Link>
 
          <Button
             style={mergeStyles([globalStyles.button, { marginBottom: 20 }])}

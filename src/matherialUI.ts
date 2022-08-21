@@ -33,4 +33,7 @@ Typography.loadTypographies({
       marginLeft: 'auto',
       marginRight: 'auto',
    },
+   textMuted: {
+      color: Colors.gray300,
+   },
 });
