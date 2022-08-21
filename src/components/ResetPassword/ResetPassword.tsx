@@ -9,6 +9,8 @@ import * as Yup from "yup";
 import { FirebaseError } from "firebase/app";
 import { ResetPasswordForm } from "./components/ResetPasswordForm/ResetPasswordForm";
 import { authStyles } from "../../styles/auth";
+import { sendPasswordResetEmail } from "firebase/auth";
+import { firebaseAuth } from "../../firebase/firebase";
 
 export const resetPasswordSchema = Yup.object().shape({
    email: Yup.string()
@@ -32,6 +34,13 @@ export const ResetPassword = ({ navigation }: { navigation: any }) => {
       actions: FormikHelpers<{ email: string }>
    ) => {
       try {
+         await sendPasswordResetEmail(
+            firebaseAuth,
+            firebaseAuth.currentUser?.email || ""
+         );
+
+         // now redirect to reset password page!
+
          navigation.navigate("Hurrey", {
             page: "Login",
             text: "Your password is successfuly updated. please go back and log-in.",
