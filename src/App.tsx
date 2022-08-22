@@ -9,6 +9,7 @@ import { Login } from "./components/Login/Login";
 import { Onboarding } from "./components/Onboarding/Onboarding";
 import { SignUp } from "./components/SignUp/SignUp";
 import { Hurrey } from "./components/common/Hurrey";
+import { ResetPassword } from "./components/ResetPassword/ResetPassword";
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +33,10 @@ export default function App() {
          <Stack.Screen name="SignUp" component={SignUp}></Stack.Screen>
          <Stack.Screen name="Onboarding" component={Onboarding}></Stack.Screen>
          <Stack.Screen name="Hurrey" component={Hurrey}></Stack.Screen>
+         <Stack.Screen
+            name="ResetPassword"
+            component={ResetPassword}
+         ></Stack.Screen>
       </Stack.Navigator>
    );
 }

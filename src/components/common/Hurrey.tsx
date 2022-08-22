@@ -35,6 +35,7 @@ export const Hurrey = ({
             Hurrey
          </Text>
          <Text
+            textCenter
             style={mergeStyles([Typography.paragraph2, { marginBottom: 24 }])}
          >
             {route.params.text}

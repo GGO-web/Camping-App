@@ -69,6 +69,10 @@ export const globalStyles = StyleSheet.create({
       margin: 'auto',
       alignSelf: 'center',
    },
+   navcontainer: {
+      justifyContent: 'flex-start',
+      paddingVertical: 45,
+   },
 });
 
 export const mergeStyles = <T>(...styles: [StyleProp<T>]) => {

@@ -1,4 +1,4 @@
-import { Colors, Typography } from 'react-native-ui-lib';
+import { Assets, Colors, Typography } from 'react-native-ui-lib';
 
 Colors.loadColors({
    primary: '#84CC16',
@@ -21,7 +21,6 @@ Typography.loadTypographies({
       fontFamily: 'SFProRegular',
       fontWeight: '400',
       fontSize: 16,
-      textAlign: 'center',
    },
    underline: {
       textDecorationLine: 'underline',
@@ -33,4 +32,14 @@ Typography.loadTypographies({
       marginLeft: 'auto',
       marginRight: 'auto',
    },
+   textMuted: {
+      color: Colors.gray300,
+   },
+   mrAuto: {
+      marginRight: 'auto',
+   },
+});
+
+Assets.loadAssetsGroup('icons', {
+   chevron_left: require('../assets/chevron-left.png'),
 });
