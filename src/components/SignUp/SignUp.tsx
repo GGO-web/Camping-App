@@ -83,7 +83,6 @@ export const SignUp = (props: any) => {
                "email",
                "The user with the given email is not found."
             );
-            setFormFeedbackModal(true);
          } else if (fireError.message.includes("email-already-in-use")) {
             actions.setFieldError("email", "The given email is already in use");
          } else {

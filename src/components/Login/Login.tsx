@@ -65,7 +65,6 @@ export const Login = (props: any) => {
                "email",
                "The user with the given email is not found."
             );
-            setFormFeedbackModal(true);
          } else {
             setFormFeedbackModal(true);
          }

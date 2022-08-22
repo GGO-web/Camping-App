@@ -1,10 +1,12 @@
-import { FormikProps, useFormikContext } from "formik";
 import React, { useCallback } from "react";
 import { Button, Colors, Text, View } from "react-native-ui-lib";
 import { TextField } from "react-native-ui-lib/src/incubator";
-import { authStyles } from "../../../../styles/auth";
-import { globalStyles, mergeStyles } from "../../../../styles/global";
+import { FormikProps, useFormikContext } from "formik";
+
 import { IResetPassword } from "../../ResetPassword";
+
+import { globalStyles, mergeStyles } from "../../../../styles/global";
+import { authStyles } from "../../../../styles/auth";
 
 export const ResetPasswordForm = ({
    formSubmitHandler,
