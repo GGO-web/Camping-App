@@ -9,8 +9,14 @@ import * as Yup from "yup";
 import { FirebaseError } from "firebase/app";
 import { ResetPasswordForm } from "./components/ResetPasswordForm/ResetPasswordForm";
 import { authStyles } from "../../styles/auth";
-import { sendPasswordResetEmail } from "firebase/auth";
+import {
+   ActionCodeSettings,
+   confirmPasswordReset,
+   sendPasswordResetEmail,
+} from "firebase/auth";
 import { firebaseAuth } from "../../firebase/firebase";
+
+import { v4 as uuidv4 } from "uuid";
 
 export const resetPasswordSchema = Yup.object().shape({
    email: Yup.string()
@@ -34,19 +40,12 @@ export const ResetPassword = ({ navigation }: { navigation: any }) => {
       actions: FormikHelpers<{ email: string }>
    ) => {
       try {
-         await sendPasswordResetEmail(
-            firebaseAuth,
-            firebaseAuth.currentUser?.email || ""
-         );
-
-         // now redirect to reset password page!
+         await sendPasswordResetEmail(firebaseAuth, values.email);
 
          navigation.navigate("Hurrey", {
             page: "Login",
-            text: "Your password is successfuly updated. please go back and log-in.",
+            text: "Password reset link sent! Go to your email and follow the link",
          });
-
-         actions.resetForm();
       } catch (error: any) {
          const fireError = error as FirebaseError;
 
@@ -59,7 +58,6 @@ export const ResetPassword = ({ navigation }: { navigation: any }) => {
                "email",
                "The user with the given email is not found."
             );
-            setFormFeedbackModal(true);
          } else if (fireError.message.includes("email-already-in-use")) {
             actions.setFieldError("email", "The given email is already in use");
          } else {
@@ -110,7 +108,6 @@ export const ResetPassword = ({ navigation }: { navigation: any }) => {
                <ResetPasswordForm
                   formSubmitHandler={formSubmitHandler}
                   formik={formik}
-                  navigation={navigation}
                ></ResetPasswordForm>
             )}
          </Formik>

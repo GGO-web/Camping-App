@@ -9,11 +9,9 @@ import { IResetPassword } from "../../ResetPassword";
 export const ResetPasswordForm = ({
    formSubmitHandler,
    formik,
-   navigation,
 }: {
    formSubmitHandler: Function;
    formik: FormikProps<IResetPassword>;
-   navigation: any;
 }) => {
    const actions = useFormikContext();
 
@@ -59,7 +57,7 @@ export const ResetPasswordForm = ({
          <Button
             style={globalStyles.button}
             backgroundColor={Colors.primary}
-            onPress={() => navigation.navigate("Login")}
+            onPress={() => formSubmitHandler(formik.values, actions)}
          >
             <Text
                style={mergeStyles([globalStyles.text, globalStyles.buttonText])}
