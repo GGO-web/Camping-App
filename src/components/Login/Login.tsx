@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Image, KeyboardAvoidingView, View } from "react-native";
 
-import { Link } from "@react-navigation/native";
+import { Link, useNavigation } from "@react-navigation/native";
 
 import { Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
@@ -17,7 +17,7 @@ import { ILogin } from "./Login.model";
 import { LoginForm } from "./components/LoginForm/LoginForm";
 import { LoginProviders } from "./components/LoginProviders/LoginProviders";
 
-import { globalStyles, mergeStyles } from "../../styles/global";
+import { globalStyles } from "../../styles/global";
 import { authStyles } from "../../styles/auth";
 
 export const signInSchema = Yup.object().shape({
@@ -29,13 +29,15 @@ export const signInSchema = Yup.object().shape({
       .required("Password is required"),
 });
 
-export const Login = (props: any) => {
+export const Login = () => {
    const [formFeedbackModal, setFormFeedbackModal] = useState(false);
 
    const formInitialValues: ILogin = {
       email: "",
       password: "",
    };
+
+   const navigation = useNavigation();
 
    const formSubmitHandler = async (
       values: ILogin,
@@ -48,7 +50,7 @@ export const Login = (props: any) => {
             values.password
          );
 
-         props.navigation.navigate("Homepage");
+         navigation.navigate("Homepage" as never);
 
          actions.resetForm();
       } catch (error: any) {
@@ -101,12 +103,11 @@ export const Login = (props: any) => {
                      <LoginForm
                         formSubmitHandler={formSubmitHandler}
                         formik={formik}
-                        navigation={props.navigation}
                      ></LoginForm>
                   )}
                </Formik>
 
-               <LoginProviders navigation={props.navigation}></LoginProviders>
+               <LoginProviders></LoginProviders>
             </View>
 
             <Toast
@@ -115,9 +116,7 @@ export const Login = (props: any) => {
                autoDismiss={3000}
                onDismiss={() => setFormFeedbackModal(false)}
             >
-               <Text
-                  style={mergeStyles([globalStyles.text, authStyles.feedback])}
-               >
+               <Text style={{ ...globalStyles.text, ...authStyles.feedback }}>
                   Ooops something went wrong. Please try again
                </Text>
             </Toast>

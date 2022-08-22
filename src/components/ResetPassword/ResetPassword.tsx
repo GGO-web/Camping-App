@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Button, Icon, Text, Toast, View } from "react-native-ui-lib";
+import { Text, Toast, View } from "react-native-ui-lib";
 
 import { Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
@@ -11,9 +11,10 @@ import { firebaseAuth } from "../../firebase/firebase";
 
 import { ResetPasswordForm } from "./components/ResetPasswordForm/ResetPasswordForm";
 
-import { globalStyles, mergeStyles } from "../../styles/global";
+import { globalStyles } from "../../styles/global";
 import { authStyles } from "../../styles/auth";
 import { CrumbsLink } from "../common/CrumbsLink";
+import { useNavigation } from "@react-navigation/native";
 
 export const resetPasswordSchema = Yup.object().shape({
    email: Yup.string()
@@ -25,24 +26,29 @@ export interface IResetPassword {
    email: string;
 }
 
-export const ResetPassword = ({ navigation }: { navigation: any }) => {
+export const ResetPassword = () => {
    const [formFeedbackModal, setFormFeedbackModal] = useState(false);
 
    const formInitialValues: IResetPassword = {
       email: "",
    };
 
+   const navigation = useNavigation();
+
    const formSubmitHandler = async (
-      values: { email: string },
-      actions: FormikHelpers<{ email: string }>
+      values: IResetPassword,
+      actions: FormikHelpers<IResetPassword>
    ) => {
       try {
          await sendPasswordResetEmail(firebaseAuth, values.email);
 
-         navigation.navigate("Hurrey", {
-            page: "Login",
-            text: "Password reset link sent! Go to your email and follow the link",
-         });
+         navigation.navigate(
+            "Hurrey" as never,
+            {
+               page: "Login",
+               text: "Password reset link sent! Go to your email and follow the link",
+            } as never
+         );
       } catch (error: any) {
          const fireError = error as FirebaseError;
 
@@ -64,12 +70,7 @@ export const ResetPassword = ({ navigation }: { navigation: any }) => {
    };
 
    return (
-      <View
-         style={mergeStyles([
-            globalStyles.container,
-            globalStyles.navcontainer,
-         ])}
-      >
+      <View style={{ ...globalStyles.container, ...globalStyles.navcontainer }}>
          <CrumbsLink>Reset password</CrumbsLink>
 
          <Text paragraph2 textMuted marginB-24>
@@ -100,7 +101,7 @@ export const ResetPassword = ({ navigation }: { navigation: any }) => {
             autoDismiss={3000}
             onDismiss={() => setFormFeedbackModal(false)}
          >
-            <Text style={mergeStyles([globalStyles.text, authStyles.feedback])}>
+            <Text style={{ ...globalStyles.text, ...authStyles.feedback }}>
                Ooops something went wrong. Please try again
             </Text>
          </Toast>

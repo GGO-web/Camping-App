@@ -1,18 +1,27 @@
 import React, { useRef, useState } from "react";
 
-import { Text, View, Image } from "react-native";
-import { Button, Colors, PageControl, Typography } from "react-native-ui-lib";
+import { View } from "react-native";
+import {
+   Button,
+   Colors,
+   PageControl,
+   Typography,
+   Text,
+   Image,
+} from "react-native-ui-lib";
 import { Carousel } from "react-native-ui-lib/src/components/carousel";
-import { Link } from "@react-navigation/native";
+import { Link, useNavigation } from "@react-navigation/native";
 
-import { globalStyles, mergeStyles } from "../../styles/global";
+import { globalStyles } from "../../styles/global";
 
 import { onboardingScreens } from "./OnboardingScreens";
 import { onboardingStyles } from "./OnboardingStyles";
 
-export const Onboarding = ({ navigation }: { navigation: any }) => {
+export const Onboarding = () => {
    const [currentPage, setCurrentPage] = useState(0);
    const numOfPages = 4;
+
+   const navigation = useNavigation();
 
    const carousel = useRef<any>(null);
 
@@ -65,20 +74,16 @@ export const Onboarding = ({ navigation }: { navigation: any }) => {
                            source={item.image}
                         />
                         <Text
-                           style={mergeStyles([
-                              onboardingStyles.carouselTitle,
-                              { ...Typography.textCenter },
-                              { ...Typography.heading2 },
-                           ])}
+                           textCenter
+                           heading2
+                           style={onboardingStyles.carouselTitle}
                         >
                            {item.title}
                         </Text>
                         <Text
-                           style={mergeStyles([
-                              onboardingStyles.carouselText,
-                              { ...Typography.textCenter },
-                              { ...Typography.paragraph2 },
-                           ])}
+                           textCenter
+                           paragraph2
+                           style={onboardingStyles.carouselText}
                         >
                            {item.text}
                         </Text>
@@ -87,13 +92,16 @@ export const Onboarding = ({ navigation }: { navigation: any }) => {
                      <View style={onboardingStyles.pagination}>
                         <Button
                            onPress={moveBack}
-                           style={mergeStyles([
-                              onboardingStyles.button,
-                              { backgroundColor: Colors.primary100, left: 0 },
-                              isDisabled("prev")
+                           style={{
+                              ...onboardingStyles.button,
+                              ...{
+                                 backgroundColor: Colors.primary100,
+                                 left: 0,
+                              },
+                              ...(isDisabled("prev")
                                  ? globalStyles.visuallyHidden
-                                 : null,
-                           ])}
+                                 : []),
+                           }}
                            iconSource={require("../../../assets/prev.png")}
                            iconStyle={{ tintColor: Colors.primary900 }}
                            disabled={isDisabled("prev")}
@@ -112,13 +120,16 @@ export const Onboarding = ({ navigation }: { navigation: any }) => {
 
                         <Button
                            onPress={moveFront}
-                           style={mergeStyles([
-                              onboardingStyles.button,
-                              { backgroundColor: Colors.primary900, right: 0 },
-                              isDisabled("next")
+                           style={{
+                              ...onboardingStyles.button,
+                              ...{
+                                 backgroundColor: Colors.primary900,
+                                 right: 0,
+                              },
+                              ...(isDisabled("next")
                                  ? globalStyles.visuallyHidden
-                                 : null,
-                           ])}
+                                 : []),
+                           }}
                            iconSource={require("../../../assets/next.png")}
                            iconStyle={{ tintColor: Colors.primary100 }}
                            disabled={isDisabled("next")}
@@ -128,24 +139,24 @@ export const Onboarding = ({ navigation }: { navigation: any }) => {
                      <Button
                         backgroundColor={Colors.primary}
                         uppercase={false}
-                        style={mergeStyles([
-                           globalStyles.button,
-                           { width: "100%", marginBottom: 16 },
-                        ])}
+                        style={{
+                           ...globalStyles.button,
+                           ...{ width: "100%", marginBottom: 16 },
+                        }}
                         mode="contained"
-                        onPress={() => navigation.navigate("Login")}
+                        onPress={() => navigation.navigate("Login" as never)}
                      >
                         <Text
-                           style={mergeStyles([
-                              globalStyles.text,
-                              globalStyles.buttonText,
-                           ])}
+                           style={{
+                              ...globalStyles.text,
+                              ...globalStyles.buttonText,
+                           }}
                         >
                            Log In
                         </Text>
                      </Button>
 
-                     <Text style={{ ...Typography.textCenter }}>
+                     <Text textCenter>
                         Don’t have an Account?{" "}
                         {
                            <Link

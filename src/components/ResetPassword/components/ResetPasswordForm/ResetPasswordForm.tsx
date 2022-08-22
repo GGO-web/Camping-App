@@ -5,7 +5,7 @@ import { FormikProps, useFormikContext } from "formik";
 
 import { IResetPassword } from "../../ResetPassword";
 
-import { globalStyles, mergeStyles } from "../../../../styles/global";
+import { globalStyles } from "../../../../styles/global";
 import { authStyles } from "../../../../styles/auth";
 
 export const ResetPasswordForm = ({
@@ -28,17 +28,17 @@ export const ResetPasswordForm = ({
                value={formik.values.email}
                onChangeText={formik.handleChange("email")}
                validationMessageStyle={globalStyles.validationMessage}
-               labelStyle={mergeStyles([globalStyles.text, globalStyles.label])}
+               labelStyle={{ ...globalStyles.text, ...globalStyles.label }}
                autoCapitalize="none"
-               fieldStyle={mergeStyles([
-                  globalStyles.text,
-                  globalStyles.input,
-                  formik.touched.email
+               fieldStyle={{
+                  ...globalStyles.text,
+                  ...globalStyles.input,
+                  ...(formik.touched.email
                      ? formik.errors.email
                         ? globalStyles.isError
                         : globalStyles.isValid
-                     : null,
-               ])}
+                     : []),
+               }}
                onChange={useCallback(() => {
                   formik.setFieldTouched("email", true, true);
                }, [formik.touched.email])}
@@ -58,12 +58,13 @@ export const ResetPasswordForm = ({
 
          <Button
             style={globalStyles.button}
+            mode="contained"
             backgroundColor={Colors.primary}
+            disabledBackgroundColor={Colors.gray400}
+            disabled={!formik.isValid}
             onPress={() => formSubmitHandler(formik.values, actions)}
          >
-            <Text
-               style={mergeStyles([globalStyles.text, globalStyles.buttonText])}
-            >
+            <Text style={{ ...globalStyles.text, ...globalStyles.buttonText }}>
                Reset
             </Text>
          </Button>

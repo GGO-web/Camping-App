@@ -74,7 +74,3 @@ export const globalStyles = StyleSheet.create({
       paddingVertical: 45,
    },
 });
-
-export const mergeStyles = <T>(...styles: [StyleProp<T>]) => {
-   return StyleSheet.flatten([...styles]);
-};

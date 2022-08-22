@@ -5,20 +5,21 @@ import { FormikProps, useFormikContext } from "formik";
 import { Button, Colors, Text } from "react-native-ui-lib";
 import { TextField } from "react-native-ui-lib/src/incubator";
 
-import { globalStyles, mergeStyles } from "../../../../styles/global";
+import { globalStyles } from "../../../../styles/global";
 import { ISignUp } from "../../SignUp.model";
 import { authStyles } from "../../../../styles/auth";
+import { useNavigation } from "@react-navigation/native";
 
 export const SignUpForm = ({
    formSubmitHandler,
    formik,
-   navigation,
 }: {
    formSubmitHandler: Function;
    formik: FormikProps<ISignUp>;
-   navigation: any;
 }) => {
    const actions = useFormikContext();
+
+   const navigation = useNavigation();
 
    return (
       <View>
@@ -30,16 +31,16 @@ export const SignUpForm = ({
                value={formik.values.username}
                onChangeText={formik.handleChange("username")}
                validationMessageStyle={globalStyles.validationMessage}
-               labelStyle={mergeStyles([globalStyles.text, globalStyles.label])}
-               fieldStyle={mergeStyles([
-                  globalStyles.text,
-                  globalStyles.input,
-                  formik.touched.username
+               labelStyle={{ ...globalStyles.text, ...globalStyles.label }}
+               fieldStyle={{
+                  ...globalStyles.text,
+                  ...globalStyles.input,
+                  ...(formik.touched.username
                      ? formik.errors.username
                         ? globalStyles.isError
                         : globalStyles.isValid
-                     : null,
-               ])}
+                     : []),
+               }}
                onChange={useCallback(() => {
                   formik.setFieldTouched("username", true, true);
                }, [formik.touched.username])}
@@ -66,17 +67,17 @@ export const SignUpForm = ({
                value={formik.values.email}
                onChangeText={formik.handleChange("email")}
                validationMessageStyle={globalStyles.validationMessage}
-               labelStyle={mergeStyles([globalStyles.text, globalStyles.label])}
+               labelStyle={{ ...globalStyles.text, ...globalStyles.label }}
                autoCapitalize="none"
-               fieldStyle={mergeStyles([
-                  globalStyles.text,
-                  globalStyles.input,
-                  formik.touched.email
+               fieldStyle={{
+                  ...globalStyles.text,
+                  ...globalStyles.input,
+                  ...(formik.touched.email
                      ? formik.errors.email
                         ? globalStyles.isError
                         : globalStyles.isValid
-                     : null,
-               ])}
+                     : []),
+               }}
                onChange={useCallback(() => {
                   formik.setFieldTouched("email", true, true);
                }, [formik.touched.email])}
@@ -101,17 +102,17 @@ export const SignUpForm = ({
                onChangeText={formik.handleChange("password")}
                value={formik.values.password}
                validationMessageStyle={globalStyles.validationMessage}
-               labelStyle={mergeStyles([globalStyles.text, globalStyles.label])}
+               labelStyle={{ ...globalStyles.text, ...globalStyles.label }}
                autoCapitalize="none"
-               fieldStyle={mergeStyles([
-                  globalStyles.text,
-                  globalStyles.input,
-                  formik.touched.password
+               fieldStyle={{
+                  ...globalStyles.text,
+                  ...globalStyles.input,
+                  ...(formik.touched.password
                      ? formik.errors.password
                         ? globalStyles.isError
                         : globalStyles.isValid
-                     : null,
-               ])}
+                     : []),
+               }}
                onChange={useCallback(
                   () => formik.setFieldTouched("password", true, true),
                   [formik.touched.password]
@@ -131,16 +132,15 @@ export const SignUpForm = ({
          </View>
 
          <Button
-            style={mergeStyles([globalStyles.button, { marginBottom: 20 }])}
+            marginB-20
+            style={globalStyles.button}
             mode="contained"
             backgroundColor={Colors.primary}
             disabledBackgroundColor={Colors.gray400}
             disabled={!formik.isValid}
             onPress={() => formSubmitHandler(formik.values, actions)}
          >
-            <Text
-               style={mergeStyles([globalStyles.text, globalStyles.buttonText])}
-            >
+            <Text style={{ ...globalStyles.text, ...globalStyles.buttonText }}>
                Register
             </Text>
          </Button>
@@ -149,13 +149,13 @@ export const SignUpForm = ({
             style={globalStyles.buttonOutlined}
             backgroundColor={Colors.primary}
             mode="outlined"
-            onPress={() => navigation.navigate("Login")}
+            onPress={() => navigation.navigate("Login" as never)}
          >
             <Text
-               style={mergeStyles([
-                  globalStyles.text,
-                  globalStyles.buttonTextOutlined,
-               ])}
+               style={{
+                  ...globalStyles.text,
+                  ...globalStyles.buttonTextOutlined,
+               }}
             >
                Login
             </Text>

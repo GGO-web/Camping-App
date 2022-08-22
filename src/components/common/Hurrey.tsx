@@ -19,37 +19,24 @@ export const Hurrey = ({
    return (
       <View style={globalStyles.container}>
          <Image
-            style={mergeStyles([
-               globalStyles.imageCenter,
-               { marginBottom: 24 },
-            ])}
+            marginB-24
+            style={globalStyles.imageCenter}
             source={require("../../../assets/hurrey.png")}
          ></Image>
-         <Text
-            style={mergeStyles([
-               Typography.textCenter,
-               Typography.heading2,
-               { marginBottom: 8 },
-            ])}
-         >
+         <Text marginB-8 textCenter heading2>
             Hurrey
          </Text>
-         <Text
-            textCenter
-            style={mergeStyles([Typography.paragraph2, { marginBottom: 24 }])}
-         >
-            {route.params.text}
+         <Text marginB-24 textCenter paragraph2>
+            {route.params?.text}
          </Text>
 
          <Button
             style={globalStyles.button}
             mode="contained"
             backgroundColor={Colors.primary}
-            onPress={() => navigation.navigate(route.params.page)}
+            onPress={() => navigation.navigate(route.params?.page || "Login")}
          >
-            <Text
-               style={mergeStyles([globalStyles.text, globalStyles.buttonText])}
-            >
+            <Text style={{ ...globalStyles.text, ...globalStyles.buttonText }}>
                Go Back
             </Text>
          </Button>

@@ -6,18 +6,21 @@ import * as Google from "expo-auth-session/providers/google";
 import { firebaseAuth } from "../../../../firebase/firebase";
 import { GoogleAuthProvider, signInWithCredential } from "firebase/auth";
 
-import { globalStyles, mergeStyles } from "../../../../styles/global";
+import { globalStyles } from "../../../../styles/global";
 import { loginProvidersStyles } from "./LoginProvidersStyle";
 import { Text } from "react-native-ui-lib";
+import { useNavigation } from "@react-navigation/native";
 
 const authConfig = {
    clientId: process.env.REACT_APP_CLIENT_ID,
    scopes: ["profile", "email"],
 };
 
-export const LoginProviders = ({ navigation }: { navigation: any }) => {
+export const LoginProviders = () => {
    const [request, response, promptAsync]: any =
       Google.useAuthRequest(authConfig);
+
+   const navigation = useNavigation();
 
    const loginWithGoogle = async () => {
       // Get the users ID token
@@ -38,7 +41,7 @@ export const LoginProviders = ({ navigation }: { navigation: any }) => {
             signInWithCredential(firebaseAuth, googleCredential);
 
             // redirect to homepage
-            navigation.navigate("Homepage");
+            navigation.navigate("Homepage" as never);
          } else {
             promptAsync();
          }
@@ -55,10 +58,10 @@ export const LoginProviders = ({ navigation }: { navigation: any }) => {
 
          <View style={loginProvidersStyles.icons}>
             <TouchableOpacity
-               style={mergeStyles([
-                  globalStyles.buttonOutlined,
-                  loginProvidersStyles.icon,
-               ])}
+               style={{
+                  ...globalStyles.buttonOutlined,
+                  ...loginProvidersStyles.icon,
+               }}
                activeOpacity={0.8}
                onPress={() => loginWithGoogle()}
             >

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Image, KeyboardAvoidingView, View } from "react-native";
 
-import { Link } from "@react-navigation/native";
+import { Link, useNavigation } from "@react-navigation/native";
 
 import { Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
@@ -10,14 +10,10 @@ import { Toast } from "react-native-ui-lib/src/incubator";
 import { Text } from "react-native-ui-lib";
 
 import { FirebaseError } from "firebase/app";
-import {
-   createUserWithEmailAndPassword,
-   signInWithEmailAndPassword,
-   updateProfile,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { firebaseAuth } from "../../firebase/firebase";
 
-import { globalStyles, mergeStyles } from "../../styles/global";
+import { globalStyles } from "../../styles/global";
 import { ISignUp } from "./SignUp.model";
 import { LoginProviders } from "../Login/components/LoginProviders/LoginProviders";
 import { authStyles } from "../../styles/auth";
@@ -39,7 +35,7 @@ export const signUpSchema = Yup.object().shape({
       .required("Password is required"),
 });
 
-export const SignUp = (props: any) => {
+export const SignUp = () => {
    const [formFeedbackModal, setFormFeedbackModal] = useState(false);
 
    const formInitialValues: ISignUp = {
@@ -47,6 +43,8 @@ export const SignUp = (props: any) => {
       email: "",
       password: "",
    };
+
+   const navigation = useNavigation();
 
    const formSubmitHandler = async (
       values: ISignUp,
@@ -63,10 +61,13 @@ export const SignUp = (props: any) => {
             displayName: values.username,
          });
 
-         props.navigation.navigate("Hurrey", {
-            page: "Login",
-            text: "Your registration is successful. please go back and log-in.",
-         });
+         navigation.navigate(
+            "Hurrey" as never,
+            {
+               page: "Login",
+               text: "Your registration is successful. please go back and log-in.",
+            } as never
+         );
 
          actions.resetForm();
       } catch (error: any) {
@@ -121,12 +122,11 @@ export const SignUp = (props: any) => {
                      <SignUpForm
                         formSubmitHandler={formSubmitHandler}
                         formik={formik}
-                        navigation={props.navigation}
                      ></SignUpForm>
                   )}
                </Formik>
 
-               <LoginProviders navigation={props.navigation}></LoginProviders>
+               <LoginProviders></LoginProviders>
             </View>
 
             <Toast
@@ -135,9 +135,7 @@ export const SignUp = (props: any) => {
                autoDismiss={3000}
                onDismiss={() => setFormFeedbackModal(false)}
             >
-               <Text
-                  style={mergeStyles([globalStyles.text, authStyles.feedback])}
-               >
+               <Text style={{ ...globalStyles.text, ...authStyles.feedback }}>
                   Ooops something went wrong. Please try again
                </Text>
             </Toast>
