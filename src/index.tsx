@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Provider } from "react-redux";
 import { registerRootComponent } from "expo";
 import { NavigationContainer } from "@react-navigation/native";

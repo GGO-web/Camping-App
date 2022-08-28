@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Image, KeyboardAvoidingView, View } from "react-native";
 
 import { Link, useNavigation } from "@react-navigation/native";
@@ -10,7 +10,7 @@ import { Toast } from "react-native-ui-lib/src/incubator";
 import { Text } from "react-native-ui-lib";
 
 import { FirebaseError } from "firebase/app";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, User } from "firebase/auth";
 import { firebaseAuth } from "../../firebase/firebase";
 
 import { ILogin } from "./Login.model";
@@ -19,13 +19,16 @@ import { LoginProviders } from "./components/LoginProviders/LoginProviders";
 
 import { globalStyles } from "../../styles/global";
 import { authStyles } from "../../styles/auth";
+import { useAppDispatch } from "../../redux/hooks";
+import { signIn } from "../../redux/userConfig/userSlice";
+import { IUser } from "../../redux/userConfig/user.model";
 
 export const signInSchema = Yup.object().shape({
    email: Yup.string()
       .email("Something is missing. please type a valid email")
       .required("Email is required"),
    password: Yup.string()
-      .min(7, "Password is too short")
+      .min(6, "The password must be at least 6 characters long")
       .required("Password is required"),
 });
 
@@ -39,6 +42,8 @@ export const Login = () => {
 
    const navigation = useNavigation();
 
+   const dispatch = useAppDispatch();
+
    const formSubmitHandler = async (
       values: ILogin,
       actions: FormikHelpers<ILogin>
@@ -50,9 +55,12 @@ export const Login = () => {
             values.password
          );
 
-         navigation.navigate("Homepage" as never);
+         const user: User = firebaseAuth.currentUser as User;
 
-         actions.resetForm();
+         dispatch(
+            signIn({ email: user.email, fullname: user.displayName } as IUser)
+         );
+         navigation.navigate("Homepage" as never);
       } catch (error: any) {
          const fireError = error as FirebaseError;
 
