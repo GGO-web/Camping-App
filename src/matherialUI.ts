@@ -17,6 +17,11 @@ Typography.loadTypographies({
       fontSize: 32,
       color: '#000',
    },
+   heading4: {
+      fontFamily: 'SFProSemibold',
+      fontWeight: '600',
+      fontSize: 20,
+   },
    paragraph2: {
       fontFamily: 'SFProRegular',
       fontWeight: '400',
@@ -42,4 +47,5 @@ Typography.loadTypographies({
 
 Assets.loadAssetsGroup('icons', {
    chevron_left: require('../assets/chevron-left.png'),
+   menu: require('../assets/menu.png'),
 });

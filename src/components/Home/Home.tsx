@@ -5,12 +5,14 @@ import { useAppSelector } from "../../redux/hooks";
 import { userSelector } from "../../redux/userConfig/userSlice";
 import { globalStyles } from "../../styles/global";
 
+import { Header } from "../Header/Header";
+
 export const Home = () => {
    const user = useAppSelector(userSelector);
 
    return (
-      <View style={globalStyles.container}>
-         <Text>Welcome home {user.fullname}</Text>
+      <View style={{ ...globalStyles.container, ...globalStyles.navcontainer }}>
+         <Header title="Camping Trips"></Header>
       </View>
    );
 };
