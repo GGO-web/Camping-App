@@ -13,6 +13,7 @@ export const Home = () => {
    return (
       <View style={{ ...globalStyles.container, ...globalStyles.navcontainer }}>
          <Header title="Camping Trips"></Header>
+         <Text>Welcome home {user.fullname}</Text>
       </View>
    );
 };

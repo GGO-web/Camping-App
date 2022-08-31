@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { ActivityIndicator } from "react-native";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useNavigation } from "@react-navigation/native";
 
 import { useFonts } from "expo-font";
 
@@ -11,13 +12,13 @@ import { SignUp } from "./components/SignUp/SignUp";
 import { Hurrey } from "./components/common/Hurrey";
 import { ResetPassword } from "./components/ResetPassword/ResetPassword";
 import { Home } from "./components/Home/Home";
+
 import { User } from "firebase/auth";
+import { firebaseAuth } from "./firebase/firebase";
+
 import { useAppDispatch } from "./redux/hooks";
-import { useNavigation } from "@react-navigation/native";
 import { signIn } from "./redux/userConfig/userSlice";
 import { IUser } from "./redux/userConfig/user.model";
-import { useSigninCheck } from "reactfire";
-import { firebaseAuth } from "./firebase/firebase";
 
 const Stack = createNativeStackNavigator();
 

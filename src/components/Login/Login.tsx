@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Image, KeyboardAvoidingView, View } from "react-native";
+
+import * as Google from "expo-auth-session/providers/google";
 
 import { Link, useNavigation } from "@react-navigation/native";
 
@@ -32,6 +34,11 @@ export const signInSchema = Yup.object().shape({
       .required("Password is required"),
 });
 
+const authConfig = {
+   clientId: process.env.REACT_APP_CLIENT_ID,
+   scopes: ["profile", "email"],
+};
+
 export const Login = () => {
    const [formFeedbackModal, setFormFeedbackModal] = useState(false);
 
@@ -43,6 +50,9 @@ export const Login = () => {
    const navigation = useNavigation();
 
    const dispatch = useAppDispatch();
+
+   const [request, response, promptAsync]: any =
+      Google.useAuthRequest(authConfig);
 
    const formSubmitHandler = async (
       values: ILogin,
@@ -115,7 +125,7 @@ export const Login = () => {
                   )}
                </Formik>
 
-               <LoginProviders></LoginProviders>
+               <LoginProviders {...{ response, promptAsync }}></LoginProviders>
             </View>
 
             <Toast
