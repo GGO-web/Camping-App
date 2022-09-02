@@ -26,7 +26,6 @@ export const Header = ({
       }).start();
 
       Animated.timing(offsetValue, {
-         // YOur Random Value...
          toValue: !showMenu ? 0 : 230,
          duration: 300,
          useNativeDriver: true,
