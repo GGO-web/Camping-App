@@ -2,7 +2,9 @@ import { Assets, Colors, Typography } from 'react-native-ui-lib';
 
 Colors.loadColors({
    primary: '#84CC16',
+   primary50: '#F7FEE7',
    primary100: '#ECFCCB',
+   primary600: '#65A30D',
    primary900: '#365314',
    red: '#EA1601',
    dark: '#3F3F46',
@@ -16,6 +18,11 @@ Typography.loadTypographies({
       fontWeight: '600',
       fontSize: 32,
       color: '#000',
+   },
+   heading4: {
+      fontFamily: 'SFProSemibold',
+      fontWeight: '600',
+      fontSize: 20,
    },
    paragraph2: {
       fontFamily: 'SFProRegular',
@@ -42,4 +49,13 @@ Typography.loadTypographies({
 
 Assets.loadAssetsGroup('icons', {
    chevron_left: require('../assets/chevron-left.png'),
+   back: require('../assets/prev.png'),
+   menu: require('../assets/menu.png'),
+   copy: require('../assets/copy.png'),
+   avatar: require('../assets/avatar.png'),
+   pen: require('../assets/pen.png'),
+   homeIcon: require('../assets/home.png'),
+   question: require('../assets/question.png'),
+   globe: require('../assets/globe.png'),
+   logout: require('../assets/logout.png'),
 });

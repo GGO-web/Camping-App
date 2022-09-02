@@ -1,13 +1,6 @@
 import React from "react";
-import {
-   Button,
-   Colors,
-   Image,
-   Text,
-   Typography,
-   View,
-} from "react-native-ui-lib";
-import { globalStyles, mergeStyles } from "../../styles/global";
+import { Button, Colors, Image, Text, View } from "react-native-ui-lib";
+import { globalStyles } from "../../styles/global";
 
 export const Hurrey = ({
    navigation,
