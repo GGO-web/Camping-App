@@ -4,6 +4,7 @@ import { Text, View } from "react-native-ui-lib";
 import { useAppSelector } from "../../redux/hooks";
 import { userSelector } from "../../redux/userConfig/userSlice";
 import { globalStyles } from "../../styles/global";
+import { ClipboardID } from "../common/ClipboardID";
 
 import { Header } from "../Header/Header";
 
@@ -13,7 +14,7 @@ export const Home = () => {
    return (
       <View style={{ ...globalStyles.container, ...globalStyles.navcontainer }}>
          <Header title="Camping Trips"></Header>
-         <Text>Welcome home {user.fullname}</Text>
+         <ClipboardID></ClipboardID>
       </View>
    );
 };

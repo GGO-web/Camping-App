@@ -2,6 +2,7 @@ import { Assets, Colors, Typography } from 'react-native-ui-lib';
 
 Colors.loadColors({
    primary: '#84CC16',
+   primary50: '#F7FEE7',
    primary100: '#ECFCCB',
    primary900: '#365314',
    red: '#EA1601',
@@ -48,4 +49,5 @@ Typography.loadTypographies({
 Assets.loadAssetsGroup('icons', {
    chevron_left: require('../assets/chevron-left.png'),
    menu: require('../assets/menu.png'),
+   copy: require('../assets/copy.png'),
 });

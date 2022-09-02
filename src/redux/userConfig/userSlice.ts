@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IUser } from './user.model';
-
-import { v4 as uuidv4 } from 'uuid';
+import { generateUniqueID } from '../../helpers/generateUniqueID';
 
 export const initialState: IUser = {
    uid: '',
@@ -18,7 +17,7 @@ const userSlice = createSlice({
          state.email = action.payload.email;
          state.fullname = action.payload.fullname;
          state.isAuth = true;
-         state.uid = uuidv4();
+         state.uid = generateUniqueID();
       },
       signOut: () => {
          return initialState;
