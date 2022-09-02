@@ -13,7 +13,7 @@ import { Hurrey } from "./components/common/Hurrey";
 import { ResetPassword } from "./components/ResetPassword/ResetPassword";
 import { Home } from "./components/Home/Home";
 
-import { User } from "firebase/auth";
+import { onAuthStateChanged, User } from "firebase/auth";
 import { firebaseAuth } from "./firebase/firebase";
 
 import { useAppDispatch } from "./redux/hooks";
@@ -44,8 +44,8 @@ export default function App() {
    };
 
    useEffect(() => {
-      setTimeout(() => signInWithFirebase(), 500);
-   });
+      onAuthStateChanged(firebaseAuth, signInWithFirebase);
+   }, []);
 
    if (!loaded) {
       return <ActivityIndicator animating={true} />;
