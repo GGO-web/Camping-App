@@ -12,6 +12,7 @@ import { SignUp } from "./components/SignUp/SignUp";
 import { Hurrey } from "./components/common/Hurrey";
 import { ResetPassword } from "./components/ResetPassword/ResetPassword";
 import { Home } from "./components/Home/Home";
+import { Logout } from "./components/Logout/Logout";
 
 import { onAuthStateChanged, User } from "firebase/auth";
 import { firebaseAuth } from "./firebase/firebase";
@@ -40,12 +41,14 @@ export default function App() {
             signIn({ email: user.email, fullname: user.displayName } as IUser)
          );
          navigation.navigate("Homepage" as never);
+      } else {
+         navigation.navigate("Login" as never);
       }
    };
 
    useEffect(() => {
       onAuthStateChanged(firebaseAuth, signInWithFirebase);
-   }, []);
+   });
 
    if (!loaded) {
       return <ActivityIndicator animating={true} />;
@@ -65,6 +68,7 @@ export default function App() {
             component={ResetPassword}
          ></Stack.Screen>
          <Stack.Screen name="Homepage" component={Home}></Stack.Screen>
+         <Stack.Screen name="Logout" component={Logout}></Stack.Screen>
       </Stack.Navigator>
    );
 }

@@ -1,6 +1,5 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import React from "react";
-import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import {
    Assets,
@@ -21,8 +20,6 @@ import { globalStyles } from "../../styles/global";
 import { navbarStyles } from "./NavbarStyles";
 
 import { IRoute } from "../../App.models";
-
-const Drawer = createDrawerNavigator();
 
 export const Navbar = ({ routes }: { routes: IRoute[] }) => {
    const user = useAppSelector(userSelector);

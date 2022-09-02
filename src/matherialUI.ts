@@ -29,6 +29,11 @@ Typography.loadTypographies({
       fontWeight: '400',
       fontSize: 16,
    },
+   paragraph3: {
+      fontFamily: 'SFProMedium',
+      fontWeight: '500',
+      fontSize: 14,
+   },
    underline: {
       textDecorationLine: 'underline',
       textDecorationColor: '#000',
