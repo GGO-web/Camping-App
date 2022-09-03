@@ -38,7 +38,6 @@ export const Navbar = ({ routes }: { routes: IRoute[] }) => {
       >
          <View marginB-30 style={navbarStyles.innerContainer}>
             <Avatar
-               marginB-8
                source={
                   firebaseAuth.currentUser?.photoURL
                      ? {
@@ -46,10 +45,11 @@ export const Navbar = ({ routes }: { routes: IRoute[] }) => {
                        }
                      : Assets.icons.avatar
                }
+               size={64}
                onPress={() => navigation.navigate({ name: "Profile" } as never)}
             ></Avatar>
 
-            <View marginB-30 style={navbarStyles.profile}>
+            <View marginT-8 marginB-30 style={navbarStyles.profile}>
                <Text white heading4 marginR-16>
                   {user.fullname}
                </Text>
@@ -84,16 +84,19 @@ export const Navbar = ({ routes }: { routes: IRoute[] }) => {
                         <Icon
                            style={{
                               ...{
+                                 display: "flex",
+                                 flexBasis: 24,
+                                 flexShrink: 1,
                                  tintColor: !isActiveRoute
                                     ? Colors.primary100
                                     : Colors.primary900,
+                                 resizeMode: "contain",
                               },
                            }}
-                           width={24}
-                           height={24}
                            marginR-16
                            source={routeItem.icon}
                         ></Icon>
+
                         <Text
                            paragraph2
                            style={{

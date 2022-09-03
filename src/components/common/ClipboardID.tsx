@@ -15,7 +15,6 @@ export const ClipboardID = () => {
 
    return (
       <View
-         marginV-28
          style={{
             backgroundColor: Colors.primary50,
             paddingHorizontal: 24,

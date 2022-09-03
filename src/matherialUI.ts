@@ -10,6 +10,7 @@ Colors.loadColors({
    dark: '#3F3F46',
    gray: '#F4F4F5',
    gray300: '#A1A1AA',
+   gray700: '#3F3F46',
 });
 
 Typography.loadTypographies({
@@ -28,6 +29,7 @@ Typography.loadTypographies({
       fontFamily: 'SFProRegular',
       fontWeight: '400',
       fontSize: 16,
+      lineHeight: 24,
    },
    paragraph3: {
       fontFamily: 'SFProMedium',
@@ -63,4 +65,8 @@ Assets.loadAssetsGroup('icons', {
    question: require('../assets/question.png'),
    globe: require('../assets/globe.png'),
    logout: require('../assets/logout.png'),
+});
+
+Assets.loadAssetsGroup('graphic', {
+   trips: require('../assets/trips.png'),
 });
