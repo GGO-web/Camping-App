@@ -6,13 +6,13 @@ import { useNavigation } from "@react-navigation/native";
 
 import { useFonts } from "expo-font";
 
-import { Login } from "./components/Login/Login";
-import { Onboarding } from "./components/Onboarding/Onboarding";
-import { SignUp } from "./components/SignUp/SignUp";
+import { Login } from "./screens/Login/Login";
+import { Onboarding } from "./screens/Onboarding/Onboarding";
+import { SignUp } from "./screens/SignUp/SignUp";
 import { Hurrey } from "./components/common/Hurrey";
-import { ResetPassword } from "./components/ResetPassword/ResetPassword";
-import { Home } from "./components/Home/Home";
-import { Logout } from "./components/Logout/Logout";
+import { ResetPassword } from "./screens/ResetPassword/ResetPassword";
+import { Home } from "./screens/Home/Home";
+import { Logout } from "./screens/Logout/Logout";
 
 import { onAuthStateChanged, User } from "firebase/auth";
 import { firebaseAuth } from "./firebase/firebase";
@@ -20,6 +20,7 @@ import { firebaseAuth } from "./firebase/firebase";
 import { useAppDispatch } from "./redux/hooks";
 import { signIn } from "./redux/userConfig/userSlice";
 import { IUser } from "./redux/userConfig/user.model";
+import { HowToUse } from "./screens/HowToUse/HowToUse";
 
 const Stack = createNativeStackNavigator();
 
@@ -69,6 +70,7 @@ export default function App() {
          ></Stack.Screen>
          <Stack.Screen name="Homepage" component={Home}></Stack.Screen>
          <Stack.Screen name="Logout" component={Logout}></Stack.Screen>
+         <Stack.Screen name="HowToUse" component={HowToUse}></Stack.Screen>
       </Stack.Navigator>
    );
 }

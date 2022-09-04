@@ -5,6 +5,7 @@ Colors.loadColors({
    primary50: '#F7FEE7',
    primary100: '#ECFCCB',
    primary600: '#65A30D',
+   primary700: '#4D7C0F',
    primary900: '#365314',
    red: '#EA1601',
    dark: '#3F3F46',
@@ -24,6 +25,11 @@ Typography.loadTypographies({
       fontFamily: 'SFProSemibold',
       fontWeight: '600',
       fontSize: 20,
+   },
+   heading3: {
+      fontFamily: 'SFProSemibold',
+      fontWeight: '600',
+      fontSize: 24,
    },
    paragraph2: {
       fontFamily: 'SFProRegular',

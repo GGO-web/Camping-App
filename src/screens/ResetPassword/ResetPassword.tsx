@@ -13,7 +13,7 @@ import { ResetPasswordForm } from "./components/ResetPasswordForm/ResetPasswordF
 
 import { globalStyles } from "../../styles/global";
 import { authStyles } from "../../styles/auth";
-import { CrumbsLink } from "../common/CrumbsLink";
+import { CrumbsLink } from "../../components/common/CrumbsLink";
 import { useNavigation } from "@react-navigation/native";
 
 export const resetPasswordSchema = Yup.object().shape({

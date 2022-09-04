@@ -1,11 +1,9 @@
 import React from "react";
 import { Button, Colors, Text, View } from "react-native-ui-lib";
-import { Header } from "react-native/Libraries/NewAppScreen";
 
 import { firebaseAuth } from "../../firebase/firebase";
 
-import { globalStyles } from "../../styles/global";
-import { MainWrapper } from "../MainWrapper/MainWrapper";
+import { MainWrapper } from "../../components/MainWrapper/MainWrapper";
 
 export const Logout = () => {
    // const navigation = useNavigation();

@@ -25,6 +25,8 @@ import { useAppDispatch } from "../../redux/hooks";
 import { signIn } from "../../redux/userConfig/userSlice";
 import { IUser } from "../../redux/userConfig/user.model";
 
+import { authConfig } from "../../constants";
+
 export const signInSchema = Yup.object().shape({
    email: Yup.string()
       .email("Something is missing. please type a valid email")
@@ -33,11 +35,6 @@ export const signInSchema = Yup.object().shape({
       .min(6, "The password must be at least 6 characters long")
       .required("Password is required"),
 });
-
-const authConfig = {
-   clientId: process.env.REACT_APP_CLIENT_ID,
-   scopes: ["profile", "email"],
-};
 
 export const Login = () => {
    const [formFeedbackModal, setFormFeedbackModal] = useState(false);

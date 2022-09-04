@@ -1,8 +1,8 @@
 import React from "react";
 import { Assets, Button, Colors, Image, Text, View } from "react-native-ui-lib";
 
-import { ClipboardID } from "../common/ClipboardID";
-import { MainWrapper } from "../MainWrapper/MainWrapper";
+import { ClipboardID } from "../../components/common/ClipboardID";
+import { MainWrapper } from "../../components/MainWrapper/MainWrapper";
 
 import { globalStyles } from "../../styles/global";
 

@@ -3,6 +3,8 @@ import { Image, KeyboardAvoidingView, View } from "react-native";
 
 import { Link, useNavigation } from "@react-navigation/native";
 
+import * as Google from "expo-auth-session/providers/google";
+
 import { Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 
@@ -13,11 +15,13 @@ import { FirebaseError } from "firebase/app";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { firebaseAuth } from "../../firebase/firebase";
 
-import { globalStyles } from "../../styles/global";
 import { ISignUp } from "./SignUp.model";
 import { LoginProviders } from "../Login/components/LoginProviders/LoginProviders";
-import { authStyles } from "../../styles/auth";
 import { SignUpForm } from "./components/SignUpForm/SignUpForm";
+
+import { globalStyles } from "../../styles/global";
+import { authStyles } from "../../styles/auth";
+import { authConfig } from "../../constants";
 
 export const signUpSchema = Yup.object().shape({
    username: Yup.string()
@@ -45,6 +49,9 @@ export const SignUp = () => {
    };
 
    const navigation = useNavigation();
+
+   const [request, response, promptAsync]: any =
+      Google.useAuthRequest(authConfig);
 
    const formSubmitHandler = async (
       values: ISignUp,
@@ -126,7 +133,10 @@ export const SignUp = () => {
                   )}
                </Formik>
 
-               <LoginProviders></LoginProviders>
+               <LoginProviders
+                  response={response}
+                  promptAsync={promptAsync}
+               ></LoginProviders>
             </View>
 
             <Toast
