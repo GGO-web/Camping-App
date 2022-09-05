@@ -21,6 +21,7 @@ import { useAppDispatch } from "./redux/hooks";
 import { signIn } from "./redux/userConfig/userSlice";
 import { IUser } from "./redux/userConfig/user.model";
 import { HowToUse } from "./screens/HowToUse/HowToUse";
+import { Language } from "./screens/Language/Language";
 
 const Stack = createNativeStackNavigator();
 
@@ -71,6 +72,7 @@ export default function App() {
          <Stack.Screen name="Homepage" component={Home}></Stack.Screen>
          <Stack.Screen name="Logout" component={Logout}></Stack.Screen>
          <Stack.Screen name="HowToUse" component={HowToUse}></Stack.Screen>
+         <Stack.Screen name="Language" component={Language}></Stack.Screen>
       </Stack.Navigator>
    );
 }

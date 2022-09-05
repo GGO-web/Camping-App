@@ -1,9 +1,10 @@
-import { Assets, Colors, Typography } from 'react-native-ui-lib';
+import { Assets, Colors, ThemeManager, Typography } from 'react-native-ui-lib';
 
 Colors.loadColors({
    primary: '#84CC16',
    primary50: '#F7FEE7',
    primary100: '#ECFCCB',
+   primary500: '#84CC16',
    primary600: '#65A30D',
    primary700: '#4D7C0F',
    primary900: '#365314',
@@ -75,4 +76,12 @@ Assets.loadAssetsGroup('icons', {
 
 Assets.loadAssetsGroup('graphic', {
    trips: require('../assets/trips.png'),
+});
+
+ThemeManager.setComponentTheme('Checkbox', (props: any, context: any) => {
+   return {
+      color: Colors.primary,
+      size: 20,
+      borderRadius: 6,
+   };
 });
