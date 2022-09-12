@@ -1,12 +1,12 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { Button, Colors, Text, View } from "react-native-ui-lib";
-import { TextField } from "react-native-ui-lib/src/incubator";
 import { FormikProps, useFormikContext } from "formik";
+
+import { Input } from "../../../../components/Input/Input";
 
 import { IResetPassword } from "../../ResetPassword";
 
 import { globalStyles } from "../../../../styles/global";
-import { authStyles } from "../../../../styles/auth";
 
 export const ResetPasswordForm = ({
    formSubmitHandler,
@@ -19,41 +19,17 @@ export const ResetPasswordForm = ({
 
    return (
       <View>
-         <View style={authStyles.formGroup}>
-            <TextField
+         <View style={globalStyles.formGroup}>
+            <Input
+               formik={formik}
+               fieldName="email"
                label="Email"
-               autoComplete="email"
-               keyboardType="email-address"
-               caretHidden={false}
-               value={formik.values.email}
-               onChangeText={formik.handleChange("email")}
-               validationMessageStyle={globalStyles.validationMessage}
-               labelStyle={{ ...globalStyles.text, ...globalStyles.label }}
-               autoCapitalize="none"
-               fieldStyle={{
-                  ...globalStyles.text,
-                  ...globalStyles.input,
-                  ...(formik.touched.email
-                     ? formik.errors.email
-                        ? globalStyles.isError
-                        : globalStyles.isValid
-                     : []),
+               {...{
+                  autoComplete: "email",
+                  keyboardType: "email-address",
+                  caretHidden: false,
                }}
-               onChange={useCallback(() => {
-                  formik.setFieldTouched("email", true, true);
-               }, [formik.touched.email])}
-               enableErrors={true}
-               validateOnChange={true}
-               validateOnBlur={true}
-               onBlur={formik.handleBlur("email")}
-               validate={[() => false]}
-               validationMessage={[formik.errors.email]}
-               style={
-                  formik.errors.email
-                     ? globalStyles.isError
-                     : globalStyles.isValid
-               }
-            />
+            ></Input>
          </View>
 
          <Button

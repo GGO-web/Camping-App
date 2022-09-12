@@ -1,16 +1,15 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { View } from "react-native";
 import { FormikProps, useFormikContext } from "formik";
 
 import { Button, Colors, Text, Typography } from "react-native-ui-lib";
-import { TextField } from "react-native-ui-lib/src/incubator";
 import { Link, useNavigation } from "@react-navigation/native";
+
+import { Input } from "../../../../components/Input/Input";
 
 import { ILogin } from "../../Login.model";
 
 import { globalStyles } from "../../../../styles/global";
-import { authStyles } from "../../../../styles/auth";
-import { Input } from "../../../../components/Input/Input";
 
 export const LoginForm = ({
    formSubmitHandler,
@@ -25,11 +24,11 @@ export const LoginForm = ({
 
    return (
       <View>
-         <View style={authStyles.formGroup}>
+         <View style={globalStyles.formGroup}>
             <Input formik={formik} fieldName="email" label="Email"></Input>
          </View>
 
-         <View style={authStyles.formGroup}>
+         <View style={globalStyles.formGroup}>
             <Input
                formik={formik}
                fieldName="password"

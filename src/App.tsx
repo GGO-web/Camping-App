@@ -6,22 +6,24 @@ import { useNavigation } from "@react-navigation/native";
 
 import { useFonts } from "expo-font";
 
-import { Login } from "./screens/Login/Login";
-import { Onboarding } from "./screens/Onboarding/Onboarding";
-import { SignUp } from "./screens/SignUp/SignUp";
-import { Hurrey } from "./components/common/Hurrey";
-import { ResetPassword } from "./screens/ResetPassword/ResetPassword";
-import { Home } from "./screens/Home/Home";
-import { Logout } from "./screens/Logout/Logout";
-
 import { onAuthStateChanged, User } from "firebase/auth";
 import { firebaseAuth } from "./firebase/firebase";
 
 import { useAppDispatch } from "./redux/hooks";
 import { signIn } from "./redux/userConfig/userSlice";
 import { IUser } from "./redux/userConfig/user.model";
+
+import { Hurrey } from "./components/common/Hurrey";
+
+import { ResetPassword } from "./screens/ResetPassword/ResetPassword";
+import { Onboarding } from "./screens/Onboarding/Onboarding";
+import { Login } from "./screens/Login/Login";
+import { SignUp } from "./screens/SignUp/SignUp";
+import { Home } from "./screens/Home/Home";
+import { Logout } from "./screens/Logout/Logout";
 import { HowToUse } from "./screens/HowToUse/HowToUse";
 import { Language } from "./screens/Language/Language";
+import { NewTrip } from "./screens/NewTrip/NewTrip";
 
 const Stack = createNativeStackNavigator();
 
@@ -36,16 +38,21 @@ export default function App() {
    const dispatch = useAppDispatch();
 
    const signInWithFirebase = () => {
-      if (firebaseAuth.currentUser) {
-         const user: User = firebaseAuth.currentUser as User;
+      setTimeout(() => {
+         if (firebaseAuth.currentUser) {
+            const user: User = firebaseAuth.currentUser as User;
 
-         dispatch(
-            signIn({ email: user.email, fullname: user.displayName } as IUser)
-         );
-         navigation.navigate("Homepage" as never);
-      } else {
-         navigation.navigate("Login" as never);
-      }
+            dispatch(
+               signIn({
+                  email: user.email,
+                  fullname: user.displayName,
+               } as IUser)
+            );
+            navigation.navigate("Homepage" as never);
+         } else {
+            navigation.navigate("Login" as never);
+         }
+      }, 1000);
    };
 
    useEffect(() => {
@@ -73,6 +80,7 @@ export default function App() {
          <Stack.Screen name="Logout" component={Logout}></Stack.Screen>
          <Stack.Screen name="HowToUse" component={HowToUse}></Stack.Screen>
          <Stack.Screen name="Language" component={Language}></Stack.Screen>
+         <Stack.Screen name="NewTrip" component={NewTrip}></Stack.Screen>
       </Stack.Navigator>
    );
 }

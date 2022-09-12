@@ -1,26 +1,21 @@
 import React, { useState } from "react";
 
 import { Text, Toast, View } from "react-native-ui-lib";
+import { useNavigation } from "@react-navigation/native";
 
 import { Formik, FormikHelpers } from "formik";
-import * as Yup from "yup";
 
 import { FirebaseError } from "firebase/app";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { firebaseAuth } from "../../firebase/firebase";
 
 import { ResetPasswordForm } from "./components/ResetPasswordForm/ResetPasswordForm";
+import { CrumbsLink } from "../../components/common/CrumbsLink";
 
 import { globalStyles } from "../../styles/global";
 import { authStyles } from "../../styles/auth";
-import { CrumbsLink } from "../../components/common/CrumbsLink";
-import { useNavigation } from "@react-navigation/native";
 
-export const resetPasswordSchema = Yup.object().shape({
-   email: Yup.string()
-      .email("Something is missing. please type a valid email")
-      .required("Email is required"),
-});
+import { signUpSchema } from "../../helpers/validationSchema";
 
 export interface IResetPassword {
    email: string;
@@ -84,7 +79,7 @@ export const ResetPassword = () => {
             onSubmit={(values: IResetPassword, actions) => {
                formSubmitHandler(values, actions);
             }}
-            validationSchema={resetPasswordSchema}
+            validationSchema={signUpSchema}
             validateOnMount={true}
          >
             {(formik) => (
