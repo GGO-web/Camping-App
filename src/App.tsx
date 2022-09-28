@@ -57,7 +57,7 @@ export default function App() {
 
    useEffect(() => {
       onAuthStateChanged(firebaseAuth, signInWithFirebase);
-   });
+   }, []);
 
    if (!loaded) {
       return <ActivityIndicator animating={true} />;
