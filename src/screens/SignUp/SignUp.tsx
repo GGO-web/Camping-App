@@ -6,7 +6,6 @@ import { Link, useNavigation } from "@react-navigation/native";
 import * as Google from "expo-auth-session/providers/google";
 
 import { Formik, FormikHelpers } from "formik";
-import * as Yup from "yup";
 
 import { Toast } from "react-native-ui-lib/src/incubator";
 import { Text } from "react-native-ui-lib";
@@ -22,22 +21,7 @@ import { SignUpForm } from "./components/SignUpForm/SignUpForm";
 import { globalStyles } from "../../styles/global";
 import { authStyles } from "../../styles/auth";
 import { authConfig } from "../../constants";
-
-export const signUpSchema = Yup.object().shape({
-   username: Yup.string()
-      .matches(
-         /^[a-zA-Z]/,
-         'Please, provide a name in the correct form, for example, "John Smith"'
-      )
-      .min(3, "Name is too short")
-      .required("Name is required"),
-   email: Yup.string()
-      .email("Something is missing. please type a valid email")
-      .required("Email is required"),
-   password: Yup.string()
-      .min(7, "Password is too short")
-      .required("Password is required"),
-});
+import { signUpSchema } from "../../helpers/validationSchema";
 
 export const SignUp = () => {
    const [formFeedbackModal, setFormFeedbackModal] = useState(false);
@@ -72,7 +56,7 @@ export const SignUp = () => {
             "Hurrey" as never,
             {
                page: "Login",
-               text: "Your registration is successful. please go back and log-in.",
+               text: "Your registration is successful. You will be automatically redirected to the homepage at the moment",
             } as never
          );
 

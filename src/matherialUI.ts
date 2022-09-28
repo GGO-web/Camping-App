@@ -63,6 +63,7 @@ Typography.loadTypographies({
 
 Assets.loadAssetsGroup('icons', {
    chevron_left: require('../assets/chevron-left.png'),
+   chevron_down: require('../assets/chevron-down.png'),
    back: require('../assets/prev.png'),
    menu: require('../assets/menu.png'),
    copy: require('../assets/copy.png'),

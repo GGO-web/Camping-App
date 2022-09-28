@@ -1,15 +1,15 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { View } from "react-native";
 import { FormikProps, useFormikContext } from "formik";
 
 import { Button, Colors, Text, Typography } from "react-native-ui-lib";
-import { TextField } from "react-native-ui-lib/src/incubator";
 import { Link, useNavigation } from "@react-navigation/native";
+
+import { Input } from "../../../../components/Input/Input";
 
 import { ILogin } from "../../Login.model";
 
 import { globalStyles } from "../../../../styles/global";
-import { authStyles } from "../../../../styles/auth";
 
 export const LoginForm = ({
    formSubmitHandler,
@@ -24,77 +24,17 @@ export const LoginForm = ({
 
    return (
       <View>
-         <View style={authStyles.formGroup}>
-            <TextField
-               label="Email"
-               autoComplete="email"
-               keyboardType="email-address"
-               caretHidden={false}
-               value={formik.values.email}
-               onChangeText={formik.handleChange("email")}
-               validationMessageStyle={globalStyles.validationMessage}
-               labelStyle={{ ...globalStyles.text, ...globalStyles.label }}
-               autoCapitalize="none"
-               fieldStyle={{
-                  ...globalStyles.text,
-                  ...globalStyles.input,
-                  ...(formik.touched.email
-                     ? formik.errors.email
-                        ? globalStyles.isError
-                        : globalStyles.isValid
-                     : []),
-               }}
-               onChange={useCallback(() => {
-                  formik.setFieldTouched("email", true, true);
-               }, [formik.touched.email])}
-               enableErrors={true}
-               validateOnChange={true}
-               validateOnBlur={true}
-               onBlur={formik.handleBlur("email")}
-               validate={[() => false]}
-               validationMessage={[formik.errors.email]}
-               style={
-                  formik.errors.email
-                     ? globalStyles.isError
-                     : globalStyles.isValid
-               }
-            />
+         <View style={globalStyles.formGroup}>
+            <Input formik={formik} fieldName="email" label="Email"></Input>
          </View>
 
-         <View style={authStyles.formGroup}>
-            <TextField
+         <View style={globalStyles.formGroup}>
+            <Input
+               formik={formik}
+               fieldName="password"
                label="Password"
-               secureTextEntry={true}
-               onChangeText={formik.handleChange("password")}
-               value={formik.values.password}
-               validationMessageStyle={globalStyles.validationMessage}
-               labelStyle={{ ...globalStyles.text, ...globalStyles.label }}
-               autoCapitalize="none"
-               fieldStyle={{
-                  ...globalStyles.text,
-                  ...globalStyles.input,
-                  ...(formik.touched.password
-                     ? formik.errors.password
-                        ? globalStyles.isError
-                        : globalStyles.isValid
-                     : []),
-               }}
-               onChange={useCallback(
-                  () => formik.setFieldTouched("password", true, true),
-                  [formik.touched.password]
-               )}
-               enableErrors={true}
-               validateOnChange={true}
-               validateOnBlur={true}
-               onBlur={formik.handleBlur("password")}
-               validate={[() => false]}
-               validationMessage={[formik.errors.password]}
-               style={
-                  formik.errors.password
-                     ? globalStyles.isError
-                     : globalStyles.isValid
-               }
-            />
+               {...{ secureTextEntry: true }}
+            ></Input>
          </View>
 
          <Link

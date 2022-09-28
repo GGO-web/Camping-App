@@ -15,26 +15,20 @@ import { FirebaseError } from "firebase/app";
 import { signInWithEmailAndPassword, User } from "firebase/auth";
 import { firebaseAuth } from "../../firebase/firebase";
 
+import { useAppDispatch } from "../../redux/hooks";
+import { signIn } from "../../redux/userConfig/userSlice";
+import { IUser } from "../../redux/userConfig/user.model";
+
 import { ILogin } from "./Login.model";
+
 import { LoginForm } from "./components/LoginForm/LoginForm";
 import { LoginProviders } from "./components/LoginProviders/LoginProviders";
 
 import { globalStyles } from "../../styles/global";
 import { authStyles } from "../../styles/auth";
-import { useAppDispatch } from "../../redux/hooks";
-import { signIn } from "../../redux/userConfig/userSlice";
-import { IUser } from "../../redux/userConfig/user.model";
 
 import { authConfig } from "../../constants";
-
-export const signInSchema = Yup.object().shape({
-   email: Yup.string()
-      .email("Something is missing. please type a valid email")
-      .required("Email is required"),
-   password: Yup.string()
-      .min(6, "The password must be at least 6 characters long")
-      .required("Password is required"),
-});
+import { loginSchema } from "../../helpers/validationSchema";
 
 export const Login = () => {
    const [formFeedbackModal, setFormFeedbackModal] = useState(false);
@@ -111,7 +105,7 @@ export const Login = () => {
                   onSubmit={(values: ILogin, actions) => {
                      formSubmitHandler(values, actions);
                   }}
-                  validationSchema={signInSchema}
+                  validationSchema={loginSchema}
                   validateOnMount={true}
                >
                   {(formik) => (

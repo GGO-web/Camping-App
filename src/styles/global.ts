@@ -37,6 +37,9 @@ export const globalStyles = StyleSheet.create({
       marginLeft: 'auto',
       marginTop: 4,
    },
+   formGroup: {
+      marginBottom: 10,
+   },
    button: {
       borderRadius: 12,
       elevation: 5,
