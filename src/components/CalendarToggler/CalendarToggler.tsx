@@ -5,17 +5,27 @@ import {
    Button,
    Colors,
    Dialog,
-   Modal,
    Text,
    View,
 } from "react-native-ui-lib";
 
 import { DateInput } from "./components/DateInput/DateInput";
 
+import dayjs from "dayjs";
+
 import { globalStyles } from "../../styles/global";
 
 export const CalendarToggler = () => {
    const [isOpen, setIsOpen] = useState(false);
+   const [startDate, setStartDate] = useState("");
+   const [endDate, setEndDate] = useState("");
+
+   const getCalendarToggleText = () => {
+      const start = dayjs(startDate).format("DD MMMM");
+      const end = dayjs(endDate || startDate).format("DD MMMM");
+
+      return `${start} To ${end}`;
+   };
 
    return (
       <View>
@@ -32,9 +42,7 @@ export const CalendarToggler = () => {
             iconSource={Assets.icons.chevron_down}
             iconStyle={{
                tintColor: Colors.gray300,
-               width: 10,
-               height: 6,
-               resizeMode: "stretch",
+               transform: startDate ? [{ rotate: "180deg" }] : [],
             }}
             onPress={() => setIsOpen(!isOpen)}
          >
@@ -47,12 +55,14 @@ export const CalendarToggler = () => {
                   textAlign: "left",
                }}
             >
-               Pick Date
+               {startDate ? getCalendarToggleText() : "Pick Date"}
             </Text>
          </Button>
 
          <Dialog visible={isOpen} onDismiss={() => setIsOpen(false)}>
-            <DateInput></DateInput>
+            <DateInput
+               {...{ startDate, setStartDate, endDate, setEndDate }}
+            ></DateInput>
          </Dialog>
       </View>
    );

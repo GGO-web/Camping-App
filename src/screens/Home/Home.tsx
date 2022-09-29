@@ -1,5 +1,6 @@
 import React from "react";
 import { Assets, Button, Colors, Image, Text, View } from "react-native-ui-lib";
+import { CalendarToggler } from "../../components/CalendarToggler/CalendarToggler";
 
 import { ClipboardID } from "../../components/common/ClipboardID";
 import { MainWrapper } from "../../components/MainWrapper/MainWrapper";

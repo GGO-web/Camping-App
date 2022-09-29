@@ -4,10 +4,17 @@ import { Colors, Text, TouchableOpacity, View } from "react-native-ui-lib";
 
 import { Calendar, DateData } from "react-native-calendars";
 
-export const DateInput = () => {
-   const [startDate, setStartDate] = useState("");
-   const [endDate, setEndDate] = useState("");
-
+export const DateInput = ({
+   startDate,
+   setStartDate,
+   endDate,
+   setEndDate,
+}: {
+   startDate: string;
+   setStartDate: Function;
+   endDate: string;
+   setEndDate: Function;
+}) => {
    const isDateInThePast = (
       dateString: string,
       dateStringMain: string
