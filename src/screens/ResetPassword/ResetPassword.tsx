@@ -15,7 +15,7 @@ import { CrumbsLink } from "../../components/common/CrumbsLink";
 import { globalStyles } from "../../styles/global";
 import { authStyles } from "../../styles/auth";
 
-import { signUpSchema } from "../../helpers/validationSchema";
+import { resetPasswordSchema } from "../../helpers/validationSchema";
 
 export interface IResetPassword {
    email: string;
@@ -70,8 +70,7 @@ export const ResetPassword = () => {
 
          <Text paragraph2 textMuted marginB-24>
             To get your new password you need to put your email address down
-            below. and we will send you an confirmation letter on that for
-            confirmation.
+            below and we will send you an confirmation letter.
          </Text>
 
          <Formik
@@ -79,7 +78,7 @@ export const ResetPassword = () => {
             onSubmit={(values: IResetPassword, actions) => {
                formSubmitHandler(values, actions);
             }}
-            validationSchema={signUpSchema}
+            validationSchema={resetPasswordSchema}
             validateOnMount={true}
          >
             {(formik) => (

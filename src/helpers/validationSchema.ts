@@ -26,3 +26,7 @@ export const signUpSchema = Yup.object().shape({
    email: rules.email,
    password: rules.password,
 });
+
+export const resetPasswordSchema = Yup.object().shape({
+   email: rules.email,
+});
