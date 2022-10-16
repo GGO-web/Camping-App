@@ -12,6 +12,7 @@ Colors.loadColors({
    dark: '#3F3F46',
    gray: '#F4F4F5',
    gray300: '#A1A1AA',
+   gray500: '#71717A',
    gray700: '#3F3F46',
 });
 
@@ -31,6 +32,12 @@ Typography.loadTypographies({
       fontFamily: 'SFProSemibold',
       fontWeight: '600',
       fontSize: 24,
+   },
+   paragraph1: {
+      fontFamily: 'SFProMedium',
+      fontWeight: '500',
+      fontSize: 20,
+      lineHeight: 30,
    },
    paragraph2: {
       fontFamily: 'SFProRegular',
@@ -73,6 +80,7 @@ Assets.loadAssetsGroup('icons', {
    question: require('../assets/question.png'),
    globe: require('../assets/globe.png'),
    logout: require('../assets/logout.png'),
+   plus: require('../assets/plus.png'),
 });
 
 Assets.loadAssetsGroup('graphic', {

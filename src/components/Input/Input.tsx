@@ -1,4 +1,5 @@
 import React, { useCallback } from "react";
+import { Colors } from "react-native-ui-lib";
 
 import { TextField } from "react-native-ui-lib/src/incubator";
 
@@ -8,11 +9,13 @@ export const Input = ({
    formik,
    fieldName,
    label,
+   validate = true,
    ...inputAttributes
 }: {
    formik: any;
    fieldName: string;
    label: string;
+   validate?: boolean;
    inputAttributes?: any;
 }) => {
    return (
@@ -20,13 +23,16 @@ export const Input = ({
          label={label}
          onChangeText={formik.handleChange(fieldName)}
          value={formik.values[fieldName]}
-         validationMessageStyle={globalStyles.validationMessage}
+         validationMessageStyle={{
+            ...globalStyles.validationMessage,
+            ...(!validate ? { marginTop: 0 } : []),
+         }}
          labelStyle={{ ...globalStyles.text, ...globalStyles.label }}
          autoCapitalize="none"
          fieldStyle={{
             ...globalStyles.text,
             ...globalStyles.input,
-            ...(formik.touched[fieldName]
+            ...(formik.touched[fieldName] && validate
                ? formik.errors[fieldName]
                   ? globalStyles.isError
                   : globalStyles.isValid
@@ -43,9 +49,11 @@ export const Input = ({
          validate={[() => false]}
          validationMessage={[formik.errors[fieldName]]}
          style={
-            formik.errors[fieldName]
-               ? globalStyles.isError
-               : globalStyles.isValid
+            validate
+               ? formik.errors[fieldName]
+                  ? globalStyles.isError
+                  : globalStyles.isValid
+               : { color: Colors.dark }
          }
          {...inputAttributes}
       />

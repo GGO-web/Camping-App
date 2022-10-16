@@ -8,14 +8,20 @@ export const CrumbsLink = ({ children }: { children: any }) => {
    return (
       <Button
          left
-         marginV-25
+         marginB-25
          onPress={() => navigation.goBack()}
          centerV
          backgroundColor="transparent"
       >
-         <Icon marginR-8 width={32} height={32} assetName="chevron_left"></Icon>
+         <Icon
+            style={{ width: 14, height: 14, resizeMode: "contain" }}
+            marginR-8
+            assetName="chevron_left"
+         ></Icon>
 
-         <Text mrAuto>{children}</Text>
+         <Text paragraph1 mrAuto>
+            {children}
+         </Text>
       </Button>
    );
 };

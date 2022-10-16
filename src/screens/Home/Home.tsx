@@ -1,6 +1,6 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Assets, Button, Colors, Image, Text, View } from "react-native-ui-lib";
-import { CalendarToggler } from "../../components/CalendarToggler/CalendarToggler";
 
 import { ClipboardID } from "../../components/common/ClipboardID";
 import { MainWrapper } from "../../components/MainWrapper/MainWrapper";
@@ -9,6 +9,8 @@ import { globalStyles } from "../../styles/global";
 
 export const Home = () => {
    const haveTrips = false;
+
+   const navigation = useNavigation();
 
    return (
       <MainWrapper headerTitle="Camping Trips">
@@ -25,8 +27,10 @@ export const Home = () => {
 
                <Button
                   mode="contained"
+                  style={globalStyles.button}
                   backgroundColor={Colors.primary}
                   disabledBackgroundColor={Colors.gray400}
+                  onPress={() => navigation.navigate("NewTrip" as never)}
                >
                   <Text
                      style={{

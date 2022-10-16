@@ -18,7 +18,7 @@ export const globalStyles = StyleSheet.create({
       borderRadius: 12,
       paddingVertical: 10,
       paddingHorizontal: 20,
-      borderColor: '#3f3f46',
+      borderColor: '#F4F4F5',
       caretColor: '#000',
    },
    isError: {
@@ -48,6 +48,7 @@ export const globalStyles = StyleSheet.create({
       fontFamily: 'SFProMedium',
       fontWeight: '500',
       color: '#fff',
+      textTransform: 'capitalize',
    },
    buttonOutlined: {
       elevation: 5,

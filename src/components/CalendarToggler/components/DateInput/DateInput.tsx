@@ -49,7 +49,12 @@ export const DateInput = ({
                ) {
                   setStartDate(day.dateString);
                } else {
-                  setEndDate(day.dateString);
+                  if (isDateInThePast(day.dateString, startDate)) {
+                     setStartDate(day.dateString);
+                     setEndDate(startDate);
+                  } else {
+                     setEndDate(day.dateString);
+                  }
                }
             }}
             dayComponent={({ date, onPress, onLongPress, state }: any) => {

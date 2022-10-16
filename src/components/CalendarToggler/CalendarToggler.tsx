@@ -24,6 +24,10 @@ export const CalendarToggler = () => {
       const start = dayjs(startDate).format("DD MMMM");
       const end = dayjs(endDate || startDate).format("DD MMMM");
 
+      if (start === end) {
+         return `Since ${start}`;
+      }
+
       return `${start} To ${end}`;
    };
 
