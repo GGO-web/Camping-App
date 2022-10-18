@@ -5,7 +5,7 @@ import { Formik, FormikHelpers } from "formik";
 
 import { CrumbsLink } from "../../components/common/CrumbsLink";
 
-import { NewTripForm } from "./components/NewTripForm";
+import { NewTripForm } from "./components/NewTripForm/NewTripForm";
 
 import { ITeamMate } from "./NewTrip.model";
 

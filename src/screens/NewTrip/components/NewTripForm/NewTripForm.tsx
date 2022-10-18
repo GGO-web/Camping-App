@@ -13,13 +13,13 @@ import {
 
 import { FormikProps, useFormikContext } from "formik";
 
-import { Input } from "../../../components/Input/Input";
+import { Input } from "../../../../components/Input/Input";
 
-import { INewTrip } from "../NewTrip";
+import { INewTrip } from "../../NewTrip";
 
-import { globalStyles } from "../../../styles/global";
-import { ITeamMate } from "../NewTrip.model";
-import { CalendarToggler } from "../../../components/CalendarToggler/CalendarToggler";
+import { globalStyles } from "../../../../styles/global";
+import { ITeamMate } from "../../NewTrip.model";
+import { CalendarToggler } from "../../../../components/CalendarToggler/CalendarToggler";
 
 export const NewTripForm = ({
    formSubmitHandler,

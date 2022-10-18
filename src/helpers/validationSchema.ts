@@ -14,6 +14,9 @@ const rules = {
    password: Yup.string()
       .min(6, 'The password must be at least 6 characters long')
       .required('Password is required'),
+   teammateId: Yup.string().required(
+      'The ID is required to find the correspond person'
+   ),
 };
 
 export const loginSchema = Yup.object().shape({
@@ -29,4 +32,8 @@ export const signUpSchema = Yup.object().shape({
 
 export const resetPasswordSchema = Yup.object().shape({
    email: rules.email,
+});
+
+export const teammateSchema = Yup.object().shape({
+   teammateId: rules.teammateId,
 });
