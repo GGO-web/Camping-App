@@ -9,12 +9,14 @@ export const Input = ({
    formik,
    fieldName,
    label,
+   fieldStyles = {},
    validate = true,
    ...inputAttributes
 }: {
    formik: any;
    fieldName: string;
    label: string;
+   fieldStyles?: {};
    validate?: boolean;
    inputAttributes?: any;
 }) => {
@@ -32,6 +34,7 @@ export const Input = ({
          fieldStyle={{
             ...globalStyles.text,
             ...globalStyles.input,
+            ...fieldStyles,
             ...(formik.touched[fieldName] && validate
                ? formik.errors[fieldName]
                   ? globalStyles.isError

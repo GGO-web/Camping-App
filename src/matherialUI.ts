@@ -81,6 +81,7 @@ Assets.loadAssetsGroup('icons', {
    globe: require('../assets/globe.png'),
    logout: require('../assets/logout.png'),
    plus: require('../assets/plus.png'),
+   search: require('../assets/search.png'),
 });
 
 Assets.loadAssetsGroup('graphic', {

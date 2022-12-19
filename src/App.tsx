@@ -25,6 +25,7 @@ import { HowToUse } from "./screens/HowToUse/HowToUse";
 import { Language } from "./screens/Language/Language";
 import { NewTrip } from "./screens/NewTrip/NewTrip";
 import { Teammates } from "./screens/NewTrip/components/Teammates/Teammates";
+import { Locations } from "./screens/NewTrip/components/Locations/Locations";
 
 const Stack = createNativeStackNavigator();
 
@@ -83,6 +84,7 @@ export default function App() {
          <Stack.Screen name="Language" component={Language}></Stack.Screen>
          <Stack.Screen name="NewTrip" component={NewTrip}></Stack.Screen>
          <Stack.Screen name="Teammates" component={Teammates}></Stack.Screen>
+         <Stack.Screen name="Locations" component={Locations}></Stack.Screen>
       </Stack.Navigator>
    );
 }

@@ -17,6 +17,7 @@ const rules = {
    teammateId: Yup.string().required(
       'The ID is required to find the correspond person'
    ),
+   location: Yup.string().required('Location has not found'),
 };
 
 export const loginSchema = Yup.object().shape({
@@ -36,4 +37,8 @@ export const resetPasswordSchema = Yup.object().shape({
 
 export const teammateSchema = Yup.object().shape({
    teammateId: rules.teammateId,
+});
+
+export const locationSchema = Yup.object().shape({
+   location: rules.location,
 });

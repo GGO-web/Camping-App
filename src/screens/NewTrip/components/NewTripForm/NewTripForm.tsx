@@ -124,7 +124,7 @@ export const NewTripForm = ({
                         height: 80,
                         borderRadius: 12,
                      }}
-                     onPress={() => formSubmitHandler(formik.values, actions)}
+                     onPress={() => navigation.navigate("Teammates" as never)}
                   >
                      <Icon
                         style={{
