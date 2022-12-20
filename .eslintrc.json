@@ -1,0 +1,27 @@
+{
+  "extends": ["airbnb", "airbnb-typescript"],
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "overrides": [
+    {
+      "files": ["*.js", "*.ts", "*.tsx"]
+    }
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "import/prefer-default-export": "off",
+    "no-param-reassign": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off",
+    "no-return-assign": "off",
+    "no-nested-ternary": "warn"
+  },
+  "ignorePatterns": ["postcss.config.ts", "tailwind.config.ts"]
+}
