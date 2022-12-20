@@ -11,7 +11,7 @@ import { Input } from '../../../../../components/Input/Input';
 import { useLazyGetCampingPlacesQuery } from '../../../../../redux/api/camping';
 
 import type { ILocation } from '../../../../../models/Locations.model';
-import { ILocationValue } from '../Locations';
+import type { ILocationValue } from '../Locations';
 
 import { globalStyles } from '../../../../../styles/global';
 import { useDebounce } from '../../../../../hooks/debounce';

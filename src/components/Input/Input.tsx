@@ -1,6 +1,8 @@
-import React, { ChangeEvent, useCallback } from 'react';
-import { Colors } from 'react-native-ui-lib';
+import React, { useCallback } from 'react';
 
+import { FormikProps } from 'formik';
+
+import { Colors } from 'react-native-ui-lib';
 import { TextField } from 'react-native-ui-lib/src/incubator';
 
 import { globalStyles } from '../../styles/global';
@@ -14,7 +16,7 @@ export function Input({
   onChangeFunction,
   ...inputAttributes
 }: {
-  formik: any;
+  formik: FormikProps<any>,
   fieldName: string;
   label: string;
   fieldStyles?: {};
@@ -26,7 +28,7 @@ export function Input({
     <TextField
       label={label}
       onChangeText={(newValue: string) => {
-        formik.handleChange(fieldName);
+        formik.setFieldValue(fieldName, newValue);
 
         if (onChangeFunction) onChangeFunction(newValue);
       }}
