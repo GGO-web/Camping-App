@@ -105,7 +105,17 @@ export function LocationsForm({
         >
           {
             locations?.map((camp: ILocation) => {
-              console.log(camp.images);
+              const [altImages, setAltImages] = useState(
+                [
+                  ...camp.images.map((image) => image.url),
+                ],
+              );
+              const [campImageSrc, setCampImageSrc] = useState(altImages[0]);
+
+              const skipCampImage = () => {
+                setAltImages(altImages.slice(1));
+                setCampImageSrc(altImages[1]);
+              };
 
               return (
                 <View flex paddingH-16 centerV key={camp.id}>
@@ -117,11 +127,12 @@ export function LocationsForm({
                         borderRadius: 36,
                         overflow: 'hidden',
                       }}
-                      source={camp.images.length > 0
-                        ? ({
-                          uri: camp.images[0].url,
-                        })
-                        : Assets.graphic.camp}
+                      source={campImageSrc ? {
+                        uri: campImageSrc,
+                      } : Assets.graphic.camp}
+                      onError={() => {
+                        skipCampImage();
+                      }}
                     />
                   </View>
 

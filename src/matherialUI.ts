@@ -88,7 +88,7 @@ Assets.loadAssetsGroup('icons', {
 
 Assets.loadAssetsGroup('graphic', {
   trips: require('../assets/trips.png'),
-  camp: require('../assets/onboarding/img-3.png'),
+  camp: require('../assets/onboarding/img-4.png'),
 });
 
 ThemeManager.setComponentTheme('Checkbox', (props: any, context: any) => ({
