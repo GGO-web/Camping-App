@@ -1,9 +1,3 @@
-import { BaseQueryFn } from '@reduxjs/toolkit/dist/query/baseQueryTypes';
-import { QueryDefinition } from '@reduxjs/toolkit/dist/query/endpointDefinitions';
-import { FetchArgs, FetchBaseQueryError, FetchBaseQueryMeta } from '@reduxjs/toolkit/dist/query/fetchBaseQuery';
-
-import { LazyQueryTrigger } from '@reduxjs/toolkit/dist/query/react/buildHooks';
-
 export interface ILocation {
   id: string;
   name: string;

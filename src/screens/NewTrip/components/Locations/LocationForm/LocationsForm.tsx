@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { FormikProps, useFormikContext } from 'formik';
 
 import {
-  Assets, Button, Colors, Text, View,
+  Assets, Button, Carousel, Colors, Text, View, Image,
 } from 'react-native-ui-lib';
 
 import { Input } from '../../../../../components/Input/Input';
@@ -15,6 +15,7 @@ import { ILocationValue } from '../Locations';
 
 import { globalStyles } from '../../../../../styles/global';
 import { useDebounce } from '../../../../../hooks/debounce';
+import { mockedLocations } from '../../../../../constants';
 
 export function LocationsForm({
   formSubmitHandler,
@@ -25,11 +26,11 @@ export function LocationsForm({
 }) {
   const actions = useFormikContext();
 
-  const debouncedSearchQuery = useDebounce(formik.values.location, 400);
+  const debouncedSearchQuery = useDebounce(formik.values.location || 'camp', 400);
 
   const [getCampingLocations] = useLazyGetCampingPlacesQuery();
-  const [locations, setLocations] = useState<ILocation[]>([]);
-  const [isLoadingLocations, setIsLoadingLocations] = useState(true);
+  const [locations, setLocations] = useState<ILocation[]>(mockedLocations);
+  const [isLoadingLocations, setIsLoadingLocations] = useState(false);
 
   const setQueryLocationResults = (newValue: string) => {
     formik.setFieldValue('location', newValue);
@@ -45,8 +46,7 @@ export function LocationsForm({
 
       setLocations(locationsResponse.data);
     };
-
-    getLocationsByQuery();
+    // getLocationsByQuery();
   }, [debouncedSearchQuery]);
 
   return (
@@ -88,22 +88,71 @@ export function LocationsForm({
       </View>
 
       <View>
-        {isLoadingLocations && <Text>Campings is loading, please give a second...</Text>}
+        {isLoadingLocations && <Text>Campings is loading, please wait a second...</Text>}
 
-        {!isLoadingLocations && locations.length === 0
-          ? <Text>No camping matches with provided query</Text>
-          : (
-            <View>
-              {
-              locations?.map((camp: ILocation) => (
-                <View key={camp.id}>
-                  <Text>{camp.name}</Text>
-                  <Text>{camp.description}</Text>
+        {(!isLoadingLocations && locations.length === 0)
+        && <Text>No camping matches with provided query</Text>}
+
+        {(!isLoadingLocations && locations.length > 0) && (
+        <Carousel
+          containerStyle={{
+            minHeight: '100%',
+          }}
+          pageControlProps={{
+            size: 10,
+          }}
+          pageControlPosition={Carousel.pageControlPositions.OVER}
+        >
+          {
+            locations?.map((camp: ILocation) => {
+              console.log(camp.images);
+
+              return (
+                <View flex paddingH-16 centerV key={camp.id}>
+                  <View flex style={{ height: '100%' }}>
+                    <Image
+                      overlayType={Image.overlayTypes.BOTTOM}
+                      style={{
+                        height: '100%',
+                        borderRadius: 36,
+                        overflow: 'hidden',
+                      }}
+                      source={camp.images.length > 0
+                        ? ({
+                          uri: camp.images[0].url,
+                        })
+                        : Assets.graphic.camp}
+                    />
+                  </View>
+
+                  <View flex style={{ marginTop: -70 }}>
+                    <Text white heading3 textCenter marginB-16>{camp.name}</Text>
+
+                    <View centerH>
+                      <Button
+                        activeOpacity={0.97}
+                        style={{ ...globalStyles.button, minWidth: 160 }}
+                        backgroundColor={Colors.primary}
+                        disabledBackgroundColor={Colors.gray400}
+                        mode="contained"
+                      >
+                        <Text
+                          style={{
+                            ...globalStyles.text,
+                            ...globalStyles.buttonText,
+                          }}
+                        >
+                          Explore
+                        </Text>
+                      </Button>
+                    </View>
+                  </View>
                 </View>
-              ))
+              );
+            })
             }
-            </View>
-          )}
+        </Carousel>
+        )}
       </View>
     </View>
   );

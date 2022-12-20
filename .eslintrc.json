@@ -21,7 +21,8 @@
     "react/jsx-props-no-spreading": "off",
     "react/require-default-props": "off",
     "no-return-assign": "off",
-    "no-nested-ternary": "warn"
+    "no-nested-ternary": "warn",
+    "global-require": "off"
   },
   "ignorePatterns": ["postcss.config.ts", "tailwind.config.ts"]
 }

@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
-  Assets, Button, Colors, Text, View,
+  View,
 } from 'react-native-ui-lib';
 import { useNavigation } from '@react-navigation/native';
-import { Formik, FormikHelpers, useFormikContext } from 'formik';
+import { Formik, FormikHelpers } from 'formik';
 
 import { CrumbsLink } from '../../../../components/common/CrumbsLink';
-import { Input } from '../../../../components/Input/Input';
 
 import { locationSchema } from '../../../../helpers/validationSchema';
 
@@ -19,7 +18,7 @@ export interface ILocationValue {
 
 export function Locations() {
   const formInitialValues: ILocationValue = {
-    location: 'camp',
+    location: '',
   };
 
   const navigation = useNavigation();
@@ -29,7 +28,7 @@ export function Locations() {
     actions: FormikHelpers<ILocationValue>,
   ) => {
     try {
-      // find person by id on the database and throw the error when it is't present
+      // find person by id on the database and throw the error when it isn't present
 
       navigation.goBack();
     } catch (error) {
