@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 
-import { FormikProps, useFormikContext } from 'formik';
+import { FormikProps } from 'formik';
 
 import {
-  Assets, Button, Carousel, Colors, Text, View, Image,
+  Assets, Button, Carousel, Colors, Text, View,
 } from 'react-native-ui-lib';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Input } from '../../../../../components/Input/Input';
+import { LocationCard } from './LocationCard';
 
 import { useLazyGetCampingPlacesQuery } from '../../../../../redux/api/camping';
 
@@ -15,39 +17,49 @@ import type { ILocationValue } from '../Locations';
 
 import { globalStyles } from '../../../../../styles/global';
 import { useDebounce } from '../../../../../hooks/debounce';
-import { mockedLocations } from '../../../../../constants';
+
+import { CAMPING_LOCATIONS } from '../../../../../constants';
 
 export function LocationsForm({
-  formSubmitHandler,
   formik,
 }: {
-  formSubmitHandler: Function;
   formik: FormikProps<ILocationValue>;
 }) {
-  const actions = useFormikContext();
-
-  const debouncedSearchQuery = useDebounce(formik.values.location || 'camp', 400);
+  const [query, setQuery] = useState(formik.values.location);
+  const debouncedSearchQuery = useDebounce(query, 1000);
 
   const [getCampingLocations] = useLazyGetCampingPlacesQuery();
-  const [locations, setLocations] = useState<ILocation[]>(mockedLocations);
+  const [locations, setLocations] = useState<ILocation[]>([]);
   const [isLoadingLocations, setIsLoadingLocations] = useState(false);
 
-  const setQueryLocationResults = (newValue: string) => {
-    formik.setFieldValue('location', newValue);
+  const getLocationsByQuery = async () => {
+    setIsLoadingLocations(true);
+    const locationsResponse = await getCampingLocations({
+      name: formik.values.location,
+    }).unwrap();
+
+    setLocations(locationsResponse.data);
+    await AsyncStorage.setItem(CAMPING_LOCATIONS, JSON.stringify(locationsResponse.data));
+
+    setIsLoadingLocations(false);
   };
 
   useEffect(() => {
-    const getLocationsByQuery = async () => {
-      setIsLoadingLocations(true);
-      const locationsResponse = await getCampingLocations({
-        name: formik.values.location,
-      }).unwrap();
-      setIsLoadingLocations(false);
-
-      setLocations(locationsResponse.data);
-    };
-    // getLocationsByQuery();
+    getLocationsByQuery();
   }, [debouncedSearchQuery]);
+
+  useEffect(() => {
+    const getAllLocationsFromStorage = async () => {
+      const campingLocationsStringified = await AsyncStorage.getItem(CAMPING_LOCATIONS);
+      const campingLocationsStorage = JSON.parse(campingLocationsStringified as string);
+
+      if (campingLocationsStorage.length) {
+        setLocations(campingLocationsStorage);
+      }
+    };
+
+    getAllLocationsFromStorage();
+  }, []);
 
   return (
     <View flex>
@@ -57,7 +69,8 @@ export function LocationsForm({
             formik={formik}
             fieldName="location"
             label=""
-            onChangeFunction={setQueryLocationResults}
+            value={query}
+            onChangeFunction={(newValue: string) => setQuery(newValue)}
             fieldStyles={{
               minHeight: 48,
               marginRight: 24,
@@ -82,21 +95,29 @@ export function LocationsForm({
             disabled={!formik.isValid}
             iconSource={Assets.icons.search}
             iconStyle={{ tintColor: Colors.white }}
-            onPress={() => formSubmitHandler(formik.values, actions)}
+            onPress={() => getLocationsByQuery()}
           />
         </View>
       </View>
 
-      <View>
-        {isLoadingLocations && <Text>Campings is loading, please wait a second...</Text>}
+      <View flex>
+        {isLoadingLocations
+          && (
+          <Text>
+            Campings is loading, please wait a second...
+          </Text>
+          )}
 
-        {(!isLoadingLocations && locations.length === 0)
-        && <Text>No camping matches with provided query</Text>}
+        {(!isLoadingLocations && locations.length === 0) && (
+        <Text>
+          No camping matches with provided query
+        </Text>
+        )}
 
         {(!isLoadingLocations && locations.length > 0) && (
         <Carousel
           containerStyle={{
-            minHeight: '100%',
+            minHeight: 700,
           }}
           pageControlProps={{
             size: 10,
@@ -104,64 +125,8 @@ export function LocationsForm({
           pageControlPosition={Carousel.pageControlPositions.OVER}
         >
           {
-            locations?.map((camp: ILocation) => {
-              const [altImages, setAltImages] = useState(
-                [
-                  ...camp.images.map((image) => image.url),
-                ],
-              );
-              const [campImageSrc, setCampImageSrc] = useState(altImages[0]);
-
-              const skipCampImage = () => {
-                setAltImages(altImages.slice(1));
-                setCampImageSrc(altImages[1]);
-              };
-
-              return (
-                <View flex paddingH-16 centerV key={camp.id}>
-                  <View flex style={{ height: '100%' }}>
-                    <Image
-                      overlayType={Image.overlayTypes.BOTTOM}
-                      style={{
-                        height: '100%',
-                        borderRadius: 36,
-                        overflow: 'hidden',
-                      }}
-                      source={campImageSrc ? {
-                        uri: campImageSrc,
-                      } : Assets.graphic.camp}
-                      onError={() => {
-                        skipCampImage();
-                      }}
-                    />
-                  </View>
-
-                  <View flex style={{ marginTop: -70 }}>
-                    <Text white heading3 textCenter marginB-16>{camp.name}</Text>
-
-                    <View centerH>
-                      <Button
-                        activeOpacity={0.97}
-                        style={{ ...globalStyles.button, minWidth: 160 }}
-                        backgroundColor={Colors.primary}
-                        disabledBackgroundColor={Colors.gray400}
-                        mode="contained"
-                      >
-                        <Text
-                          style={{
-                            ...globalStyles.text,
-                            ...globalStyles.buttonText,
-                          }}
-                        >
-                          Explore
-                        </Text>
-                      </Button>
-                    </View>
-                  </View>
-                </View>
-              );
-            })
-            }
+            locations?.map((camp: ILocation) => <LocationCard key={camp.id} camp={camp} />)
+          }
         </Carousel>
         )}
       </View>

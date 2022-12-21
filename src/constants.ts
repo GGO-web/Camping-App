@@ -15,6 +15,8 @@ export const languagesList = [
 
 export const initialLanguage = { English: true };
 
+export const CAMPING_LOCATIONS = '@camping-locations';
+
 export const mockedLocations: ILocation[] = [
   {
     id: 'ABDC6E2A-9959-4A4C-9DB6-EEF66E7C95B8',

@@ -53,7 +53,6 @@ export function Locations() {
       >
         {(formik) => (
           <LocationsForm
-            formSubmitHandler={formSubmitHandler}
             formik={formik}
           />
         )}

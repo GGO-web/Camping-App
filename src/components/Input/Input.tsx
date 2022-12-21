@@ -11,6 +11,7 @@ export function Input({
   formik,
   fieldName,
   label,
+  value,
   fieldStyles = {},
   validate = true,
   onChangeFunction,
@@ -19,6 +20,7 @@ export function Input({
   formik: FormikProps<any>,
   fieldName: string;
   label: string;
+  value?: string;
   fieldStyles?: {};
   validate?: boolean;
   onChangeFunction?: Function,
@@ -32,7 +34,7 @@ export function Input({
 
         if (onChangeFunction) onChangeFunction(newValue);
       }}
-      value={formik.values[fieldName]}
+      value={value || formik.values[fieldName]}
       validationMessageStyle={{
         ...globalStyles.validationMessage,
         ...(!validate ? { marginTop: 0 } : []),

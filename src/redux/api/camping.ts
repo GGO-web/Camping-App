@@ -7,11 +7,13 @@ export const campingApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: '',
   }),
+  tagTypes: ['Camping'],
   endpoints: (builder) => ({
     getCampingPlaces: builder.query<ILocationResponse, { name: string; limit?: number }>({
-      query: ({ name, limit = 1 }) => ({
+      query: ({ name, limit = 20 }) => ({
         url: `${process.env.REACT_APP_CAMPING_BASE_URL}?q=${name}&limit=${limit}&api_key=${process.env.REACT_APP_CAMPING_API_KEY}`,
       }),
+      providesTags: ['Camping'],
     }),
   }),
 });
