@@ -8,6 +8,17 @@ export interface ILocation {
     url: string;
     [key: string]: any;
   }>,
+  addresses?: Array<
+  {
+    postalCode: string,
+    city: string,
+    stateCode: string,
+    type: string,
+    line1?: string,
+    line2?: string,
+    line3?: string,
+  }
+  >,
   [key: string]: any;
 }
 

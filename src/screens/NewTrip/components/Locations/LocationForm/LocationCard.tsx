@@ -52,7 +52,10 @@ export function LocationCard({ camp }: { camp: ILocation }) {
             backgroundColor={Colors.primary}
             disabledBackgroundColor={Colors.gray400}
             onPress={() => {
-              navigation.navigate('Location' as never);
+              navigation.navigate('Location' as never, {
+                location: camp,
+                locationImage: campImageSrc,
+              } as never);
             }}
             mode="contained"
           >
