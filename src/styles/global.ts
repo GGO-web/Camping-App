@@ -43,6 +43,7 @@ export const globalStyles = StyleSheet.create({
   button: {
     borderRadius: 12,
     elevation: 5,
+    paddingVertical: 12,
   },
   buttonText: {
     fontFamily: 'SFProMedium',

@@ -28,6 +28,7 @@ export function Home() {
           </View>
 
           <Button
+            marginB-16
             mode="contained"
             style={globalStyles.button}
             backgroundColor={Colors.primary}
