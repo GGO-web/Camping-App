@@ -1,53 +1,74 @@
-import React, { useCallback } from "react";
+import React, { useCallback } from 'react';
 
-import { TextField } from "react-native-ui-lib/src/incubator";
+import { FormikProps } from 'formik';
 
-import { globalStyles } from "../../styles/global";
+import { Colors } from 'react-native-ui-lib';
+import { TextField } from 'react-native-ui-lib/src/incubator';
 
-export const Input = ({
-   formik,
-   fieldName,
-   label,
-   ...inputAttributes
+import { globalStyles } from '../../styles/global';
+
+export function Input({
+  formik,
+  fieldName,
+  label,
+  value,
+  fieldStyles = {},
+  validate = true,
+  onChangeFunction,
+  ...inputAttributes
 }: {
-   formik: any;
-   fieldName: string;
-   label: string;
-   inputAttributes?: any;
-}) => {
-   return (
-      <TextField
-         label={label}
-         onChangeText={formik.handleChange(fieldName)}
-         value={formik.values[fieldName]}
-         validationMessageStyle={globalStyles.validationMessage}
-         labelStyle={{ ...globalStyles.text, ...globalStyles.label }}
-         autoCapitalize="none"
-         fieldStyle={{
-            ...globalStyles.text,
-            ...globalStyles.input,
-            ...(formik.touched[fieldName]
-               ? formik.errors[fieldName]
-                  ? globalStyles.isError
-                  : globalStyles.isValid
-               : []),
-         }}
-         onChange={useCallback(
-            () => formik.setFieldTouched(fieldName, true, true),
-            [formik.touched[fieldName]]
-         )}
-         enableErrors={true}
-         validateOnChange={true}
-         validateOnBlur={true}
-         onBlur={formik.handleBlur(fieldName)}
-         validate={[() => false]}
-         validationMessage={[formik.errors[fieldName]]}
-         style={
-            formik.errors[fieldName]
-               ? globalStyles.isError
-               : globalStyles.isValid
-         }
-         {...inputAttributes}
-      />
-   );
-};
+  formik: FormikProps<any>,
+  fieldName: string;
+  label: string;
+  value?: string;
+  fieldStyles?: {};
+  validate?: boolean;
+  onChangeFunction?: Function,
+  inputAttributes?: any;
+}) {
+  return (
+    <TextField
+      label={label}
+      onChangeText={(newValue: string) => {
+        formik.setFieldValue(fieldName, newValue);
+
+        if (onChangeFunction) onChangeFunction(newValue);
+      }}
+      value={value || formik.values[fieldName]}
+      validationMessageStyle={{
+        ...globalStyles.validationMessage,
+        ...(!validate ? { marginTop: 0 } : []),
+      }}
+      labelStyle={{ ...globalStyles.text, ...globalStyles.label }}
+      autoCapitalize="none"
+      fieldStyle={{
+        ...globalStyles.text,
+        ...globalStyles.input,
+        ...fieldStyles,
+        ...(formik.touched[fieldName] && validate
+          ? formik.errors[fieldName]
+            ? globalStyles.isError
+            : globalStyles.isValid
+          : []),
+      }}
+      onChange={useCallback(
+        () => formik.setFieldTouched(fieldName, true, true),
+        [formik.touched[fieldName]],
+      )}
+      enableErrors
+      validateOnChange
+      validateOnBlur
+      onBlur={formik.handleBlur(fieldName)}
+      validate={[() => false]}
+      validationMessage={[formik.errors[fieldName]]}
+      style={
+        validate
+          ? formik.errors[fieldName]
+            ? globalStyles.isError
+            : globalStyles.isValid
+          : { color: Colors.dark }
+      }
+      {...inputAttributes}
+    />
+  );
+}

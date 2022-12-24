@@ -1,21 +1,38 @@
-import React from "react";
-import { Button, Icon, Text } from "react-native-ui-lib";
-import { useNavigation } from "@react-navigation/native";
+import React from 'react';
+import { Button, Icon, Text } from 'react-native-ui-lib';
+import { useNavigation } from '@react-navigation/native';
 
-export const CrumbsLink = ({ children }: { children: any }) => {
-   const navigation = useNavigation();
+export function CrumbsLink({
+  children,
+  style,
+  iconStyles,
+}: {
+  children: any,
+  style?: any,
+  iconStyles?: any
+}) {
+  const navigation = useNavigation();
 
-   return (
-      <Button
-         left
-         marginV-25
-         onPress={() => navigation.goBack()}
-         centerV
-         backgroundColor="transparent"
-      >
-         <Icon marginR-8 width={32} height={32} assetName="chevron_left"></Icon>
+  return (
+    <Button
+      left
+      marginB-25
+      onPress={() => navigation.goBack()}
+      centerV
+      style={style}
+      backgroundColor="transparent"
+    >
+      <Icon
+        style={{
+          width: 14, height: 14, resizeMode: 'contain', ...iconStyles,
+        }}
+        marginR-8
+        assetName="chevron_left"
+      />
 
-         <Text mrAuto>{children}</Text>
-      </Button>
-   );
-};
+      <Text paragraph1 mrAuto>
+        {children}
+      </Text>
+    </Button>
+  );
+}
