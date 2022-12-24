@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {
@@ -21,6 +21,7 @@ import { globalStyles } from '../../../../styles/global';
 import { ITeamMate } from '../../NewTrip.model';
 import { CalendarToggler } from '../../../../components/CalendarToggler/CalendarToggler';
 import { useAppSelector } from '../../../../redux/hooks';
+import { useActions } from '../../../../hooks/actions';
 
 export function NewTripForm({
   formSubmitHandler,
@@ -33,11 +34,15 @@ export function NewTripForm({
 
   const navigation = useNavigation();
 
+  const { tripName, tripPeriod } = useAppSelector((store) => store.trip);
+
   const selectedLocations = useAppSelector(
-    (store) => store.selectedLocations.selectedLocations.map(
+    (store) => store.trip.selectedLocations.map(
       (selectedLocation) => selectedLocation.name,
     ),
   );
+
+  const { setTripPeriod } = useActions();
 
   return (
     <View>
@@ -46,6 +51,7 @@ export function NewTripForm({
           formik={formik}
           fieldName="name"
           label="Trip Name"
+          value={tripName}
           {...{
             caretHidden: false,
           }}
@@ -169,7 +175,7 @@ export function NewTripForm({
       </View>
 
       <View paddingV-10 style={globalStyles.formGroup}>
-        <CalendarToggler />
+        <CalendarToggler tripPeriod={tripPeriod} setTripPeriod={setTripPeriod} />
       </View>
 
       <Button

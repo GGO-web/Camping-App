@@ -1,9 +1,15 @@
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from '@reduxjs/toolkit';
-import { addLocation } from '../redux/locations/locationsSlice';
+
+import {
+  addLocation, setTripName, setTripPeriod, setTeammates,
+} from '../redux/trip/tripSlice';
 
 const actions = {
   addLocation,
+  setTripName,
+  setTripPeriod,
+  setTeammates,
 };
 
 type ActionsType = typeof actions;

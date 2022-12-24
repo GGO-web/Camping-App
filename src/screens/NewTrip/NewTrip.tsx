@@ -3,15 +3,18 @@ import { View } from 'react-native-ui-lib';
 
 import { Formik, FormikHelpers } from 'formik';
 
+import { useNavigation } from '@react-navigation/native';
 import { CrumbsLink } from '../../components/common/CrumbsLink';
 
 import { NewTripForm } from './components/NewTripForm/NewTripForm';
 
+import { firebaseAuth } from '../../firebase/firebase';
+import { useAppSelector } from '../../redux/hooks';
+import { useActions } from '../../hooks/actions';
+
 import { ITeamMate } from './NewTrip.model';
 
 import { globalStyles } from '../../styles/global';
-import { firebaseAuth } from '../../firebase/firebase';
-import { useAppSelector } from '../../redux/hooks';
 
 export interface INewTrip {
   name: string;
@@ -27,17 +30,32 @@ export function NewTrip() {
     }],
   };
 
-  const selectedLocations = useAppSelector(
-    (store) => store.selectedLocations.selectedLocations.map(
-      (selectedLocation) => selectedLocation.name,
-    ),
-  );
+  const navigation = useNavigation();
+
+  const tripData = useAppSelector((store) => store.trip);
+
+  const { setTripName, setTeammates } = useActions();
 
   const formSubmitHandler = async (
     values: INewTrip,
     actions: FormikHelpers<INewTrip>,
   ) => {
-    console.log(values);
+    if (values.name.length === 0) {
+      return;
+    }
+
+    if (tripData.selectedLocations.length === 0) {
+      return;
+    }
+
+    if (tripData.tripPeriod.formatted.length === 0) {
+      return;
+    }
+
+    setTripName(values.name);
+    setTeammates(values.teammates);
+
+    navigation.navigate('Bag' as never);
   };
 
   return (

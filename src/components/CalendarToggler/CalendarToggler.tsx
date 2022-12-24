@@ -13,11 +13,18 @@ import dayjs from 'dayjs';
 import { DateInput } from './components/DateInput/DateInput';
 
 import { globalStyles } from '../../styles/global';
+import { ITripPeriod } from '../../models/Trip.model';
 
-export function CalendarToggler() {
+export function CalendarToggler({
+  tripPeriod,
+  setTripPeriod,
+}: {
+  tripPeriod?: ITripPeriod,
+  setTripPeriod?: Function
+}) {
   const [isOpen, setIsOpen] = useState(false);
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const [startDate, setStartDate] = useState(tripPeriod?.startDate);
+  const [endDate, setEndDate] = useState(tripPeriod?.endDate);
 
   const getCalendarToggleText = () => {
     const start = dayjs(startDate).format('DD MMMM');
@@ -62,7 +69,20 @@ export function CalendarToggler() {
         </Text>
       </Button>
 
-      <Dialog visible={isOpen} onDismiss={() => setIsOpen(false)}>
+      <Dialog
+        visible={isOpen}
+        onDismiss={() => {
+          if (setTripPeriod) {
+            setTripPeriod({
+              startDate,
+              endDate,
+              formatted: getCalendarToggleText(),
+            });
+          }
+
+          setIsOpen(false);
+        }}
+      >
         <DateInput
           {...{
             startDate, setStartDate, endDate, setEndDate,

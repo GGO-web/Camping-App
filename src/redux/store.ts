@@ -1,11 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { campingApi } from './api/camping';
-import { locationReducer } from './locations/locationsSlice';
+import { tripReducer } from './trip/tripSlice';
 import { userReducer } from './userConfig/userSlice';
 
 const rootReducer = combineReducers({
   userProfile: userReducer,
-  selectedLocations: locationReducer,
+  trip: tripReducer,
   [campingApi.reducerPath]: campingApi.reducer,
 });
 
