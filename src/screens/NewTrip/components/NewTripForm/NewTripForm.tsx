@@ -15,7 +15,7 @@ import { FormikProps, useFormikContext } from 'formik';
 
 import { Input } from '../../../../components/Input/Input';
 
-import { INewTrip } from '../../NewTrip';
+import type { INewTrip } from '../../NewTrip';
 
 import { globalStyles } from '../../../../styles/global';
 import { ITeamMate } from '../../NewTrip.model';
@@ -53,17 +53,19 @@ export function NewTripForm({
       </View>
 
       <View style={globalStyles.formGroup}>
-        <Input
-          formik={formik}
-          fieldName="location"
-          label="Locations"
-          value={selectedLocations.join(', ')}
-          validate={false}
-          {...{
-            editable: false,
-            contextMenuHidden: true,
-          }}
-        />
+        {selectedLocations.length ? (
+          <Input
+            formik={formik}
+            fieldName="location"
+            label="Locations"
+            value={selectedLocations.join(', ')}
+            validate={false}
+            {...{
+              editable: false,
+              contextMenuHidden: true,
+            }}
+          />
+        ) : <Text style={{ ...globalStyles.text, ...globalStyles.label }}>Locations</Text>}
 
         <View left>
           <Button
@@ -95,9 +97,9 @@ export function NewTripForm({
           horizontal
         >
           {formik.values.teammates.map(
-            (teamMate: ITeamMate, index: number) => (
+            (teamMate: ITeamMate) => (
               <View
-                key={index}
+                key={teamMate.id}
                 center
                 style={{ width: 80, height: 80, borderRadius: 12 }}
                 marginR-16
@@ -111,10 +113,10 @@ export function NewTripForm({
                   }}
                   size={80}
                   source={
-                              teamMate.avatar
-                                ? { uri: teamMate.avatar }
-                                : Assets.icons.avatar
-                           }
+                    teamMate.avatar
+                      ? { uri: teamMate.avatar }
+                      : Assets.icons.avatar
+                  }
                 />
               </View>
             ),

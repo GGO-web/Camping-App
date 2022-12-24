@@ -34,7 +34,7 @@ export function Location() {
     }}
     >
       <Image
-        overlayType={Image.overlayTypes.VERTICAL}
+        overlayType={Image.overlayTypes.SOLID}
         style={{
           position: 'absolute',
           top: 0,

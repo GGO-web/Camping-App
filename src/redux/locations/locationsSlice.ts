@@ -11,9 +11,11 @@ const locationSlice = createSlice({
   initialState,
   reducers: {
     addLocation: (state, action: PayloadAction<ILocation>) => ({
+      ...state,
       selectedLocations: [...state.selectedLocations, action.payload],
     }),
     removeLocation: (state, action: PayloadAction<string>) => ({
+      ...state,
       selectedLocations: state.selectedLocations.filter(
         (location: ILocation) => location.id !== action.payload,
       ),

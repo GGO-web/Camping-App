@@ -22,7 +22,8 @@
     "react/require-default-props": "off",
     "no-return-assign": "off",
     "no-nested-ternary": "warn",
-    "global-require": "off"
+    "global-require": "off",
+    "@typescript-eslint/no-shadow": "off"
   },
   "ignorePatterns": ["postcss.config.ts", "tailwind.config.ts"]
 }

@@ -1,3 +1,4 @@
 export interface ITeamMate {
-   avatar: string;
+  id: string;
+  avatar: string;
 }
