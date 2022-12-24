@@ -11,22 +11,27 @@ import { ITeamMate } from './NewTrip.model';
 
 import { globalStyles } from '../../styles/global';
 import { firebaseAuth } from '../../firebase/firebase';
+import { useAppSelector } from '../../redux/hooks';
 
 export interface INewTrip {
   name: string;
-  location: string;
   teammates: Array<ITeamMate>;
 }
 
 export function NewTrip() {
   const formInitialValues: INewTrip = {
     name: '',
-    location: '',
     teammates: [{
       id: firebaseAuth.currentUser?.uid as string,
       avatar: firebaseAuth.currentUser?.photoURL as string,
     }],
   };
+
+  const selectedLocations = useAppSelector(
+    (store) => store.selectedLocations.selectedLocations.map(
+      (selectedLocation) => selectedLocation.name,
+    ),
+  );
 
   const formSubmitHandler = async (
     values: INewTrip,

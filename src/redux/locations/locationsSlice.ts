@@ -10,10 +10,9 @@ const locationSlice = createSlice({
   name: 'location',
   initialState,
   reducers: {
-    addLocation: (state, action: PayloadAction<ILocation>) => ({
-      ...state,
-      selectedLocations: [...state.selectedLocations, action.payload],
-    }),
+    addLocation: (state, action: PayloadAction<ILocation>) => {
+      state.selectedLocations.push(action.payload);
+    },
     removeLocation: (state, action: PayloadAction<string>) => ({
       ...state,
       selectedLocations: state.selectedLocations.filter(
