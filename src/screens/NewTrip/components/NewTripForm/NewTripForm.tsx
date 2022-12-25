@@ -14,14 +14,15 @@ import {
 import { FormikProps, useFormikContext } from 'formik';
 
 import { Input } from '../../../../components/Input/Input';
-
-import type { INewTrip } from '../../NewTrip';
-
-import { globalStyles } from '../../../../styles/global';
-import { ITeamMate } from '../../NewTrip.model';
 import { CalendarToggler } from '../../../../components/CalendarToggler/CalendarToggler';
+
 import { useAppSelector } from '../../../../redux/hooks';
 import { useActions } from '../../../../hooks/actions';
+
+import type { INewTrip } from '../../NewTrip';
+import { ITeamMate } from '../../NewTrip.model';
+
+import { globalStyles } from '../../../../styles/global';
 
 export function NewTripForm({
   formSubmitHandler,
@@ -34,15 +35,13 @@ export function NewTripForm({
 
   const navigation = useNavigation();
 
-  const { tripName, tripPeriod } = useAppSelector((store) => store.trip);
-
   const selectedLocations = useAppSelector(
     (store) => store.trip.selectedLocations.map(
       (selectedLocation) => selectedLocation.name,
     ),
   );
 
-  const { setTripPeriod } = useActions();
+  const { setTripPeriod, setTripName } = useActions();
 
   return (
     <View>
@@ -51,7 +50,7 @@ export function NewTripForm({
           formik={formik}
           fieldName="name"
           label="Trip Name"
-          value={tripName}
+          onChangeFunction={(newTripName: string) => setTripName(newTripName)}
           {...{
             caretHidden: false,
           }}
@@ -175,7 +174,7 @@ export function NewTripForm({
       </View>
 
       <View paddingV-10 style={globalStyles.formGroup}>
-        <CalendarToggler tripPeriod={tripPeriod} setTripPeriod={setTripPeriod} />
+        <CalendarToggler tripPeriod={formik.values.tripPeriod} setTripPeriod={setTripPeriod} />
       </View>
 
       <Button

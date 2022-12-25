@@ -1,3 +1,4 @@
+import { ToastPresets } from 'react-native-ui-lib';
 import { ILocation } from './models/Locations.model';
 
 export const authConfig = {
@@ -16,6 +17,28 @@ export const languagesList = [
 export const initialLanguage = { English: true };
 
 export const CAMPING_LOCATIONS = '@camping-locations';
+
+export const NEW_TRIP_TOAST_MESSAGES: { [key: string]: {
+  preset: ToastPresets,
+  message: string
+} } = {
+  tripNameEmpty: {
+    preset: ToastPresets.FAILURE,
+    message: 'Your trip name is empty, just write smth😉',
+  },
+  tripLocationsEmpty: {
+    preset: ToastPresets.FAILURE,
+    message: 'Locations couldn`t be empty🏕',
+  },
+  tripDatePeriodEmpty: {
+    preset: ToastPresets.FAILURE,
+    message: 'Please choose time period for camping⏳',
+  },
+  tripSuccess: {
+    preset: ToastPresets.SUCCESS,
+    message: 'Info was successfully defined, lets prepare your bag🎒',
+  },
+};
 
 export const mockedLocations: ILocation[] = [
   {

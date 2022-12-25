@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native-ui-lib';
+import { Toast, ToastPresets } from 'react-native-ui-lib/src/incubator';
 
-import { Formik, FormikHelpers } from 'formik';
+import { Formik } from 'formik';
 
 import { useNavigation } from '@react-navigation/native';
 import { CrumbsLink } from '../../components/common/CrumbsLink';
@@ -15,66 +16,112 @@ import { useActions } from '../../hooks/actions';
 import { ITeamMate } from './NewTrip.model';
 
 import { globalStyles } from '../../styles/global';
+import { NEW_TRIP_TOAST_MESSAGES } from '../../constants';
+import { ITripPeriod } from '../../models/Trip.model';
 
 export interface INewTrip {
   name: string;
   teammates: Array<ITeamMate>;
+  tripPeriod: ITripPeriod
 }
 
 export function NewTrip() {
+  const tripData = useAppSelector((store) => store.trip);
+
   const formInitialValues: INewTrip = {
-    name: '',
-    teammates: [{
+    name: tripData.tripName,
+    teammates: tripData.teammates || [{
       id: firebaseAuth.currentUser?.uid as string,
       avatar: firebaseAuth.currentUser?.photoURL as string,
     }],
+    tripPeriod: tripData.tripPeriod,
   };
 
   const navigation = useNavigation();
 
-  const tripData = useAppSelector((store) => store.trip);
-
   const { setTripName, setTeammates } = useActions();
+
+  const [toastParams, setToastParams] = useState({
+    visible: false,
+    preset: ToastPresets.GENERAL,
+    message: '',
+  });
 
   const formSubmitHandler = async (
     values: INewTrip,
-    actions: FormikHelpers<INewTrip>,
   ) => {
     if (values.name.length === 0) {
+      setToastParams((prevToast) => ({
+        ...prevToast,
+        message: NEW_TRIP_TOAST_MESSAGES.tripNameEmpty.message,
+        preset: NEW_TRIP_TOAST_MESSAGES.tripNameEmpty.preset,
+        visible: true,
+      }));
       return;
     }
 
     if (tripData.selectedLocations.length === 0) {
+      setToastParams((prevToast) => ({
+        ...prevToast,
+        message: NEW_TRIP_TOAST_MESSAGES.tripLocationsEmpty.message,
+        preset: NEW_TRIP_TOAST_MESSAGES.tripLocationsEmpty.preset,
+        visible: true,
+      }));
       return;
     }
 
     if (tripData.tripPeriod.formatted.length === 0) {
+      setToastParams((prevToast) => ({
+        ...prevToast,
+        message: NEW_TRIP_TOAST_MESSAGES.tripDatePeriodEmpty.message,
+        preset: NEW_TRIP_TOAST_MESSAGES.tripDatePeriodEmpty.preset,
+        visible: true,
+      }));
       return;
     }
 
     setTripName(values.name);
     setTeammates(values.teammates);
 
-    navigation.navigate('Bag' as never);
+    setToastParams({
+      message: NEW_TRIP_TOAST_MESSAGES.tripSuccess.message,
+      preset: NEW_TRIP_TOAST_MESSAGES.tripSuccess.preset,
+      visible: true,
+    });
+
+    setTimeout(() => {
+      navigation.navigate('Bag' as never);
+    }, 3000);
   };
 
   return (
-    <View style={{ ...globalStyles.container, ...globalStyles.navcontainer }}>
-      <CrumbsLink>Add new Trip</CrumbsLink>
+    <>
+      <Toast
+        visible={toastParams.visible}
+        position="top"
+        message={toastParams.message}
+        preset={toastParams.preset}
+        onDismiss={() => setToastParams((prevToast) => ({ ...prevToast, visible: false }))}
+        autoDismiss={2500}
+        zIndex={2500}
+      />
+      <View style={{ ...globalStyles.container, ...globalStyles.navcontainer }}>
+        <CrumbsLink>Add new Trip</CrumbsLink>
 
-      <Formik
-        initialValues={formInitialValues}
-        onSubmit={(values: INewTrip, actions) => {
-          formSubmitHandler(values, actions);
-        }}
-      >
-        {(formik) => (
-          <NewTripForm
-            formSubmitHandler={formSubmitHandler}
-            formik={formik}
-          />
-        )}
-      </Formik>
-    </View>
+        <Formik
+          initialValues={formInitialValues}
+          onSubmit={(values: INewTrip) => {
+            formSubmitHandler(values);
+          }}
+        >
+          {(formik) => (
+            <NewTripForm
+              formSubmitHandler={formSubmitHandler}
+              formik={formik}
+            />
+          )}
+        </Formik>
+      </View>
+    </>
   );
 }
