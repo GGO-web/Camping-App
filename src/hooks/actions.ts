@@ -8,6 +8,7 @@ import {
   setTeammates,
   setLatestLocation,
   setLatestLocationsList,
+  addBagItem,
 } from '../redux/trip/tripSlice';
 
 const actions = {
@@ -17,6 +18,7 @@ const actions = {
   setTeammates,
   setLatestLocation,
   setLatestLocationsList,
+  addBagItem,
 };
 
 type ActionsType = typeof actions;

@@ -28,6 +28,7 @@ export function Input({
 }) {
   return (
     <TextField
+      migrate
       label={label}
       onChangeText={(newValue: string) => {
         formik.setFieldValue(fieldName, newValue);

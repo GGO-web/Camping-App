@@ -16,6 +16,7 @@ const initialState: ITrip = {
   selectedLocations: [],
   latestLocation: '',
   latestLocationsList: [],
+  bagItems: [],
 };
 
 const tripSlice = createSlice({
@@ -45,6 +46,9 @@ const tripSlice = createSlice({
     setLatestLocationsList: (state, action: PayloadAction<ILocation[]>) => {
       state.latestLocationsList = action.payload;
     },
+    addBagItem: (state, action: PayloadAction<string>) => {
+      state.bagItems.push(action.payload);
+    },
   },
 });
 
@@ -56,5 +60,6 @@ export const {
   setTeammates,
   setLatestLocation,
   setLatestLocationsList,
+  addBagItem,
 } = tripSlice.actions;
 export const tripReducer = tripSlice.reducer;
