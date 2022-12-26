@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  View, Image, Text, Button, Colors, Assets,
+  View, Image, Text, Button, Colors, Assets, AnimatedImage,
 } from 'react-native-ui-lib';
 import { useNavigation } from '@react-navigation/native';
 
@@ -26,7 +26,7 @@ export function LocationCard({ camp }: { camp: ILocation }) {
   return (
     <View flex paddingH-16 centerV>
       <View flex style={{ height: '100%' }}>
-        <Image
+        <AnimatedImage
           overlayType={Image.overlayTypes.BOTTOM}
           style={{
             height: 400,
