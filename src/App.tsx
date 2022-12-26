@@ -21,12 +21,15 @@ import { Login } from './screens/Login/Login';
 import { SignUp } from './screens/SignUp/SignUp';
 import { Home } from './screens/Home/Home';
 import { Logout } from './screens/Logout/Logout';
+
 import { HowToUse } from './screens/HowToUse/HowToUse';
 import { Language } from './screens/Language/Language';
+
 import { NewTrip } from './screens/NewTrip/NewTrip';
 import { Teammates } from './screens/NewTrip/components/Teammates/Teammates';
 import { Locations } from './screens/NewTrip/components/Locations/Locations';
 import { Location } from './screens/NewTrip/components/Locations/components/Location/Location';
+import { Bag } from './screens/NewTrip/components/Bag/Bag';
 
 const Stack = createNativeStackNavigator();
 
@@ -83,10 +86,12 @@ export default function App() {
       <Stack.Screen name="Logout" component={Logout} />
       <Stack.Screen name="HowToUse" component={HowToUse} />
       <Stack.Screen name="Language" component={Language} />
+
       <Stack.Screen name="NewTrip" component={NewTrip} />
       <Stack.Screen name="Teammates" component={Teammates} />
       <Stack.Screen name="Locations" component={Locations} />
       <Stack.Screen name="Location" component={Location} />
+      <Stack.Screen name="Bag" component={Bag} />
     </Stack.Navigator>
   );
 }
