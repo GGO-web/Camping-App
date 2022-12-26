@@ -10,7 +10,7 @@ import { CrumbsLink } from '../../../../components/common/CrumbsLink';
 import { locationSchema } from '../../../../helpers/validationSchema';
 
 import { globalStyles } from '../../../../styles/global';
-import { LocationsForm } from './LocationForm/LocationsForm';
+import { LocationsForm } from './components/LocationForm/LocationsForm';
 
 export interface ILocationValue {
   location: string;
@@ -33,8 +33,8 @@ export function Locations() {
       navigation.goBack();
     } catch (error) {
       actions.setFieldError(
-        'teammateId',
-        'Looks like this ID is not valid. try another one',
+        'location',
+        'Looks location is not present, please try another one',
       );
     }
   };

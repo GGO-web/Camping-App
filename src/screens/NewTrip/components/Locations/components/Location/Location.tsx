@@ -5,11 +5,11 @@ import {
 
 import { useNavigation, useRoute } from '@react-navigation/native';
 
-import { CrumbsLink } from '../../components/common/CrumbsLink';
+import { CrumbsLink } from '../../../../../../components/common/CrumbsLink';
 
-import { globalStyles } from '../../styles/global';
-import { ILocation } from '../../models/Locations.model';
-import { useActions } from '../../hooks/actions';
+import { globalStyles } from '../../../../../../styles/global';
+import { ILocation } from '../../../../../../models/Locations.model';
+import { useActions } from '../../../../../../hooks/actions';
 
 export function Location() {
   const route = useRoute();

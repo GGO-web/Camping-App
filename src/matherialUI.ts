@@ -2,7 +2,7 @@ import {
   Assets, Colors, ThemeManager, Typography,
 } from 'react-native-ui-lib';
 
-Colors.loadColors({
+const colors = {
   primary: '#84CC16',
   primary50: '#F7FEE7',
   primary100: '#ECFCCB',
@@ -16,9 +16,9 @@ Colors.loadColors({
   gray300: '#A1A1AA',
   gray500: '#71717A',
   gray700: '#3F3F46',
-});
+};
 
-Typography.loadTypographies({
+const typographies = {
   heading2: {
     fontFamily: 'SFProSemibold',
     fontWeight: '600',
@@ -68,9 +68,9 @@ Typography.loadTypographies({
   mrAuto: {
     marginRight: 'auto',
   },
-});
+};
 
-Assets.loadAssetsGroup('icons', {
+const iconsGroup = {
   chevron_left: require('../assets/chevron-left.png'),
   chevron_down: require('../assets/chevron-down.png'),
   back: require('../assets/prev.png'),
@@ -85,14 +85,27 @@ Assets.loadAssetsGroup('icons', {
   plus: require('../assets/plus.png'),
   search: require('../assets/search.png'),
   locationsCheck: require('../assets/location_check.png'),
-});
+};
 
-Assets.loadAssetsGroup('graphic', {
+const graphicGroup = {
   trips: require('../assets/trips.png'),
   camp: require('../assets/onboarding/img-4.png'),
-});
+};
 
-ThemeManager.setComponentTheme('Checkbox', (props: any, context: any) => ({
+Colors.loadColors(colors);
+
+Typography.loadTypographies(typographies);
+
+Assets.loadAssetsGroup('icons', iconsGroup);
+Assets.loadAssetsGroup('graphic', graphicGroup);
+
+export type AssetsIconsType = typeof iconsGroup;
+export type AssetsGraphicType = typeof graphicGroup;
+export type AssetsColorsType = typeof Colors & typeof colors;
+export type AssetsTypographiesType = typeof typographies;
+
+// custom components styles
+ThemeManager.setComponentTheme('Checkbox', () => ({
   color: Colors.primary,
   size: 20,
   borderRadius: 6,

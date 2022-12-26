@@ -10,9 +10,12 @@ import { Formik, FormikHelpers } from 'formik';
 import { CrumbsLink } from '../../../../components/common/CrumbsLink';
 import { TeammatesForm } from './components/TeammatesForm/TeammatesForm';
 
-import { globalStyles } from '../../../../styles/global';
-
+import { useAppSelector } from '../../../../redux/hooks';
 import { teammateSchema } from '../../../../helpers/validationSchema';
+
+import type { ITeamMate } from '../../NewTrip.model';
+
+import { globalStyles } from '../../../../styles/global';
 
 export interface ITeammateId {
   teammateId: string;
@@ -23,7 +26,7 @@ export function Teammates() {
     teammateId: '',
   };
 
-  const teammatesList = [];
+  const teammatesList: ITeamMate[] = useAppSelector((store) => store.trip.teammates);
   const [isReady, setIsReady] = useState(teammatesList.length > 1);
 
   const navigation = useNavigation();
