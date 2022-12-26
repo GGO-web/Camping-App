@@ -88,10 +88,6 @@ export function NewTrip() {
       preset: NEW_TRIP_TOAST_MESSAGES.tripSuccess.preset,
       visible: true,
     });
-
-    setTimeout(() => {
-      navigation.navigate('Bag' as never);
-    }, 3000);
   };
 
   return (
@@ -101,7 +97,14 @@ export function NewTrip() {
         position="top"
         message={toastParams.message}
         preset={toastParams.preset}
-        onDismiss={() => setToastParams((prevToast) => ({ ...prevToast, visible: false }))}
+        onDismiss={() => {
+          setToastParams((prevToast) => ({ ...prevToast, visible: false }));
+
+          // on dismiss toast navigate to the next screen
+          if (toastParams.preset === ToastPresets.SUCCESS) {
+            navigation.navigate('Bag' as never);
+          }
+        }}
         autoDismiss={2500}
         zIndex={2500}
       />

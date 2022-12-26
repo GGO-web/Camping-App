@@ -7,18 +7,18 @@ import {
 } from 'react-native-ui-lib';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { Input } from '../../../../../components/Input/Input';
+import { Input } from '../../../../../../components/Input/Input';
 import { LocationCard } from './LocationCard';
 
-import { useLazyGetCampingPlacesQuery } from '../../../../../redux/api/camping';
+import { useLazyGetCampingPlacesQuery } from '../../../../../../redux/api/camping';
 
-import type { ILocation } from '../../../../../models/Locations.model';
-import type { ILocationValue } from '../Locations';
+import type { ILocation } from '../../../../../../models/Locations.model';
+import type { ILocationValue } from '../../Locations';
 
-import { globalStyles } from '../../../../../styles/global';
-import { useDebounce } from '../../../../../hooks/debounce';
+import { globalStyles } from '../../../../../../styles/global';
+import { useDebounce } from '../../../../../../hooks/debounce';
 
-import { CAMPING_LOCATIONS } from '../../../../../constants';
+import { CAMPING_LOCATIONS } from '../../../../../../constants';
 
 export function LocationsForm({
   formik,

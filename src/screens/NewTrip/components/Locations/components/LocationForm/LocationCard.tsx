@@ -4,9 +4,9 @@ import {
 } from 'react-native-ui-lib';
 import { useNavigation } from '@react-navigation/native';
 
-import { ILocation } from '../../../../../models/Locations.model';
+import { ILocation } from '../../../../../../models/Locations.model';
 
-import { globalStyles } from '../../../../../styles/global';
+import { globalStyles } from '../../../../../../styles/global';
 
 export function LocationCard({ camp }: { camp: ILocation }) {
   const [altImages, setAltImages] = useState(

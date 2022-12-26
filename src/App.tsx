@@ -26,7 +26,7 @@ import { Language } from './screens/Language/Language';
 import { NewTrip } from './screens/NewTrip/NewTrip';
 import { Teammates } from './screens/NewTrip/components/Teammates/Teammates';
 import { Locations } from './screens/NewTrip/components/Locations/Locations';
-import { Location } from './screens/Location/Location';
+import { Location } from './screens/NewTrip/components/Locations/components/Location/Location';
 
 const Stack = createNativeStackNavigator();
 

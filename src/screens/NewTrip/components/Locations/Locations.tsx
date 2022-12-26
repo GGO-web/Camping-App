@@ -10,7 +10,7 @@ import { CrumbsLink } from '../../../../components/common/CrumbsLink';
 import { locationSchema } from '../../../../helpers/validationSchema';
 
 import { globalStyles } from '../../../../styles/global';
-import { LocationsForm } from './LocationForm/LocationsForm';
+import { LocationsForm } from './components/LocationForm/LocationsForm';
 
 export interface ILocationValue {
   location: string;
