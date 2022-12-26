@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import {
-  Assets, Colors, Dialog, PanningProvider, View, TextField, Text, ToastPresets, TouchableOpacity,
+  Assets, Colors, Dialog, PanningProvider, View, TextField, ToastPresets, TouchableOpacity,
 } from 'react-native-ui-lib';
 import { Toast } from 'react-native-ui-lib/src/incubator';
+
+import { v4 } from 'uuid';
 
 import { ButtonIcon } from '../../../../components/Buttons/ButtonIcon';
 import { ButtonPrimary } from '../../../../components/Buttons/ButtonPrimary';
@@ -10,15 +12,14 @@ import { CrumbsLink } from '../../../../components/common/CrumbsLink';
 import { useActions } from '../../../../hooks/actions';
 
 import type { AssetsColorsType, AssetsIconsType } from '../../../../matherialUI';
-import { useAppSelector } from '../../../../redux/hooks';
 
 import { globalStyles } from '../../../../styles/global';
+import { BagListItems } from './components/BagListItems/BagListItems';
 
 export function Bag() {
   const [bagInputDialogVisible, setBagInputDialogVisible] = useState(false);
 
   const [bagItem, setBagItem] = useState('');
-  const bagItems = useAppSelector((store) => store.trip.bagItems);
   const [toastParams, setToastParams] = useState({
     visible: false,
     preset: ToastPresets.FAILURE,
@@ -29,7 +30,7 @@ export function Bag() {
 
   return (
     <View style={{ ...globalStyles.container, ...globalStyles.navcontainer }}>
-      <View centerV spread row>
+      <View marginB-32 centerV spread row>
         <CrumbsLink style={{ marginBottom: 0 }}>Prepare your Bag</CrumbsLink>
 
         <ButtonIcon
@@ -114,7 +115,11 @@ export function Bag() {
             buttonText="Add item"
             buttonCallback={() => {
               if (bagItem.length !== 0) {
-                addBagItem(bagItem);
+                addBagItem({
+                  id: v4(),
+                  content: bagItem,
+                  count: 1,
+                });
 
                 setBagItem('');
                 setBagInputDialogVisible(false);
@@ -126,7 +131,7 @@ export function Bag() {
         </TouchableOpacity>
       </Dialog>
 
-      {bagItems.map((bagItem: string) => <Text>{bagItem}</Text>)}
+      <BagListItems />
     </View>
   );
 }

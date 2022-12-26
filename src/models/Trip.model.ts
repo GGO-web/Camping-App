@@ -1,4 +1,5 @@
 import type { ITeamMate } from '../screens/NewTrip/NewTrip.model';
+import { IBagItem } from './BagItem.model';
 import type { ILocation } from './Locations.model';
 
 export interface ITripPeriod {
@@ -14,5 +15,5 @@ export interface ITrip {
   tripPeriod: ITripPeriod;
   latestLocation?: string;
   latestLocationsList?: ILocation[];
-  bagItems: string[]
+  bagItems: IBagItem[]
 }

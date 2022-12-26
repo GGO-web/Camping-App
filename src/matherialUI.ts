@@ -73,6 +73,7 @@ const typographies = {
 const iconsGroup = {
   chevron_left: require('../assets/chevron-left.png'),
   chevron_down: require('../assets/chevron-down.png'),
+  checkmark: require('../assets/checkmark.png'),
   back: require('../assets/prev.png'),
   menu: require('../assets/menu.png'),
   copy: require('../assets/copy.png'),
