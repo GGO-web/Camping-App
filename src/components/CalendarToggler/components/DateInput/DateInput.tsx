@@ -37,6 +37,7 @@ export function DateInput({
           borderRadius: 13,
           paddingVertical: 10,
         }}
+        minDate={new Date(Date.now()).toISOString()}
         onDayPress={(day) => {
           if (startDate === day.dateString) {
             setStartDate('');

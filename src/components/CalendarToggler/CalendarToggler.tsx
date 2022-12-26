@@ -23,8 +23,8 @@ export function CalendarToggler({
   setTripPeriod?: Function
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [startDate, setStartDate] = useState(tripPeriod?.startDate);
-  const [endDate, setEndDate] = useState(tripPeriod?.endDate);
+  const [startDate, setStartDate] = useState(tripPeriod?.startDate || '');
+  const [endDate, setEndDate] = useState(tripPeriod?.endDate || '');
 
   const getCalendarToggleText = () => {
     const start = dayjs(startDate).format('DD MMMM');
