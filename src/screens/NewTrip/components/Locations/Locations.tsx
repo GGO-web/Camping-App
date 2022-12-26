@@ -33,8 +33,8 @@ export function Locations() {
       navigation.goBack();
     } catch (error) {
       actions.setFieldError(
-        'teammateId',
-        'Looks like this ID is not valid. try another one',
+        'location',
+        'Looks location is not present, please try another one',
       );
     }
   };

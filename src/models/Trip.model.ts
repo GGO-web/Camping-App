@@ -12,4 +12,6 @@ export interface ITrip {
   selectedLocations: ILocation[];
   teammates: ITeamMate[];
   tripPeriod: ITripPeriod;
+  latestLocation?: string;
+  latestLocationsList?: ILocation[];
 }

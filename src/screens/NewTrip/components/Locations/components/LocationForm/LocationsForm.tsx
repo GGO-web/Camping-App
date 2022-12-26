@@ -19,42 +19,49 @@ import { globalStyles } from '../../../../../../styles/global';
 import { useDebounce } from '../../../../../../hooks/debounce';
 
 import { CAMPING_LOCATIONS } from '../../../../../../constants';
+import { useActions } from '../../../../../../hooks/actions';
+import { useAppSelector } from '../../../../../../redux/hooks';
+import { useDidMountEffect } from '../../../../../../hooks/componentDidMount';
 
 export function LocationsForm({
   formik,
 }: {
   formik: FormikProps<ILocationValue>;
 }) {
-  const [query, setQuery] = useState(formik.values.location);
-  const debouncedSearchQuery = useDebounce(query, 1000);
+  const locationQuery = useAppSelector((store) => store.trip.latestLocation) || '';
+  const debouncedSearchQuery = useDebounce(locationQuery, 1000);
 
   const [getCampingLocations] = useLazyGetCampingPlacesQuery();
-  const [locations, setLocations] = useState<ILocation[]>([]);
+  const locations = useAppSelector((store) => store.trip.latestLocationsList) || [];
   const [isLoadingLocations, setIsLoadingLocations] = useState(false);
+
+  const { setLatestLocation, setLatestLocationsList } = useActions();
 
   const getLocationsByQuery = async () => {
     setIsLoadingLocations(true);
     const locationsResponse = await getCampingLocations({
-      name: formik.values.location,
+      name: locationQuery as string,
     }).unwrap();
 
-    setLocations(locationsResponse.data);
+    setLatestLocationsList(locationsResponse.data);
     await AsyncStorage.setItem(CAMPING_LOCATIONS, JSON.stringify(locationsResponse.data));
 
     setIsLoadingLocations(false);
   };
 
-  useEffect(() => {
+  useDidMountEffect(() => {
     getLocationsByQuery();
   }, [debouncedSearchQuery]);
 
   useEffect(() => {
     const getAllLocationsFromStorage = async () => {
       const campingLocationsStringified = await AsyncStorage.getItem(CAMPING_LOCATIONS);
-      const campingLocationsStorage = JSON.parse(campingLocationsStringified as string);
+      const campingLocationsStorage: ILocation[] = JSON.parse(
+        campingLocationsStringified as string,
+      );
 
       if (campingLocationsStorage.length) {
-        setLocations(campingLocationsStorage);
+        setLatestLocationsList(campingLocationsStorage);
       }
     };
 
@@ -69,8 +76,10 @@ export function LocationsForm({
             formik={formik}
             fieldName="location"
             label=""
-            value={query}
-            onChangeFunction={(newValue: string) => setQuery(newValue)}
+            value={locationQuery}
+            onChangeFunction={(newValue: string) => {
+              setLatestLocation(newValue);
+            }}
             fieldStyles={{
               minHeight: 48,
               marginRight: 24,
@@ -101,12 +110,11 @@ export function LocationsForm({
       </View>
 
       <View flex>
-        {isLoadingLocations
-          && (
+        {isLoadingLocations && (
           <Text>
             Campings is loading, please wait a second...
           </Text>
-          )}
+        )}
 
         {(!isLoadingLocations && locations.length === 0) && (
         <Text>
