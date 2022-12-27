@@ -73,6 +73,7 @@ const typographies = {
 const iconsGroup = {
   chevron_left: require('../assets/chevron-left.png'),
   chevron_down: require('../assets/chevron-down.png'),
+  checkmark: require('../assets/checkmark.png'),
   back: require('../assets/prev.png'),
   menu: require('../assets/menu.png'),
   copy: require('../assets/copy.png'),
@@ -99,10 +100,10 @@ Typography.loadTypographies(typographies);
 Assets.loadAssetsGroup('icons', iconsGroup);
 Assets.loadAssetsGroup('graphic', graphicGroup);
 
-export type AssetsIconsType = typeof iconsGroup;
-export type AssetsGraphicType = typeof graphicGroup;
+export type AssetsIconsType = typeof Assets & typeof iconsGroup;
+export type AssetsGraphicType = typeof Assets & typeof graphicGroup;
 export type AssetsColorsType = typeof Colors & typeof colors;
-export type AssetsTypographiesType = typeof typographies;
+export type AssetsTypographiesType = typeof Assets & typeof typographies;
 
 // custom components styles
 ThemeManager.setComponentTheme('Checkbox', () => ({

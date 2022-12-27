@@ -23,6 +23,11 @@ import { useActions } from '../../../../../../hooks/actions';
 import { useAppSelector } from '../../../../../../redux/hooks';
 import { useDidMountEffect } from '../../../../../../hooks/componentDidMount';
 
+interface ILocationsStorage {
+  query: string;
+  data: ILocation[]
+}
+
 export function LocationsForm({
   formik,
 }: {
@@ -44,7 +49,11 @@ export function LocationsForm({
     }).unwrap();
 
     setLatestLocationsList(locationsResponse.data);
-    await AsyncStorage.setItem(CAMPING_LOCATIONS, JSON.stringify(locationsResponse.data));
+
+    await AsyncStorage.setItem(CAMPING_LOCATIONS, JSON.stringify({
+      query: locationQuery,
+      data: locationsResponse.data,
+    }));
 
     setIsLoadingLocations(false);
   };
@@ -56,12 +65,18 @@ export function LocationsForm({
   useEffect(() => {
     const getAllLocationsFromStorage = async () => {
       const campingLocationsStringified = await AsyncStorage.getItem(CAMPING_LOCATIONS);
-      const campingLocationsStorage: ILocation[] = JSON.parse(
+
+      const campingLocationsStorage: ILocation[] = (JSON.parse(
         campingLocationsStringified as string,
-      );
+      ) as ILocationsStorage).data;
+
+      const campingLocationQueryStorage: string = (JSON.parse(
+        campingLocationsStringified as string,
+      ) as ILocationsStorage).query;
 
       if (campingLocationsStorage.length) {
         setLatestLocationsList(campingLocationsStorage);
+        setLatestLocation(campingLocationQueryStorage);
       }
     };
 

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IBagItem } from '../../models/BagItem.model';
 
 import { ILocation } from '../../models/Locations.model';
 
@@ -16,6 +17,7 @@ const initialState: ITrip = {
   selectedLocations: [],
   latestLocation: '',
   latestLocationsList: [],
+  bagItems: [],
 };
 
 const tripSlice = createSlice({
@@ -45,6 +47,16 @@ const tripSlice = createSlice({
     setLatestLocationsList: (state, action: PayloadAction<ILocation[]>) => {
       state.latestLocationsList = action.payload;
     },
+    addBagItem: (state, action: PayloadAction<IBagItem>) => {
+      state.bagItems.push(action.payload);
+    },
+    updateBagItemCount: (state, action: PayloadAction<{ id: string, count: number }>) => {
+      state.bagItems = state.bagItems.map((bagItem) => (
+        bagItem.id === action.payload.id ? {
+          ...bagItem,
+          count: action.payload.count,
+        } : bagItem));
+    },
   },
 });
 
@@ -56,5 +68,7 @@ export const {
   setTeammates,
   setLatestLocation,
   setLatestLocationsList,
+  addBagItem,
+  updateBagItemCount,
 } = tripSlice.actions;
 export const tripReducer = tripSlice.reducer;
