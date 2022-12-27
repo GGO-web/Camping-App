@@ -1,6 +1,6 @@
 import React from 'react';
+import { ScrollView } from 'react-native';
 
-import { View } from 'react-native-ui-lib';
 import { useAppSelector } from '../../../../../../redux/hooks';
 
 import type { IBagItem } from '../../../../../../models/BagItem.model';
@@ -11,7 +11,7 @@ export function BagListItems() {
   const bagItems = useAppSelector((store) => store.trip.bagItems);
 
   return (
-    <View>
+    <ScrollView>
       {bagItems.map(
         (bagItem: IBagItem) => (
           <BagListItem
@@ -20,6 +20,6 @@ export function BagListItems() {
           />
         ),
       )}
-    </View>
+    </ScrollView>
   );
 }

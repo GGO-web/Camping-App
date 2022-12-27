@@ -1,8 +1,18 @@
 import React, { useState } from 'react';
-import { Assets, Checkbox, Colors } from 'react-native-ui-lib';
+import {
+  Animated, StyleProp, ViewProps, ViewStyle,
+} from 'react-native';
+import {
+  Assets, Checkbox, Colors,
+} from 'react-native-ui-lib';
 import { AssetsIconsType } from '../../matherialUI';
 
-export function InputCheckbox() {
+export function InputCheckbox({
+  styles,
+}:
+{
+  styles?: StyleProp<ViewStyle | Animated.AnimatedProps<ViewStyle>>
+}) {
   const [checkboxState, setCheckboxState] = useState(true);
 
   return (
@@ -15,6 +25,7 @@ export function InputCheckbox() {
         backgroundColor: checkboxState
           ? Colors.primary500
           : 'transparent',
+        ...(styles as any),
       }}
       onValueChange={() => {
         setCheckboxState((prevCheckboxState) => !prevCheckboxState);

@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import {
   Assets, Colors, Dialog, PanningProvider, View, TextField, ToastPresets, TouchableOpacity,
@@ -28,6 +29,13 @@ export function Bag() {
 
   const { addBagItem } = useActions();
 
+  const navigation = useNavigation();
+
+  const prepareTripHandler = () => {
+    // add trip into db and show main page with the trip info
+    navigation.navigate('Home' as never);
+  };
+
   return (
     <View style={{ ...globalStyles.container, ...globalStyles.navcontainer }}>
       <View marginB-32 centerV spread row>
@@ -50,88 +58,99 @@ export function Bag() {
         />
       </View>
 
-      <Dialog
-        flex
-        visible={bagInputDialogVisible}
-        onDismiss={() => {
-          setBagInputDialogVisible(false);
-        }}
-        styles={{ height: '500px' }}
-        overlayBackgroundColor="rgba(0,0,0,0.7)"
-        containerStyle={{
-          // alignItems: 'center',
-          justifyContent: 'center',
-          minHeight: '100%',
-        }}
-        panDirection={PanningProvider.Directions.RIGHT}
-      >
-        <TouchableOpacity
-          style={{
-            justifyContent: 'center',
-            height: '100%',
-            overflow: 'hidden',
-          }}
-          onPressOut={() => {
+      <View flex>
+        <Dialog
+          flex
+          visible={bagInputDialogVisible}
+          onDismiss={() => {
             setBagInputDialogVisible(false);
           }}
-          activeOpacity={1}
+          styles={{ height: '500px' }}
+          overlayBackgroundColor="rgba(0,0,0,0.7)"
+          containerStyle={{
+            // alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: '100%',
+          }}
+          panDirection={PanningProvider.Directions.RIGHT}
         >
-          <Toast
-            visible={toastParams.visible}
-            position="top"
-            message={toastParams.message}
-            preset={toastParams.preset}
-            onDismiss={() => {
-              setToastParams((prevToast) => ({ ...prevToast, visible: false }));
+          <TouchableOpacity
+            style={{
+              justifyContent: 'center',
+              height: '100%',
+              overflow: 'hidden',
             }}
-            autoDismiss={2500}
-            zIndex={2500}
-          />
+            onPressOut={() => {
+              setBagInputDialogVisible(false);
+            }}
+            activeOpacity={1}
+          >
+            <Toast
+              visible={toastParams.visible}
+              position="top"
+              message={toastParams.message}
+              preset={toastParams.preset}
+              onDismiss={() => {
+                setToastParams((prevToast) => ({ ...prevToast, visible: false }));
+              }}
+              autoDismiss={2500}
+              zIndex={2500}
+            />
 
-          <TextField
-            migrate
-            marginB-10
-            label="Add a new bag item💡"
-            value={bagItem}
-            onChangeText={(newValue: string) => {
-              setBagItem(newValue);
-            }}
-            validationMessageStyle={{
-              ...globalStyles.validationMessage,
-            }}
-            labelStyle={{
-              ...globalStyles.text,
-              ...globalStyles.label,
-              color: (Colors as AssetsColorsType).white,
-            }}
-            autoCapitalize="none"
-            fieldStyle={{
-              ...globalStyles.text,
-              ...globalStyles.input,
-            }}
-          />
+            <TextField
+              migrate
+              marginB-10
+              label="Add a new bag item💡"
+              value={bagItem}
+              onChangeText={(newValue: string) => {
+                setBagItem(newValue);
+              }}
+              validationMessageStyle={{
+                ...globalStyles.validationMessage,
+              }}
+              labelStyle={{
+                ...globalStyles.text,
+                ...globalStyles.label,
+                color: (Colors as AssetsColorsType).white,
+              }}
+              autoCapitalize="none"
+              fieldStyle={{
+                ...globalStyles.text,
+                ...globalStyles.input,
+              }}
+            />
 
-          <ButtonPrimary
-            buttonText="Add item"
-            buttonCallback={() => {
-              if (bagItem.length !== 0) {
-                addBagItem({
-                  id: v4(),
-                  content: bagItem,
-                  count: 1,
-                });
+            <ButtonPrimary
+              buttonText="Add item"
+              buttonCallback={() => {
+                if (bagItem.length !== 0) {
+                  addBagItem({
+                    id: v4(),
+                    content: bagItem,
+                    count: 1,
+                  });
 
-                setBagItem('');
-                setBagInputDialogVisible(false);
-              } else {
-                setToastParams((prevToast) => ({ ...prevToast, visible: true }));
-              }
-            }}
-          />
-        </TouchableOpacity>
-      </Dialog>
+                  setBagItem('');
+                  setBagInputDialogVisible(false);
+                } else {
+                  setToastParams((prevToast) => ({ ...prevToast, visible: true }));
+                }
+              }}
+            />
+          </TouchableOpacity>
+        </Dialog>
 
-      <BagListItems />
+        <BagListItems />
+
+        <ButtonPrimary
+          buttonStyles={{
+            position: 'absolute', bottom: 16, left: 0, right: 0,
+          }}
+          marginT-20
+          buttonText="Ready"
+          buttonCallback={prepareTripHandler}
+        />
+      </View>
     </View>
   );
 }

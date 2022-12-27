@@ -13,22 +13,24 @@ export function BagListItem({ bagItem }: { bagItem: IBagItem }) {
   const { updateBagItemCount } = useActions();
 
   return (
-    <View row centerV spread>
-      <InputCheckbox />
-      <Text paragraph2>{bagItem.content}</Text>
+    <View marginB-16 row top spread>
+      <InputCheckbox styles={{ marginTop: 5, marginRight: 5 }} />
+      <Text style={{ width: '100%', maxWidth: 180 }} paragraph2>{bagItem.content}</Text>
 
-      <Stepper
-        value={bagItem.count}
-        minValue={1}
-        maxValue={Infinity}
-        useCustomTheme
-        onValueChange={(newValue: number) => {
-          updateBagItemCount({
-            id: bagItem.id,
-            count: newValue,
-          });
-        }}
-      />
+      <View right style={{ minWidth: 130 }}>
+        <Stepper
+          value={bagItem.count}
+          minValue={1}
+          maxValue={Infinity}
+          useCustomTheme
+          onValueChange={(newValue: number) => {
+            updateBagItemCount({
+              id: bagItem.id,
+              count: newValue,
+            });
+          }}
+        />
+      </View>
     </View>
   );
 }
