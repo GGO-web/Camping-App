@@ -1,10 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import {
-  Assets, Colors, Dialog, PanningProvider, View, TextField, ToastPresets, TouchableOpacity,
+  Assets, Colors, Dialog, PanningProvider, View, TextField, ToastPresets,
 } from 'react-native-ui-lib';
 import { Toast } from 'react-native-ui-lib/src/incubator';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { v4 } from 'uuid';
 
 import { ButtonIcon } from '../../../../components/Buttons/ButtonIcon';
@@ -33,7 +34,7 @@ export function Bag() {
 
   const prepareTripHandler = () => {
     // add trip into db and show main page with the trip info
-    navigation.navigate('Home' as never);
+    navigation.navigate('Homepage' as never);
   };
 
   return (
@@ -65,79 +66,67 @@ export function Bag() {
           onDismiss={() => {
             setBagInputDialogVisible(false);
           }}
-          styles={{ height: '500px' }}
           overlayBackgroundColor="rgba(0,0,0,0.7)"
           containerStyle={{
-            // alignItems: 'center',
             justifyContent: 'center',
-            minHeight: '100%',
+            oveflow: 'visible',
           }}
           panDirection={PanningProvider.Directions.RIGHT}
         >
-          <TouchableOpacity
-            style={{
-              justifyContent: 'center',
-              height: '100%',
-              overflow: 'hidden',
+          <Toast
+            visible={toastParams.visible}
+            position="top"
+            message={toastParams.message}
+            preset={toastParams.preset}
+            onDismiss={() => {
+              setToastParams((prevToast) => ({ ...prevToast, visible: false }));
             }}
-            onPressOut={() => {
-              setBagInputDialogVisible(false);
+            autoDismiss={2500}
+            zIndex={9999}
+          />
+
+          <ButtonIcon iconSource={(Assets as AssetsIconsType).back} />
+
+          <TextField
+            migrate
+            marginB-10
+            label="Add a new bag item💡"
+            value={bagItem}
+            onChangeText={(newValue: string) => {
+              setBagItem(newValue);
             }}
-            activeOpacity={1}
-          >
-            <Toast
-              visible={toastParams.visible}
-              position="top"
-              message={toastParams.message}
-              preset={toastParams.preset}
-              onDismiss={() => {
-                setToastParams((prevToast) => ({ ...prevToast, visible: false }));
-              }}
-              autoDismiss={2500}
-              zIndex={2500}
-            />
+            validationMessageStyle={{
+              ...globalStyles.validationMessage,
+            }}
+            labelStyle={{
+              ...globalStyles.text,
+              ...globalStyles.label,
+              color: (Colors as AssetsColorsType).white,
+            }}
+            autoCapitalize="none"
+            fieldStyle={{
+              ...globalStyles.text,
+              ...globalStyles.input,
+            }}
+          />
 
-            <TextField
-              migrate
-              marginB-10
-              label="Add a new bag item💡"
-              value={bagItem}
-              onChangeText={(newValue: string) => {
-                setBagItem(newValue);
-              }}
-              validationMessageStyle={{
-                ...globalStyles.validationMessage,
-              }}
-              labelStyle={{
-                ...globalStyles.text,
-                ...globalStyles.label,
-                color: (Colors as AssetsColorsType).white,
-              }}
-              autoCapitalize="none"
-              fieldStyle={{
-                ...globalStyles.text,
-                ...globalStyles.input,
-              }}
-            />
+          <ButtonPrimary
+            buttonText="Add item"
+            buttonCallback={() => {
+              if (bagItem.length !== 0) {
+                addBagItem({
+                  id: v4(),
+                  content: bagItem,
+                  count: 1,
+                });
 
-            <ButtonPrimary
-              buttonText="Add item"
-              buttonCallback={() => {
-                if (bagItem.length !== 0) {
-                  addBagItem({
-                    id: v4(),
-                    content: bagItem,
-                    count: 1,
-                  });
-
-                  setBagItem('');
-                  setBagInputDialogVisible(false);
-                } else {
-                  setToastParams((prevToast) => ({ ...prevToast, visible: true }));
-                }
-              }}
-            />
-          </TouchableOpacity>
+                setBagItem('');
+                setBagInputDialogVisible(false);
+              } else {
+                setToastParams((prevToast) => ({ ...prevToast, visible: true }));
+              }
+            }}
+          />
         </Dialog>
 
         <BagListItems />
@@ -152,5 +141,6 @@ export function Bag() {
         />
       </View>
     </View>
+
   );
 }
