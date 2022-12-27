@@ -6,20 +6,23 @@ import {
 
 import { ClipboardID } from '../../components/common/ClipboardID';
 import { MainWrapper } from '../../components/MainWrapper/MainWrapper';
+import { useAppSelector } from '../../redux/hooks';
 
 import { globalStyles } from '../../styles/global';
+import { HomeActions } from './components/HomeActions/HomeActions';
 
 export function Home() {
-  const haveTrips = false;
+  const tripPrepared = useAppSelector((store) => store.trip.completed);
 
   const navigation = useNavigation();
 
   return (
     <MainWrapper headerTitle="Camping Trips">
-      <ClipboardID />
 
-      {!haveTrips ? (
+      {!tripPrepared ? (
         <>
+          <ClipboardID />
+
           <View center flex>
             <Image marginB-24 source={Assets.graphic.trips} />
             <Text paragraph2 gray700>
@@ -45,7 +48,9 @@ export function Home() {
             </Text>
           </Button>
         </>
-      ) : null}
+      ) : (
+        <HomeActions />
+      )}
     </MainWrapper>
   );
 }

@@ -6,7 +6,7 @@ import {
 import { GestureEvent } from 'react-native-gesture-handler';
 
 import {
-  Button,
+  Button, ButtonProps,
 } from 'react-native-ui-lib';
 import type { AssetsIconsType } from '../../matherialUI';
 
@@ -15,11 +15,13 @@ export function ButtonIcon({
   buttonStyles,
   iconStyles,
   onPressCallback,
+  ...buttonProps
 }: {
   iconSource: AssetsIconsType,
   buttonStyles?: StyleProp<ViewStyle | Animated.AnimatedProps<ViewStyle>>,
   iconStyles?: StyleProp<ImageStyle>,
-  onPressCallback?: Function
+  onPressCallback?: Function,
+  buttonProps?: ButtonProps & typeof Button,
 }) {
   return (
     <Button
@@ -33,6 +35,7 @@ export function ButtonIcon({
       onPress={(e: GestureEvent) => {
         if (onPressCallback) onPressCallback(e);
       }}
+      {...(buttonProps as any)}
     />
   );
 }

@@ -10,6 +10,7 @@ import {
   setLatestLocationsList,
   addBagItem,
   updateBagItemCount,
+  setCompleted,
 } from '../redux/trip/tripSlice';
 
 const actions = {
@@ -21,6 +22,7 @@ const actions = {
   setLatestLocationsList,
   addBagItem,
   updateBagItemCount,
+  setCompleted,
 };
 
 type ActionsType = typeof actions;

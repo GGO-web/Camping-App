@@ -2,7 +2,7 @@ import React from 'react';
 import { Animated, StyleProp, ViewStyle } from 'react-native';
 
 import {
-  Button, ButtonProps, Colors, Text, ViewProps,
+  Button, ButtonProps, Colors, Text,
 } from 'react-native-ui-lib';
 
 import { globalStyles } from '../../styles/global';

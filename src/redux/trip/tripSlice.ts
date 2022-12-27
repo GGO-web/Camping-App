@@ -18,6 +18,7 @@ const initialState: ITrip = {
   latestLocation: '',
   latestLocationsList: [],
   bagItems: [],
+  completed: false,
 };
 
 const tripSlice = createSlice({
@@ -57,6 +58,9 @@ const tripSlice = createSlice({
           count: action.payload.count,
         } : bagItem));
     },
+    setCompleted: (state) => {
+      state.completed = true;
+    },
   },
 });
 
@@ -70,5 +74,6 @@ export const {
   setLatestLocationsList,
   addBagItem,
   updateBagItemCount,
+  setCompleted,
 } = tripSlice.actions;
 export const tripReducer = tripSlice.reducer;

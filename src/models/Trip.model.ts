@@ -15,5 +15,6 @@ export interface ITrip {
   tripPeriod: ITripPeriod;
   latestLocation?: string;
   latestLocationsList?: ILocation[];
-  bagItems: IBagItem[]
+  bagItems: IBagItem[],
+  completed: boolean
 }
