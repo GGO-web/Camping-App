@@ -14,6 +14,7 @@ import { CrumbsLink } from '../../../../components/common/CrumbsLink';
 import { useActions } from '../../../../hooks/actions';
 
 import type { AssetsColorsType, AssetsIconsType } from '../../../../matherialUI';
+import { useAppSelector } from '../../../../redux/hooks';
 
 import { globalStyles } from '../../../../styles/global';
 import { BagListItems } from './components/BagListItems/BagListItems';
@@ -28,13 +29,16 @@ export function Bag() {
     message: 'Item couldn`t be empty',
   });
 
-  const { addBagItem, setCompleted } = useActions();
+  const { addBagItem, addNewTripToCollection } = useActions();
 
   const navigation = useNavigation();
 
+  const trip = useAppSelector((store) => store.trip);
+
   const prepareTripHandler = () => {
     // add trip into db and show main page with the trip info
-    setCompleted();
+    addNewTripToCollection(trip);
+
     navigation.navigate('Activities' as never);
   };
 

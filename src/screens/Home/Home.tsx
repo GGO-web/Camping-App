@@ -6,12 +6,17 @@ import {
 
 import { ClipboardID } from '../../components/common/ClipboardID';
 import { MainWrapper } from '../../components/MainWrapper/MainWrapper';
+
 import { useAppSelector } from '../../redux/hooks';
+
+import { ITripCollectionItem } from '../../redux/tripsCollection/tripsCollection.model';
 
 import { globalStyles } from '../../styles/global';
 
 export function Home() {
-  const tripPrepared = useAppSelector((store) => store.trip.completed);
+  const tripsCollection: ITripCollectionItem[] = useAppSelector(
+    (store) => store.tripsCollection.trips,
+  );
 
   const navigation = useNavigation();
 
@@ -19,7 +24,7 @@ export function Home() {
     <MainWrapper headerTitle="Camping Trips">
       <ClipboardID />
 
-      {!tripPrepared
+      {tripsCollection.length === 0
         ? (
           <View center flex>
             <Image marginB-24 source={Assets.graphic.trips} />
