@@ -10,6 +10,7 @@ import {
   setLatestLocationsList,
   addBagItem,
   updateBagItemCount,
+  toggleBagItemChecked,
 } from '../redux/trip/tripSlice';
 
 import {
@@ -28,6 +29,7 @@ const actions = {
   updateBagItemCount,
   addNewTripToCollection,
   setActivedTrip,
+  toggleBagItemChecked,
 };
 
 type ActionsType = typeof actions;

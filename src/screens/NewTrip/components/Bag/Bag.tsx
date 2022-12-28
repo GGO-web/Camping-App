@@ -123,6 +123,7 @@ export function Bag() {
                   id: v4(),
                   content: bagItem,
                   count: 1,
+                  checked: true,
                 });
 
                 setBagItem('');

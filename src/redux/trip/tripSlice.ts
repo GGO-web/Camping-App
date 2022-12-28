@@ -61,6 +61,13 @@ const tripSlice = createSlice({
           count: action.payload.count,
         } : bagItem));
     },
+    toggleBagItemChecked: (state, action: PayloadAction<string>) => {
+      state.bagItems = state.bagItems.map((bagItem) => (
+        bagItem.id === action.payload ? {
+          ...bagItem,
+          checked: !bagItem.checked,
+        } : bagItem));
+    },
   },
 });
 
@@ -74,5 +81,6 @@ export const {
   setLatestLocationsList,
   addBagItem,
   updateBagItemCount,
+  toggleBagItemChecked,
 } = tripSlice.actions;
 export const tripReducer = tripSlice.reducer;
