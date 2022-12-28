@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { FormikProps } from 'formik';
 
@@ -42,20 +42,26 @@ export function LocationsForm({
 
   const { setLatestLocation, setLatestLocationsList } = useActions();
 
+  const locationSuggestionsLoaded = useRef<boolean>();
+
   const getLocationsByQuery = async () => {
-    setIsLoadingLocations(true);
-    const locationsResponse = await getCampingLocations({
-      name: locationQuery as string,
-    }).unwrap();
+    if (!locationSuggestionsLoaded.current) {
+      setIsLoadingLocations(true);
+      const locationsResponse = await getCampingLocations({
+        name: locationQuery as string,
+      }).unwrap();
 
-    setLatestLocationsList(locationsResponse.data);
+      setLatestLocationsList(locationsResponse.data);
 
-    await AsyncStorage.setItem(CAMPING_LOCATIONS, JSON.stringify({
-      query: locationQuery,
-      data: locationsResponse.data,
-    }));
+      await AsyncStorage.setItem(CAMPING_LOCATIONS, JSON.stringify({
+        query: locationQuery,
+        data: locationsResponse.data,
+      }));
 
-    setIsLoadingLocations(false);
+      setIsLoadingLocations(false);
+    }
+
+    locationSuggestionsLoaded.current = false;
   };
 
   useDidMountEffect(() => {
@@ -77,6 +83,10 @@ export function LocationsForm({
       if (campingLocationsStorage.length) {
         setLatestLocationsList(campingLocationsStorage);
         setLatestLocation(campingLocationQueryStorage);
+
+        formik.setFieldValue('location', campingLocationQueryStorage);
+
+        locationSuggestionsLoaded.current = true;
       }
     };
 

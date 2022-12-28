@@ -9,6 +9,7 @@ export interface ITripPeriod {
 }
 
 export interface ITrip {
+  tripId: string;
   tripName: string;
   selectedLocations: ILocation[];
   teammates: ITeamMate[];
@@ -16,5 +17,4 @@ export interface ITrip {
   latestLocation?: string;
   latestLocationsList?: ILocation[];
   bagItems: IBagItem[],
-  completed: boolean
 }

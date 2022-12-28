@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { v4 } from 'uuid';
+
 import { IBagItem } from '../../models/BagItem.model';
 
 import { ILocation } from '../../models/Locations.model';
@@ -7,6 +9,7 @@ import { ITrip, ITripPeriod } from '../../models/Trip.model';
 import { ITeamMate } from '../../screens/NewTrip/NewTrip.model';
 
 const initialState: ITrip = {
+  tripId: '',
   tripName: '',
   tripPeriod: {
     startDate: '',
@@ -18,7 +21,6 @@ const initialState: ITrip = {
   latestLocation: '',
   latestLocationsList: [],
   bagItems: [],
-  completed: false,
 };
 
 const tripSlice = createSlice({
@@ -27,6 +29,7 @@ const tripSlice = createSlice({
   reducers: {
     setTripName: (state, action: PayloadAction<string>) => {
       state.tripName = action.payload;
+      state.tripId = v4();
     },
     setTripPeriod: (state, action: PayloadAction<ITripPeriod>) => {
       state.tripPeriod = action.payload;
@@ -36,11 +39,6 @@ const tripSlice = createSlice({
     },
     addLocation: (state, action: PayloadAction<ILocation>) => {
       state.selectedLocations.push(action.payload);
-    },
-    removeLocation: (state, action: PayloadAction<string>) => {
-      state.selectedLocations = state.selectedLocations.filter(
-        (location: ILocation) => location.id !== action.payload,
-      );
     },
     setLatestLocation: (state, action: PayloadAction<string>) => {
       state.latestLocation = action.payload;
@@ -58,15 +56,26 @@ const tripSlice = createSlice({
           count: action.payload.count,
         } : bagItem));
     },
-    setCompleted: (state) => {
-      state.completed = true;
+    toggleBagItemChecked: (state, action: PayloadAction<string>) => {
+      state.bagItems = state.bagItems.map((bagItem) => (
+        bagItem.id === action.payload ? {
+          ...bagItem,
+          checked: !bagItem.checked,
+        } : bagItem));
     },
+    clearTripFormInfo: (state) => (
+      state = {
+        ...initialState,
+        teammates: state.teammates,
+        latestLocation: state.latestLocation,
+        latestLocationsList: state.latestLocationsList,
+      }
+    ),
   },
 });
 
 export const {
   addLocation,
-  removeLocation,
   setTripName,
   setTripPeriod,
   setTeammates,
@@ -74,6 +83,7 @@ export const {
   setLatestLocationsList,
   addBagItem,
   updateBagItemCount,
-  setCompleted,
+  toggleBagItemChecked,
+  clearTripFormInfo,
 } = tripSlice.actions;
 export const tripReducer = tripSlice.reducer;
