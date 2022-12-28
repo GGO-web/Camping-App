@@ -16,7 +16,11 @@ export function TripCardList() {
       }}
     >
       {trips.map((tripCollectionItem) => (
-        <TripCard key={tripCollectionItem.trip.tripId} trip={tripCollectionItem.trip} />
+        <TripCard
+          key={tripCollectionItem.trip.tripId}
+          isActivated={tripCollectionItem.activated}
+          trip={tripCollectionItem.trip}
+        />
       ))}
     </ScrollView>
   );
