@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Formik, FormikHelpers } from 'formik';
 
 import { CrumbsLink } from '../../../../components/common/CrumbsLink';
-import { TeammatesForm } from './components/TeammatesForm/TeammatesForm';
+import { TeammembersForm } from './components/TeammembersForm/TeammembersForm';
 
 import { useAppSelector } from '../../../../redux/hooks';
 import { teammateSchema } from '../../../../helpers/validationSchema';
@@ -21,7 +21,7 @@ export interface ITeammateId {
   teammateId: string;
 }
 
-export function Teammates() {
+export function Teammembers() {
   const formInitialValues: ITeammateId = {
     teammateId: '',
   };
@@ -94,7 +94,7 @@ export function Teammates() {
             validateOnMount
           >
             {(formik) => (
-              <TeammatesForm
+              <TeammembersForm
                 formSubmitHandler={formSubmitHandler}
                 formik={formik}
               />

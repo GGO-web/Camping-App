@@ -1,18 +1,16 @@
 import React from 'react';
-import { Assets, Text } from 'react-native-ui-lib';
+import { Text } from 'react-native-ui-lib';
 import { useRoute } from '@react-navigation/native';
 
 import { ActionsBar } from '../../components/ActionsBar/ActionsBar';
 import { MainWrapper } from '../../components/MainWrapper/MainWrapper';
 
-import { AssetsIconsType } from '../../matherialUI';
-
-export function Activities() {
+export function Teammates() {
   const { name: screenName } = useRoute();
 
   return (
-    <MainWrapper headerTitle={screenName} iconRight={(Assets.icons as AssetsIconsType).plus}>
-      <Text>Activities tasks</Text>
+    <MainWrapper headerTitle={screenName}>
+      <Text>Teammates list</Text>
 
       <ActionsBar activeScreenName={screenName} />
     </MainWrapper>

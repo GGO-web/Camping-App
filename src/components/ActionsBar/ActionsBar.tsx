@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Colors,
   View,
@@ -8,8 +8,16 @@ import { actionTabs } from '../../constants';
 import { IActionTab } from '../../models/ActionsTab.model';
 import { ActionsTab } from './ActionTab';
 
-export function ActionsBar() {
-  const [actionsTabs, setActionsTabs] = useState(actionTabs);
+export function ActionsBar({ activeScreenName }: { activeScreenName: string }) {
+  const actionsTabs = actionTabs.map((actionTab: IActionTab) => (
+    actionTab.title === activeScreenName ? ({
+      ...actionTab,
+      active: true,
+    }) : ({
+      ...actionTab,
+      active: false,
+    })
+  ));
 
   return (
     <View
@@ -32,7 +40,7 @@ export function ActionsBar() {
       {actionsTabs.map((actionTab: IActionTab) => (
         <ActionsTab
           key={actionTab.id}
-          textContent={actionTab.title}
+          title={actionTab.title}
           isActive={actionTab.active}
           iconSource={actionTab.icon}
           iconsStyles={actionTab.iconStyles}

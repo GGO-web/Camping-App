@@ -5,22 +5,23 @@ import {
   View, Text, Colors,
 } from 'react-native-ui-lib';
 
+import { useNavigation } from '@react-navigation/native';
 import { ButtonIcon } from '../Buttons/ButtonIcon';
 
 import { AssetsIconsType } from '../../matherialUI';
 
 export function ActionsTab({
-  textContent,
+  title,
   isActive = false,
   iconsStyles,
   iconSource,
 }: {
-  textContent: string,
+  title: string,
   iconSource: AssetsIconsType
   isActive?: boolean,
   iconsStyles?: StyleProp<ViewStyle | Animated.AnimatedProps<ViewStyle>>,
 }) {
-  const activatedAction = isActive || isActive === undefined;
+  const navigation = useNavigation();
 
   return (
     <View
@@ -31,7 +32,7 @@ export function ActionsTab({
       paddingH-10
       style={{
         borderRadius: 16,
-        backgroundColor: activatedAction ? Colors.primary600 : Colors.primary,
+        backgroundColor: isActive ? Colors.primary600 : Colors.primary,
       }}
     >
       <ButtonIcon
@@ -43,10 +44,13 @@ export function ActionsTab({
           ...(iconsStyles as any),
         }}
         iconSource={iconSource}
+        onPressCallback={() => {
+          navigation.navigate(title as never);
+        }}
       />
 
-      {activatedAction && (
-        <Text marginL-8 white paragraph3>{textContent}</Text>
+      {isActive && (
+        <Text marginL-8 white paragraph3>{title}</Text>
       )}
     </View>
   );
