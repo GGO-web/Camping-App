@@ -86,11 +86,19 @@ const iconsGroup = {
   plus: require('../assets/plus.png'),
   search: require('../assets/search.png'),
   locationsCheck: require('../assets/location_check.png'),
+  refresh: require('../assets/refresh.png'),
 };
 
 const graphicGroup = {
   trips: require('../assets/trips.png'),
   camp: require('../assets/onboarding/img-4.png'),
+};
+
+const homeActionsGroup = {
+  activities: require('../assets/homeactions/activities.png'),
+  fitness: require('../assets/homeactions/fitness.png'),
+  backpack: require('../assets/homeactions/backpack.png'),
+  teammates: require('../assets/homeactions/members.png'),
 };
 
 Colors.loadColors(colors);
@@ -99,9 +107,12 @@ Typography.loadTypographies(typographies);
 
 Assets.loadAssetsGroup('icons', iconsGroup);
 Assets.loadAssetsGroup('graphic', graphicGroup);
+Assets.loadAssetsGroup('actions', homeActionsGroup);
 
 export type AssetsIconsType = typeof Assets & typeof iconsGroup;
 export type AssetsGraphicType = typeof Assets & typeof graphicGroup;
+export type AssetsHomeActionsType = typeof Assets & typeof homeActionsGroup;
+
 export type AssetsColorsType = typeof Colors & typeof colors;
 export type AssetsTypographiesType = typeof Assets & typeof typographies;
 

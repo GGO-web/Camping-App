@@ -28,13 +28,14 @@ export function Bag() {
     message: 'Item couldn`t be empty',
   });
 
-  const { addBagItem } = useActions();
+  const { addBagItem, setCompleted } = useActions();
 
   const navigation = useNavigation();
 
   const prepareTripHandler = () => {
     // add trip into db and show main page with the trip info
-    navigation.navigate('Homepage' as never);
+    setCompleted();
+    navigation.navigate('Activities' as never);
   };
 
   return (

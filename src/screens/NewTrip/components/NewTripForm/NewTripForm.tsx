@@ -139,7 +139,7 @@ export function NewTripForm({
                 height: 80,
                 borderRadius: 12,
               }}
-              onPress={() => navigation.navigate('Teammates' as never)}
+              onPress={() => navigation.navigate('Teammembers' as never)}
             >
               <Icon
                 style={{
@@ -158,7 +158,7 @@ export function NewTripForm({
             style={globalStyles.buttonOutlined}
             backgroundColor={Colors.primary}
             mode="outlined"
-            onPress={() => navigation.navigate('Teammates' as never)}
+            onPress={() => navigation.navigate('Teammembers' as never)}
           >
             <Text
               style={{

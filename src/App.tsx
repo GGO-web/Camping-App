@@ -26,10 +26,15 @@ import { HowToUse } from './screens/HowToUse/HowToUse';
 import { Language } from './screens/Language/Language';
 
 import { NewTrip } from './screens/NewTrip/NewTrip';
-import { Teammates } from './screens/NewTrip/components/Teammates/Teammates';
+import { Teammembers } from './screens/NewTrip/components/Teammembers/Teammembers';
 import { Locations } from './screens/NewTrip/components/Locations/Locations';
 import { Location } from './screens/NewTrip/components/Locations/components/Location/Location';
 import { Bag } from './screens/NewTrip/components/Bag/Bag';
+
+import { Activities } from './screens/Activities/Activities';
+import { Fitness } from './screens/Fitness/Fitness';
+import { Backpack } from './screens/Backpack/Backpack';
+import { Teammates } from './screens/Teammates/Teammates';
 
 const Stack = createNativeStackNavigator();
 
@@ -88,10 +93,15 @@ export default function App() {
       <Stack.Screen name="Language" component={Language} />
 
       <Stack.Screen name="NewTrip" component={NewTrip} />
-      <Stack.Screen name="Teammates" component={Teammates} />
+      <Stack.Screen name="Teammembers" component={Teammembers} />
       <Stack.Screen name="Locations" component={Locations} />
       <Stack.Screen name="Location" component={Location} />
       <Stack.Screen name="Bag" component={Bag} />
+
+      <Stack.Screen name="Activities" component={Activities} />
+      <Stack.Screen name="Fitness" component={Fitness} />
+      <Stack.Screen name="Backpack" component={Backpack} />
+      <Stack.Screen name="Teammates" component={Teammates} />
     </Stack.Navigator>
   );
 }

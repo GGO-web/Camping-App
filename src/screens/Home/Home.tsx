@@ -6,11 +6,12 @@ import {
 
 import { ClipboardID } from '../../components/common/ClipboardID';
 import { MainWrapper } from '../../components/MainWrapper/MainWrapper';
+import { useAppSelector } from '../../redux/hooks';
 
 import { globalStyles } from '../../styles/global';
 
 export function Home() {
-  const haveTrips = false;
+  const tripPrepared = useAppSelector((store) => store.trip.completed);
 
   const navigation = useNavigation();
 
@@ -18,34 +19,38 @@ export function Home() {
     <MainWrapper headerTitle="Camping Trips">
       <ClipboardID />
 
-      {!haveTrips ? (
-        <>
+      {!tripPrepared
+        ? (
           <View center flex>
             <Image marginB-24 source={Assets.graphic.trips} />
             <Text paragraph2 gray700>
               You didn’t add any trips before.
             </Text>
           </View>
+        )
+        : (
+          <View flex marginT-32>
+            <Text>Here will be trip cards list</Text>
+          </View>
+        )}
 
-          <Button
-            marginB-16
-            mode="contained"
-            style={globalStyles.button}
-            backgroundColor={Colors.primary}
-            disabledBackgroundColor={Colors.gray400}
-            onPress={() => navigation.navigate('NewTrip' as never)}
-          >
-            <Text
-              style={{
-                ...globalStyles.text,
-                ...globalStyles.buttonText,
-              }}
-            >
-              Start New Trip
-            </Text>
-          </Button>
-        </>
-      ) : null}
+      <Button
+        marginB-16
+        mode="contained"
+        style={globalStyles.button}
+        backgroundColor={Colors.primary}
+        disabledBackgroundColor={Colors.gray400}
+        onPress={() => navigation.navigate('NewTrip' as never)}
+      >
+        <Text
+          style={{
+            ...globalStyles.text,
+            ...globalStyles.buttonText,
+          }}
+        >
+          Start New Trip
+        </Text>
+      </Button>
     </MainWrapper>
   );
 }
