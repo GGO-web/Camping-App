@@ -44,7 +44,7 @@ export const NEW_TRIP_TOAST_MESSAGES: { [key: string]: {
   },
 };
 
-export const homeActionTabs: IActionTab[] = [
+export const actionTabs: IActionTab[] = [
   {
     id: v4(),
     title: 'Activities',

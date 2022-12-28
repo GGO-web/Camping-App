@@ -31,6 +31,8 @@ import { Locations } from './screens/NewTrip/components/Locations/Locations';
 import { Location } from './screens/NewTrip/components/Locations/components/Location/Location';
 import { Bag } from './screens/NewTrip/components/Bag/Bag';
 
+import { Activities } from './screens/Activities/Activities';
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -92,6 +94,8 @@ export default function App() {
       <Stack.Screen name="Locations" component={Locations} />
       <Stack.Screen name="Location" component={Location} />
       <Stack.Screen name="Bag" component={Bag} />
+
+      <Stack.Screen name="Activities" component={Activities} />
     </Stack.Navigator>
   );
 }

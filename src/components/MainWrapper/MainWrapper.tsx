@@ -1,19 +1,23 @@
 import React, { useState, useRef } from 'react';
 import { Animated, SafeAreaView, TouchableOpacity } from 'react-native';
-import { Assets, View } from 'react-native-ui-lib';
-import { IRoute } from '../../App.models';
-
-import { globalStyles } from '../../styles/global';
+import { Assets } from 'react-native-ui-lib';
 
 import { Header } from '../Header/Header';
 import { Navbar } from '../Navbar/Navbar';
 
+import type { IRoute } from '../../App.models';
+import type { AssetsIconsType } from '../../matherialUI';
+
+import { globalStyles } from '../../styles/global';
+
 export function MainWrapper({
   headerTitle,
   children,
+  iconRight,
 }: {
   headerTitle: string;
   children: any;
+  iconRight?: AssetsIconsType
 }) {
   const [showMenu, setShowMenu] = useState(false);
 
@@ -85,6 +89,7 @@ export function MainWrapper({
               scaleValue,
             }}
             title={headerTitle}
+            iconRight={iconRight}
           />
           {children}
         </TouchableOpacity>

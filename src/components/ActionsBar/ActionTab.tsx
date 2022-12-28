@@ -5,11 +5,11 @@ import {
   View, Text, Colors,
 } from 'react-native-ui-lib';
 
-import { ButtonIcon } from '../../../../components/Buttons/ButtonIcon';
+import { ButtonIcon } from '../Buttons/ButtonIcon';
 
-import { AssetsIconsType } from '../../../../matherialUI';
+import { AssetsIconsType } from '../../matherialUI';
 
-export function HomeAction({
+export function ActionsTab({
   textContent,
   isActive = false,
   iconsStyles,

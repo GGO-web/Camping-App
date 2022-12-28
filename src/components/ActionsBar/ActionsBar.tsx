@@ -4,13 +4,12 @@ import {
   View,
 } from 'react-native-ui-lib';
 
-import { HomeAction } from './HomeAction';
+import { actionTabs } from '../../constants';
+import { IActionTab } from '../../models/ActionsTab.model';
+import { ActionsTab } from './ActionTab';
 
-import { homeActionTabs } from '../../../../constants';
-import { IActionTab } from '../../../../models/ActionsTab.model';
-
-export function HomeActions() {
-  const [actionsTabs, setActionsTabs] = useState(homeActionTabs);
+export function ActionsBar() {
+  const [actionsTabs, setActionsTabs] = useState(actionTabs);
 
   return (
     <View
@@ -31,7 +30,7 @@ export function HomeActions() {
       }}
     >
       {actionsTabs.map((actionTab: IActionTab) => (
-        <HomeAction
+        <ActionsTab
           key={actionTab.id}
           textContent={actionTab.title}
           isActive={actionTab.active}
