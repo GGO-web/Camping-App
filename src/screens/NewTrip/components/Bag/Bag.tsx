@@ -29,7 +29,11 @@ export function Bag() {
     message: 'Item couldn`t be empty',
   });
 
-  const { addBagItem, addNewTripToCollection } = useActions();
+  const {
+    addBagItem,
+    addNewTripToCollection,
+    clearTripFormInfo,
+  } = useActions();
 
   const navigation = useNavigation();
 
@@ -38,6 +42,7 @@ export function Bag() {
   const prepareTripHandler = () => {
     // add trip into db and show main page with the trip info
     addNewTripToCollection(trip);
+    clearTripFormInfo();
 
     navigation.navigate('Activities' as never);
   };

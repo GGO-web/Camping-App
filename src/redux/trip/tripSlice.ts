@@ -40,11 +40,6 @@ const tripSlice = createSlice({
     addLocation: (state, action: PayloadAction<ILocation>) => {
       state.selectedLocations.push(action.payload);
     },
-    removeLocation: (state, action: PayloadAction<string>) => {
-      state.selectedLocations = state.selectedLocations.filter(
-        (location: ILocation) => location.id !== action.payload,
-      );
-    },
     setLatestLocation: (state, action: PayloadAction<string>) => {
       state.latestLocation = action.payload;
     },
@@ -68,12 +63,19 @@ const tripSlice = createSlice({
           checked: !bagItem.checked,
         } : bagItem));
     },
+    clearTripFormInfo: (state) => (
+      state = {
+        ...initialState,
+        teammates: state.teammates,
+        latestLocation: state.latestLocation,
+        latestLocationsList: state.latestLocationsList,
+      }
+    ),
   },
 });
 
 export const {
   addLocation,
-  removeLocation,
   setTripName,
   setTripPeriod,
   setTeammates,
@@ -82,5 +84,6 @@ export const {
   addBagItem,
   updateBagItemCount,
   toggleBagItemChecked,
+  clearTripFormInfo,
 } = tripSlice.actions;
 export const tripReducer = tripSlice.reducer;
