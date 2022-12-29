@@ -99,6 +99,8 @@ export default function App() {
       <Stack.Screen name="Bag" component={Bag} />
 
       <Stack.Screen name="Activities" component={Activities} />
+      <Stack.Screen name="NewActivity" component={Activities} />
+
       <Stack.Screen name="Fitness" component={Fitness} />
       <Stack.Screen name="Backpack" component={Backpack} />
       <Stack.Screen name="Teammates" component={Teammates} />

@@ -92,6 +92,7 @@ const iconsGroup = {
 
 const graphicGroup = {
   trips: require('../assets/trips.png'),
+  activitiesTasks: require('../assets/activitiesTasks.png'),
   camp: require('../assets/onboarding/img-4.png'),
 };
 
