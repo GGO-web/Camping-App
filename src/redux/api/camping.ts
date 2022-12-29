@@ -15,7 +15,13 @@ export const campingApi = createApi({
       }),
       providesTags: ['Camping'],
     }),
+    checkoutTripImage: builder.query<any, { imageURL: string }>({
+      query: ({ imageURL }) => ({
+        url: imageURL,
+      }),
+      providesTags: ['Camping'],
+    }),
   }),
 });
 
-export const { useLazyGetCampingPlacesQuery } = campingApi;
+export const { useLazyGetCampingPlacesQuery, useLazyCheckoutTripImageQuery } = campingApi;

@@ -3,6 +3,9 @@ import React from 'react';
 import {
   Card, Carousel, Colors, Image, Text, View,
 } from 'react-native-ui-lib';
+import { useCheckoutTripImages } from '../../../../hooks/checkoutTripImages';
+
+import type { ILocation, ILocationImage } from '../../../../models/Locations.model';
 
 import type { ITrip } from '../../../../models/Trip.model';
 
@@ -13,6 +16,10 @@ export function TripCard({
   trip: ITrip,
   isActivated: boolean
 }) {
+  const tripImages = useCheckoutTripImages({
+    images: trip.selectedLocations.map((location: ILocation) => location.images).flat(2),
+  });
+
   return (
     <Card
       enableShadow={false}
@@ -30,14 +37,21 @@ export function TripCard({
       <Carousel
         animated
         autoplay
-        itemSpacings={5}
         style={{
           width: '100%',
           height: 200,
           overflow: 'hidden',
         }}
+        pageControlProps={{
+          size: 10,
+          limitShownPages: 8,
+          color: Colors.primary,
+          inactiveColor: Colors.primary50,
+        }}
+        pageControlPosition={Carousel.pageControlPositions.OVER}
+        showCounter
       >
-        {trip.selectedLocations[0].images.map((tripImage) => (
+        {tripImages.map((tripImage: ILocationImage) => (
           <Image
             key={tripImage.altText}
             style={{
