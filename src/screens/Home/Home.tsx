@@ -6,6 +6,7 @@ import {
 
 import { ClipboardID } from '../../components/common/ClipboardID';
 import { MainWrapper } from '../../components/MainWrapper/MainWrapper';
+import { TripCardList } from './components/TripCardList/TripCardList';
 
 import { useAppSelector } from '../../redux/hooks';
 
@@ -34,9 +35,7 @@ export function Home() {
           </View>
         )
         : (
-          <View flex marginT-32>
-            <Text>Here will be trip cards list</Text>
-          </View>
+          <TripCardList />
         )}
 
       <Button

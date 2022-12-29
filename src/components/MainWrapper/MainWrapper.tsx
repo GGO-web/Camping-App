@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Animated, SafeAreaView, TouchableOpacity } from 'react-native';
+import { Animated, SafeAreaView } from 'react-native';
 import { Assets } from 'react-native-ui-lib';
 
 import { Header } from '../Header/Header';
@@ -73,26 +73,20 @@ export function MainWrapper({
             borderRadius: showMenu ? 40 : 0,
           },
         }}
+        onTouchEnd={() => showMenu && setShowMenu(false)}
       >
-        <TouchableOpacity
-          activeOpacity={1}
-          style={{ flex: 1 }}
-          onPress={() => {
-            setShowMenu(false);
+        <Header
+          {...{
+            showMenu,
+            setShowMenu,
+            offsetValue,
+            scaleValue,
           }}
-        >
-          <Header
-            {...{
-              showMenu,
-              setShowMenu,
-              offsetValue,
-              scaleValue,
-            }}
-            title={headerTitle}
-            iconRight={iconRight}
-          />
-          {children}
-        </TouchableOpacity>
+          title={headerTitle}
+          iconRight={iconRight}
+        />
+
+        {children}
       </Animated.View>
     </SafeAreaView>
   );

@@ -71,6 +71,9 @@ const tripSlice = createSlice({
         latestLocationsList: state.latestLocationsList,
       }
     ),
+    setActiveTrip: (state, action: PayloadAction<ITrip>) => (
+      state = action.payload
+    ),
   },
 });
 
@@ -85,5 +88,6 @@ export const {
   updateBagItemCount,
   toggleBagItemChecked,
   clearTripFormInfo,
+  setActiveTrip,
 } = tripSlice.actions;
 export const tripReducer = tripSlice.reducer;

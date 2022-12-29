@@ -28,9 +28,7 @@ export function ActionsBar({ activeScreenName }: { activeScreenName: string }) {
       paddingH-20
       paddingB-34
       style={{
-        marginLeft: -20,
-        marginRight: -20,
-        bottom: -16,
+        bottom: 0,
         left: 0,
         right: 0,
         overflow: 'hidden',

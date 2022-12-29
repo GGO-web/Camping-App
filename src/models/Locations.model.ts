@@ -1,13 +1,15 @@
+export interface ILocationImage {
+  title: string;
+  altText: string;
+  url: string;
+  [key: string]: any;
+}
+
 export interface ILocation {
   id: string;
   name: string;
   description: string;
-  images: Array<{
-    title: string;
-    altText: string;
-    url: string;
-    [key: string]: any;
-  }>,
+  images: ILocationImage[];
   addresses?: Array<
   {
     postalCode: string,
