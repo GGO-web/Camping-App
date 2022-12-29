@@ -105,7 +105,7 @@ export function NewTrip() {
             navigation.navigate('Bag' as never);
           }
         }}
-        autoDismiss={2500}
+        autoDismiss={700}
         zIndex={2500}
       />
       <View style={{ ...globalStyles.container, ...globalStyles.navcontainer }}>

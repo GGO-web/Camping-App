@@ -91,7 +91,7 @@ export function Bag() {
             onDismiss={() => {
               setToastParams((prevToast) => ({ ...prevToast, visible: false }));
             }}
-            autoDismiss={2500}
+            autoDismiss={1500}
             zIndex={9999}
           />
 
