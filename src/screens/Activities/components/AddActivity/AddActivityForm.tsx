@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Assets,
-  Colors, Text, Typography,
+  Colors, Text, Typography, View,
 } from 'react-native-ui-lib';
 import { FormikProps } from 'formik';
 
@@ -34,20 +34,24 @@ export function AddActivityForm({
         <Text>Add Activity</Text>
       </CrumbsLink>
 
-      <TextArea
-        formik={formik}
-        fieldName="heading"
-        placeholder="Add heading"
-        inputStyles={{ ...Typography.heading3 }}
-        maxLength={2}
-        marginB-16
-      />
+      <View>
+        <TextArea
+          formik={formik}
+          fieldName="heading"
+          placeholder="Add heading"
+          inputStyles={{
+            ...Typography.heading3,
+          }}
+          numberOfLines={2}
+          marginB-16
+        />
 
-      <TextArea
-        formik={formik}
-        fieldName="description"
-        placeholder="Add description"
-      />
+        <TextArea
+          formik={formik}
+          fieldName="description"
+          placeholder="Add description"
+        />
+      </View>
     </DismissKeyboardView>
   );
 }

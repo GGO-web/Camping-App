@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleProp, ViewStyle } from 'react-native';
+import { StyleProp, ViewStyle } from 'react-native';
 
 import { Colors, TextFieldProps, Typography } from 'react-native-ui-lib';
 
@@ -12,14 +12,14 @@ export function TextArea({
   fieldName,
   placeholder,
   inputStyles,
-  maxLength,
+  numberOfLines,
   ...inputAttributes
 }: {
   formik: FormikProps<any>,
   fieldName: string,
   placeholder?: string,
   inputStyles?: StyleProp<ViewStyle>,
-  maxLength?: number,
+  numberOfLines?: number,
   inputAttributes?: TextFieldProps;
 }) {
   return (
@@ -28,10 +28,12 @@ export function TextArea({
       fieldName={fieldName}
       label=""
       {...{
-        fieldStyle: {},
+        fieldStyle: {
+          padding: 0,
+        },
         caretHidden: false,
         placeholder,
-        placeholderTextColor: Colors.dark,
+        placeholderTextColor: Colors.gray300,
         floatingPlaceholderStyle: {
           ...Typography.paragraph2,
         },
@@ -39,13 +41,15 @@ export function TextArea({
           ...Typography.paragraph2,
           color: Colors.gray700,
           textAlignVertical: 'top',
+          padding: 0,
           ...(inputStyles as any),
         },
-        numberOfLines: 10,
+        numberOfLines: numberOfLines || 10,
         multiline: true,
         enablesReturnKeyAutomatically: true,
         enableErrors: false,
         autoCapitalize: 'sentences',
+        underlineColorAndroid: 'rgba(255,255,255,0)',
         ...inputAttributes,
       }}
     />
