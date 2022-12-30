@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Platform, ToastAndroid } from 'react-native';
 import { View } from 'react-native-ui-lib';
 import { Toast, ToastPresets } from 'react-native-ui-lib/src/incubator';
 
@@ -15,9 +16,12 @@ import { useActions } from '../../hooks/actions';
 
 import { ITeamMate } from './NewTrip.model';
 
-import { globalStyles } from '../../styles/global';
-import { NEW_TRIP_TOAST_MESSAGES } from '../../constants';
 import { ITripPeriod } from '../../models/Trip.model';
+import { IToast } from '../../models/Toast.model';
+
+import { NEW_TRIP_TOAST_MESSAGES } from '../../constants';
+
+import { globalStyles } from '../../styles/global';
 
 export interface INewTrip {
   name: string;
@@ -41,73 +45,85 @@ export function NewTrip() {
 
   const { setTripName, setTeammates } = useActions();
 
-  const [toastParams, setToastParams] = useState({
+  const [toastParams, setToastParams] = useState<IToast>({
     visible: false,
     preset: ToastPresets.GENERAL,
     message: '',
   });
 
+  const isIOS = Platform.OS === 'ios';
+
   const formSubmitHandler = async (
     values: INewTrip,
   ) => {
+    let formSubmitMessage: string = '';
+    let formSubmitPreset: ToastPresets = ToastPresets.GENERAL;
+
     if (values.name.length === 0) {
-      setToastParams((prevToast) => ({
-        ...prevToast,
-        message: NEW_TRIP_TOAST_MESSAGES.tripNameEmpty.message,
-        preset: NEW_TRIP_TOAST_MESSAGES.tripNameEmpty.preset,
-        visible: true,
-      }));
-      return;
+      formSubmitMessage = NEW_TRIP_TOAST_MESSAGES.tripNameEmpty.message;
+      formSubmitPreset = NEW_TRIP_TOAST_MESSAGES.tripNameEmpty.preset;
+    } else if (tripData.selectedLocations.length === 0) {
+      formSubmitMessage = NEW_TRIP_TOAST_MESSAGES.tripLocationsEmpty.message;
+      formSubmitPreset = NEW_TRIP_TOAST_MESSAGES.tripLocationsEmpty.preset;
+    } else if (tripData.tripPeriod.formatted.length === 0) {
+      formSubmitMessage = NEW_TRIP_TOAST_MESSAGES.tripDatePeriodEmpty.message;
+      formSubmitPreset = NEW_TRIP_TOAST_MESSAGES.tripDatePeriodEmpty.preset;
     }
 
-    if (tripData.selectedLocations.length === 0) {
-      setToastParams((prevToast) => ({
-        ...prevToast,
-        message: NEW_TRIP_TOAST_MESSAGES.tripLocationsEmpty.message,
-        preset: NEW_TRIP_TOAST_MESSAGES.tripLocationsEmpty.preset,
-        visible: true,
-      }));
-      return;
+    if (formSubmitMessage && formSubmitPreset) {
+      if (isIOS) {
+        setToastParams((prevToast) => ({
+          ...prevToast,
+          message: formSubmitMessage,
+          preset: formSubmitPreset,
+          visible: true,
+        }));
+      } else {
+        ToastAndroid.showWithGravity(
+          formSubmitMessage,
+          ToastAndroid.SHORT,
+          ToastAndroid.TOP,
+        );
+      }
+    } else {
+      setTripName(values.name);
+      setTeammates(values.teammates);
+
+      if (isIOS) {
+        setToastParams({
+          message: NEW_TRIP_TOAST_MESSAGES.tripSuccess.message,
+          preset: NEW_TRIP_TOAST_MESSAGES.tripSuccess.preset,
+          visible: true,
+        });
+      } else {
+        ToastAndroid.showWithGravity(
+          NEW_TRIP_TOAST_MESSAGES.tripSuccess.message,
+          ToastAndroid.SHORT,
+          ToastAndroid.TOP,
+        );
+      }
+
+      // when toast preset get SUCCESS - navigate to the bag screen
+      navigation.navigate('Bag' as never);
     }
-
-    if (tripData.tripPeriod.formatted.length === 0) {
-      setToastParams((prevToast) => ({
-        ...prevToast,
-        message: NEW_TRIP_TOAST_MESSAGES.tripDatePeriodEmpty.message,
-        preset: NEW_TRIP_TOAST_MESSAGES.tripDatePeriodEmpty.preset,
-        visible: true,
-      }));
-      return;
-    }
-
-    setTripName(values.name);
-    setTeammates(values.teammates);
-
-    setToastParams({
-      message: NEW_TRIP_TOAST_MESSAGES.tripSuccess.message,
-      preset: NEW_TRIP_TOAST_MESSAGES.tripSuccess.preset,
-      visible: true,
-    });
   };
 
   return (
     <>
-      <Toast
-        visible={toastParams.visible}
-        position="top"
-        message={toastParams.message}
-        preset={toastParams.preset}
-        onDismiss={() => {
-          setToastParams((prevToast) => ({ ...prevToast, visible: false }));
+      { isIOS ? (
+        <Toast
+          visible={toastParams.visible}
+          position="top"
+          message={toastParams.message}
+          preset={toastParams.preset}
+          onDismiss={() => {
+            setToastParams((prevToast) => ({ ...prevToast, visible: false }));
+          }}
+          autoDismiss={700}
+          zIndex={2500}
+        />
+      ) : null }
 
-          // on dismiss toast navigate to the next screen
-          if (toastParams.preset === ToastPresets.SUCCESS) {
-            navigation.navigate('Bag' as never);
-          }
-        }}
-        autoDismiss={700}
-        zIndex={2500}
-      />
       <View style={{ ...globalStyles.container, ...globalStyles.navcontainer }}>
         <CrumbsLink>Add new Trip</CrumbsLink>
 
