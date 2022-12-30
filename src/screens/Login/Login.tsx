@@ -6,7 +6,6 @@ import * as Google from 'expo-auth-session/providers/google';
 import { Link, useNavigation } from '@react-navigation/native';
 
 import { Formik, FormikHelpers } from 'formik';
-import * as Yup from 'yup';
 
 import { Toast } from 'react-native-ui-lib/src/incubator';
 import { Text } from 'react-native-ui-lib';

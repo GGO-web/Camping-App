@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import {
-  Assets, Colors, Dialog, PanningProvider, View, TextField, ToastPresets,
+  Assets, Colors, Dialog, PanningProvider, View, Text, TextField, ToastPresets,
 } from 'react-native-ui-lib';
 import { Toast } from 'react-native-ui-lib/src/incubator';
 
@@ -49,25 +49,19 @@ export function Bag() {
 
   return (
     <View style={{ ...globalStyles.container, ...globalStyles.navcontainer }}>
-      <View marginB-32 centerV spread row>
-        <CrumbsLink style={{ marginBottom: 0 }}>Prepare your Bag</CrumbsLink>
-
-        <ButtonIcon
-          iconSource={(Assets.icons as AssetsIconsType).plus}
-          buttonStyles={{
-            width: 32,
-            height: 32,
-            padding: 6,
-          }}
-          iconStyles={{
-            tintColor: (Colors as AssetsColorsType).dark,
-            width: '100%',
-            height: '100%',
-            resizeMode: 'cover',
-          }}
-          onPressCallback={() => setBagInputDialogVisible(true)}
-        />
-      </View>
+      <CrumbsLink
+        style={{ marginBottom: 0 }}
+        iconRight={(Assets.icons as AssetsIconsType).plus}
+        iconRightStyles={{
+          tintColor: (Colors as AssetsColorsType).dark,
+          width: 21,
+          height: 21,
+          resizeMode: 'cover',
+        }}
+        onPressIconRight={() => setBagInputDialogVisible(true)}
+      >
+        <Text>Prepare your Bag</Text>
+      </CrumbsLink>
 
       <View flex>
         <Dialog

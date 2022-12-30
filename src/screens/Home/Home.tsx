@@ -7,6 +7,7 @@ import {
 import { ClipboardID } from '../../components/common/ClipboardID';
 import { MainWrapper } from '../../components/MainWrapper/MainWrapper';
 import { TripCardList } from './components/TripCardList/TripCardList';
+import { ActionsBar } from '../../components/ActionsBar/ActionsBar';
 
 import { useAppSelector } from '../../redux/hooks';
 
@@ -55,6 +56,8 @@ export function Home() {
           Start New Trip
         </Text>
       </Button>
+
+      {tripsCollection.length ? <ActionsBar /> : null}
     </MainWrapper>
   );
 }

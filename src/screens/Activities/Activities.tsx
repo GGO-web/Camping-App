@@ -33,7 +33,7 @@ export function Activities() {
               style={globalStyles.buttonOutlined}
               backgroundColor={Colors.primary}
               mode="outlined"
-              onPress={() => navigation.navigate('NewActivity' as never)}
+              onPress={() => navigation.navigate('AddActivity' as never)}
             >
               <Text
                 style={{

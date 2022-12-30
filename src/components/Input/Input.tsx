@@ -3,8 +3,9 @@ import React, { useCallback } from 'react';
 import { FormikProps } from 'formik';
 
 import { Colors } from 'react-native-ui-lib';
-import { TextField } from 'react-native-ui-lib/src/incubator';
+import { TextField, TextFieldProps } from 'react-native-ui-lib/src/incubator';
 
+import { StyleProp, TextStyle, ViewStyle } from 'react-native';
 import { globalStyles } from '../../styles/global';
 
 export function Input({
@@ -15,6 +16,7 @@ export function Input({
   fieldStyles = {},
   validate = true,
   onChangeFunction,
+  labelStyles,
   ...inputAttributes
 }: {
   formik: FormikProps<any>,
@@ -24,7 +26,8 @@ export function Input({
   fieldStyles?: {};
   validate?: boolean;
   onChangeFunction?: Function,
-  inputAttributes?: any;
+  labelStyles?: StyleProp<ViewStyle & TextStyle | any>,
+  inputAttributes?: TextFieldProps;
 }) {
   return (
     <TextField
@@ -40,7 +43,11 @@ export function Input({
         ...globalStyles.validationMessage,
         ...(!validate ? { marginTop: 0 } : []),
       }}
-      labelStyle={{ ...globalStyles.text, ...globalStyles.label }}
+      labelStyle={{
+        ...globalStyles.text,
+        ...globalStyles.label,
+        ...(labelStyles as any),
+      }}
       autoCapitalize="none"
       fieldStyle={{
         ...globalStyles.text,

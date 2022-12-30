@@ -2,7 +2,7 @@ import {
   Assets, Colors, ThemeManager, Typography,
 } from 'react-native-ui-lib';
 
-const colors = {
+export const colors = {
   primary: '#84CC16',
   primary50: '#F7FEE7',
   primary100: '#ECFCCB',
@@ -13,12 +13,13 @@ const colors = {
   red: '#EA1601',
   dark: '#3F3F46',
   gray: '#F4F4F5',
+  gray200: '#E4E4E7',
   gray300: '#A1A1AA',
   gray500: '#71717A',
   gray700: '#3F3F46',
 };
 
-const typographies = {
+export const typographies = {
   heading2: {
     fontFamily: 'SFProSemibold',
     fontWeight: '600',

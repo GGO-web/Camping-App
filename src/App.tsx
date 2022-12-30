@@ -32,6 +32,8 @@ import { Location } from './screens/NewTrip/components/Locations/components/Loca
 import { Bag } from './screens/NewTrip/components/Bag/Bag';
 
 import { Activities } from './screens/Activities/Activities';
+import { AddActivity } from './screens/Activities/components/AddActivity/AddActivity';
+
 import { Fitness } from './screens/Fitness/Fitness';
 import { Backpack } from './screens/Backpack/Backpack';
 import { Teammates } from './screens/Teammates/Teammates';
@@ -99,7 +101,7 @@ export default function App() {
       <Stack.Screen name="Bag" component={Bag} />
 
       <Stack.Screen name="Activities" component={Activities} />
-      <Stack.Screen name="NewActivity" component={Activities} />
+      <Stack.Screen name="AddActivity" component={AddActivity} />
 
       <Stack.Screen name="Fitness" component={Fitness} />
       <Stack.Screen name="Backpack" component={Backpack} />

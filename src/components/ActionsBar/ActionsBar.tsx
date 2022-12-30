@@ -8,7 +8,7 @@ import { actionTabs } from '../../constants';
 import { IActionTab } from '../../models/ActionsTab.model';
 import { ActionsTab } from './ActionTab';
 
-export function ActionsBar({ activeScreenName }: { activeScreenName: string }) {
+export function ActionsBar({ activeScreenName }: { activeScreenName?: string }) {
   const actionsTabs = actionTabs.map((actionTab: IActionTab) => (
     actionTab.title === activeScreenName ? ({
       ...actionTab,
@@ -23,14 +23,13 @@ export function ActionsBar({ activeScreenName }: { activeScreenName: string }) {
     <View
       row
       spread
-      absB
       paddingV-24
       paddingH-20
       paddingB-34
       style={{
-        bottom: 0,
-        left: 0,
-        right: 0,
+        marginTop: 'auto',
+        marginHorizontal: -20,
+        marginBottom: -16,
         overflow: 'hidden',
         backgroundColor: Colors.primary,
       }}
