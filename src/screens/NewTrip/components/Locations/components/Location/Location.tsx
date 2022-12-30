@@ -22,6 +22,14 @@ export function Location() {
 
   const { addLocation } = useActions();
 
+  const locationAddress = location?.addresses?.length
+    ? [
+      location?.addresses[0].city,
+      location?.addresses[0].stateCode,
+      location?.addresses[0].postalCode,
+    ].join(', ')
+    : '';
+
   const saveLocation = () => {
     addLocation(location);
 
@@ -46,24 +54,20 @@ export function Location() {
         source={{ uri: locationImage }}
       />
 
-      <View bottom paddingB-32 flex paddingH-20 style={{ zIndex: 2 }}>
+      <View bottom paddingB-32 flex spread paddingH-20 style={{ zIndex: 2 }}>
         <CrumbsLink iconStyles={{ tintColor: '#fff' }} style={{ marginBottom: 'auto', paddingHorizontal: 0 }}>
           <Text white>Back to locations list</Text>
         </CrumbsLink>
 
         <View>
           <Text white heading3 marginB-2 style={{ maxWidth: '90%' }}>{location.name}</Text>
-          <Text white paragraph2 marginB-16 style={{ maxWidth: '90%' }}>
-            {
-              location?.addresses?.length
-                ? [
-                  location?.addresses[0].city,
-                  location?.addresses[0].stateCode,
-                  location?.addresses[0].postalCode,
-                ].join(', ')
-                : ''
-            }
-          </Text>
+
+          {locationAddress ? (
+            <Text white paragraph2 marginB-16 style={{ maxWidth: '90%' }}>
+              {locationAddress}
+            </Text>
+          ) : null}
+
           <Text gray paragraph2 marginB-16>{location.description}</Text>
 
           <View marginH-20>
