@@ -6,6 +6,7 @@ import { Formik } from 'formik';
 import { AddActivityForm } from './AddActivityForm';
 
 import { IActivity } from '../../../../models/Activity.model';
+import { activitiesSchema } from '../../../../helpers/validationSchema';
 
 import { globalStyles } from '../../../../styles/global';
 
@@ -26,6 +27,9 @@ export function AddActivity() {
         onSubmit={(values: IActivity) => {
           formSubmitHandler(values);
         }}
+        validationSchema={activitiesSchema}
+        validateOnChange
+        validateOnMount
       >
         {(formik) => (
           <AddActivityForm

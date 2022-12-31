@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Button, Colors, Icon, Text, View,
+  Button, ButtonProps, Colors, Icon, Text, View,
 } from 'react-native-ui-lib';
 import { useNavigation } from '@react-navigation/native';
 
@@ -15,13 +15,15 @@ export function CrumbsLink({
   iconRight,
   iconRightStyles,
   onPressIconRight,
+  buttonIconRightProps,
 }: {
   children: any,
   style?: any,
-  iconStyles?: any
-  iconRight?: AssetsIconsType
+  iconStyles?: any,
+  iconRight?: AssetsIconsType,
   iconRightStyles?: StyleProp<ImageStyle>,
-  onPressIconRight?: Function
+  onPressIconRight?: Function,
+  buttonIconRightProps?: ButtonProps & typeof Button | any,
 }) {
   const navigation = useNavigation();
 
@@ -55,13 +57,14 @@ export function CrumbsLink({
             height: 32,
             padding: 6,
           }}
-          iconSource={iconRight}
+          iconSource={iconRight as AssetsIconsType}
           iconStyles={{ tintColor: Colors.dark, ...(iconRightStyles as any) }}
           onPressCallback={() => {
             if (onPressIconRight) {
               onPressIconRight();
             }
           }}
+          {...buttonIconRightProps as any}
         />
       )}
     </View>

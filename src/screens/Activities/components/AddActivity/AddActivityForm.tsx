@@ -27,9 +27,13 @@ export function AddActivityForm({
         iconRightStyles={{
           width: 22,
           height: 16,
-          tintColor: Colors.gray200,
+          tintColor: formik.isValid ? Colors.dark : Colors.gray200,
         }}
         onPressIconRight={() => formSubmitHandler(formik.values)}
+        buttonIconRightProps={{
+          disabled: !formik.isValid,
+          disabledBackgroundColor: 'transparent',
+        }}
       >
         <Text>Add Activity</Text>
       </CrumbsLink>

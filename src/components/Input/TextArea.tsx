@@ -28,9 +28,7 @@ export function TextArea({
       fieldName={fieldName}
       label=""
       {...{
-        fieldStyle: {
-          padding: 0,
-        },
+        fieldStyle: {},
         caretHidden: false,
         placeholder,
         placeholderTextColor: Colors.gray300,
