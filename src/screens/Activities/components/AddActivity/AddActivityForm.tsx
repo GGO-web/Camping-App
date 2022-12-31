@@ -3,7 +3,7 @@ import {
   Assets,
   Colors, Text, Typography, View,
 } from 'react-native-ui-lib';
-import { FormikProps } from 'formik';
+import { FormikProps, useFormikContext } from 'formik';
 
 import { CrumbsLink } from '../../../../components/common/CrumbsLink';
 
@@ -20,6 +20,8 @@ export function AddActivityForm({
   formSubmitHandler: Function,
   formik: FormikProps<IActivity>;
 }) {
+  const actions = useFormikContext();
+
   return (
     <DismissKeyboardView>
       <CrumbsLink
@@ -29,7 +31,7 @@ export function AddActivityForm({
           height: 16,
           tintColor: formik.isValid ? Colors.dark : Colors.gray200,
         }}
-        onPressIconRight={() => formSubmitHandler(formik.values)}
+        onPressIconRight={() => formSubmitHandler(formik.values, actions)}
         buttonIconRightProps={{
           disabled: !formik.isValid,
           disabledBackgroundColor: 'transparent',

@@ -18,13 +18,15 @@ export function Header({
   scaleValue,
   offsetValue,
   iconRight,
+  iconRightCallback,
 }: {
   title: string;
   showMenu: boolean;
   setShowMenu: Function;
   scaleValue: any;
   offsetValue: any;
-  iconRight?: AssetsIconsType
+  iconRight?: AssetsIconsType,
+  iconRightCallback?: Function
 }) {
   useEffect(() => {
     Animated.timing(scaleValue, {
@@ -68,6 +70,11 @@ export function Header({
         buttonStyles={{ width: 32, height: 32 }}
         iconSource={iconRight}
         iconStyles={{ tintColor: Colors.dark }}
+        onPressCallback={() => {
+          if (iconRightCallback) {
+            iconRightCallback();
+          }
+        }}
       />
       )}
     </View>

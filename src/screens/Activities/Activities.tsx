@@ -10,19 +10,25 @@ import { RemainingDays } from './components/RemainingDays/RemainingDays';
 
 import { AssetsGraphicType, AssetsIconsType } from '../../matherialUI';
 import { globalStyles } from '../../styles/global';
+import { useAppSelector } from '../../redux/hooks';
+import { ActivitiesList } from './components/ActivitiesList/ActivitiesList';
 
 export function Activities() {
   const { name: screenName } = useRoute();
 
   const navigation = useNavigation();
 
-  const readyActivitiesTasks = false;
+  const activitiesTasks = useAppSelector((store) => store.activities.activities);
 
   return (
-    <MainWrapper headerTitle={screenName} iconRight={(Assets.icons as AssetsIconsType).plus}>
+    <MainWrapper
+      headerTitle={screenName}
+      iconRight={(Assets.icons as AssetsIconsType).plus}
+      iconRightCallback={() => navigation.navigate('AddActivity' as never)}
+    >
       <RemainingDays />
 
-      {!readyActivitiesTasks ? (
+      {!activitiesTasks.length ? (
         <View center flex>
           <Image marginB-24 source={(Assets.graphic as AssetsGraphicType).activitiesTasks} />
           <Text marginB-8 paragraph2 gray700>
@@ -47,7 +53,7 @@ export function Activities() {
             </Button>
           </View>
         </View>
-      ) : null}
+      ) : <ActivitiesList />}
 
       <ActionsBar activeScreenName={screenName} />
     </MainWrapper>

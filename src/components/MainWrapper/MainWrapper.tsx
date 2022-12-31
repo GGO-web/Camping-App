@@ -14,10 +14,12 @@ export function MainWrapper({
   headerTitle,
   children,
   iconRight,
+  iconRightCallback,
 }: {
   headerTitle: string;
   children: any;
   iconRight?: AssetsIconsType
+  iconRightCallback?: Function
 }) {
   const [showMenu, setShowMenu] = useState(false);
 
@@ -84,6 +86,7 @@ export function MainWrapper({
           }}
           title={headerTitle}
           iconRight={iconRight}
+          iconRightCallback={iconRightCallback}
         />
 
         {children}

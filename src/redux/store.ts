@@ -1,4 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { activitiesReducer } from './activities/activitiesSlice';
 import { campingApi } from './api/camping';
 
 import { tripReducer } from './trip/tripSlice';
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
   userProfile: userReducer,
   trip: tripReducer,
   tripsCollection: tripsCollectionReducer,
+  activities: activitiesReducer,
   [campingApi.reducerPath]: campingApi.reducer,
 });
 

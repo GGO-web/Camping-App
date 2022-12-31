@@ -1,9 +1,12 @@
-import React from 'react';
-import { View } from 'react-native-ui-lib';
+import React, { useState } from 'react';
+import { ToastPresets, View } from 'react-native-ui-lib';
 
-import { Formik } from 'formik';
+import { Formik, FormikHelpers } from 'formik';
 
 import { AddActivityForm } from './AddActivityForm';
+import { Toast } from '../../../../components/Toast/Toast';
+
+import { useActions } from '../../../../hooks/actions';
 
 import { IActivity } from '../../../../models/Activity.model';
 import { activitiesSchema } from '../../../../helpers/validationSchema';
@@ -16,16 +19,41 @@ export function AddActivity() {
     description: '',
   };
 
-  const formSubmitHandler = (values: IActivity) => {
-    console.log(values);
+  const [toastParams, setToastParams] = useState({
+    visible: false,
+    preset: ToastPresets.FAILURE,
+    message: 'Item couldn`t be empty',
+  });
+
+  const { addActivity } = useActions();
+
+  const formSubmitHandler = (values: IActivity, actions: FormikHelpers<IActivity>) => {
+    setToastParams((prevToast) => ({
+      ...prevToast,
+      message: 'Activity has been added successfully',
+      preset: ToastPresets.SUCCESS,
+      visible: true,
+    }));
+    addActivity(values);
+
+    actions.resetForm();
   };
 
   return (
     <View style={{ ...globalStyles.container, ...globalStyles.navcontainer }}>
+      <Toast
+        visible={toastParams.visible}
+        preset={toastParams.preset}
+        toastMessage={toastParams.message}
+        onDismiss={() => {
+          setToastParams((prevToast) => ({ ...prevToast, visible: false }));
+        }}
+      />
+
       <Formik
         initialValues={formInitialValues}
-        onSubmit={(values: IActivity) => {
-          formSubmitHandler(values);
+        onSubmit={(values: IActivity, actions: FormikHelpers<IActivity>) => {
+          formSubmitHandler(values, actions);
         }}
         validationSchema={activitiesSchema}
         validateOnChange

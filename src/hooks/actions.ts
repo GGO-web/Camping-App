@@ -20,6 +20,10 @@ import {
   setActivedTrip,
 } from '../redux/tripsCollection/tripsCollection';
 
+import {
+  addActivity,
+} from '../redux/activities/activitiesSlice';
+
 const actions = {
   addLocation,
   setTripName,
@@ -34,6 +38,7 @@ const actions = {
   toggleBagItemChecked,
   clearTripFormInfo,
   setActiveTrip,
+  addActivity,
 };
 
 type ActionsType = typeof actions;
