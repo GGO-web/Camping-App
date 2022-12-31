@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import {
   Assets, Colors, Dialog, PanningProvider, View, Text, TextField, ToastPresets,
 } from 'react-native-ui-lib';
-import { Toast } from 'react-native-ui-lib/src/incubator';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { v4 } from 'uuid';
@@ -11,6 +10,8 @@ import { v4 } from 'uuid';
 import { ButtonIcon } from '../../../../components/Buttons/ButtonIcon';
 import { ButtonPrimary } from '../../../../components/Buttons/ButtonPrimary';
 import { CrumbsLink } from '../../../../components/common/CrumbsLink';
+import { Toast } from '../../../../components/Toast/Toast';
+
 import { useActions } from '../../../../hooks/actions';
 
 import type { AssetsColorsType, AssetsIconsType } from '../../../../matherialUI';
@@ -79,14 +80,13 @@ export function Bag() {
         >
           <Toast
             visible={toastParams.visible}
-            position="top"
-            message={toastParams.message}
             preset={toastParams.preset}
+            toastMessage={toastParams.message}
+            duration={700}
+            autoDismiss={700}
             onDismiss={() => {
               setToastParams((prevToast) => ({ ...prevToast, visible: false }));
             }}
-            autoDismiss={1500}
-            zIndex={9999}
           />
 
           <ButtonIcon iconSource={(Assets as AssetsIconsType).back} />

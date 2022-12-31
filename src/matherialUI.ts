@@ -89,6 +89,8 @@ const iconsGroup = {
   locationsCheck: require('../assets/location_check.png'),
   refresh: require('../assets/refresh.png'),
   enter: require('../assets/enter.png'),
+  failure: require('../assets/failure.png'),
+  info: require('../assets/info.png'),
 };
 
 const graphicGroup = {

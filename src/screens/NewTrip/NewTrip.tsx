@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { Platform, ToastAndroid } from 'react-native';
+// import { Platform, ToastAndroid } from 'react-native';
 import { View } from 'react-native-ui-lib';
-import { Toast, ToastPresets } from 'react-native-ui-lib/src/incubator';
+import { ToastPresets } from 'react-native-ui-lib/src/incubator';
 
 import { Formik } from 'formik';
 
 import { useNavigation } from '@react-navigation/native';
-import { CrumbsLink } from '../../components/common/CrumbsLink';
 
+import { CrumbsLink } from '../../components/common/CrumbsLink';
 import { NewTripForm } from './components/NewTripForm/NewTripForm';
 
 import { firebaseAuth } from '../../firebase/firebase';
@@ -22,6 +22,7 @@ import { IToast } from '../../models/Toast.model';
 import { NEW_TRIP_TOAST_MESSAGES } from '../../constants';
 
 import { globalStyles } from '../../styles/global';
+import { Toast } from '../../components/Toast/Toast';
 
 export interface INewTrip {
   name: string;
@@ -51,8 +52,6 @@ export function NewTrip() {
     message: '',
   });
 
-  const isIOS = Platform.OS === 'ios';
-
   const formSubmitHandler = async (
     values: INewTrip,
   ) => {
@@ -65,43 +64,27 @@ export function NewTrip() {
     } else if (tripData.selectedLocations.length === 0) {
       formSubmitMessage = NEW_TRIP_TOAST_MESSAGES.tripLocationsEmpty.message;
       formSubmitPreset = NEW_TRIP_TOAST_MESSAGES.tripLocationsEmpty.preset;
-    } else if (tripData.tripPeriod.formatted.length === 0) {
+    } else if (!tripData.tripPeriod.formatted || !tripData.tripPeriod.startDate) {
       formSubmitMessage = NEW_TRIP_TOAST_MESSAGES.tripDatePeriodEmpty.message;
       formSubmitPreset = NEW_TRIP_TOAST_MESSAGES.tripDatePeriodEmpty.preset;
     }
 
     if (formSubmitMessage && formSubmitPreset) {
-      if (isIOS) {
-        setToastParams((prevToast) => ({
-          ...prevToast,
-          message: formSubmitMessage,
-          preset: formSubmitPreset,
-          visible: true,
-        }));
-      } else {
-        ToastAndroid.showWithGravity(
-          formSubmitMessage,
-          ToastAndroid.SHORT,
-          ToastAndroid.TOP,
-        );
-      }
+      setToastParams((prevToast) => ({
+        ...prevToast,
+        message: formSubmitMessage,
+        preset: formSubmitPreset,
+        visible: true,
+      }));
     } else {
       setTripName(values.name);
       setTeammates(values.teammates);
 
-      if (isIOS) {
-        setToastParams({
-          message: NEW_TRIP_TOAST_MESSAGES.tripSuccess.message,
-          preset: NEW_TRIP_TOAST_MESSAGES.tripSuccess.preset,
-          visible: true,
-        });
-      } else {
-        ToastAndroid.showWithGravity(
-          NEW_TRIP_TOAST_MESSAGES.tripSuccess.message,
-          ToastAndroid.SHORT,
-          ToastAndroid.TOP,
-        );
-      }
+      setToastParams({
+        message: NEW_TRIP_TOAST_MESSAGES.tripSuccess.message,
+        preset: NEW_TRIP_TOAST_MESSAGES.tripSuccess.preset,
+        visible: true,
+      });
 
       // when toast preset get SUCCESS - navigate to the bag screen
       navigation.navigate('Bag' as never);
@@ -110,19 +93,14 @@ export function NewTrip() {
 
   return (
     <>
-      { isIOS ? (
-        <Toast
-          visible={toastParams.visible}
-          position="top"
-          message={toastParams.message}
-          preset={toastParams.preset}
-          onDismiss={() => {
-            setToastParams((prevToast) => ({ ...prevToast, visible: false }));
-          }}
-          autoDismiss={700}
-          zIndex={2500}
-        />
-      ) : null }
+      <Toast
+        visible={toastParams.visible}
+        preset={toastParams.preset}
+        toastMessage={toastParams.message}
+        onDismiss={() => {
+          setToastParams((prevToast) => ({ ...prevToast, visible: false }));
+        }}
+      />
 
       <View style={{ ...globalStyles.container, ...globalStyles.navcontainer }}>
         <CrumbsLink>Add new Trip</CrumbsLink>
