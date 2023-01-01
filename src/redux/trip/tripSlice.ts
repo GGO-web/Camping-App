@@ -38,7 +38,13 @@ const tripSlice = createSlice({
       state.teammates = action.payload;
     },
     addLocation: (state, action: PayloadAction<ILocation>) => {
-      state.selectedLocations.push(action.payload);
+      const locationAlreadyInStorage = state.selectedLocations.some(
+        (location) => location.id === action.payload.id,
+      );
+
+      if (!locationAlreadyInStorage) {
+        state.selectedLocations.push(action.payload);
+      }
     },
     setLatestLocation: (state, action: PayloadAction<string>) => {
       state.latestLocation = action.payload;
