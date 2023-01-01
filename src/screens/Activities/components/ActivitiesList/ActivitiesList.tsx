@@ -4,11 +4,9 @@ import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 
 import { ActivitiesListItem } from './components/ActivitiesListItem';
 
-import { useAppSelector } from '../../../../redux/hooks';
+import { IActivity } from '../../../../models/Activity.model';
 
-function ActivitiesListComponent() {
-  const activities = useAppSelector((store) => store.activities.activities);
-
+function ActivitiesListComponent({ activities }: { activities: IActivity[] }) {
   return (
     <ScrollView>
       {activities.map((activity) => (

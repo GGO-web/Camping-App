@@ -37,6 +37,10 @@ export function AddActivity() {
     addActivity(values);
 
     actions.resetForm();
+    actions.setErrors({
+      heading: 'Activity heading is empty',
+      description: 'Activity description is empty',
+    });
   };
 
   return (
