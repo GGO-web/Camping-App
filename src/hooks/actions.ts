@@ -18,13 +18,16 @@ import {
 import {
   addNewTripToCollection,
   setActivedTrip,
-} from '../redux/tripsCollection/tripsCollection';
-
-import {
   addActivity,
   removeActivity,
   setCompletedActivity,
-} from '../redux/activities/activitiesSlice';
+} from '../redux/tripsCollection/tripsCollection';
+
+// import {
+//   addActivity,
+//   removeActivity,
+//   setCompletedActivity,
+// } from '../redux/activities/activitiesSlice';
 
 const actions = {
   addLocation,
