@@ -12,23 +12,19 @@ export function RemainingDays() {
     ),
   )?.trip.tripPeriod;
 
-  const [dayNumber, remainingDays] = getRemainingDaysNumber(
+  const [dayNumber, remainingDays, remainStatus] = getRemainingDaysNumber(
     tripPeriod?.startDate as string,
     tripPeriod?.endDate as string,
   );
 
   return (
-    <View centerV row spread marginV-16>
+    <View bottom row spread marginB-32>
       <Text primary900 heading3>
-        Day
-        {' '}
-        {dayNumber}
+        {remainStatus ? `Day ${dayNumber}` : `${dayNumber} day's to trip`}
       </Text>
 
       <Text paragraph3 gray300>
-        {remainingDays}
-        {' '}
-        day&apos;s remain
+        {`${remainingDays} day's remain`}
       </Text>
     </View>
   );
