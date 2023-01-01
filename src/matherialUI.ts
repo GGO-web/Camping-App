@@ -18,6 +18,7 @@ export const colors = {
   gray300: '#A1A1AA',
   gray500: '#71717A',
   gray700: '#3F3F46',
+  success: '#64BC26',
 };
 
 export const typographies = {
