@@ -22,6 +22,8 @@ import {
 
 import {
   addActivity,
+  removeActivity,
+  setCompletedActivity,
 } from '../redux/activities/activitiesSlice';
 
 const actions = {
@@ -39,6 +41,8 @@ const actions = {
   clearTripFormInfo,
   setActiveTrip,
   addActivity,
+  removeActivity,
+  setCompletedActivity,
 };
 
 type ActionsType = typeof actions;
