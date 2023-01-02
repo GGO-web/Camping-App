@@ -6,6 +6,7 @@ export const colors = {
   primary: '#84CC16',
   primary50: '#F7FEE7',
   primary100: '#ECFCCB',
+  primary200: '#D9F99D',
   primary500: '#84CC16',
   primary600: '#65A30D',
   primary700: '#4D7C0F',
@@ -93,6 +94,8 @@ const iconsGroup = {
   enter: require('../assets/enter.png'),
   failure: require('../assets/failure.png'),
   info: require('../assets/info.png'),
+  runningMan: require('../assets/running-man.png'),
+  hikingMan: require('../assets/hiking-man.png'),
 };
 
 const graphicGroup = {

@@ -1,9 +1,11 @@
 import { Assets, ToastPresets } from 'react-native-ui-lib';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { v4 } from 'uuid';
 
-import { AssetsHomeActionsType } from './matherialUI';
+import { AssetsHomeActionsType, AssetsIconsType } from './matherialUI';
 import { IActionTab } from './models/ActionsTab.model';
+import { EFitnessTrackerTypes, EFitnessUnits, IFitnessTracker } from './models/FitnessTracker.model';
 
 export const authConfig = {
   clientId: process.env.REACT_APP_CLIENT_ID,
@@ -74,3 +76,24 @@ export const actionTabs: IActionTab[] = [
     iconStyles: { width: 18, height: 16 },
   },
 ];
+
+export const fitnessTrackers: Array<[EFitnessTrackerTypes, IFitnessTracker]> = [
+  [EFitnessTrackerTypes.running, {
+    id: v4(),
+    unit: EFitnessUnits.steps,
+    icon: (Assets.icons as AssetsIconsType).runningMan,
+    title: 'Running',
+    target: 3000,
+    currentValue: 0,
+  }],
+  [EFitnessTrackerTypes.hiking, {
+    id: v4(),
+    unit: EFitnessUnits.miles,
+    icon: (Assets.icons as AssetsIconsType).hikingMan,
+    title: 'Hiking',
+    target: 3,
+    currentValue: 0,
+  }],
+];
+
+export const MILES_IN_ONE_STEP = 0.0005;
