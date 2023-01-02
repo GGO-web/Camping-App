@@ -17,11 +17,12 @@ export function FitnessTracker({
   tracker: IFitnessTracker
 }) {
   const [currentTrackerValue, setCurrentTrackerValue] = useState(tracker.currentValue);
-  const trackerProgress = Math.min((
-    (trackerName === EFitnessTrackerTypes.running ? currentTrackerValue
+  const trackerProgress = parseFloat(Math.min((
+    (trackerName === EFitnessTrackerTypes.running
+      ? currentTrackerValue
       : (MILES_IN_ONE_STEP * currentTrackerValue))
     / tracker.target
-  ) * 100, 100).toFixed(2);
+  ) * 100, 100).toFixed(2));
 
   const tripPeriod = useAppSelector(getActivatedTripCollectionItemSelector)?.trip.tripPeriod;
 
