@@ -83,7 +83,7 @@ export const fitnessTrackers: Array<[EFitnessTrackerTypes, IFitnessTracker]> = [
     unit: EFitnessUnits.steps,
     icon: (Assets.icons as AssetsIconsType).runningMan,
     title: 'Running',
-    target: 200,
+    target: 3000,
     currentValue: 0,
   }],
   [EFitnessTrackerTypes.hiking, {
@@ -95,3 +95,5 @@ export const fitnessTrackers: Array<[EFitnessTrackerTypes, IFitnessTracker]> = [
     currentValue: 0,
   }],
 ];
+
+export const MILES_IN_ONE_STEP = 0.0005;

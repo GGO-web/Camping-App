@@ -1,9 +1,9 @@
 import { AssetsIconsType } from '../matherialUI';
 
-export enum EFitnessUnits {
-  'steps',
-  'miles',
-}
+export const EFitnessUnits = {
+  steps: 'steps',
+  miles: 'miles',
+};
 
 export enum EFitnessTrackerTypes {
   'running',
@@ -13,7 +13,7 @@ export enum EFitnessTrackerTypes {
 export interface IFitnessTracker {
   id?: string,
   target: number,
-  unit: EFitnessUnits,
+  unit: string,
   icon: AssetsIconsType,
   title: string,
   currentValue: number,
