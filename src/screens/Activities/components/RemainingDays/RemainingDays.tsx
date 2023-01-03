@@ -24,7 +24,11 @@ export function RemainingDays() {
       </Text>
 
       <Text paragraph3 gray300>
-        {`${remainingDays} day's remain`}
+        {`${
+          Number.isNaN(+remainingDays) ? '∞' : remainingDays
+        } day's remain ${
+          Number.isNaN(+remainingDays) ? 'till the end' : ''
+        }`}
       </Text>
     </View>
   );
