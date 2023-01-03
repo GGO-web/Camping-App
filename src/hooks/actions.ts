@@ -21,6 +21,7 @@ import {
   addActivity,
   removeActivity,
   setCompletedActivity,
+  updateBackpackItemCount,
 } from '../redux/tripsCollection/tripsCollection';
 
 // import {
@@ -46,6 +47,7 @@ const actions = {
   addActivity,
   removeActivity,
   setCompletedActivity,
+  updateBackpackItemCount,
 };
 
 type ActionsType = typeof actions;

@@ -4,9 +4,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v4 } from 'uuid';
 
 import type { ITrip } from '../../models/Trip.model';
-import type { ITripCollection, ITripCollectionItem } from './tripsCollection.model';
-import { IActivity } from '../../models/Activity.model';
-import { RootState } from '../store';
+import type { ITripCollection } from './tripsCollection.model';
+import type { IActivity } from '../../models/Activity.model';
+import type { RootState } from '../store';
 
 const initialState: ITripCollection = {
   trips: [],
@@ -23,26 +23,32 @@ const tripsCollectionSlice = createSlice({
         activated: true,
       });
 
-      state.trips = state.trips.map((tripsCollectionItem) => (tripsCollectionItem.trip.tripId === action.payload.tripId
-        ? {
-          ...tripsCollectionItem,
-          activated: true,
-        }
-        : {
-          ...tripsCollectionItem,
-          activated: false,
-        }));
+      state.trips = state.trips.map(
+        (tripsCollectionItem) => (
+          tripsCollectionItem.trip.tripId === action.payload.tripId
+            ? {
+              ...tripsCollectionItem,
+              activated: true,
+            }
+            : {
+              ...tripsCollectionItem,
+              activated: false,
+            }),
+      );
     },
     setActivedTrip: (state, action: PayloadAction<string>) => {
-      state.trips = state.trips.map((tripsCollectionItem) => (tripsCollectionItem.trip.tripId === action.payload
-        ? {
-          ...tripsCollectionItem,
-          activated: true,
-        }
-        : {
-          ...tripsCollectionItem,
-          activated: false,
-        }));
+      state.trips = state.trips.map(
+        (tripsCollectionItem) => (
+          tripsCollectionItem.trip.tripId === action.payload
+            ? {
+              ...tripsCollectionItem,
+              activated: true,
+            }
+            : {
+              ...tripsCollectionItem,
+              activated: false,
+            }),
+      );
     },
     addActivity: (state, action: PayloadAction<IActivity>) => {
       state.trips = state.trips.map((tripCollectionItem) => (tripCollectionItem.activated
@@ -73,12 +79,31 @@ const tripsCollectionSlice = createSlice({
       state.trips = state.trips.map((tripCollectionItem) => (tripCollectionItem.activated
         ? {
           ...tripCollectionItem,
-          activities: tripCollectionItem.activities.map((activity) => (activity.id === action.payload
-            ? {
-              ...activity,
-              completed: true,
-            }
-            : activity)),
+          activities: tripCollectionItem.activities.map(
+            (activity) => (
+              activity.id === action.payload
+                ? {
+                  ...activity,
+                  completed: true,
+                }
+                : activity),
+          ),
+        }
+        : tripCollectionItem));
+    },
+
+    updateBackpackItemCount: (state, action: PayloadAction<{ id: string, count: number }>) => {
+      state.trips = state.trips.map((tripCollectionItem) => (tripCollectionItem.activated
+        ? {
+          ...tripCollectionItem,
+          trip: {
+            ...tripCollectionItem.trip,
+            bagItems: tripCollectionItem.trip.bagItems.map((bagItem) => (
+              bagItem.id === action.payload.id ? {
+                ...bagItem,
+                count: action.payload.count,
+              } : bagItem)),
+          },
         }
         : tripCollectionItem));
     },
@@ -91,6 +116,7 @@ export const {
   addActivity,
   removeActivity,
   setCompletedActivity,
+  updateBackpackItemCount,
 } = tripsCollectionSlice.actions;
 export const tripsCollectionReducer = tripsCollectionSlice.reducer;
 

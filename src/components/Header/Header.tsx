@@ -67,9 +67,9 @@ export function Header({
 
       {iconRight && (
       <ButtonIcon
-        buttonStyles={{ width: 32, height: 32 }}
+        buttonStyles={{ width: 32, height: 32, padding: 6 }}
         iconSource={iconRight}
-        iconStyles={{ tintColor: Colors.dark }}
+        iconStyles={{ width: '100%', height: '100%', tintColor: Colors.dark }}
         onPressCallback={() => {
           if (iconRightCallback) {
             iconRightCallback();
