@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { PermissionsAndroid, Platform } from 'react-native';
 import {
   Colors, View, Text, Image, ProgressBar,
 } from 'react-native-ui-lib';
 import { Pedometer } from 'expo-sensors';
 
-import { EFitnessTrackerTypes, IFitnessTracker } from '../../../../models/FitnessTracker.model';
 import { useAppSelector } from '../../../../redux/hooks';
+
+import { EFitnessTrackerTypes, IFitnessTracker } from '../../../../models/FitnessTracker.model';
 import { getActivatedTripCollectionItemSelector } from '../../../../redux/tripsCollection/tripsCollection';
+
 import { MILES_IN_ONE_STEP } from '../../../../constants';
 
 export function FitnessTracker({
@@ -26,34 +29,49 @@ export function FitnessTracker({
 
   const tripPeriod = useAppSelector(getActivatedTripCollectionItemSelector)?.trip.tripPeriod;
 
+  const requestActivityPermission = async () => {
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.ACTIVITY_RECOGNITION,
+    );
+
+    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      console.log('Start walking');
+    } else {
+      console.log('permission denied');
+    }
+  };
+
   const stepTrackerSubscriber = async () => {
+    const setTrackerPastStepCount = async () => {
+      if (Platform.OS === 'ios') {
+        const pastStepCountResult = await Pedometer.getStepCountAsync(
+          new Date(tripPeriod?.startDate as string),
+          new Date((tripPeriod?.endDate || tripPeriod?.startDate) as string),
+        );
+
+        if (pastStepCountResult) {
+          setCurrentTrackerValue(pastStepCountResult.steps);
+        }
+      }
+    };
+
     const isAvailable = await Pedometer.isAvailableAsync();
 
     if (isAvailable) {
-      const pastStepCountResult = await Pedometer.getStepCountAsync(
-        new Date(tripPeriod?.startDate as string),
-        new Date((tripPeriod?.endDate || tripPeriod?.startDate) as string),
-      );
+      setTrackerPastStepCount();
 
-      if (pastStepCountResult) {
-        setCurrentTrackerValue(pastStepCountResult.steps);
+      if (Platform.OS === 'android') {
+        requestActivityPermission();
       }
 
       Pedometer.watchStepCount((result) => {
-        const getStepCount = async () => {
-          const pastStepCountResult = await Pedometer.getStepCountAsync(
-            new Date(tripPeriod?.startDate as string),
-            new Date((tripPeriod?.endDate || tripPeriod?.startDate) as string),
-          );
+        setTrackerPastStepCount();
 
-          if (pastStepCountResult) {
-            setCurrentTrackerValue(pastStepCountResult.steps);
-          } else {
-            setCurrentTrackerValue(result.steps);
-          }
-        };
+        console.log(result.steps);
 
-        getStepCount();
+        if (Platform.OS === 'android') {
+          setCurrentTrackerValue(result.steps);
+        }
       });
     }
   };
