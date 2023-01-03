@@ -30,7 +30,7 @@ export function TripCard({
 
   const [showTripSelectedDialog, setShowTripSelectedDialog] = useState<boolean>(false);
 
-  const { setActivedTrip, setActiveTrip } = useActions();
+  const { setActivedTrip } = useActions();
 
   return (
     <Card
@@ -152,7 +152,6 @@ export function TripCard({
           <ButtonPrimary
             buttonCallback={() => {
               setActivedTrip(trip.tripId);
-              setActiveTrip(trip);
               setShowTripSelectedDialog(false);
             }}
             buttonText="Enter"
