@@ -44,7 +44,8 @@
     "react-redux": "^8.0.2",
     "reactfire": "^4.2.1",
     "uui": "^1.0.7",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "expo-image-picker": "~13.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
