@@ -18,7 +18,10 @@ const tripsCollectionSlice = createSlice({
   reducers: {
     addNewTripToCollection: (state, action: PayloadAction<ITrip>) => {
       state.trips.push({
-        trip: action.payload,
+        trip: {
+          ...action.payload,
+          bagItems: action.payload.bagItems.filter((bagItem) => bagItem.checked),
+        },
         activities: [],
         activated: true,
       });
