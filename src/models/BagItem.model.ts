@@ -3,4 +3,5 @@ export interface IBagItem {
   content: string;
   count: number;
   checked: boolean;
+  imageUri?: string;
 }

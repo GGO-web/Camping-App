@@ -1,5 +1,5 @@
 import { ImageInfo, ImagePickerResult, MediaTypeOptions } from 'expo-image-picker/build/ImagePicker.types';
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View, Text, Stepper, Button, Colors, Icon, Image,
 } from 'react-native-ui-lib';
@@ -11,9 +11,7 @@ import { useActions } from '../../../../hooks/actions';
 import { IBagItem } from '../../../../models/BagItem.model';
 
 export function BackpackListItem({ backpackItem }: { backpackItem: IBagItem }) {
-  const [backpackImagePath, setBackpackImagePath] = useState('');
-
-  const { updateBackpackItemCount } = useActions();
+  const { updateBackpackItemCount, setBackpackItemUri } = useActions();
 
   const takePicture = async () => {
     const pickerResult: ImagePickerResult | ImageInfo = await launchCameraAsync({
@@ -23,7 +21,7 @@ export function BackpackListItem({ backpackItem }: { backpackItem: IBagItem }) {
     });
 
     if (!pickerResult.cancelled) {
-      setBackpackImagePath(pickerResult.uri as string);
+      setBackpackItemUri({ id: backpackItem.id, uri: pickerResult.uri });
     }
   };
 
@@ -46,7 +44,7 @@ export function BackpackListItem({ backpackItem }: { backpackItem: IBagItem }) {
             takePicture();
           }}
         >
-          {!backpackImagePath
+          {!backpackItem.imageUri
             ? (
               <Icon
                 size={24}
@@ -54,13 +52,12 @@ export function BackpackListItem({ backpackItem }: { backpackItem: IBagItem }) {
                   resizeMode: 'cover',
                 }}
                 assetName="plus"
-                source={{ uri: backpackImagePath }}
               />
             )
             : (
               <Image
-                source={{ uri: backpackImagePath }}
-                style={{ width: 64, height: 64, resizeMode: 'cover' }}
+                source={{ uri: backpackItem.imageUri }}
+                style={{ width: 48, height: 48, resizeMode: 'cover' }}
               />
             )}
         </Button>

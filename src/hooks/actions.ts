@@ -22,6 +22,7 @@ import {
   removeActivity,
   setCompletedActivity,
   updateBackpackItemCount,
+  setBackpackItemUri,
 } from '../redux/tripsCollection/tripsCollection';
 
 // import {
@@ -48,6 +49,7 @@ const actions = {
   removeActivity,
   setCompletedActivity,
   updateBackpackItemCount,
+  setBackpackItemUri,
 };
 
 type ActionsType = typeof actions;

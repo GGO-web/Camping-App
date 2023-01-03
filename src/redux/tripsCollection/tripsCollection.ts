@@ -91,7 +91,6 @@ const tripsCollectionSlice = createSlice({
         }
         : tripCollectionItem));
     },
-
     updateBackpackItemCount: (state, action: PayloadAction<{ id: string, count: number }>) => {
       state.trips = state.trips.map((tripCollectionItem) => (tripCollectionItem.activated
         ? {
@@ -107,6 +106,21 @@ const tripsCollectionSlice = createSlice({
         }
         : tripCollectionItem));
     },
+    setBackpackItemUri: (state, action: PayloadAction<{ id: string, uri: string }>) => {
+      state.trips = state.trips.map((tripCollectionItem) => (tripCollectionItem.activated
+        ? {
+          ...tripCollectionItem,
+          trip: {
+            ...tripCollectionItem.trip,
+            bagItems: tripCollectionItem.trip.bagItems.map((bagItem) => (
+              bagItem.id === action.payload.id ? {
+                ...bagItem,
+                imageUri: action.payload.uri,
+              } : bagItem)),
+          },
+        }
+        : tripCollectionItem));
+    },
   },
 });
 
@@ -117,6 +131,7 @@ export const {
   removeActivity,
   setCompletedActivity,
   updateBackpackItemCount,
+  setBackpackItemUri,
 } = tripsCollectionSlice.actions;
 export const tripsCollectionReducer = tripsCollectionSlice.reducer;
 
