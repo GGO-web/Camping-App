@@ -47,3 +47,9 @@ export const activitiesSchema = Yup.object().shape({
   heading: Yup.string().required('Activities heading is required'),
   description: Yup.string().required('Activities description is required'),
 });
+
+export const profileSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(3, 'The name couldn`t be less than 3 characters')
+    .required('Name is required'),
+});

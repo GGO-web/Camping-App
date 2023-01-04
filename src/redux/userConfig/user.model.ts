@@ -1,7 +1,8 @@
 export interface IUser {
-  uid: string; // unique id for logged user
+  uid: string;
   email: string;
-  fullname: string; // fullname of the user
-  isAuth?: boolean; // user is authenticate flag
+  fullname: string;
+  bio?: string;
+  isAuth?: boolean;
   avatar?: string;
 }

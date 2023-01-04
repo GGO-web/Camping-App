@@ -13,6 +13,7 @@ export function TextArea({
   placeholder,
   inputStyles,
   numberOfLines,
+  label,
   ...inputAttributes
 }: {
   formik: FormikProps<any>,
@@ -20,13 +21,14 @@ export function TextArea({
   placeholder?: string,
   inputStyles?: StyleProp<ViewStyle>,
   numberOfLines?: number,
+  label?: string,
   inputAttributes?: TextFieldProps;
 }) {
   return (
     <Input
       formik={formik}
       fieldName={fieldName}
-      label=""
+      label={label || ''}
       {...{
         fieldStyle: {},
         caretHidden: false,

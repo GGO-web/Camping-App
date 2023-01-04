@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Assets, Avatar, Colors, Text, TouchableOpacity,
 } from 'react-native-ui-lib';
@@ -9,6 +9,7 @@ import {
 import { useActions } from '../../../../hooks/actions';
 import { useAppSelector } from '../../../../redux/hooks';
 import { userSelector } from '../../../../redux/userConfig/userSlice';
+import { firebaseAuth } from '../../../../firebase/firebase';
 
 export function ProfileAvatar() {
   const { avatar } = useAppSelector(userSelector);
@@ -26,6 +27,10 @@ export function ProfileAvatar() {
       setProfileAvatar(pickerResult.uri);
     }
   };
+
+  useEffect(() => {
+    setProfileAvatar(firebaseAuth.currentUser?.photoURL as string);
+  }, []);
 
   return (
     <TouchableOpacity

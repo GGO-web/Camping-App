@@ -6,6 +6,7 @@ export const initialState: IUser = {
   uid: '',
   email: '',
   fullname: 'User name',
+  bio: '',
   isAuth: false,
 };
 
@@ -23,10 +24,16 @@ const userSlice = createSlice({
     setProfileAvatar: (state, action: PayloadAction<string>) => {
       state.avatar = action.payload;
     },
+    setProfileInfo: (state, action: PayloadAction<{ name: string, bio: string }>) => {
+      state.fullname = action.payload.name;
+      state.bio = action.payload.bio;
+    },
   },
 });
 
 export const userSelector = (store: { userProfile: IUser }) => store.userProfile;
 
-export const { signIn, signOut, setProfileAvatar } = userSlice.actions;
+export const {
+  signIn, signOut, setProfileAvatar, setProfileInfo,
+} = userSlice.actions;
 export const userReducer = userSlice.reducer;
