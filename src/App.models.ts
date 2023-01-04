@@ -1,5 +1,5 @@
 export interface IRoute {
-   name: string;
-   path: string;
-   icon: number;
+  name: string;
+  path: string;
+  icon: number;
 }

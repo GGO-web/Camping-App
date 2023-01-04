@@ -98,6 +98,15 @@ const iconsGroup = {
   hikingMan: require('../assets/hiking-man.png'),
 };
 
+export const navigationGroup = {
+  bell: require('../assets/navigation/bell.png'),
+  bulb: require('../assets/navigation/bulb.png'),
+  camera: require('../assets/navigation/camera.png'),
+  exit: require('../assets/navigation/exit.png'),
+  message: require('../assets/navigation/message.png'),
+  settings: require('../assets/navigation/settings.png'),
+};
+
 const graphicGroup = {
   trips: require('../assets/trips.png'),
   activitiesTasks: require('../assets/activitiesTasks.png'),
@@ -118,9 +127,11 @@ Typography.loadTypographies(typographies);
 Assets.loadAssetsGroup('icons', iconsGroup);
 Assets.loadAssetsGroup('graphic', graphicGroup);
 Assets.loadAssetsGroup('actions', homeActionsGroup);
+Assets.loadAssetsGroup('navigation', navigationGroup);
 
 export type AssetsIconsType = typeof Assets & typeof iconsGroup;
 export type AssetsGraphicType = typeof Assets & typeof graphicGroup;
+export type AssetsNavigationIconsType = typeof Assets & typeof navigationGroup;
 export type AssetsHomeActionsType = typeof Assets & typeof homeActionsGroup;
 
 export type AssetsColorsType = typeof Colors & typeof colors;

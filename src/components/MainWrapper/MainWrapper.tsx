@@ -1,11 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { Animated, SafeAreaView } from 'react-native';
-import { Assets } from 'react-native-ui-lib';
 
 import { Header } from '../Header/Header';
 import { Navbar } from '../Navbar/Navbar';
 
-import type { IRoute } from '../../App.models';
 import type { AssetsIconsType } from '../../matherialUI';
 
 import { globalStyles } from '../../styles/global';
@@ -26,32 +24,9 @@ export function MainWrapper({
   const offsetValue = useRef(new Animated.Value(0)).current;
   const scaleValue = useRef(new Animated.Value(1)).current;
 
-  const routes: IRoute[] = [
-    {
-      name: 'Home',
-      path: 'Homepage',
-      icon: Assets.icons.homeIcon,
-    },
-    {
-      name: 'How to use',
-      path: 'HowToUse',
-      icon: Assets.icons.question,
-    },
-    {
-      name: 'Language',
-      path: 'Language',
-      icon: Assets.icons.globe,
-    },
-    {
-      name: 'Log-out',
-      path: 'Logout',
-      icon: Assets.icons.logout,
-    },
-  ];
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Navbar routes={routes} />
+      <Navbar />
 
       <Animated.View
         style={{

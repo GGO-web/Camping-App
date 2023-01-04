@@ -3,14 +3,86 @@ import { Assets, ToastPresets } from 'react-native-ui-lib';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { v4 } from 'uuid';
 
-import { AssetsHomeActionsType, AssetsIconsType } from './matherialUI';
-import { IActionTab } from './models/ActionsTab.model';
+import type { IRoute } from './App.models';
+import type { AssetsHomeActionsType, AssetsIconsType, AssetsNavigationIconsType } from './matherialUI';
+import type { IActionTab } from './models/ActionsTab.model';
 import { EFitnessTrackerTypes, EFitnessUnits, IFitnessTracker } from './models/FitnessTracker.model';
 
 export const authConfig = {
   clientId: process.env.REACT_APP_CLIENT_ID,
   scopes: ['profile', 'email'],
 };
+
+export const mainNavigationRoutes: IRoute[] = [
+  {
+    name: 'Home',
+    path: 'Homepage',
+    icon: Assets.icons.homeIcon,
+  },
+  {
+    name: 'How to use',
+    path: 'HowToUse',
+    icon: Assets.icons.question,
+  },
+  {
+    name: 'Language',
+    path: 'Language',
+    icon: Assets.icons.globe,
+  },
+  {
+    name: 'Log-out',
+    path: 'Logout',
+    icon: Assets.icons.logout,
+  },
+];
+
+export const expandedNavigationRoutes: IRoute[] = [
+  {
+    name: 'Home',
+    path: 'Homepage',
+    icon: Assets.icons.homeIcon,
+  },
+  {
+    name: 'Tips & Tricks',
+    path: 'TipsAndTricks',
+    icon: (Assets.navigation as AssetsNavigationIconsType).bulb,
+  },
+  {
+    name: 'Notifications',
+    path: 'Notifications',
+    icon: (Assets.navigation as AssetsNavigationIconsType).bell,
+  },
+  {
+    name: 'Catch Snaps',
+    path: 'Snaps',
+    icon: (Assets.navigation as AssetsNavigationIconsType).camera,
+  },
+  {
+    name: 'Settings',
+    path: 'Settings',
+    icon: (Assets.navigation as AssetsNavigationIconsType).settings,
+  },
+  {
+    name: 'Feedback',
+    path: 'Feedback',
+    icon: (Assets.navigation as AssetsNavigationIconsType).message,
+  },
+  {
+    name: 'How to use',
+    path: 'HowToUse',
+    icon: Assets.icons.question,
+  },
+  {
+    name: 'Language',
+    path: 'Language',
+    icon: Assets.icons.globe,
+  },
+  {
+    name: 'Exit trip',
+    path: 'Logout',
+    icon: (Assets.navigation as AssetsNavigationIconsType).exit,
+  },
+];
 
 export const languagesList = [
   'English',
