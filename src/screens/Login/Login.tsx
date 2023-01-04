@@ -41,7 +41,7 @@ export function Login() {
 
   const dispatch = useAppDispatch();
 
-  const [request, response, promptAsync]: any = Google.useAuthRequest(authConfig);
+  const [, response, promptAsync]: any = Google.useAuthRequest(authConfig);
 
   const formSubmitHandler = async (
     values: ILogin,
@@ -57,7 +57,11 @@ export function Login() {
       const user: User = firebaseAuth.currentUser as User;
 
       dispatch(
-        signIn({ email: user.email, fullname: user.displayName } as IUser),
+        signIn({
+          email: user.email,
+          fullname: user.displayName,
+          avatar: user.photoURL,
+        } as IUser),
       );
       navigation.navigate('Homepage' as never);
     } catch (error: any) {
