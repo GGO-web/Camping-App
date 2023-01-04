@@ -56,6 +56,11 @@ export const typographies = {
     fontWeight: '500',
     fontSize: 14,
   },
+  paragraph4: {
+    fontFamily: 'SFProRegular',
+    fontWeight: '400',
+    fontSize: 12,
+  },
   underline: {
     textDecorationLine: 'underline',
     textDecorationColor: '#000',
@@ -113,6 +118,16 @@ const graphicGroup = {
   camp: require('../assets/onboarding/img-4.png'),
 };
 
+const tipsAndTricksGroup = {
+  tip1: require('../assets/tipsAndTricks/tip-1.png'),
+  tip2: require('../assets/tipsAndTricks/tip-2.png'),
+  tip3: require('../assets/tipsAndTricks/tip-3.png'),
+  tip4: require('../assets/tipsAndTricks/tip-4.png'),
+  tip5: require('../assets/tipsAndTricks/tip-5.png'),
+  tip6: require('../assets/tipsAndTricks/tip-6.png'),
+  tip7: require('../assets/tipsAndTricks/tip-7.png'),
+};
+
 const homeActionsGroup = {
   activities: require('../assets/homeactions/activities.png'),
   fitness: require('../assets/homeactions/fitness.png'),
@@ -128,10 +143,12 @@ Assets.loadAssetsGroup('icons', iconsGroup);
 Assets.loadAssetsGroup('graphic', graphicGroup);
 Assets.loadAssetsGroup('actions', homeActionsGroup);
 Assets.loadAssetsGroup('navigation', navigationGroup);
+Assets.loadAssetsGroup('tipsAndTricks', tipsAndTricksGroup);
 
 export type AssetsIconsType = typeof Assets & typeof iconsGroup;
 export type AssetsGraphicType = typeof Assets & typeof graphicGroup;
 export type AssetsNavigationIconsType = typeof Assets & typeof navigationGroup;
+export type AssetsTipsAndTricksType = typeof Assets & typeof tipsAndTricksGroup;
 export type AssetsHomeActionsType = typeof Assets & typeof homeActionsGroup;
 
 export type AssetsColorsType = typeof Colors & typeof colors;

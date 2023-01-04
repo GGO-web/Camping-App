@@ -4,9 +4,12 @@ import { Assets, ToastPresets } from 'react-native-ui-lib';
 import { v4 } from 'uuid';
 
 import type { IRoute } from './App.models';
-import type { AssetsHomeActionsType, AssetsIconsType, AssetsNavigationIconsType } from './matherialUI';
+import type {
+  AssetsHomeActionsType, AssetsIconsType, AssetsNavigationIconsType, AssetsTipsAndTricksType,
+} from './matherialUI';
 import type { IActionTab } from './models/ActionsTab.model';
 import { EFitnessTrackerTypes, EFitnessUnits, IFitnessTracker } from './models/FitnessTracker.model';
+import { ITipAndTrick } from './models/TipsAndTricks.model';
 
 export const authConfig = {
   clientId: process.env.REACT_APP_CLIENT_ID,
@@ -169,3 +172,41 @@ export const fitnessTrackers: Array<[EFitnessTrackerTypes, IFitnessTracker]> = [
 ];
 
 export const MILES_IN_ONE_STEP = 0.0005;
+
+export const tipsAndTricks: ITipAndTrick[] = [
+  {
+    image: (Assets.tipsAndTricks as AssetsTipsAndTricksType).tip1,
+    title: 'Use these camping tips, tricks and hacks to make you happy',
+    text: 'Camping connects you with the quiet majesty of nature, allowing mountain peeks',
+  },
+  {
+    image: (Assets.tipsAndTricks as AssetsTipsAndTricksType).tip2,
+    title: 'These camping food hacks will definately make your c....',
+    text: 'As everyone knows that making food is always hard when you do...',
+  },
+  {
+    image: (Assets.tipsAndTricks as AssetsTipsAndTricksType).tip3,
+    title: 'Top ten must carry equipments for your next c....',
+    text: 'In this tip we have a list of compulsary taken equipments for...',
+  },
+  {
+    image: (Assets.tipsAndTricks as AssetsTipsAndTricksType).tip4,
+    title: 'Make a lantern out of a headlamp and a jug of wat...',
+    text: 'All you need is your headlamp and a gallon jug of water or large wat....',
+  },
+  {
+    image: (Assets.tipsAndTricks as AssetsTipsAndTricksType).tip5,
+    title: 'Line your bag with a garbage bag to keep contents dry',
+    text: 'Weather is everything when you’re camping, and a seasoned campe...',
+  },
+  {
+    image: (Assets.tipsAndTricks as AssetsTipsAndTricksType).tip6,
+    title: 'Make a Makeshift Grommet by Tying Line Around a Roc...',
+    text: 'Tarp grommets wear out quickly and often when you need them....',
+  },
+  {
+    image: (Assets.tipsAndTricks as AssetsTipsAndTricksType).tip7,
+    title: 'Burn Sage in Your Campfire to Help Repel Mosquitoes',
+    text: 'Mosquitoes can dampen an otherwise great camping experience. Knowing ',
+  },
+];

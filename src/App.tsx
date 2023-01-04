@@ -38,6 +38,7 @@ import { Fitness } from './screens/Fitness/Fitness';
 import { Backpack } from './screens/Backpack/Backpack';
 import { Teammates } from './screens/Teammates/Teammates';
 import { Profile } from './screens/Profile/Profile';
+import { TipsAndTricks } from './screens/TipsAndTricks/TipsAndTricks';
 
 const Stack = createNativeStackNavigator();
 
@@ -96,6 +97,7 @@ export default function App() {
       <Stack.Screen name="Language" component={Language} />
       {/* Navigation menu expanded */}
       <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="TipsAndTricks" component={TipsAndTricks} />
 
       <Stack.Screen name="NewTrip" component={NewTrip} />
       <Stack.Screen name="Teammembers" component={Teammembers} />
