@@ -37,6 +37,7 @@ import { AddActivity } from './screens/Activities/components/AddActivity/AddActi
 import { Fitness } from './screens/Fitness/Fitness';
 import { Backpack } from './screens/Backpack/Backpack';
 import { Teammates } from './screens/Teammates/Teammates';
+import { Profile } from './screens/Profile/Profile';
 
 const Stack = createNativeStackNavigator();
 
@@ -93,6 +94,8 @@ export default function App() {
       <Stack.Screen name="Logout" component={Logout} />
       <Stack.Screen name="HowToUse" component={HowToUse} />
       <Stack.Screen name="Language" component={Language} />
+      {/* Navigation menu expanded */}
+      <Stack.Screen name="Profile" component={Profile} />
 
       <Stack.Screen name="NewTrip" component={NewTrip} />
       <Stack.Screen name="Teammembers" component={Teammembers} />
@@ -106,6 +109,7 @@ export default function App() {
       <Stack.Screen name="Fitness" component={Fitness} />
       <Stack.Screen name="Backpack" component={Backpack} />
       <Stack.Screen name="Teammates" component={Teammates} />
+
     </Stack.Navigator>
   );
 }

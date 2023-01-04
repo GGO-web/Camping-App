@@ -1,6 +1,8 @@
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from '@reduxjs/toolkit';
 
+import { setProfileAvatar } from '../redux/userConfig/userSlice';
+
 import {
   addLocation,
   setTripName,
@@ -50,6 +52,7 @@ const actions = {
   setCompletedActivity,
   updateBackpackItemCount,
   setBackpackItemUri,
+  setProfileAvatar,
 };
 
 type ActionsType = typeof actions;
