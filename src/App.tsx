@@ -40,6 +40,7 @@ import { Teammates } from './screens/Teammates/Teammates';
 import { Profile } from './screens/Profile/Profile';
 import { TipsAndTricks } from './screens/TipsAndTricks/TipsAndTricks';
 import { Snaps } from './screens/Snaps/Snaps';
+import { Feedback } from './screens/Feedback/Feedback';
 
 const Stack = createNativeStackNavigator();
 
@@ -100,6 +101,7 @@ export default function App() {
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="TipsAndTricks" component={TipsAndTricks} />
       <Stack.Screen name="Snaps" component={Snaps} />
+      <Stack.Screen name="Feedback" component={Feedback} />
 
       <Stack.Screen name="NewTrip" component={NewTrip} />
       <Stack.Screen name="Teammembers" component={Teammembers} />
