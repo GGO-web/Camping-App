@@ -5,7 +5,7 @@ import type { ITrip } from '../../models/Trip.model';
 export interface ITripCollectionItem {
   trip: ITrip,
   activities: IActivity[],
-  snaps: ISnap[],
+  snaps?: ISnap[],
   activated: boolean
 }
 

@@ -68,38 +68,55 @@ export function Snaps() {
           </View>
         )
         : (
-          <ScrollView style={{ margin: -24 }}>
-            {snaps.map((snap) => (
-              <View margin-24 key={snap.id}>
-                <Image
-                  source={{ uri: snap.uri }}
-                  style={{ width: 155, height: 240 }}
-                />
-              </View>
-            ))}
+          <ScrollView style={{ margin: -12 }}>
+            <View flex row style={{ flexWrap: 'wrap' }}>
+              {snaps.map((snap) => (
+                <View
+                  margin-12
+                  key={snap.id}
+                  style={{
+                    flexBasis: 'auto',
+                    flexGrow: 1,
+                    flexShrink: 1,
+                  }}
+                >
+                  <Image
+                    source={{ uri: snap.uri }}
+                    style={{
+                      flex: 1,
+                      minWidth: 155,
+                      height: 240,
+                      borderRadius: 16,
+                    }}
+                  />
+                </View>
+              ))}
 
-            <Button
-              mode="contained"
-              backgroundColor={Colors.gray}
-              disabledBackgroundColor={Colors.gray400}
-              style={{
-                minWidth: 155,
-                width: 155,
-                height: 240,
-                borderRadius: 16,
-                margin: 24,
-              }}
-              onPress={() => catchSnap()}
-            >
-              <Icon
+              <Button
+                mode="contained"
+                backgroundColor={Colors.gray}
+                disabledBackgroundColor={Colors.gray400}
                 style={{
-                  width: 16,
-                  height: 16,
-                  resizeMode: 'contain',
+                  flexBasis: 'auto',
+                  flexGrow: 1,
+                  flexShrink: 1,
+                  minWidth: 155,
+                  height: 240,
+                  borderRadius: 16,
+                  margin: 12,
                 }}
-                assetName="plus"
-              />
-            </Button>
+                onPress={() => catchSnap()}
+              >
+                <Icon
+                  style={{
+                    width: 16,
+                    height: 16,
+                    resizeMode: 'contain',
+                  }}
+                  assetName="plus"
+                />
+              </Button>
+            </View>
           </ScrollView>
         )}
     </MainWrapper>

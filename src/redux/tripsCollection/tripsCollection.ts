@@ -128,13 +128,13 @@ const tripsCollectionSlice = createSlice({
       state.trips = state.trips.map((tripCollectionItem) => (tripCollectionItem.activated
         ? {
           ...tripCollectionItem,
-          trip: {
-            ...tripCollectionItem.trip,
-            snaps: [...tripCollectionItem.snaps, {
+          snaps: [
+            ...tripCollectionItem.snaps || [],
+            {
               id: v4(),
               uri: action.payload,
-            }],
-          },
+            },
+          ],
         }
         : tripCollectionItem));
     },
