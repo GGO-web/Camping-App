@@ -53,3 +53,7 @@ export const profileSchema = Yup.object().shape({
     .min(3, 'The name couldn`t be less than 3 characters')
     .required('Name is required'),
 });
+
+export const feedbackSchema = Yup.object().shape({
+  message: Yup.string().required('Feedback is required'),
+});
