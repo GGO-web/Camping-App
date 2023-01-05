@@ -124,6 +124,20 @@ const tripsCollectionSlice = createSlice({
         }
         : tripCollectionItem));
     },
+    addNewSnap: (state, action: PayloadAction<string>) => {
+      state.trips = state.trips.map((tripCollectionItem) => (tripCollectionItem.activated
+        ? {
+          ...tripCollectionItem,
+          snaps: [
+            ...tripCollectionItem.snaps || [],
+            {
+              id: v4(),
+              uri: action.payload,
+            },
+          ],
+        }
+        : tripCollectionItem));
+    },
   },
 });
 
@@ -135,6 +149,7 @@ export const {
   setCompletedActivity,
   updateBackpackItemCount,
   setBackpackItemUri,
+  addNewSnap,
 } = tripsCollectionSlice.actions;
 export const tripsCollectionReducer = tripsCollectionSlice.reducer;
 
