@@ -116,6 +116,10 @@ const graphicGroup = {
   trips: require('../assets/trips.png'),
   activitiesTasks: require('../assets/activitiesTasks.png'),
   camp: require('../assets/onboarding/img-4.png'),
+  onboarding1: require('../assets/onboarding/img-1.png'),
+  onboarding2: require('../assets/onboarding/img-2.png'),
+  onboarding3: require('../assets/onboarding/img-3.png'),
+  onboarding4: require('../assets/onboarding/img-4.png'),
 };
 
 const tipsAndTricksGroup = {
