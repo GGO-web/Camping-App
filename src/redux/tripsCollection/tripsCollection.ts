@@ -138,6 +138,23 @@ const tripsCollectionSlice = createSlice({
         }
         : tripCollectionItem));
     },
+    destroyTrip: (state) => {
+      state.trips = state.trips.filter((tripsCollectionItem) => !tripsCollectionItem.activated);
+
+      // set latest trip activated after deletion
+      state.trips = state.trips.map(
+        (tripsCollectionItem, index) => (
+          index === state.trips.length - 1
+            ? {
+              ...tripsCollectionItem,
+              activated: true,
+            }
+            : {
+              ...tripsCollectionItem,
+              activated: false,
+            }),
+      );
+    },
   },
 });
 
@@ -150,6 +167,7 @@ export const {
   updateBackpackItemCount,
   setBackpackItemUri,
   addNewSnap,
+  destroyTrip,
 } = tripsCollectionSlice.actions;
 export const tripsCollectionReducer = tripsCollectionSlice.reducer;
 

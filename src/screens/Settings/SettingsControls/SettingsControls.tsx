@@ -1,11 +1,17 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import {
   Colors, Switch, Text, TouchableOpacity, View,
 } from 'react-native-ui-lib';
+import { useActions } from '../../../hooks/actions';
 
 export function SettingsControls() {
   const [notifications, setNotifications] = useState(true);
+
+  const { destroyTrip } = useActions();
+
+  const navigation = useNavigation();
 
   const destroyTripCallback = () => {
     Alert.alert(
@@ -14,10 +20,16 @@ export function SettingsControls() {
       [
         {
           text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
-        { text: 'Delete', onPress: () => console.log('Delete Pressed') },
+        {
+          text: 'Delete',
+          onPress: () => {
+            destroyTrip();
+
+            navigation.navigate('Homepage' as never);
+          },
+        },
       ],
     );
   };
