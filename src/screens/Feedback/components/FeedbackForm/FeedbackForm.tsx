@@ -1,10 +1,10 @@
 import React from 'react';
 import { FormikProps } from 'formik';
 
-import { TextArea, Typography } from 'react-native-ui-lib';
+import { Typography, View } from 'react-native-ui-lib';
 
-import { DismissKeyboardView } from '../../../../components/common/DismissKeyboardView';
 import { ButtonPrimary } from '../../../../components/Buttons/ButtonPrimary';
+import { TextArea } from '../../../../components/Input/TextArea';
 
 import type { IFeedbackValues } from '../../Feedback';
 
@@ -16,7 +16,7 @@ export function FeedbackForm({
   formik: FormikProps<IFeedbackValues>;
 }) {
   return (
-    <DismissKeyboardView>
+    <View>
       <TextArea
         formik={formik}
         fieldName="message"
@@ -24,7 +24,7 @@ export function FeedbackForm({
         numberOfLines={7}
         placeholder="White some feedback for us :)"
         inputStyles={{
-          maxHeight: 200,
+          height: 200,
         }}
         {...{
           fieldStyle: {
@@ -36,10 +36,10 @@ export function FeedbackForm({
       />
 
       <ButtonPrimary
-        marginT-8
+        marginT-24
         buttonText="Submit"
         buttonCallback={() => formik.submitForm()}
       />
-    </DismissKeyboardView>
+    </View>
   );
 }
