@@ -155,6 +155,18 @@ const tripsCollectionSlice = createSlice({
             }),
       );
     },
+    leaveActivatedTrip: (state) => {
+      state.trips = state.trips.map(
+        (tripsCollectionItem) => (
+          tripsCollectionItem.activated
+            ? {
+              ...tripsCollectionItem,
+              activated: false,
+            }
+            : tripsCollectionItem
+        ),
+      );
+    },
   },
 });
 
@@ -168,6 +180,7 @@ export const {
   setBackpackItemUri,
   addNewSnap,
   destroyTrip,
+  leaveActivatedTrip,
 } = tripsCollectionSlice.actions;
 export const tripsCollectionReducer = tripsCollectionSlice.reducer;
 

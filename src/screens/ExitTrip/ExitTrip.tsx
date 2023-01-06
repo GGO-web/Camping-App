@@ -1,0 +1,37 @@
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { Colors, Text } from 'react-native-ui-lib';
+
+import { MainWrapper } from '../../components/MainWrapper/MainWrapper';
+import { ButtonPrimary } from '../../components/Buttons/ButtonPrimary';
+import { useActions } from '../../hooks/actions';
+
+export function ExitTrip() {
+  const navigation = useNavigation();
+
+  const { leaveActivatedTrip } = useActions();
+
+  const exitTripCallback = () => {
+    leaveActivatedTrip();
+
+    navigation.navigate('Homepage' as never);
+  };
+
+  return (
+    <MainWrapper headerTitle="Exit Trip">
+      <Text paragraph2 marginB-20 gray500>
+        Exiting the trip will notify all your team members that you are leaving,
+        and you can join the trips that you have any time you want. Do you want
+        to exit and go to the home page?
+      </Text>
+
+      <ButtonPrimary
+        buttonText="Exit Anyway"
+        buttonStyles={{
+          backgroundColor: Colors.red,
+        }}
+        buttonCallback={() => exitTripCallback()}
+      />
+    </MainWrapper>
+  );
+}

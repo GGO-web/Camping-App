@@ -82,8 +82,13 @@ export const expandedNavigationRoutes: IRoute[] = [
   },
   {
     name: 'Exit trip',
-    path: 'Logout',
+    path: 'ExitTrip',
     icon: (Assets.navigation as AssetsNavigationIconsType).exit,
+  },
+  {
+    name: 'Log-out',
+    path: 'Logout',
+    icon: Assets.icons.logout,
   },
 ];
 

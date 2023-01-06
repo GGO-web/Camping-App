@@ -27,6 +27,7 @@ import {
   setBackpackItemUri,
   addNewSnap,
   destroyTrip,
+  leaveActivatedTrip,
 } from '../redux/tripsCollection/tripsCollection';
 
 // import {
@@ -58,6 +59,7 @@ const actions = {
   setProfileInfo,
   addNewSnap,
   destroyTrip,
+  leaveActivatedTrip,
 };
 
 type ActionsType = typeof actions;

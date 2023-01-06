@@ -14,11 +14,14 @@ import { useAppSelector } from '../../redux/hooks';
 import { ITripCollectionItem } from '../../redux/tripsCollection/tripsCollection.model';
 
 import { globalStyles } from '../../styles/global';
+import { getActivatedTripCollectionItemSelector } from '../../redux/tripsCollection/tripsCollection';
 
 export function Home() {
   const tripsCollection: ITripCollectionItem[] = useAppSelector(
     (store) => store.tripsCollection.trips,
   );
+
+  const activatedTrip = useAppSelector(getActivatedTripCollectionItemSelector);
 
   const navigation = useNavigation();
 
@@ -57,7 +60,7 @@ export function Home() {
         </Text>
       </Button>
 
-      {tripsCollection.length ? <ActionsBar /> : null}
+      {tripsCollection.length && activatedTrip ? <ActionsBar /> : null}
     </MainWrapper>
   );
 }
