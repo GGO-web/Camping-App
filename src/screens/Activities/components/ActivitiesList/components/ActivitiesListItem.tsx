@@ -102,7 +102,7 @@ export function ActivitiesListItem({ activity }: { activity: IActivity }) {
           borderRadius: 20,
           backgroundColor: activity.completed ? Colors.primary : Colors.gray,
         }}
-        onPress={() => {
+        onLongPress={() => {
           navigation.navigate('Activity' as never, { activity } as never);
         }}
       >

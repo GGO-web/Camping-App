@@ -1,20 +1,23 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {
-  Assets, Button, Colors, Image, Text, View,
+  Assets, Button, Colors, Text,
 } from 'react-native-ui-lib';
 
 import { ClipboardID } from '../../components/common/ClipboardID';
 import { MainWrapper } from '../../components/MainWrapper/MainWrapper';
 import { TripCardList } from './components/TripCardList/TripCardList';
 import { ActionsBar } from '../../components/ActionsBar/ActionsBar';
+import { NoResults } from '../../components/common/NoResults';
 
 import { useAppSelector } from '../../redux/hooks';
 
 import { ITripCollectionItem } from '../../redux/tripsCollection/tripsCollection.model';
+import { getActivatedTripCollectionItemSelector } from '../../redux/tripsCollection/tripsCollection';
+
+import { AssetsGraphicType } from '../../matherialUI';
 
 import { globalStyles } from '../../styles/global';
-import { getActivatedTripCollectionItemSelector } from '../../redux/tripsCollection/tripsCollection';
 
 export function Home() {
   const tripsCollection: ITripCollectionItem[] = useAppSelector(
@@ -31,20 +34,10 @@ export function Home() {
 
       {tripsCollection.length === 0
         ? (
-          <View center flex>
-            <Image
-              marginB-24
-              source={Assets.graphic.trips}
-              style={{
-                width: 230,
-                height: 180,
-                resizeMode: 'contain',
-              }}
-            />
-            <Text paragraph2 gray700>
-              You didn’t add any trips before.
-            </Text>
-          </View>
+          <NoResults
+            image={(Assets.graphic as AssetsGraphicType).trips}
+            text="You didn’t add any trips before."
+          />
         )
         : (
           <TripCardList />

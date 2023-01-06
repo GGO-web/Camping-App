@@ -1,20 +1,22 @@
 import React from 'react';
 import {
-  Assets, View, Text, Image, Button, Colors, Icon,
+  Assets, View, Image, Button, Colors, Icon,
 } from 'react-native-ui-lib';
 import {
   ImageInfo, ImagePickerResult, launchCameraAsync, MediaTypeOptions,
 } from 'expo-image-picker';
 
 import { ScrollView } from 'react-native';
+
 import { MainWrapper } from '../../components/MainWrapper/MainWrapper';
+import { NoResults } from '../../components/common/NoResults';
 
-import { AssetsGraphicType } from '../../matherialUI';
-
-import { globalStyles } from '../../styles/global';
 import { useActions } from '../../hooks/actions';
 import { useAppSelector } from '../../redux/hooks';
+
 import { getActivatedTripCollectionItemSelector } from '../../redux/tripsCollection/tripsCollection';
+
+import { AssetsGraphicType } from '../../matherialUI';
 
 export function Snaps() {
   const snaps = useAppSelector(getActivatedTripCollectionItemSelector)?.snaps;
@@ -37,40 +39,12 @@ export function Snaps() {
     <MainWrapper headerTitle="Catch Snaps">
       {!snaps?.length
         ? (
-          <View center flex>
-            <Image
-              marginB-24
-              style={{
-                width: 230,
-                height: 180,
-                resizeMode: 'contain',
-              }}
-              source={(Assets.graphic as AssetsGraphicType).onboarding2}
-            />
-
-            <Text marginB-8 paragraph2 gray700>
-              You didn’t catch any snaps yet.
-            </Text>
-
-            <View left>
-              <Button
-                style={globalStyles.buttonOutlined}
-                backgroundColor={Colors.primary}
-                mode="outlined"
-                onPress={() => catchSnap()}
-              >
-                <Text
-                  style={{
-                    ...globalStyles.text,
-                    ...globalStyles.buttonText,
-                    ...globalStyles.buttonTextOutlined,
-                  }}
-                >
-                  Catch Snaps
-                </Text>
-              </Button>
-            </View>
-          </View>
+          <NoResults
+            image={(Assets.graphic as AssetsGraphicType).onboarding2}
+            text="You didn’t catch any snaps yet."
+            buttonText="Catch Snaps"
+            buttonCallback={() => catchSnap()}
+          />
         )
         : (
           <ScrollView style={{ margin: -12 }}>
