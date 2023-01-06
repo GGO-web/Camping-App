@@ -1,16 +1,14 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import {
-  Assets, Colors, Dialog, PanningProvider, View, Text, TextField, ToastPresets,
+  Assets, Colors, View, Text,
 } from 'react-native-ui-lib';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { v4 } from 'uuid';
+import { AddBagItemDialog } from '../../../../components/AddBagItemDialog/AddBagItemDialog';
 
-import { ButtonIcon } from '../../../../components/Buttons/ButtonIcon';
 import { ButtonPrimary } from '../../../../components/Buttons/ButtonPrimary';
 import { CrumbsLink } from '../../../../components/common/CrumbsLink';
-import { Toast } from '../../../../components/Toast/Toast';
+import { BagListItems } from './components/BagListItems/BagListItems';
 
 import { useActions } from '../../../../hooks/actions';
 
@@ -18,25 +16,17 @@ import type { AssetsColorsType, AssetsIconsType } from '../../../../matherialUI'
 import { useAppSelector } from '../../../../redux/hooks';
 
 import { globalStyles } from '../../../../styles/global';
-import { BagListItems } from './components/BagListItems/BagListItems';
 
 export function Bag() {
   const [bagInputDialogVisible, setBagInputDialogVisible] = useState(false);
 
-  const [bagItem, setBagItem] = useState('');
-  const [toastParams, setToastParams] = useState({
-    visible: false,
-    preset: ToastPresets.FAILURE,
-    message: 'Item couldn`t be empty',
-  });
+  const navigation = useNavigation();
 
   const {
     addBagItem,
     addNewTripToCollection,
     clearTripFormInfo,
   } = useActions();
-
-  const navigation = useNavigation();
 
   const trip = useAppSelector((store) => store.trip);
 
@@ -65,74 +55,13 @@ export function Bag() {
       </CrumbsLink>
 
       <View flex>
-        <Dialog
-          flex
-          visible={bagInputDialogVisible}
-          onDismiss={() => {
-            setBagInputDialogVisible(false);
+        <AddBagItemDialog
+          {...{
+            bagInputDialogVisible,
+            setBagInputDialogVisible,
+            addBagItemCallback: addBagItem,
           }}
-          overlayBackgroundColor="rgba(0,0,0,0.7)"
-          containerStyle={{
-            justifyContent: 'center',
-            oveflow: 'visible',
-          }}
-          panDirection={PanningProvider.Directions.RIGHT}
-        >
-          <Toast
-            visible={toastParams.visible}
-            preset={toastParams.preset}
-            toastMessage={toastParams.message}
-            duration={700}
-            autoDismiss={700}
-            onDismiss={() => {
-              setToastParams((prevToast) => ({ ...prevToast, visible: false }));
-            }}
-          />
-
-          <ButtonIcon iconSource={(Assets as AssetsIconsType).back} />
-
-          <TextField
-            migrate
-            marginB-10
-            label="Add a new bag item💡"
-            value={bagItem}
-            onChangeText={(newValue: string) => {
-              setBagItem(newValue);
-            }}
-            validationMessageStyle={{
-              ...globalStyles.validationMessage,
-            }}
-            labelStyle={{
-              ...globalStyles.text,
-              ...globalStyles.label,
-              color: (Colors as AssetsColorsType).white,
-            }}
-            autoCapitalize="none"
-            fieldStyle={{
-              ...globalStyles.text,
-              ...globalStyles.input,
-            }}
-          />
-
-          <ButtonPrimary
-            buttonText="Add item"
-            buttonCallback={() => {
-              if (bagItem.length !== 0) {
-                addBagItem({
-                  id: v4(),
-                  content: bagItem,
-                  count: 1,
-                  checked: true,
-                });
-
-                setBagItem('');
-                setBagInputDialogVisible(false);
-              } else {
-                setToastParams((prevToast) => ({ ...prevToast, visible: true }));
-              }
-            }}
-          />
-        </Dialog>
+        />
 
         <BagListItems />
 

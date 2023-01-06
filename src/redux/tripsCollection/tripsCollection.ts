@@ -7,6 +7,7 @@ import type { ITrip } from '../../models/Trip.model';
 import type { ITripCollection } from './tripsCollection.model';
 import type { IActivity } from '../../models/Activity.model';
 import type { RootState } from '../store';
+import { IBagItem } from '../../models/BagItem.model';
 
 const initialState: ITripCollection = {
   trips: [],
@@ -94,6 +95,17 @@ const tripsCollectionSlice = createSlice({
         }
         : tripCollectionItem));
     },
+    addBackpackItem: (state, action: PayloadAction<IBagItem>) => {
+      state.trips = state.trips.map((tripCollectionItem) => (tripCollectionItem.activated
+        ? {
+          ...tripCollectionItem,
+          trip: {
+            ...tripCollectionItem.trip,
+            bagItems: [...tripCollectionItem.trip.bagItems, action.payload],
+          },
+        }
+        : tripCollectionItem));
+    },
     updateBackpackItemCount: (state, action: PayloadAction<{ id: string, count: number }>) => {
       state.trips = state.trips.map((tripCollectionItem) => (tripCollectionItem.activated
         ? {
@@ -176,6 +188,7 @@ export const {
   addActivity,
   removeActivity,
   setCompletedActivity,
+  addBackpackItem,
   updateBackpackItemCount,
   setBackpackItemUri,
   addNewSnap,
