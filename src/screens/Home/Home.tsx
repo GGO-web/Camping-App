@@ -32,7 +32,15 @@ export function Home() {
       {tripsCollection.length === 0
         ? (
           <View center flex>
-            <Image marginB-24 source={Assets.graphic.trips} />
+            <Image
+              marginB-24
+              source={Assets.graphic.trips}
+              style={{
+                width: 230,
+                height: 180,
+                resizeMode: 'contain',
+              }}
+            />
             <Text paragraph2 gray700>
               You didn’t add any trips before.
             </Text>

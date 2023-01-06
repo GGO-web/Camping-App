@@ -40,6 +40,11 @@ export function Snaps() {
           <View center flex>
             <Image
               marginB-24
+              style={{
+                width: 230,
+                height: 180,
+                resizeMode: 'contain',
+              }}
               source={(Assets.graphic as AssetsGraphicType).onboarding2}
             />
 

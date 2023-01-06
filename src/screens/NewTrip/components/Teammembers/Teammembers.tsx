@@ -53,7 +53,15 @@ export function Teammembers() {
 
       {!isReady ? (
         <View center flex>
-          <Image marginB-24 source={Assets.graphic.trips} />
+          <Image
+            marginB-24
+            source={Assets.graphic.trips}
+            style={{
+              width: 230,
+              height: 180,
+              resizeMode: 'contain',
+            }}
+          />
           <Text marginB-8 paragraph2 gray700>
             You didn’t have any teammates added.
           </Text>

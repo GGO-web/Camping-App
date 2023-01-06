@@ -88,14 +88,8 @@ const iconsGroup = {
   copy: require('../assets/copy.png'),
   avatar: require('../assets/avatar.png'),
   pen: require('../assets/pen.png'),
-  homeIcon: require('../assets/home.png'),
-  question: require('../assets/question.png'),
-  globe: require('../assets/globe.png'),
-  logout: require('../assets/logout.png'),
   plus: require('../assets/plus.png'),
   search: require('../assets/search.png'),
-  locationsCheck: require('../assets/location_check.png'),
-  refresh: require('../assets/refresh.png'),
   enter: require('../assets/enter.png'),
   failure: require('../assets/failure.png'),
   info: require('../assets/info.png'),
@@ -104,6 +98,9 @@ const iconsGroup = {
 };
 
 export const navigationGroup = {
+  home: require('../assets/navigation/home.png'),
+  question: require('../assets/navigation/question.png'),
+  globe: require('../assets/navigation/globe.png'),
   bell: require('../assets/navigation/bell.png'),
   bulb: require('../assets/navigation/bulb.png'),
   camera: require('../assets/navigation/camera.png'),

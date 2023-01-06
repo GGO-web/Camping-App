@@ -17,7 +17,8 @@ export const headerStyles = StyleSheet.create({
     textAlign: 'center',
   },
   headerButton: {
-    width: 32,
-    height: 32,
+    width: 24,
+    height: 24,
+    resizeMode: 'contain',
   },
 });

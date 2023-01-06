@@ -20,22 +20,22 @@ export const mainNavigationRoutes: IRoute[] = [
   {
     name: 'Home',
     path: 'Homepage',
-    icon: Assets.icons.homeIcon,
+    icon: (Assets.navigation as AssetsNavigationIconsType).home,
   },
   {
     name: 'How to use',
     path: 'HowToUse',
-    icon: Assets.icons.question,
+    icon: (Assets.navigation as AssetsNavigationIconsType).question,
   },
   {
     name: 'Language',
     path: 'Language',
-    icon: Assets.icons.globe,
+    icon: (Assets.navigation as AssetsNavigationIconsType).globe,
   },
   {
     name: 'Log-out',
     path: 'Logout',
-    icon: Assets.icons.logout,
+    icon: (Assets.navigation as AssetsNavigationIconsType).exit,
   },
 ];
 
@@ -43,7 +43,7 @@ export const expandedNavigationRoutes: IRoute[] = [
   {
     name: 'Home',
     path: 'Homepage',
-    icon: Assets.icons.homeIcon,
+    icon: (Assets.navigation as AssetsNavigationIconsType).home,
   },
   {
     name: 'Tips & Tricks',
@@ -73,12 +73,12 @@ export const expandedNavigationRoutes: IRoute[] = [
   {
     name: 'How to use',
     path: 'HowToUse',
-    icon: Assets.icons.question,
+    icon: (Assets.navigation as AssetsNavigationIconsType).question,
   },
   {
     name: 'Language',
     path: 'Language',
-    icon: Assets.icons.globe,
+    icon: (Assets.navigation as AssetsNavigationIconsType).globe,
   },
   {
     name: 'Exit trip',
@@ -88,7 +88,7 @@ export const expandedNavigationRoutes: IRoute[] = [
   {
     name: 'Log-out',
     path: 'Logout',
-    icon: Assets.icons.logout,
+    icon: (Assets.navigation as AssetsNavigationIconsType).exit,
   },
 ];
 

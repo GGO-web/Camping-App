@@ -47,7 +47,7 @@ export function Header({
       <Button
         left
         padding-5
-        style={{
+        iconStyle={{
           ...headerStyles.headerButton,
         }}
         backgroundColor="transparent"

@@ -3,12 +3,12 @@ import { Colors } from 'react-native-ui-lib';
 
 export const authStyles = StyleSheet.create({
   logoWrapper: {
+    flexDirection: 'row',
+    alignSelf: 'center',
     textAlign: 'center',
-    height: 100,
     marginBottom: 32,
   },
   logo: {
-    width: 300,
     resizeMode: 'contain',
   },
   wrapper: {

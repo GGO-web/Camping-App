@@ -63,7 +63,7 @@ export function Navbar() {
 
           <Button
             backgroundColor="transparent"
-            style={{ width: 24, height: 24 }}
+            iconStyle={{ width: 24, height: 24, resizeMode: 'contain' }}
             iconSource={Assets.icons.pen}
             onPress={() => navigation.navigate({ name: 'Profile' } as never)}
           />

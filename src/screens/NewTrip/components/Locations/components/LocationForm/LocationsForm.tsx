@@ -128,7 +128,12 @@ export function LocationsForm({
             disabledBackgroundColor={Colors.gray400}
             disabled={!formik.isValid}
             iconSource={Assets.icons.search}
-            iconStyle={{ tintColor: Colors.white }}
+            iconStyle={{
+              tintColor: Colors.white,
+              width: 18,
+              height: 18,
+              resizeMode: 'contain',
+            }}
             onPress={() => getLocationsByQuery()}
           />
         </View>
