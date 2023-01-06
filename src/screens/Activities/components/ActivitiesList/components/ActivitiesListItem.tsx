@@ -1,8 +1,9 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useRef } from 'react';
 import { LayoutAnimation } from 'react-native';
 
 import {
-  Colors, Drawer, Text, Typography, View,
+  Colors, Drawer, Text, TouchableOpacity, Typography, View,
 } from 'react-native-ui-lib';
 
 import { useActions } from '../../../../../hooks/actions';
@@ -13,6 +14,8 @@ export function ActivitiesListItem({ activity }: { activity: IActivity }) {
   const activityRef = useRef<any>(null);
 
   const { removeActivity, setCompletedActivity } = useActions();
+
+  const navigation = useNavigation();
 
   const completeActivityHandler = () => {
     setCompletedActivity(activity.id as string);
@@ -92,11 +95,16 @@ export function ActivitiesListItem({ activity }: { activity: IActivity }) {
         onPress: deleteActivityHandler,
       }]}
     >
-      <View style={{
-        padding: 24,
-        borderRadius: 20,
-        backgroundColor: activity.completed ? Colors.primary : Colors.gray,
-      }}
+      <TouchableOpacity
+        activeOpacity={0.8}
+        style={{
+          padding: 24,
+          borderRadius: 20,
+          backgroundColor: activity.completed ? Colors.primary : Colors.gray,
+        }}
+        onPress={() => {
+          navigation.navigate('Activity' as never, { activity } as never);
+        }}
       >
         <View
           row
@@ -136,7 +144,7 @@ export function ActivitiesListItem({ activity }: { activity: IActivity }) {
         >
           {activity.description}
         </Text>
-      </View>
+      </TouchableOpacity>
     </Drawer>
   );
 }

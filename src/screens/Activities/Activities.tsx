@@ -4,6 +4,8 @@ import {
 } from 'react-native-ui-lib';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
+import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
+
 import { ActionsBar } from '../../components/ActionsBar/ActionsBar';
 import { MainWrapper } from '../../components/MainWrapper/MainWrapper';
 import { RemainingDays } from './components/RemainingDays/RemainingDays';
@@ -16,7 +18,7 @@ import { AssetsGraphicType, AssetsIconsType } from '../../matherialUI';
 
 import { globalStyles } from '../../styles/global';
 
-export function Activities() {
+export const Activities = gestureHandlerRootHOC(() => {
   const { name: screenName } = useRoute();
 
   const navigation = useNavigation();
@@ -62,4 +64,4 @@ export function Activities() {
       <ActionsBar activeScreenName={screenName} />
     </MainWrapper>
   );
-}
+});

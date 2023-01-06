@@ -33,6 +33,7 @@ import { Bag } from './screens/NewTrip/components/Bag/Bag';
 
 import { Activities } from './screens/Activities/Activities';
 import { AddActivity } from './screens/Activities/components/AddActivity/AddActivity';
+import { Activity } from './screens/Activities/components/Activity/Activity';
 
 import { Fitness } from './screens/Fitness/Fitness';
 import { Backpack } from './screens/Backpack/Backpack';
@@ -113,11 +114,11 @@ export default function App() {
 
       <Stack.Screen name="Activities" component={Activities} />
       <Stack.Screen name="AddActivity" component={AddActivity} />
+      <Stack.Screen name="Activity" component={Activity} />
 
       <Stack.Screen name="Fitness" component={Fitness} />
       <Stack.Screen name="Backpack" component={Backpack} />
       <Stack.Screen name="Teammates" component={Teammates} />
-
     </Stack.Navigator>
   );
 }
