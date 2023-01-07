@@ -8,11 +8,19 @@ import * as Clipboard from 'expo-clipboard';
 import { useAppSelector } from '../../redux/hooks';
 import { userSelector } from '../../redux/userConfig/userSlice';
 
-export function ClipboardID() {
+export function ClipboardID({
+  onPressCallback,
+}: {
+  onPressCallback?: Function
+}) {
   const { uid: userId } = useAppSelector(userSelector);
 
   const clipboardHandler = async () => {
     await Clipboard.setStringAsync(userId);
+
+    if (onPressCallback) {
+      onPressCallback();
+    }
   };
 
   return (
