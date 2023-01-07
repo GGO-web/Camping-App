@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { Assets, ToastPresets } from 'react-native-ui-lib';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -9,6 +10,7 @@ import type {
 } from './matherialUI';
 import type { IActionTab } from './models/ActionsTab.model';
 import { EFitnessTrackerTypes, EFitnessUnits, IFitnessTracker } from './models/FitnessTracker.model';
+import { INotification } from './models/Notification.model';
 import { ITipAndTrick } from './models/TipsAndTricks.model';
 
 export const authConfig = {
@@ -213,5 +215,48 @@ export const tipsAndTricks: ITipAndTrick[] = [
     image: (Assets.tipsAndTricks as AssetsTipsAndTricksType).tip7,
     title: 'Burn Sage in Your Campfire to Help Repel Mosquitoes',
     text: 'Mosquitoes can dampen an otherwise great camping experience. Knowing ',
+  },
+];
+
+export const howToUseRules: { title: string; text: string }[] = [
+  {
+    title: 'Make a Trip',
+    text: 'By pressing “start new trip” button you’ll be able to make fill a form which will help you to set up your....',
+  },
+  {
+    title: 'Add Location',
+    text: 'This app have a great feature which allows you to discover the top locations around the world and le....',
+  },
+  {
+    title: 'Add Teammates',
+    text: 'If you previously added teammates they will show in the list. but is you didn’t do that you need to add n....',
+  },
+  {
+    title: 'Now you’re Ready',
+    text: 'To begin your adventure with your Camping App which will helps you to set your targets. know what be....',
+  },
+];
+
+export const notifications: INotification[] = [
+  {
+    id: v4(),
+    title: 'Congratulations!',
+    text: 'You recieved the welcome badge',
+    icon: 'badge',
+    date: dayjs('14 Feb 2020').toDate(),
+  },
+  {
+    id: v4(),
+    title: 'You didn’t completed the activity.',
+    text: 'Named view of sunset by Emma.',
+    icon: 'info',
+    date: dayjs('14 Feb 2020').toDate(),
+  },
+  {
+    id: v4(),
+    title: 'You completed an activity',
+    text: 'Named Hiking on mountain by Chandler.',
+    icon: 'complete',
+    date: dayjs('15 Feb 2020').toDate(),
   },
 ];

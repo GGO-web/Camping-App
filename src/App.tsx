@@ -45,6 +45,7 @@ import { Snaps } from './screens/Snaps/Snaps';
 import { Feedback } from './screens/Feedback/Feedback';
 import { Settings } from './screens/Settings/Settings';
 import { ExitTrip } from './screens/ExitTrip/ExitTrip';
+import { Notifications } from './screens/Notifications/Notifications';
 
 const Stack = createNativeStackNavigator();
 
@@ -108,6 +109,7 @@ export default function App() {
       <Stack.Screen name="Feedback" component={Feedback} />
       <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="ExitTrip" component={ExitTrip} />
+      <Stack.Screen name="Notifications" component={Notifications} />
 
       <Stack.Screen name="NewTrip" component={NewTrip} />
       <Stack.Screen name="Teammembers" component={Teammembers} />
