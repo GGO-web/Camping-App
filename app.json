@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "camping-app",
+    "name": "Camping App by GGO",
     "slug": "camping-app",
+    "description": "Mobile app developed using React Native & Expo CLI with Firebase for authentication & Redux toolkit for the internal decentralized app store. See all of my projects there -> https://github.com/GGO-web",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,7 +25,11 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.ggo_webdev.campingapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -37,6 +42,11 @@
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "f4b07c21-0ffe-42b7-a5f1-a5062db78059"
+      }
+    }
   }
 }

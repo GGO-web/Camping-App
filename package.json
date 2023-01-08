@@ -46,7 +46,9 @@
     "reactfire": "^4.2.1",
     "uui": "^1.0.7",
     "uuid": "^3.4.0",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "expo-updates": "~0.13.4",
+    "expo-dev-client": "~1.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
