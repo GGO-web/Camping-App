@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { Image, KeyboardAvoidingView, View } from 'react-native';
+import { KeyboardAvoidingView } from 'react-native';
 
 import * as Google from 'expo-auth-session/providers/google';
 
-import { Link, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 import { Formik, FormikHelpers } from 'formik';
 
 import { Toast } from 'react-native-ui-lib/src/incubator';
-import { Text } from 'react-native-ui-lib';
+import {
+  Text, View, Image, TouchableOpacity,
+} from 'react-native-ui-lib';
 
 import { FirebaseError } from 'firebase/app';
 import { signInWithEmailAndPassword, User } from 'firebase/auth';
@@ -92,15 +94,18 @@ export function Login() {
     >
       <View style={authStyles.wrapper}>
         <View style={authStyles.form}>
-          <Link
+          <TouchableOpacity
+            activeOpacity={0.9}
             style={authStyles.logoWrapper}
-            to={{ screen: 'Onboarding' }}
+            onPress={() => {
+              navigation.navigate('Onboarding' as never);
+            }}
           >
             <Image
               style={authStyles.logo}
               source={require('../../../assets/logo.png')}
             />
-          </Link>
+          </TouchableOpacity>
 
           <Formik
             initialValues={formInitialValues}
