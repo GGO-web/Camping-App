@@ -29,7 +29,9 @@ export function ProfileAvatar() {
   };
 
   useEffect(() => {
-    setProfileAvatar(firebaseAuth.currentUser?.photoURL as string);
+    if (!avatar) {
+      setProfileAvatar(firebaseAuth.currentUser?.photoURL as string);
+    }
   }, []);
 
   return (

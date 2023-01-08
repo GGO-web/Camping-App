@@ -46,9 +46,9 @@ export function Navbar() {
       <View marginB-30 style={navbarStyles.innerContainer}>
         <Avatar
           source={
-            firebaseAuth.currentUser?.photoURL
+            user.avatar || firebaseAuth.currentUser?.photoURL
               ? {
-                uri: firebaseAuth.currentUser?.photoURL,
+                uri: user.avatar || firebaseAuth.currentUser?.photoURL,
               }
               : Assets.icons.avatar
           }

@@ -8,6 +8,7 @@ export const initialState: IUser = {
   fullname: 'User name',
   bio: '',
   isAuth: false,
+  avatar: '',
 };
 
 const userSlice = createSlice({
