@@ -30,7 +30,7 @@ export function ProfileForm({
           numberOfLines={7}
           placeholder="White something about yourself"
           inputStyles={{
-            maxHeight: 200,
+            height: 200,
           }}
           {...{
             fieldStyle: {

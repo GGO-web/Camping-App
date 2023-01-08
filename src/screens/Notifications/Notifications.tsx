@@ -4,6 +4,8 @@ import {
   Assets, Colors, Icon, View, Text,
 } from 'react-native-ui-lib';
 
+import { v4 } from 'uuid';
+
 import dayjs from 'dayjs';
 import { MainWrapper } from '../../components/MainWrapper/MainWrapper';
 
@@ -44,11 +46,12 @@ export function Notifications() {
             <>
               {dateHeading
                 ? (
-                  <Text paragraph3 textCenter gray300 marginB-16>
+                  <Text key={v4()} paragraph3 textCenter gray300 marginB-16>
                     {dayjs(notification.date).format('DD MMM YYYY')}
                   </Text>
                 )
                 : null}
+
               <View
                 key={notification.id}
                 backgroundColor={Colors.primary50}
