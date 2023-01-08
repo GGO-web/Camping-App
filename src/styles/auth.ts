@@ -5,10 +5,10 @@ export const authStyles = StyleSheet.create({
   logoWrapper: {
     flexDirection: 'row',
     alignSelf: 'center',
-    textAlign: 'center',
     marginBottom: 32,
   },
   logo: {
+    height: 63,
     resizeMode: 'contain',
   },
   wrapper: {
