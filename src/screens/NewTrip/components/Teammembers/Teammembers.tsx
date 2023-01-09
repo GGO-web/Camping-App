@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import {
-  Assets, Button, Colors, Image, Text, View,
+  Assets, Text, View,
 } from 'react-native-ui-lib';
 import { useNavigation } from '@react-navigation/native';
 
@@ -9,13 +9,15 @@ import { Formik, FormikHelpers } from 'formik';
 
 import { CrumbsLink } from '../../../../components/common/CrumbsLink';
 import { TeammembersForm } from './components/TeammembersForm/TeammembersForm';
+import { NoResults } from '../../../../components/common/NoResults';
 
 import { useAppSelector } from '../../../../redux/hooks';
 import { teammateSchema } from '../../../../helpers/validationSchema';
 
-import type { ITeamMate } from '../../NewTrip.model';
+import { AssetsGraphicType } from '../../../../matherialUI';
 
 import { globalStyles } from '../../../../styles/global';
+import { ITeamMate } from '../../../../models/Teammate.model';
 
 export interface ITeammateId {
   teammateId: string;
@@ -52,38 +54,12 @@ export function Teammembers() {
       <CrumbsLink>Add Teammate</CrumbsLink>
 
       {!isReady ? (
-        <View center flex>
-          <Image
-            marginB-24
-            source={Assets.graphic.trips}
-            style={{
-              width: 230,
-              height: 180,
-              resizeMode: 'contain',
-            }}
-          />
-          <Text marginB-8 paragraph2 gray700>
-            You didn’t have any teammates added.
-          </Text>
-          <View left>
-            <Button
-              style={globalStyles.buttonOutlined}
-              backgroundColor={Colors.primary}
-              mode="outlined"
-              onPress={() => setIsReady(true)}
-            >
-              <Text
-                style={{
-                  ...globalStyles.text,
-                  ...globalStyles.buttonText,
-                  ...globalStyles.buttonTextOutlined,
-                }}
-              >
-                Add teammate
-              </Text>
-            </Button>
-          </View>
-        </View>
+        <NoResults
+          image={(Assets.graphic as AssetsGraphicType).trips}
+          text="You didn’t have any teammates added."
+          buttonText="Add teammate"
+          buttonCallback={() => setIsReady(true)}
+        />
       ) : (
         <>
           <Text paragraph2 textMuted marginB-24>

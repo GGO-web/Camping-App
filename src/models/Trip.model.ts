@@ -1,6 +1,6 @@
-import type { ITeamMate } from '../screens/NewTrip/NewTrip.model';
 import { IBagItem } from './BagItem.model';
 import type { ILocation } from './Locations.model';
+import { ITeamMate } from './Teammate.model';
 
 export interface ITripPeriod {
   startDate: string,

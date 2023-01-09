@@ -8,7 +8,6 @@ export const authStyles = StyleSheet.create({
     marginBottom: 32,
   },
   logo: {
-    height: 63,
     resizeMode: 'contain',
   },
   wrapper: {

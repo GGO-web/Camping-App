@@ -9,6 +9,7 @@ export const initialState: IUser = {
   bio: '',
   isAuth: false,
   avatar: '',
+  occupation: '',
 };
 
 const userSlice = createSlice({

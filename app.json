@@ -3,7 +3,7 @@
     "name": "Camping App by GGO",
     "slug": "camping-app",
     "description": "Mobile app developed using React Native & Expo CLI with Firebase for authentication & Redux toolkit for the internal decentralized app store. See all of my projects there -> https://github.com/GGO-web",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",

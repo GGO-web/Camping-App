@@ -46,6 +46,7 @@ import { Feedback } from './screens/Feedback/Feedback';
 import { Settings } from './screens/Settings/Settings';
 import { ExitTrip } from './screens/ExitTrip/ExitTrip';
 import { Notifications } from './screens/Notifications/Notifications';
+import { TeammateProfile } from './screens/Teammates/components/TeammateProfile/TeammateProfile';
 
 const Stack = createNativeStackNavigator();
 
@@ -124,6 +125,7 @@ export default function App() {
       <Stack.Screen name="Fitness" component={Fitness} />
       <Stack.Screen name="Backpack" component={Backpack} />
       <Stack.Screen name="Teammates" component={Teammates} />
+      <Stack.Screen name="TeammateProfile" component={TeammateProfile} />
     </Stack.Navigator>
   );
 }

@@ -23,6 +23,10 @@ export function ProfileForm({
       </View>
 
       <View style={globalStyles.formGroup}>
+        <Input formik={formik} fieldName="occupation" label="Occupation" />
+      </View>
+
+      <View style={globalStyles.formGroup}>
         <TextArea
           formik={formik}
           fieldName="bio"

@@ -11,6 +11,7 @@ import type {
 import type { IActionTab } from './models/ActionsTab.model';
 import { EFitnessTrackerTypes, EFitnessUnits, IFitnessTracker } from './models/FitnessTracker.model';
 import { INotification } from './models/Notification.model';
+import { ITeamMate } from './models/Teammate.model';
 import { ITipAndTrick } from './models/TipsAndTricks.model';
 
 export const authConfig = {
@@ -258,5 +259,27 @@ export const notifications: INotification[] = [
     text: 'Named Hiking on mountain by Chandler.',
     icon: 'complete',
     date: dayjs('15 Feb 2020').toDate(),
+  },
+];
+
+export const teammatesList: ITeamMate[] = [
+  {
+    id: v4(),
+    avatar: require('../assets/teammates/mate-1.png'),
+    name: 'Chandler Hallow',
+    occupation: 'Chef',
+    description: 'I’m a Chef and I assist in prep work, such as chopping vegetables, but more often will be involved in cooking specialty dishes. Chooses ingredients and designs a menu based on the seasonal availability of food items. Creates unique dishes that inspire guests to come back again and again to see what is new in the restaurant.',
+  },
+  {
+    id: v4(),
+    avatar: require('../assets/teammates/mate-2.png'),
+    name: 'Emma Linch',
+    occupation: 'Environment Expert',
+  },
+  {
+    id: v4(),
+    avatar: require('../assets/teammates/mate-3.png'),
+    name: 'Mike Alen',
+    occupation: 'Farmer',
   },
 ];
