@@ -21,6 +21,7 @@ export function Profile() {
   const formInitialValues: IProfileValues = {
     name: userProfile.fullname || '',
     bio: userProfile.bio || '',
+    occupation: userProfile.occupation || '',
   };
 
   const [toastParams, setToastParams] = useState({

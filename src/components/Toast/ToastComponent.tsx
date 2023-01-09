@@ -79,8 +79,8 @@ export function ToastComponent({
         style={{
           minWidth: 24,
           minHeight: 18,
-          maxWidth: 32,
-          maxHeight: 32,
+          maxWidth: getIconByPreset() === (Assets.icons as AssetsIconsType).checkmark ? 24 : 32,
+          maxHeight: getIconByPreset() === (Assets.icons as AssetsIconsType).checkmark ? 18 : 32,
           resizeMode: 'contain',
         }}
         source={toastIcon || (getIconByPreset())}
