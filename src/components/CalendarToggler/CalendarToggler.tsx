@@ -52,7 +52,7 @@ export function CalendarToggler({
         iconSource={Assets.icons.chevron_down}
         iconStyle={{
           tintColor: Colors.gray300,
-          width: 16,
+          width: 20,
           height: 12,
           resizeMode: 'contain',
           transform: startDate ? [{ rotate: '180deg' }] : [],

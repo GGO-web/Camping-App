@@ -2,13 +2,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { v4 } from 'uuid';
+import { teammatesList } from '../../constants';
 
 import { IBagItem } from '../../models/BagItem.model';
 
 import { ILocation } from '../../models/Locations.model';
+import { ITeamMate } from '../../models/Teammate.model';
 
 import { ITrip, ITripPeriod } from '../../models/Trip.model';
-import { ITeamMate } from '../../screens/NewTrip/NewTrip.model';
 
 const initialState: ITrip = {
   tripId: '',
@@ -18,7 +19,7 @@ const initialState: ITrip = {
     endDate: '',
     formatted: '',
   },
-  teammates: [],
+  teammates: teammatesList,
   selectedLocations: [],
   latestLocation: '',
   latestLocationsList: [],

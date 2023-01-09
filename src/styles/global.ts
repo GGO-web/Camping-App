@@ -1,4 +1,4 @@
-import { StyleProp, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export const globalStyles = StyleSheet.create({
   text: {
@@ -76,7 +76,7 @@ export const globalStyles = StyleSheet.create({
   },
   navcontainer: {
     justifyContent: 'flex-start',
-    paddingTop: 45,
+    paddingTop: 15,
     paddingBottom: 15,
   },
 });

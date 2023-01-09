@@ -11,6 +11,7 @@ import type {
 import type { IActionTab } from './models/ActionsTab.model';
 import { EFitnessTrackerTypes, EFitnessUnits, IFitnessTracker } from './models/FitnessTracker.model';
 import { INotification } from './models/Notification.model';
+import { ITeamMate } from './models/Teammate.model';
 import { ITipAndTrick } from './models/TipsAndTricks.model';
 
 export const authConfig = {
@@ -258,5 +259,26 @@ export const notifications: INotification[] = [
     text: 'Named Hiking on mountain by Chandler.',
     icon: 'complete',
     date: dayjs('15 Feb 2020').toDate(),
+  },
+];
+
+export const teammatesList: ITeamMate[] = [
+  {
+    id: v4(),
+    avatar: require('../assets/teammates/mate-1.png'),
+    name: 'Chandler Hallow',
+    occupation: 'Chef',
+  },
+  {
+    id: v4(),
+    avatar: require('../assets/teammates/mate-2.png'),
+    name: 'Emma Linch',
+    occupation: 'Environment Expert',
+  },
+  {
+    id: v4(),
+    avatar: require('../assets/teammates/mate-3.png'),
+    name: 'Mike Alen',
+    occupation: 'Farmer',
   },
 ];
