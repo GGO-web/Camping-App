@@ -268,6 +268,7 @@ export const teammatesList: ITeamMate[] = [
     avatar: require('../assets/teammates/mate-1.png'),
     name: 'Chandler Hallow',
     occupation: 'Chef',
+    description: 'I’m a Chef and I assist in prep work, such as chopping vegetables, but more often will be involved in cooking specialty dishes. Chooses ingredients and designs a menu based on the seasonal availability of food items. Creates unique dishes that inspire guests to come back again and again to see what is new in the restaurant.',
   },
   {
     id: v4(),

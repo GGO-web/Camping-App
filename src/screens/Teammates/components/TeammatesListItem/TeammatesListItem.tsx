@@ -1,7 +1,10 @@
 import React from 'react';
 import {
-  View, Image, Colors, Text,
+  View, Image, Colors, Text, TouchableOpacity,
 } from 'react-native-ui-lib';
+
+import { useNavigation } from '@react-navigation/native';
+
 import { ITeamMate } from '../../../../models/Teammate.model';
 
 export function TeammatesListItem({
@@ -9,8 +12,16 @@ export function TeammatesListItem({
 }: {
   teammate: ITeamMate
 }) {
+  const navigation = useNavigation();
+
   return (
-    <View row centerV marginB-24>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      row
+      centerV
+      marginB-24
+      onPress={() => navigation.navigate('TeammateProfile' as never, { teammate } as never)}
+    >
       <Image
         marginR-16
         source={typeof teammate.avatar === 'string' ? ({
@@ -31,6 +42,6 @@ export function TeammatesListItem({
           ? <Text paragraph3 gray300>{teammate.occupation}</Text>
           : null}
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
