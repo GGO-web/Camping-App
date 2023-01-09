@@ -5,4 +5,5 @@ export interface IUser {
   bio?: string;
   isAuth?: boolean;
   avatar?: string;
+  occupation?: string;
 }

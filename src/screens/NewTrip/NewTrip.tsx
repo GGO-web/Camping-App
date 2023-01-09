@@ -14,10 +14,9 @@ import { firebaseAuth } from '../../firebase/firebase';
 import { useAppSelector } from '../../redux/hooks';
 import { useActions } from '../../hooks/actions';
 
-import { ITeamMate } from './NewTrip.model';
-
 import { ITripPeriod } from '../../models/Trip.model';
 import { IToast } from '../../models/Toast.model';
+import { ITeamMate } from '../../models/Teammate.model';
 
 import { NEW_TRIP_TOAST_MESSAGES } from '../../constants';
 
@@ -26,7 +25,7 @@ import { Toast } from '../../components/Toast/Toast';
 
 export interface INewTrip {
   name: string;
-  teammates: Array<ITeamMate>;
+  teammates: ITeamMate[];
   tripPeriod: ITripPeriod
 }
 
@@ -35,10 +34,7 @@ export function NewTrip() {
 
   const formInitialValues: INewTrip = {
     name: tripData.tripName,
-    teammates: tripData.teammates || [{
-      id: firebaseAuth.currentUser?.uid as string,
-      avatar: firebaseAuth.currentUser?.photoURL as string,
-    }],
+    teammates: tripData.teammates,
     tripPeriod: tripData.tripPeriod,
   };
 
