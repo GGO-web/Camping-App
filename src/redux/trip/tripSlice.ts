@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { v4 } from 'uuid';
-import { teammatesList } from '../../constants';
 
 import { IBagItem } from '../../models/BagItem.model';
 
@@ -19,7 +18,7 @@ const initialState: ITrip = {
     endDate: '',
     formatted: '',
   },
-  teammates: teammatesList,
+  teammates: [],
   selectedLocations: [],
   latestLocation: '',
   latestLocationsList: [],
