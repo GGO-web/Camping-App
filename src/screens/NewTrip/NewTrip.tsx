@@ -10,7 +10,6 @@ import { useNavigation } from '@react-navigation/native';
 import { CrumbsLink } from '../../components/common/CrumbsLink';
 import { NewTripForm } from './components/NewTripForm/NewTripForm';
 
-import { firebaseAuth } from '../../firebase/firebase';
 import { useAppSelector } from '../../redux/hooks';
 import { useActions } from '../../hooks/actions';
 

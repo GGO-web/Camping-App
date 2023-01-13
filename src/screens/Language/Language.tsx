@@ -1,57 +1,56 @@
-import React, { useState } from "react";
-import { ScrollView } from "react-native";
-import { Assets, Checkbox, Colors, Text, View } from "react-native-ui-lib";
+import React, { useState } from 'react';
+import { ScrollView } from 'react-native';
+import {
+  Assets, Checkbox, Colors, Text, View,
+} from 'react-native-ui-lib';
 
-import { MainWrapper } from "../../components/MainWrapper/MainWrapper";
+import { MainWrapper } from '../../components/MainWrapper/MainWrapper';
 
-import { initialLanguage, languagesList } from "../../constants";
+import { initialLanguage, languagesList } from '../../constants';
 
-// TODO: add new reducer to control the language state & dispatch action when state is changed
+export function Language() {
+  const [checkboxStates, setCheckboxStates]: [Object, Function] = useState(
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    getLanguagesState(initialLanguage),
+  );
 
-export const Language = () => {
-   const [checkboxStates, setCheckboxStates]: [Object, Function] = useState(
-      getLanguagesState(initialLanguage)
-   );
+  function getLanguagesState(initial: Object) {
+    return languagesList.reduce((prev, item) => {
+      if (item in prev) {
+        return prev;
+      }
 
-   function getLanguagesState(initial: Object) {
-      return languagesList.reduce((prev, item) => {
-         if (item in prev) {
-            return prev;
-         }
+      return { ...prev, [item]: false };
+    }, initial);
+  }
 
-         return { ...prev, [item]: false };
-      }, initial);
-   }
-
-   return (
-      <MainWrapper headerTitle="Language">
-         <ScrollView>
-            {languagesList.map((language: string, index: number) => {
-               return (
-                  <View row centerV spread key={index} marginB-24>
-                     <Text>{language}</Text>
-                     <Checkbox
-                        outline={Colors.primary}
-                        value={checkboxStates[language as never]}
-                        iconColor={Colors.white}
-                        iconSouce={Assets.icons.checkmark}
-                        containerStyle={{
-                           backgroundColor: checkboxStates[language as never]
-                              ? Colors.primary500
-                              : "transparent",
-                        }}
-                        onValueChange={() => {
-                           if (!checkboxStates[language as never]) {
-                              setCheckboxStates(
-                                 getLanguagesState({ [language]: true })
-                              );
-                           }
-                        }}
-                     ></Checkbox>
-                  </View>
-               );
-            })}
-         </ScrollView>
-      </MainWrapper>
-   );
-};
+  return (
+    <MainWrapper headerTitle="Language">
+      <ScrollView>
+        {languagesList.map((language: string) => (
+          <View row centerV spread key={language} marginB-24>
+            <Text>{language}</Text>
+            <Checkbox
+              outline={Colors.primary}
+              value={checkboxStates[language as never]}
+              iconColor={Colors.white}
+              iconSouce={Assets.icons.checkmark}
+              containerStyle={{
+                backgroundColor: checkboxStates[language as never]
+                  ? Colors.primary500
+                  : 'transparent',
+              }}
+              onValueChange={() => {
+                if (!checkboxStates[language as never]) {
+                  setCheckboxStates(
+                    getLanguagesState({ [language]: true }),
+                  );
+                }
+              }}
+            />
+          </View>
+        ))}
+      </ScrollView>
+    </MainWrapper>
+  );
+}

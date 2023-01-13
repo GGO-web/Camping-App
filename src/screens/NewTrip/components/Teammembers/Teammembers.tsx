@@ -15,9 +15,9 @@ import { useAppSelector } from '../../../../redux/hooks';
 import { teammateSchema } from '../../../../helpers/validationSchema';
 
 import { AssetsGraphicType } from '../../../../matherialUI';
+import type { ITeamMate } from '../../../../models/Teammate.model';
 
 import { globalStyles } from '../../../../styles/global';
-import { ITeamMate } from '../../../../models/Teammate.model';
 
 export interface ITeammateId {
   teammateId: string;
