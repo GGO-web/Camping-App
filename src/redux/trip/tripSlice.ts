@@ -19,7 +19,7 @@ const initialState: ITrip = {
     endDate: '',
     formatted: '',
   },
-  teammates: [],
+  teammates: teammatesList,
   selectedLocations: [],
   latestLocation: '',
   latestLocationsList: [],

@@ -20,7 +20,7 @@ import { useAppSelector } from '../../../../redux/hooks';
 import { useActions } from '../../../../hooks/actions';
 
 import type { INewTrip } from '../../NewTrip';
-import { ITeamMate } from '../../NewTrip.model';
+import type { ITeamMate } from '../../../../models/Teammate.model';
 
 import { globalStyles } from '../../../../styles/global';
 

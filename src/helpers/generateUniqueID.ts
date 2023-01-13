@@ -1,5 +1,3 @@
 import { v4 as uuidv4 } from 'uuid';
 
-export const generateUniqueID = () => {
-   return `CMP${uuidv4()}`;
-};
+export const generateUniqueID = () => `CMP${uuidv4()}`;

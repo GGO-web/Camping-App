@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IUser } from './user.model';
 import { generateUniqueID } from '../../helpers/generateUniqueID';
+import type { IProfileValues } from '../../screens/Profile/Profile.model';
 
 export const initialState: IUser = {
   uid: '',
   email: '',
-  fullname: 'User name',
+  fullname: '',
   bio: '',
   isAuth: false,
   avatar: '',
@@ -26,9 +27,10 @@ const userSlice = createSlice({
     setProfileAvatar: (state, action: PayloadAction<string>) => {
       state.avatar = action.payload;
     },
-    setProfileInfo: (state, action: PayloadAction<{ name: string, bio: string }>) => {
+    setProfileInfo: (state, action: PayloadAction<IProfileValues>) => {
       state.fullname = action.payload.name;
       state.bio = action.payload.bio;
+      state.occupation = action.payload.occupation;
     },
   },
 });

@@ -10,6 +10,7 @@ import { useActions } from '../../../../hooks/actions';
 import { useAppSelector } from '../../../../redux/hooks';
 import { userSelector } from '../../../../redux/userConfig/userSlice';
 import { firebaseAuth } from '../../../../firebase/firebase';
+import { AssetsIconsType } from '../../../../matherialUI';
 
 export function ProfileAvatar() {
   const { avatar } = useAppSelector(userSelector);
@@ -48,7 +49,7 @@ export function ProfileAvatar() {
             ? {
               uri: avatar,
             }
-            : Assets.icons.avatar
+            : (Assets.icons as AssetsIconsType).avatar
       }
         size={100}
         backgroundColor={Colors.primary100}
