@@ -1,4 +1,4 @@
-import { ImageInfo, ImagePickerResult, MediaTypeOptions } from 'expo-image-picker/build/ImagePicker.types';
+import { ImagePickerResult, MediaTypeOptions } from 'expo-image-picker/build/ImagePicker.types';
 import React from 'react';
 import {
   View, Text, Stepper, Button, Colors, Icon, Image,
@@ -14,14 +14,14 @@ export function BackpackListItem({ backpackItem }: { backpackItem: IBagItem }) {
   const { updateBackpackItemCount, setBackpackItemUri } = useActions();
 
   const takePicture = async () => {
-    const pickerResult: ImagePickerResult | ImageInfo = await launchCameraAsync({
+    const pickerResult: ImagePickerResult = await launchCameraAsync({
       mediaTypes: MediaTypeOptions.Images,
       allowsEditing: true,
       quality: 1,
     });
 
-    if (!pickerResult.cancelled) {
-      setBackpackItemUri({ id: backpackItem.id, uri: pickerResult.uri });
+    if (!pickerResult.canceled) {
+      setBackpackItemUri({ id: backpackItem.id, uri: pickerResult.assets[0].uri });
     }
   };
 

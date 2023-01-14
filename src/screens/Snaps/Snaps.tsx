@@ -3,7 +3,7 @@ import {
   Assets, View, Image, Button, Colors, Icon,
 } from 'react-native-ui-lib';
 import {
-  ImageInfo, ImagePickerResult, launchCameraAsync, MediaTypeOptions,
+  ImagePickerResult, launchCameraAsync, MediaTypeOptions,
 } from 'expo-image-picker';
 
 import { ScrollView } from 'react-native';
@@ -24,14 +24,14 @@ export function Snaps() {
   const { addNewSnap } = useActions();
 
   const catchSnap = async () => {
-    const pickerResult: ImagePickerResult | ImageInfo = await launchCameraAsync({
+    const pickerResult: ImagePickerResult = await launchCameraAsync({
       mediaTypes: MediaTypeOptions.Images,
       allowsEditing: true,
       quality: 1,
     });
 
-    if (!pickerResult.cancelled) {
-      addNewSnap(pickerResult.uri);
+    if (!pickerResult.canceled) {
+      addNewSnap(pickerResult.assets[0].uri);
     }
   };
 

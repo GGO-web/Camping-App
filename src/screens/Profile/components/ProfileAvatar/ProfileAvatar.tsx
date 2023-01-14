@@ -24,8 +24,8 @@ export function ProfileAvatar() {
       quality: 1,
     });
 
-    if (!pickerResult.cancelled) {
-      setProfileAvatar(pickerResult.uri);
+    if (!pickerResult.canceled) {
+      setProfileAvatar(pickerResult.assets[0].uri);
     }
   };
 
