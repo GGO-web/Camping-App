@@ -1,4 +1,4 @@
-export interface ILocationImage {
+interface ILocationImage {
   title: string;
   altText: string;
   url: string;
@@ -10,21 +10,19 @@ export interface ILocation {
   name: string;
   description: string;
   images: ILocationImage[];
-  addresses?: Array<
-  {
-    postalCode: string,
-    city: string,
-    stateCode: string,
-    type: string,
-    line1?: string,
-    line2?: string,
-    line3?: string,
-  }
-  >,
+  addresses?: Array<{
+    postalCode: string;
+    city: string;
+    stateCode: string;
+    type: string;
+    line1?: string;
+    line2?: string;
+    line3?: string;
+  }>;
   [key: string]: any;
 }
 
 export interface ILocationResponse {
-  data: Array<ILocation>,
+  data: Array<ILocation>;
   [key: string]: any;
 }

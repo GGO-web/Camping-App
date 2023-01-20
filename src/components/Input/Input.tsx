@@ -29,6 +29,28 @@ export function Input({
   labelStyles?: StyleProp<ViewStyle & TextStyle | any>,
   inputAttributes?: TextFieldProps;
 }) {
+  const getFieldStyles = () => {
+    switch (true) {
+      case formik.touched[fieldName] && validate:
+        return globalStyles.isError;
+      case Boolean(formik.errors[fieldName]):
+        return globalStyles.isError;
+      default:
+        return globalStyles.isValid;
+    }
+  };
+
+  const getInputStyles = () => {
+    switch (true) {
+      case validate && formik.errors[fieldName]:
+        return globalStyles.isError;
+      case validate && !formik.errors[fieldName]:
+        return globalStyles.isValid;
+      default:
+        return { color: Colors.dark };
+    }
+  };
+
   return (
     <TextField
       migrate
@@ -53,11 +75,7 @@ export function Input({
         ...globalStyles.text,
         ...globalStyles.input,
         ...fieldStyles,
-        ...(formik.touched[fieldName] && validate
-          ? formik.errors[fieldName]
-            ? globalStyles.isError
-            : globalStyles.isValid
-          : []),
+        ...(getFieldStyles()),
       }}
       onChange={useCallback(
         () => formik.setFieldTouched(fieldName, true, true),
@@ -69,13 +87,7 @@ export function Input({
       onBlur={formik.handleBlur(fieldName)}
       validate={[() => false]}
       validationMessage={[formik.errors[fieldName]]}
-      style={
-        validate
-          ? formik.errors[fieldName]
-            ? globalStyles.isError
-            : globalStyles.isValid
-          : { color: Colors.dark }
-      }
+      style={getInputStyles()}
       {...inputAttributes}
     />
   );

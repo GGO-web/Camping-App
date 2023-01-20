@@ -73,6 +73,19 @@ export function DateInput({
             );
           };
 
+          const dayColorHandler = (date: DateData) => {
+            switch (true) {
+              case isFirstOrLastDate(date):
+                return Colors.white;
+              case state === 'today':
+                return Colors.primary;
+              case state === 'disabled':
+                return Colors.gray300;
+              default:
+                return Colors.dark;
+            }
+          };
+
           return (
             <View
               key={date?.dateString}
@@ -110,13 +123,7 @@ export function DateInput({
                   text
                   style={{
                     textAlign: 'center',
-                    color: isFirstOrLastDate(date)
-                      ? Colors.white
-                      : state === 'today'
-                        ? Colors.primary
-                        : state === 'disabled'
-                          ? Colors.gray300
-                          : Colors.dark,
+                    color: dayColorHandler(date),
                   }}
                 >
                   {date?.day}

@@ -3,9 +3,9 @@ import type { ILocation } from './Locations.model';
 import { ITeamMate } from './Teammate.model';
 
 export interface ITripPeriod {
-  startDate: string,
-  endDate: string,
-  formatted: string
+  startDate: string;
+  endDate: string;
+  formatted: string;
 }
 
 export interface ITrip {
@@ -16,5 +16,5 @@ export interface ITrip {
   tripPeriod: ITripPeriod;
   latestLocation?: string;
   latestLocationsList?: ILocation[];
-  bagItems: IBagItem[],
+  bagItems: IBagItem[];
 }

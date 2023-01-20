@@ -35,9 +35,9 @@ export function FitnessTracker({
     );
 
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      console.log('Start walking');
+      // console.log('Start walking');
     } else {
-      console.log('permission denied');
+      // console.log('permission denied');
     }
   };
 
@@ -67,7 +67,7 @@ export function FitnessTracker({
       Pedometer.watchStepCount((result) => {
         setTrackerPastStepCount();
 
-        console.log(result.steps);
+        // console.log(result.steps);
 
         if (Platform.OS === 'android') {
           setCurrentTrackerValue(result.steps);
