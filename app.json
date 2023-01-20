@@ -21,7 +21,6 @@
     "ios": {
       "supportsTablet": true
     },
-    "scheme": "com.ggo_webdev.campingapp",
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",

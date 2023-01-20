@@ -18,7 +18,6 @@ import { firebaseAuth } from '../../firebase/firebase';
 
 import { useAppDispatch } from '../../redux/hooks';
 import { signIn } from '../../redux/userConfig/userSlice';
-import { IUser } from '../../redux/userConfig/user.model';
 
 import { ILogin } from './Login.model';
 
@@ -30,6 +29,7 @@ import { authStyles } from '../../styles/auth';
 
 import { authConfig } from '../../constants';
 import { loginSchema } from '../../helpers/validationSchema';
+import { useLazyGetUserByIdQuery } from '../../redux/api/user';
 
 export function Login() {
   const [formFeedbackModal, setFormFeedbackModal] = useState(false);
@@ -45,6 +45,8 @@ export function Login() {
 
   const [, response, promptAsync]: any = Google.useAuthRequest(authConfig);
 
+  const [getUserRequest] = useLazyGetUserByIdQuery();
+
   const formSubmitHandler = async (
     values: ILogin,
     actions: FormikHelpers<ILogin>,
@@ -56,30 +58,35 @@ export function Login() {
         values.password,
       );
 
-      const user: User = firebaseAuth.currentUser as User;
+      const { uid } = firebaseAuth.currentUser as User;
+
+      const userDB = await getUserRequest(uid).unwrap();
 
       dispatch(
         signIn({
-          email: user.email,
-          fullname: user.displayName,
-          avatar: user.photoURL,
-        } as IUser),
+          uid: userDB.uid,
+          fullname: userDB.fullname,
+          avatar: userDB.avatar,
+        }),
       );
+
       navigation.navigate('Homepage' as never);
     } catch (error: any) {
-      const fireError = error as FirebaseError;
-
-      // firebase errors validation
-      if (fireError.message.includes('wrong-password')) {
-        actions.setFieldError('password', 'The entered password is wrong.');
-      } else if (
-        fireError.message.includes('user-not-found')
-            || fireError.message.includes('invalid-email')
-      ) {
-        actions.setFieldError(
-          'email',
-          'The user with the given email is not found.',
-        );
+      if (error instanceof FirebaseError) {
+        // firebase errors validation
+        if (error.message.includes('wrong-password')) {
+          actions.setFieldError('password', 'The entered password is wrong.');
+        } else if (
+          error.message.includes('user-not-found')
+            || error.message.includes('invalid-email')
+        ) {
+          actions.setFieldError(
+            'email',
+            'The user with the given email is not found.',
+          );
+        } else {
+          setFormFeedbackModal(true);
+        }
       } else {
         setFormFeedbackModal(true);
       }

@@ -21,8 +21,3 @@ export interface ILocation {
   }>;
   [key: string]: any;
 }
-
-export interface ILocationResponse {
-  data: Array<ILocation>;
-  [key: string]: any;
-}

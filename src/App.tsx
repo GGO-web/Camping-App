@@ -11,7 +11,6 @@ import { firebaseAuth } from './firebase/firebase';
 
 import { useAppDispatch } from './redux/hooks';
 import { signIn } from './redux/userConfig/userSlice';
-import { IUser } from './redux/userConfig/user.model';
 
 import { Hurrey } from './components/common/Hurrey';
 
@@ -48,6 +47,8 @@ import { ExitTrip } from './screens/ExitTrip/ExitTrip';
 import { Notifications } from './screens/Notifications/Notifications';
 import { TeammateProfile } from './screens/Teammates/components/TeammateProfile/TeammateProfile';
 
+import { useLazyGetUserByIdQuery } from './redux/api/user';
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -60,18 +61,28 @@ export default function App() {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
+  const [getUserRequest] = useLazyGetUserByIdQuery();
+
   const signInWithFirebase = () => {
-    setTimeout(() => {
+    setTimeout(async () => {
       if (firebaseAuth.currentUser) {
         const user: User = firebaseAuth.currentUser as User;
 
-        dispatch(
-          signIn({
-            email: user.email,
-            fullname: user.displayName,
-          } as IUser),
-        );
-        navigation.navigate('Homepage' as never);
+        try {
+          const userDB = await getUserRequest(user.uid).unwrap();
+
+          dispatch(
+            signIn({
+              uid: userDB.uid,
+              fullname: userDB.fullname,
+              avatar: userDB.avatar,
+            }),
+          );
+          navigation.navigate('Homepage' as never);
+        } catch (e) {
+          // eslint-disable-next-line no-console
+          console.log(e);
+        }
       } else {
         navigation.navigate('Login' as never);
       }
