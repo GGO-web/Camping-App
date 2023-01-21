@@ -21,7 +21,7 @@ export function BagListItem({ bagItem }: { bagItem: IBagItem }) {
         styles={{ marginTop: 5, marginRight: 5 }}
       />
 
-      <Text style={{ width: '100%', maxWidth: 180 }} paragraph2>{bagItem.content}</Text>
+      <Text style={{ width: '100%', maxWidth: 180 }} paragraph2>{bagItem.description}</Text>
 
       <View right style={{ minWidth: 130 }}>
         <Stepper

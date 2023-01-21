@@ -1,4 +1,4 @@
-interface ILocationImage {
+export interface ILocationImage {
   title: string;
   altText: string;
   url: string;

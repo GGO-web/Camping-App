@@ -14,6 +14,7 @@ import { ButtonPrimary } from '../Buttons/ButtonPrimary';
 import { AssetsColorsType, AssetsIconsType } from '../../matherialUI';
 
 import { globalStyles } from '../../styles/global';
+import { IBagItem } from '../../models/BagItem.model';
 
 export function AddBagItemDialog({
   bagInputDialogVisible,
@@ -87,10 +88,10 @@ export function AddBagItemDialog({
           if (bagItem.length !== 0) {
             addBagItemCallback({
               id: v4(),
-              content: bagItem,
+              description: bagItem,
               count: 1,
               checked: true,
-            });
+            } as IBagItem);
 
             setBagItem('');
             setBagInputDialogVisible(false);
