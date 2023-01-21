@@ -45,6 +45,17 @@ export const tripApi = createApi({
       }),
       invalidatesTags: ['Trip'],
     }),
+    setActivatedTrip: builder.mutation<IMessageResponse, string>({
+      query: (tripId) => ({
+        url: `${process.env.REACT_APP_BACKEND_URL}/trip/activate`,
+        body: {
+          userId: firebaseAuth?.currentUser?.uid,
+          tripId,
+        },
+        method: 'PATCH',
+      }),
+      invalidatesTags: ['Trip'],
+    }),
   }),
 });
 
@@ -53,4 +64,5 @@ export const {
   useCompleteTripMutation,
   useGetAllTripsQuery,
   useGetActivatedTripQuery,
+  useSetActivatedTripMutation,
 } = tripApi;

@@ -8,13 +8,12 @@ import {
 import { ButtonIcon } from '../../../../components/Buttons/ButtonIcon';
 import { ButtonPrimary } from '../../../../components/Buttons/ButtonPrimary';
 
-import { useActions } from '../../../../hooks/actions';
-
 import { useCheckoutTripImages } from '../../../../hooks/checkoutTripImages';
 import { AssetsIconsType } from '../../../../matherialUI';
 
 import type { ILocation, ILocationImage } from '../../../../models/Locations.model';
 import { ITripResponse } from '../../../../models/responses/TripResponse';
+import { useSetActivatedTripMutation } from '../../../../redux/api/trip';
 
 export function TripCard({
   trip,
@@ -29,8 +28,7 @@ export function TripCard({
 
   const [showTripSelectedDialog, setShowTripSelectedDialog] = useState<boolean>(false);
 
-  // TODO: Set activated trip request from DB instead of local state
-  const { setActivedTrip } = useActions();
+  const [setActivatedTrip] = useSetActivatedTripMutation();
 
   return (
     <Card
@@ -151,7 +149,7 @@ export function TripCard({
         <View row right>
           <ButtonPrimary
             buttonCallback={() => {
-              setActivedTrip(trip.tripId);
+              setActivatedTrip(trip._id as string);
               setShowTripSelectedDialog(false);
             }}
             buttonText="Enter"
