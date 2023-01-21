@@ -13,11 +13,8 @@ import {
 } from 'react-native-ui-lib';
 
 import { FirebaseError } from 'firebase/app';
-import { signInWithEmailAndPassword, User } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { firebaseAuth } from '../../firebase/firebase';
-
-import { useAppDispatch } from '../../redux/hooks';
-import { signIn } from '../../redux/userConfig/userSlice';
 
 import { ILogin } from './Login.model';
 
@@ -29,7 +26,7 @@ import { authStyles } from '../../styles/auth';
 
 import { authConfig } from '../../constants';
 import { loginSchema } from '../../helpers/validationSchema';
-import { useLazyGetUserByIdQuery } from '../../redux/api/user';
+import { useLoginWithFirebase } from '../../firebase/loginWithFirebase';
 
 export function Login() {
   const [formFeedbackModal, setFormFeedbackModal] = useState(false);
@@ -41,11 +38,9 @@ export function Login() {
 
   const navigation = useNavigation();
 
-  const dispatch = useAppDispatch();
-
   const [, response, promptAsync]: any = Google.useAuthRequest(authConfig);
 
-  const [getUserRequest] = useLazyGetUserByIdQuery();
+  const loginWithFirebase = useLoginWithFirebase();
 
   const formSubmitHandler = async (
     values: ILogin,
@@ -58,19 +53,7 @@ export function Login() {
         values.password,
       );
 
-      const { uid } = firebaseAuth.currentUser as User;
-
-      const userDB = await getUserRequest(uid).unwrap();
-
-      dispatch(
-        signIn({
-          uid: userDB.uid,
-          fullname: userDB.fullname,
-          avatar: userDB.avatar,
-        }),
-      );
-
-      navigation.navigate('Homepage' as never);
+      await loginWithFirebase();
     } catch (error: any) {
       if (error instanceof FirebaseError) {
         // firebase errors validation

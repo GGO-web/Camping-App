@@ -2,17 +2,14 @@ import React from 'react';
 
 import { Image, TouchableOpacity, View } from 'react-native';
 import { Text } from 'react-native-ui-lib';
-import { useNavigation } from '@react-navigation/native';
 
-import { GoogleAuthProvider, signInWithCredential, User } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
 import { firebaseAuth } from '../../../../firebase/firebase';
 
 import { globalStyles } from '../../../../styles/global';
 import { loginProvidersStyles } from './LoginProvidersStyle';
 
-import { useAppDispatch } from '../../../../redux/hooks';
-import { signIn } from '../../../../redux/userConfig/userSlice';
-import { IUser } from '../../../../redux/userConfig/user.model';
+import { useLoginWithFirebase } from '../../../../firebase/loginWithFirebase';
 
 export function LoginProviders({
   response,
@@ -21,9 +18,7 @@ export function LoginProviders({
   response: any;
   promptAsync: any;
 }) {
-  const navigation = useNavigation();
-
-  const dispatch = useAppDispatch();
+  const loginWithFirebase = useLoginWithFirebase();
 
   const loginWithGoogle = async () => {
     // Get the users ID token
@@ -47,18 +42,7 @@ export function LoginProviders({
       // Sign-in the user with the credential
       await signInWithCredential(firebaseAuth, googleCredential);
 
-      const user: User = firebaseAuth.currentUser as User;
-
-      dispatch(
-        signIn({
-          email: user.email,
-          fullname: user.displayName,
-          avatar: user.photoURL,
-        } as IUser),
-      );
-
-      // redirect to homepage
-      navigation.navigate('Homepage' as never);
+      await loginWithFirebase();
     }
   };
 
