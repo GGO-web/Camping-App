@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
 import { firebaseAuth } from '../../firebase/firebase';
+
 import { IMessageResponse } from '../../models/responses/MessageResponse';
 import { ITripResponse } from '../../models/responses/TripResponse';
 
@@ -12,6 +14,18 @@ export const tripApi = createApi({
   }),
   tagTypes: ['Trip'],
   endpoints: (builder) => ({
+    getAllTrips: builder.query<ITripResponse[], void>({
+      query: () => ({
+        url: `${process.env.REACT_APP_BACKEND_URL}/trip/all/${firebaseAuth?.currentUser?.uid}`,
+      }),
+      providesTags: ['Trip'],
+    }),
+    getActivatedTrip: builder.query<ITripResponse, void>({
+      query: () => ({
+        url: `${process.env.REACT_APP_BACKEND_URL}/trip/activated/${firebaseAuth?.currentUser?.uid}`,
+      }),
+      providesTags: ['Trip'],
+    }),
     createTrip: builder.mutation<any, ITrip>({
       query: (trip) => ({
         url: `${process.env.REACT_APP_BACKEND_URL}/trip/create`,
@@ -34,4 +48,9 @@ export const tripApi = createApi({
   }),
 });
 
-export const { useCreateTripMutation, useCompleteTripMutation } = tripApi;
+export const {
+  useCreateTripMutation,
+  useCompleteTripMutation,
+  useGetAllTripsQuery,
+  useGetActivatedTripQuery,
+} = tripApi;

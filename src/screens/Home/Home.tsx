@@ -10,21 +10,14 @@ import { TripCardList } from './components/TripCardList/TripCardList';
 import { ActionsBar } from '../../components/ActionsBar/ActionsBar';
 import { NoResults } from '../../components/common/NoResults';
 
-import { useAppSelector } from '../../redux/hooks';
-
-import { ITripCollectionItem } from '../../redux/tripsCollection/tripsCollection.model';
-import { getActivatedTripCollectionItemSelector } from '../../redux/tripsCollection/tripsCollection';
-
 import { AssetsGraphicType } from '../../matherialUI';
 
 import { globalStyles } from '../../styles/global';
+import { useGetActivatedTripQuery, useGetAllTripsQuery } from '../../redux/api/trip';
 
 export function Home() {
-  const tripsCollection: ITripCollectionItem[] = useAppSelector(
-    (store) => store.tripsCollection.trips,
-  );
-
-  const activatedTrip = useAppSelector(getActivatedTripCollectionItemSelector);
+  const { data: trips } = useGetAllTripsQuery();
+  const { data: activatedTrip } = useGetActivatedTripQuery();
 
   const navigation = useNavigation();
 
@@ -32,7 +25,7 @@ export function Home() {
     <MainWrapper headerTitle="Camping Trips">
       <ClipboardID />
 
-      {tripsCollection.length === 0
+      {!trips
         ? (
           <NoResults
             image={(Assets.graphic as AssetsGraphicType).trips}
@@ -40,7 +33,7 @@ export function Home() {
           />
         )
         : (
-          <TripCardList />
+          <TripCardList trips={trips} />
         )}
 
       <Button
@@ -61,7 +54,7 @@ export function Home() {
         </Text>
       </Button>
 
-      {tripsCollection.length && activatedTrip ? <ActionsBar /> : null}
+      {trips?.length && activatedTrip ? <ActionsBar /> : null}
     </MainWrapper>
   );
 }

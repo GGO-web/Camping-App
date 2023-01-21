@@ -1,13 +1,10 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
-
-import { useAppSelector } from '../../../../redux/hooks';
+import { ITripResponse } from '../../../../models/responses/TripResponse';
 
 import { TripCard } from '../TripCard/TripCard';
 
-export function TripCardList() {
-  const trips = useAppSelector((store) => store.tripsCollection.trips);
-
+export function TripCardList({ trips }: { trips: ITripResponse[] }) {
   return (
     <ScrollView
       style={{
@@ -15,11 +12,11 @@ export function TripCardList() {
         marginBottom: 0,
       }}
     >
-      {trips.map((tripCollectionItem) => (
+      {trips?.map((trip: ITripResponse) => (
         <TripCard
-          key={tripCollectionItem.trip.tripId}
-          isActivated={tripCollectionItem.activated}
-          trip={tripCollectionItem.trip}
+          key={trip.tripId}
+          isActivated={!!trip.activated}
+          trip={trip}
         />
       ))}
     </ScrollView>
