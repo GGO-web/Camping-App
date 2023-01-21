@@ -6,8 +6,8 @@ import { ITripPeriod } from '../Trip.model';
 import { IUser } from '../User.model';
 
 export interface ITripResponse {
+  _id?: string;
   userId?: string;
-  tripId: string;
   tripName: string;
   locations: ILocation[];
   teammates: IUser[];

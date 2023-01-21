@@ -1,4 +1,6 @@
-import { useNavigation, useRoute } from '@react-navigation/native';
+import {
+  useNavigation, useRoute,
+} from '@react-navigation/native';
 import React from 'react';
 
 import {
@@ -22,7 +24,8 @@ import { navbarStyles } from './NavbarStyles';
 
 import { IRoute } from '../../App.models';
 import { expandedNavigationRoutes, mainNavigationRoutes } from '../../constants';
-import { getActivatedTripCollectionItemSelector } from '../../redux/tripsCollection/tripsCollection';
+
+import { useGetActivatedTripQuery } from '../../redux/api/trip';
 
 export function Navbar() {
   const user = useAppSelector(userSelector);
@@ -31,7 +34,7 @@ export function Navbar() {
 
   const route = useRoute();
 
-  const activatedTrip = useAppSelector(getActivatedTripCollectionItemSelector);
+  const { data: activatedTrip } = useGetActivatedTripQuery();
 
   const routes: IRoute[] = !activatedTrip ? mainNavigationRoutes : expandedNavigationRoutes;
 
@@ -70,7 +73,7 @@ export function Navbar() {
         </View>
 
         <ScrollView>
-          {routes?.map((routeItem: any, index: number) => {
+          {routes?.map((routeItem: IRoute, index: number) => {
             const isActiveRoute = route.name === routeItem.path;
 
             return (
@@ -85,7 +88,7 @@ export function Navbar() {
                   ...navbarStyles.route,
                   ...(isActiveRoute ? navbarStyles.activeRoute : null),
                 }}
-                onPress={() => navigation.navigate(routeItem.path)}
+                onPress={() => navigation.navigate(routeItem.path as never)}
               >
                 <Icon
                   style={{

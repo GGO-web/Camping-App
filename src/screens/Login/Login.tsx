@@ -9,7 +9,7 @@ import { Formik, FormikHelpers } from 'formik';
 
 import { Toast } from 'react-native-ui-lib/src/incubator';
 import {
-  Text, View, Image, TouchableOpacity,
+  Text, View, Image, TouchableOpacity, LoaderScreen, Colors,
 } from 'react-native-ui-lib';
 
 import { FirebaseError } from 'firebase/app';
@@ -42,11 +42,15 @@ export function Login() {
 
   const loginWithFirebase = useLoginWithFirebase();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const formSubmitHandler = async (
     values: ILogin,
     actions: FormikHelpers<ILogin>,
   ) => {
     try {
+      setIsLoading(true);
+
       await signInWithEmailAndPassword(
         firebaseAuth,
         values.email,
@@ -54,6 +58,8 @@ export function Login() {
       );
 
       await loginWithFirebase();
+
+      setIsLoading(false);
     } catch (error: any) {
       if (error instanceof FirebaseError) {
         // firebase errors validation
@@ -75,6 +81,15 @@ export function Login() {
       }
     }
   };
+
+  if (isLoading) {
+    return (
+      <LoaderScreen
+        message="Sorry for the delay, service is starting up"
+        color={Colors.primary500}
+      />
+    );
+  }
 
   return (
     <KeyboardAvoidingView

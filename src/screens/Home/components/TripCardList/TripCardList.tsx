@@ -14,7 +14,7 @@ export function TripCardList({ trips }: { trips: ITripResponse[] }) {
     >
       {trips?.map((trip: ITripResponse) => (
         <TripCard
-          key={trip.tripId}
+          key={trip._id}
           isActivated={!!trip.activated}
           trip={trip}
         />
