@@ -3,11 +3,10 @@ import { ScrollView } from 'react-native';
 
 import { BackpackListItem } from '../BackpackListItem/BackpackListItem';
 
-import { useAppSelector } from '../../../../redux/hooks';
-import { getActivatedTripCollectionItemSelector } from '../../../../redux/tripsCollection/tripsCollection';
+import { useGetBagItemsQuery } from '../../../../redux/api/trip';
 
 export function BackpackList() {
-  const bagItems = useAppSelector(getActivatedTripCollectionItemSelector)?.trip.bagItems;
+  const { data: bagItems } = useGetBagItemsQuery();
 
   return (
     <ScrollView>

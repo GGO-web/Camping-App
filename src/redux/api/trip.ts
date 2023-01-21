@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { firebaseAuth } from '../../firebase/firebase';
+import { IBagItem } from '../../models/BagItem.model';
 
 import { IMessageResponse } from '../../models/responses/MessageResponse';
 import { ITripResponse } from '../../models/responses/TripResponse';
@@ -56,6 +57,45 @@ export const tripApi = createApi({
       }),
       invalidatesTags: ['Trip'],
     }),
+    // Trip Bag endpoints
+    getBagItems: builder.query<IBagItem[], void>({
+      query: () => ({
+        url: `${process.env.REACT_APP_BACKEND_URL}/trip/bag/all/${firebaseAuth?.currentUser?.uid}`,
+      }),
+      providesTags: ['Trip'],
+    }),
+    createBagItem: builder.mutation<IMessageResponse, { tripId: string; bagItem: IBagItem }>({
+      query: ({ tripId, bagItem }) => ({
+        url: `${process.env.REACT_APP_BACKEND_URL}/trip/bag/${tripId}`,
+        body: bagItem,
+        method: 'POST',
+      }),
+      invalidatesTags: ['Trip'],
+    }),
+    updateBagItemImage: builder.mutation<IMessageResponse, { bagItemId: string; image: string }>({
+      query: ({ bagItemId, image }) => ({
+        url: `${process.env.REACT_APP_BACKEND_URL}/trip/bag/image`,
+        body: {
+          userId: firebaseAuth?.currentUser?.uid,
+          bagItemId,
+          image,
+        },
+        method: 'PATCH',
+      }),
+      invalidatesTags: ['Trip'],
+    }),
+    updateBagItemCount: builder.mutation<IMessageResponse, { bagItemId: string; count: number }>({
+      query: ({ bagItemId, count }) => ({
+        url: `${process.env.REACT_APP_BACKEND_URL}/trip/bag/count`,
+        body: {
+          userId: firebaseAuth?.currentUser?.uid,
+          bagItemId,
+          count,
+        },
+        method: 'PATCH',
+      }),
+      invalidatesTags: ['Trip'],
+    }),
   }),
 });
 
@@ -65,4 +105,9 @@ export const {
   useGetAllTripsQuery,
   useGetActivatedTripQuery,
   useSetActivatedTripMutation,
+  // Trip Bag hooks
+  useGetBagItemsQuery,
+  useCreateBagItemMutation,
+  useUpdateBagItemImageMutation,
+  useUpdateBagItemCountMutation,
 } = tripApi;
