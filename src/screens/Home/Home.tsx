@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React from 'react';
 import {
-  Assets, Button, Colors, Text, ToastPresets,
+  Assets, Button, Colors, Text,
 } from 'react-native-ui-lib';
 
 import { ClipboardID } from '../../components/common/ClipboardID';
@@ -14,7 +14,6 @@ import { useAppSelector } from '../../redux/hooks';
 
 import { ITripCollectionItem } from '../../redux/tripsCollection/tripsCollection.model';
 import { getActivatedTripCollectionItemSelector } from '../../redux/tripsCollection/tripsCollection';
-import { Toast } from '../../components/Toast/Toast';
 
 import { AssetsGraphicType } from '../../matherialUI';
 
@@ -29,29 +28,9 @@ export function Home() {
 
   const navigation = useNavigation();
 
-  const [toastParams, setToastParams] = useState({
-    visible: false,
-    preset: ToastPresets.SUCCESS,
-    message: 'Your ID has copied successfully',
-  });
-
   return (
     <MainWrapper headerTitle="Camping Trips">
-      <Toast
-        visible={toastParams.visible}
-        preset={toastParams.preset}
-        toastMessage={toastParams.message}
-        duration={700}
-        autoDismiss={700}
-        onDismiss={() => {
-          setToastParams((prevToast) => ({ ...prevToast, visible: false }));
-        }}
-      />
-
-      <ClipboardID onPressCallback={() => {
-        setToastParams((prevToast) => ({ ...prevToast, visible: true }));
-      }}
-      />
+      <ClipboardID />
 
       {tripsCollection.length === 0
         ? (
