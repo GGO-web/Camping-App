@@ -16,7 +16,7 @@ export function BagListItem({ bagItem }: { bagItem: IBagItem }) {
     <View marginB-16 row top spread>
       <InputCheckbox
         onCheckboxChange={() => {
-          toggleBagItemChecked(bagItem.id);
+          toggleBagItemChecked(bagItem.id as string);
         }}
         styles={{ marginTop: 5, marginRight: 5 }}
       />
@@ -31,7 +31,7 @@ export function BagListItem({ bagItem }: { bagItem: IBagItem }) {
           useCustomTheme
           onValueChange={(newValue: number) => {
             updateBagItemCount({
-              id: bagItem.id,
+              id: bagItem.id as string,
               count: newValue,
             });
           }}

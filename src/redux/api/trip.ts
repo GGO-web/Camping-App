@@ -3,6 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { firebaseAuth } from '../../firebase/firebase';
 import { IBagItem } from '../../models/BagItem.model';
 
+import { IAddBagItemRequest } from '../../models/requests/AddBagItemRequest';
 import { IMessageResponse } from '../../models/responses/MessageResponse';
 import { ITripResponse } from '../../models/responses/TripResponse';
 
@@ -64,7 +65,7 @@ export const tripApi = createApi({
       }),
       providesTags: ['Trip'],
     }),
-    createBagItem: builder.mutation<IMessageResponse, { tripId: string; bagItem: IBagItem }>({
+    createBagItem: builder.mutation<IMessageResponse, IAddBagItemRequest>({
       query: ({ tripId, bagItem }) => ({
         url: `${process.env.REACT_APP_BACKEND_URL}/trip/bag/${tripId}`,
         body: bagItem,

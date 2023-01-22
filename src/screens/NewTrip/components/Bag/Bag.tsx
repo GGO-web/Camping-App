@@ -4,6 +4,7 @@ import {
   Assets, Colors, View, Text,
 } from 'react-native-ui-lib';
 
+import { v4 } from 'uuid';
 import { AddBagItemDialog } from '../../../../components/AddBagItemDialog/AddBagItemDialog';
 
 import { ButtonPrimary } from '../../../../components/Buttons/ButtonPrimary';
@@ -47,6 +48,15 @@ export function Bag() {
     navigation.navigate('Activities' as never);
   };
 
+  const addBagItemCallback = (description: string) => {
+    addBagItem({
+      id: v4(),
+      description,
+      count: 1,
+      checked: true,
+    });
+  };
+
   return (
     <View style={{ ...globalStyles.container, ...globalStyles.navcontainer }}>
       <CrumbsLink
@@ -68,7 +78,7 @@ export function Bag() {
           {...{
             bagInputDialogVisible,
             setBagInputDialogVisible,
-            addBagItemCallback: addBagItem,
+            addBagItemCallback,
           }}
         />
 
@@ -84,6 +94,5 @@ export function Bag() {
         />
       </View>
     </View>
-
   );
 }

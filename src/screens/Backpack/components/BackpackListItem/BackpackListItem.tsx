@@ -23,7 +23,7 @@ export function BackpackListItem({ backpackItem }: { backpackItem: IBagItem }) {
 
   useEffect(() => {
     updateBagItemCount({
-      bagItemId: backpackItem.id,
+      bagItemId: backpackItem.id as string,
       count: debouncedBackpackItemCount,
     });
   }, [debouncedBackpackItemCount]);
@@ -39,7 +39,7 @@ export function BackpackListItem({ backpackItem }: { backpackItem: IBagItem }) {
       const base64 = await FileSystem.readAsStringAsync(pickerResult.assets[0].uri, { encoding: 'base64' });
 
       updateBagItemImage({
-        bagItemId: backpackItem.id,
+        bagItemId: backpackItem.id as string,
         image: `data:image/png;base64,${base64}`,
       });
     }

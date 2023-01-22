@@ -9,15 +9,29 @@ import { MainWrapper } from '../../components/MainWrapper/MainWrapper';
 import { BackpackList } from './components/BackpackList/BackpackList';
 import { AddBagItemDialog } from '../../components/AddBagItemDialog/AddBagItemDialog';
 
+import { useCreateBagItemMutation, useGetActivatedTripQuery } from '../../redux/api/trip';
+
 import { AssetsIconsType } from '../../matherialUI';
-import { useActions } from '../../hooks/actions';
 
 export function Backpack() {
   const [bagInputDialogVisible, setBagInputDialogVisible] = useState(false);
 
   const { name: screenName } = useRoute();
 
-  const { addBackpackItem } = useActions();
+  // const { addBackpackItem } = useActions();
+  const { data: activatedTrip } = useGetActivatedTripQuery();
+
+  const [createBackpackItem] = useCreateBagItemMutation();
+
+  const addBagItemCallback = (description: string) => {
+    createBackpackItem({
+      tripId: activatedTrip?._id as string,
+      bagItem: {
+        description,
+        count: 1,
+      },
+    });
+  };
 
   return (
     <MainWrapper
@@ -29,9 +43,10 @@ export function Backpack() {
 
       <AddBagItemDialog
         {...{
+          tripId: activatedTrip?._id as string,
           bagInputDialogVisible,
           setBagInputDialogVisible,
-          addBagItemCallback: addBackpackItem,
+          addBagItemCallback,
         }}
       />
 

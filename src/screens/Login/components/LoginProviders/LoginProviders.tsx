@@ -50,7 +50,7 @@ export function LoginProviders({
       navigation.navigate(
         'Hurrey' as never,
         {
-          page: 'Home',
+          page: 'Homepage',
           text: 'Your registration is successful. You will be automatically redirected to the homepage at the moment',
         } as never,
       );

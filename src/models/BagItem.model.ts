@@ -1,5 +1,5 @@
 export interface IBagItem {
-  id: string;
+  id?: string;
   description: string;
   count: number;
   checked?: boolean;
