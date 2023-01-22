@@ -4,6 +4,7 @@ import { Image, TouchableOpacity, View } from 'react-native';
 import { Text } from 'react-native-ui-lib';
 
 import { GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
+import { useNavigation } from '@react-navigation/native';
 import { firebaseAuth } from '../../../../firebase/firebase';
 
 import { globalStyles } from '../../../../styles/global';
@@ -19,6 +20,8 @@ export function LoginProviders({
   promptAsync: any;
 }) {
   const loginWithFirebase = useLoginWithFirebase();
+
+  const navigation = useNavigation();
 
   const loginWithGoogle = async () => {
     // Get the users ID token
@@ -43,6 +46,14 @@ export function LoginProviders({
       await signInWithCredential(firebaseAuth, googleCredential);
 
       await loginWithFirebase();
+
+      navigation.navigate(
+        'Hurrey' as never,
+        {
+          page: 'Home',
+          text: 'Your registration is successful. You will be automatically redirected to the homepage at the moment',
+        } as never,
+      );
     }
   };
 

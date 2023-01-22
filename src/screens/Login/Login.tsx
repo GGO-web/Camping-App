@@ -9,7 +9,7 @@ import { Formik, FormikHelpers } from 'formik';
 
 import { Toast } from 'react-native-ui-lib/src/incubator';
 import {
-  Text, View, Image, TouchableOpacity, LoaderScreen, Colors,
+  Text, View, Image, TouchableOpacity,
 } from 'react-native-ui-lib';
 
 import { FirebaseError } from 'firebase/app';
@@ -27,6 +27,7 @@ import { authStyles } from '../../styles/auth';
 import { authConfig } from '../../constants';
 import { loginSchema } from '../../helpers/validationSchema';
 import { useLoginWithFirebase } from '../../firebase/loginWithFirebase';
+import { Loader } from '../../components/Loader/Loader';
 
 export function Login() {
   const [formFeedbackModal, setFormFeedbackModal] = useState(false);
@@ -84,10 +85,7 @@ export function Login() {
 
   if (isLoading) {
     return (
-      <LoaderScreen
-        message="Sorry for the delay, service is starting up"
-        color={Colors.primary500}
-      />
+      <Loader />
     );
   }
 

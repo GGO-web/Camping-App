@@ -14,12 +14,19 @@ import { AssetsGraphicType } from '../../matherialUI';
 
 import { globalStyles } from '../../styles/global';
 import { useGetActivatedTripQuery, useGetAllTripsQuery } from '../../redux/api/trip';
+import { Loader } from '../../components/Loader/Loader';
 
 export function Home() {
-  const { data: trips } = useGetAllTripsQuery();
+  const { data: trips, isLoading } = useGetAllTripsQuery();
   const { data: activatedTrip } = useGetActivatedTripQuery();
 
   const navigation = useNavigation();
+
+  if (isLoading) {
+    return (
+      <Loader />
+    );
+  }
 
   return (
     <MainWrapper headerTitle="Camping Trips">
