@@ -60,6 +60,13 @@ export const tripApi = createApi({
       }),
       invalidatesTags: ['Trip'],
     }),
+    deleteTrip: builder.mutation<IMessageResponse, string>({
+      query: (tripId) => ({
+        url: `/${tripId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Trip'],
+    }),
     // Trip Bag endpoints
     getBagItems: builder.query<IBagItem[], void>({
       query: () => ({
@@ -141,6 +148,7 @@ export const {
   useGetAllTripsQuery,
   useGetActivatedTripQuery,
   useSetActivatedTripMutation,
+  useDeleteTripMutation,
   // Trip Bag hooks
   useGetBagItemsQuery,
   useCreateBagItemMutation,
