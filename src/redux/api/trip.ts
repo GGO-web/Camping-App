@@ -1,7 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { firebaseAuth } from '../../firebase/firebase';
+import { IActivity } from '../../models/Activity.model';
 import { IBagItem } from '../../models/BagItem.model';
+import { IAddActivityRequest } from '../../models/requests/AddActivityRequest';
 
 import { IAddBagItemRequest } from '../../models/requests/AddBagItemRequest';
 import { IMessageResponse } from '../../models/responses/MessageResponse';
@@ -12,25 +14,25 @@ import { ITrip } from '../../models/Trip.model';
 export const tripApi = createApi({
   reducerPath: 'tripApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: '',
+    baseUrl: `${process.env.REACT_APP_BACKEND_URL}/trip/`,
   }),
   tagTypes: ['Trip'],
   endpoints: (builder) => ({
     getAllTrips: builder.query<ITripResponse[], void>({
       query: () => ({
-        url: `${process.env.REACT_APP_BACKEND_URL}/trip/all/${firebaseAuth?.currentUser?.uid}`,
+        url: `all/${firebaseAuth?.currentUser?.uid}`,
       }),
       providesTags: ['Trip'],
     }),
     getActivatedTrip: builder.query<ITripResponse, void>({
       query: () => ({
-        url: `${process.env.REACT_APP_BACKEND_URL}/trip/activated/${firebaseAuth?.currentUser?.uid}`,
+        url: `activated/${firebaseAuth?.currentUser?.uid}`,
       }),
       providesTags: ['Trip'],
     }),
     createTrip: builder.mutation<any, ITrip>({
       query: (trip) => ({
-        url: `${process.env.REACT_APP_BACKEND_URL}/trip/create`,
+        url: 'create',
         body: {
           userId: firebaseAuth?.currentUser?.uid,
           locations: trip.selectedLocations,
@@ -42,14 +44,14 @@ export const tripApi = createApi({
     }),
     completeTrip: builder.mutation<IMessageResponse, void>({
       query: () => ({
-        url: `${process.env.REACT_APP_BACKEND_URL}/trip/complete/${firebaseAuth?.currentUser?.uid}`,
+        url: `complete/${firebaseAuth?.currentUser?.uid}`,
         method: 'PATCH',
       }),
       invalidatesTags: ['Trip'],
     }),
     setActivatedTrip: builder.mutation<IMessageResponse, string>({
       query: (tripId) => ({
-        url: `${process.env.REACT_APP_BACKEND_URL}/trip/activate`,
+        url: 'activate',
         body: {
           userId: firebaseAuth?.currentUser?.uid,
           tripId,
@@ -61,13 +63,13 @@ export const tripApi = createApi({
     // Trip Bag endpoints
     getBagItems: builder.query<IBagItem[], void>({
       query: () => ({
-        url: `${process.env.REACT_APP_BACKEND_URL}/trip/bag/all/${firebaseAuth?.currentUser?.uid}`,
+        url: `bag/all/${firebaseAuth?.currentUser?.uid}`,
       }),
       providesTags: ['Trip'],
     }),
     createBagItem: builder.mutation<IMessageResponse, IAddBagItemRequest>({
       query: ({ tripId, bagItem }) => ({
-        url: `${process.env.REACT_APP_BACKEND_URL}/trip/bag/${tripId}`,
+        url: `bag/${tripId}`,
         body: bagItem,
         method: 'POST',
       }),
@@ -75,7 +77,7 @@ export const tripApi = createApi({
     }),
     updateBagItemImage: builder.mutation<IMessageResponse, { bagItemId: string; image: string }>({
       query: ({ bagItemId, image }) => ({
-        url: `${process.env.REACT_APP_BACKEND_URL}/trip/bag/image`,
+        url: 'bag/image',
         body: {
           userId: firebaseAuth?.currentUser?.uid,
           bagItemId,
@@ -87,13 +89,50 @@ export const tripApi = createApi({
     }),
     updateBagItemCount: builder.mutation<IMessageResponse, { bagItemId: string; count: number }>({
       query: ({ bagItemId, count }) => ({
-        url: `${process.env.REACT_APP_BACKEND_URL}/trip/bag/count`,
+        url: 'bag/count',
         body: {
           userId: firebaseAuth?.currentUser?.uid,
           bagItemId,
           count,
         },
         method: 'PATCH',
+      }),
+      invalidatesTags: ['Trip'],
+    }),
+    // trip activity endpoints
+    getAllActivities: builder.query<IActivity[], void>({
+      query: () => ({
+        url: `activity/all/${firebaseAuth?.currentUser?.uid}`,
+      }),
+      providesTags: ['Trip'],
+    }),
+    createActivity: builder.mutation<IMessageResponse, IAddActivityRequest>({
+      query: (activityBody) => ({
+        url: `activity/${firebaseAuth?.currentUser?.uid}`,
+        body: activityBody,
+        method: 'POST',
+      }),
+      invalidatesTags: ['Trip'],
+    }),
+    completeActivity: builder.mutation<IMessageResponse, string>({
+      query: (activityId) => ({
+        url: 'activity/complete',
+        body: {
+          userId: firebaseAuth?.currentUser?.uid,
+          activityId,
+        },
+        method: 'PATCH',
+      }),
+      invalidatesTags: ['Trip'],
+    }),
+    deleteActivity: builder.mutation<IMessageResponse, string>({
+      query: (activityId) => ({
+        url: 'activity/delete',
+        body: {
+          userId: firebaseAuth?.currentUser?.uid,
+          activityId,
+        },
+        method: 'DELETE',
       }),
       invalidatesTags: ['Trip'],
     }),
@@ -111,4 +150,9 @@ export const {
   useCreateBagItemMutation,
   useUpdateBagItemImageMutation,
   useUpdateBagItemCountMutation,
+  // Trip Activities hooks
+  useGetAllActivitiesQuery,
+  useCreateActivityMutation,
+  useCompleteActivityMutation,
+  useDeleteActivityMutation,
 } = tripApi;
