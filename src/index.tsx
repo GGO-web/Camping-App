@@ -12,8 +12,6 @@ import { store } from './redux/store';
 
 import { firebaseApp, firebaseAuth, firestore } from './firebase/firebase';
 
-import { DismissKeyboardView } from './components/common/DismissKeyboardView';
-
 import './matherialUI';
 
 import App from './App';
@@ -25,9 +23,7 @@ registerRootComponent(() => (
         <Provider store={store}>
           <NavigationContainer>
             {/* App component start! */}
-            <DismissKeyboardView>
-              <App />
-            </DismissKeyboardView>
+            <App />
             {/* App component end! */}
           </NavigationContainer>
         </Provider>
