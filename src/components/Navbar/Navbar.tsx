@@ -1,7 +1,7 @@
 import {
   useNavigation, useRoute,
 } from '@react-navigation/native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   Assets,
@@ -36,7 +36,11 @@ export function Navbar() {
 
   const { data: activatedTrip } = useGetActivatedTripQuery();
 
-  const routes: IRoute[] = !activatedTrip ? mainNavigationRoutes : expandedNavigationRoutes;
+  const [routes, setRoutes] = useState(mainNavigationRoutes);
+
+  useEffect(() => {
+    setRoutes(activatedTrip ? expandedNavigationRoutes : mainNavigationRoutes);
+  }, [activatedTrip]);
 
   return (
     <View

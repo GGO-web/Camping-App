@@ -60,9 +60,16 @@ export const tripApi = createApi({
       }),
       invalidatesTags: ['Trip'],
     }),
+    deactivateTrip: builder.mutation<IMessageResponse, void>({
+      query: () => ({
+        url: `deactivate/${firebaseAuth?.currentUser?.uid}`,
+        method: 'PATCH',
+      }),
+      invalidatesTags: ['Trip'],
+    }),
     deleteTrip: builder.mutation<IMessageResponse, string>({
       query: (tripId) => ({
-        url: `/${tripId}`,
+        url: `delete?userId=${firebaseAuth?.currentUser?.uid}&tripId=${tripId}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Trip'],
@@ -148,6 +155,7 @@ export const {
   useGetAllTripsQuery,
   useGetActivatedTripQuery,
   useSetActivatedTripMutation,
+  useDeactivateTripMutation,
   useDeleteTripMutation,
   // Trip Bag hooks
   useGetBagItemsQuery,
