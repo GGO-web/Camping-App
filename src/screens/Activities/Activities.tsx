@@ -21,9 +21,6 @@ export const Activities = gestureHandlerRootHOC(() => {
 
   const navigation = useNavigation();
 
-  // const activatedTrip = useAppSelector(getActivatedTripCollectionItemSelector);
-  // const activitiesTasks = activatedTrip?.activities;
-
   const { data: activities } = useGetAllActivitiesQuery();
 
   return (

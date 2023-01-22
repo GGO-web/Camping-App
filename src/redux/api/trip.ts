@@ -127,11 +127,7 @@ export const tripApi = createApi({
     }),
     deleteActivity: builder.mutation<IMessageResponse, string>({
       query: (activityId) => ({
-        url: 'activity/delete',
-        body: {
-          userId: firebaseAuth?.currentUser?.uid,
-          activityId,
-        },
+        url: `activity/delete?userId=${firebaseAuth?.currentUser?.uid}&activityId=${activityId}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Trip'],

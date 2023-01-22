@@ -32,7 +32,7 @@ export function Home() {
     <MainWrapper headerTitle="Camping Trips">
       <ClipboardID />
 
-      {!trips
+      {!trips?.length
         ? (
           <NoResults
             image={(Assets.graphic as AssetsGraphicType).trips}

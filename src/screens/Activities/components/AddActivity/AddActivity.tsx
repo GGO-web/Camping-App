@@ -34,8 +34,7 @@ export function AddActivity() {
       visible: true,
     }));
 
-    const { message } = await addActivity(values).unwrap();
-    console.log(message);
+    await addActivity(values).unwrap();
 
     actions.resetForm();
     actions.setErrors({

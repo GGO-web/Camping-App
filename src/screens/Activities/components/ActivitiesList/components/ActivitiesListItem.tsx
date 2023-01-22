@@ -41,7 +41,7 @@ export function ActivitiesListItem({ activity }: { activity: IActivity }) {
 
     setTimeout(() => {
       removeActivity(activity.id as string);
-    }, 600);
+    }, 1000);
 
     if (activityRef.current) {
       activityRef.current.closeDrawer();
