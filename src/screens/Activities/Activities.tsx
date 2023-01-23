@@ -15,6 +15,7 @@ import { NoResults } from '../../components/common/NoResults';
 import { useGetAllActivitiesQuery } from '../../redux/api/trip';
 
 import { AssetsGraphicType, AssetsIconsType } from '../../matherialUI';
+
 import { Loader } from '../../components/Loader/Loader';
 
 export const Activities = gestureHandlerRootHOC(() => {
@@ -36,14 +37,16 @@ export const Activities = gestureHandlerRootHOC(() => {
         ? <Loader message="Activities is fetching from the server, please wait some time..." />
         : null}
 
-      {(!activities?.length) ? (
+      {(!activities?.length && !isLoading) && (
         <NoResults
           image={(Assets.graphic as AssetsGraphicType).activitiesTasks}
           text={'You didn\'t add any Activity or Task yet.'}
           buttonText="Add activity"
           buttonCallback={() => navigation.navigate('AddActivity' as never)}
         />
-      ) : <ActivitiesList activities={activities} />}
+      )}
+
+      {(activities?.length && !isLoading) && <ActivitiesList activities={activities} />}
 
       <ActionsBar activeScreenName={screenName} />
     </MainWrapper>

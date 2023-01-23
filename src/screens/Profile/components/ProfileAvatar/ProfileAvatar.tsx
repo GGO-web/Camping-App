@@ -6,9 +6,6 @@ import {
   ImagePickerResult, launchImageLibraryAsync, MediaTypeOptions,
 } from 'expo-image-picker';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
-import * as FileSystem from 'expo-file-system';
-
 import { AssetsIconsType } from '../../../../matherialUI';
 
 import { useGetUserQuery, useUpdateUserAvatarMutation } from '../../../../redux/api/user';
@@ -22,16 +19,13 @@ export function ProfileAvatar() {
     const pickerResult: ImagePickerResult = await launchImageLibraryAsync({
       mediaTypes: MediaTypeOptions.Images,
       allowsEditing: true,
-      quality: 1,
+      base64: true,
     });
 
     if (!pickerResult.canceled) {
-      const avatarBase64 = await FileSystem.readAsStringAsync(
-        pickerResult.assets[0].uri,
-        { encoding: 'base64' },
-      );
+      const { message } = await updateUserAvatar(pickerResult.assets[0].base64 as string).unwrap();
 
-      updateUserAvatar(avatarBase64);
+      console.log(message);
     }
   };
 
