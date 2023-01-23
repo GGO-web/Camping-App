@@ -23,9 +23,10 @@ export function ProfileAvatar() {
     });
 
     if (!pickerResult.canceled) {
-      const { message } = await updateUserAvatar(pickerResult.assets[0].base64 as string).unwrap();
-
-      console.log(message);
+      await updateUserAvatar(
+        `data:image/jpeg;base64,${
+          pickerResult.assets[0].base64}`,
+      ).unwrap();
     }
   };
 

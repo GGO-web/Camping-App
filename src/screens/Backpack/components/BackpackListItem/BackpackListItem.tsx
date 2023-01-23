@@ -4,9 +4,6 @@ import {
   View, Text, Stepper, Button, Colors, Icon, Image,
 } from 'react-native-ui-lib';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
-import * as FileSystem from 'expo-file-system';
-
 import { launchCameraAsync } from 'expo-image-picker';
 
 import { IBagItem } from '../../../../models/BagItem.model';
@@ -33,14 +30,14 @@ export function BackpackListItem({ backpackItem }: { backpackItem: IBagItem }) {
       mediaTypes: MediaTypeOptions.Images,
       allowsEditing: true,
       quality: 1,
+      base64: true,
     });
 
     if (!pickerResult.canceled) {
-      const base64 = await FileSystem.readAsStringAsync(pickerResult.assets[0].uri, { encoding: 'base64' });
-
       updateBagItemImage({
         bagItemId: backpackItem.id as string,
-        image: `data:image/png;base64,${base64}`,
+        image: `data:image/jpeg;base64,${
+          pickerResult.assets[0].base64}`,
       });
     }
   };

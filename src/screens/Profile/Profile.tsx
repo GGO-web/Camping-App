@@ -1,7 +1,8 @@
 import { Formik } from 'formik';
 import React, { useState } from 'react';
-import { View, Text, ToastPresets } from 'react-native-ui-lib';
+import { Text, ToastPresets } from 'react-native-ui-lib';
 
+import { KeyboardAvoidingView, Platform } from 'react-native';
 import { CrumbsLink } from '../../components/common/CrumbsLink';
 import { ProfileAvatar } from './components/ProfileAvatar/ProfileAvatar';
 
@@ -54,7 +55,10 @@ export function Profile() {
   };
 
   return (
-    <View style={{ ...globalStyles.container, ...globalStyles.navcontainer }}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={{ ...globalStyles.container, ...globalStyles.navcontainer }}
+    >
       <CrumbsLink>
         <Text>Edit Profile</Text>
       </CrumbsLink>
@@ -86,6 +90,6 @@ export function Profile() {
           setToastParams((prevToast) => ({ ...prevToast, visible: false }));
         }}
       />
-    </View>
+    </KeyboardAvoidingView>
   );
 }
