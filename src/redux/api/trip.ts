@@ -8,6 +8,7 @@ import { IAddActivityRequest } from '../../models/requests/AddActivityRequest';
 import { IAddBagItemRequest } from '../../models/requests/AddBagItemRequest';
 import { IMessageResponse } from '../../models/responses/MessageResponse';
 import { ITripResponse } from '../../models/responses/TripResponse';
+import { ISnap } from '../../models/Snap.model';
 
 import { ITrip } from '../../models/Trip.model';
 
@@ -146,6 +147,24 @@ export const tripApi = createApi({
       }),
       invalidatesTags: ['Trip'],
     }),
+    // trip snaps endpoints
+    getAllSnaps: builder.query<ISnap[], void>({
+      query: () => ({
+        url: `snaps/${firebaseAuth?.currentUser?.uid}`,
+      }),
+      providesTags: ['Trip'],
+    }),
+    takeSnap: builder.mutation<IMessageResponse, string>({
+      query: (snapImage) => ({
+        url: 'snaps/create',
+        body: {
+          userId: firebaseAuth?.currentUser?.uid,
+          image: snapImage,
+        },
+        method: 'POST',
+      }),
+      invalidatesTags: ['Trip'],
+    }),
   }),
 });
 
@@ -167,4 +186,7 @@ export const {
   useCreateActivityMutation,
   useCompleteActivityMutation,
   useDeleteActivityMutation,
+  // Trip Snaps hooks
+  useGetAllSnapsQuery,
+  useTakeSnapMutation,
 } = tripApi;

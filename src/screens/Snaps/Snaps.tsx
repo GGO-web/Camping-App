@@ -1,42 +1,66 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
-  Assets, View, Image, Button, Colors, Icon,
+  Assets, View, Image, Button, Colors, Icon, ToastPresets,
 } from 'react-native-ui-lib';
 import {
   ImagePickerResult, launchCameraAsync, MediaTypeOptions,
 } from 'expo-image-picker';
+
+import * as Clipboard from 'expo-clipboard';
 
 import { ScrollView } from 'react-native';
 
 import { MainWrapper } from '../../components/MainWrapper/MainWrapper';
 import { NoResults } from '../../components/common/NoResults';
 
-import { useActions } from '../../hooks/actions';
-import { useAppSelector } from '../../redux/hooks';
-
-import { getActivatedTripCollectionItemSelector } from '../../redux/tripsCollection/tripsCollection';
-
-import { AssetsGraphicType } from '../../matherialUI';
+import { AssetsGraphicType, AssetsIconsType } from '../../matherialUI';
+import { useGetAllSnapsQuery, useTakeSnapMutation } from '../../redux/api/trip';
+import { ButtonIcon } from '../../components/Buttons/ButtonIcon';
+import { Toast } from '../../components/Toast/Toast';
 
 export function Snaps() {
-  const snaps = useAppSelector(getActivatedTripCollectionItemSelector)?.snaps;
+  // const snaps = useAppSelector(getActivatedTripCollectionItemSelector)?.snaps;
+  const { data: snaps } = useGetAllSnapsQuery();
 
-  const { addNewSnap } = useActions();
+  // const { addNewSnap } = useActions();
+  const [takeSnap] = useTakeSnapMutation();
+
+  const [toastParams, setToastParams] = useState({
+    visible: false,
+    preset: ToastPresets.SUCCESS,
+    message: 'Image link has copied, just paste it into the browser to download',
+  });
 
   const catchSnap = async () => {
     const pickerResult: ImagePickerResult = await launchCameraAsync({
       mediaTypes: MediaTypeOptions.Images,
       allowsEditing: true,
-      quality: 1,
+      quality: 0.5,
+      base64: true,
     });
 
     if (!pickerResult.canceled) {
-      addNewSnap(pickerResult.assets[0].uri);
+      await takeSnap(`data:image/png;base64,${pickerResult.assets[0].base64}`).unwrap();
     }
+  };
+
+  const copyImageLink = async (image: string) => {
+    await Clipboard.setStringAsync(image);
   };
 
   return (
     <MainWrapper headerTitle="Catch Snaps">
+      <Toast
+        visible={toastParams.visible}
+        preset={toastParams.preset}
+        toastMessage={toastParams.message}
+        duration={1500}
+        autoDismiss={1500}
+        onDismiss={() => {
+          setToastParams((prevToast) => ({ ...prevToast, visible: false }));
+        }}
+      />
+
       {!snaps?.length
         ? (
           <NoResults
@@ -52,20 +76,44 @@ export function Snaps() {
               {snaps.map((snap) => (
                 <View
                   margin-12
-                  key={snap.id}
+                  key={snap._id}
                   style={{
+                    position: 'relative',
                     flexBasis: 'auto',
                     flexGrow: 1,
                     flexShrink: 1,
                   }}
                 >
                   <Image
-                    source={{ uri: snap.uri }}
+                    source={{ uri: snap.image }}
                     style={{
                       flex: 1,
                       minWidth: 155,
                       height: 240,
                       borderRadius: 16,
+                    }}
+                  />
+
+                  <ButtonIcon
+                    buttonStyles={{
+                      position: 'absolute',
+                      right: 0,
+                      top: 0,
+                      width: 40,
+                      height: 40,
+                      padding: 8,
+                      borderBottomLeftRadius: 16,
+                      backgroundColor: Colors.primary500,
+                    }}
+                    iconSource={(Assets.icons as AssetsIconsType).copy}
+                    iconStyles={{ width: '100%', height: '100%', tintColor: Colors.white }}
+                    onPressCallback={() => {
+                      copyImageLink(snap?.image);
+
+                      setToastParams({
+                        ...toastParams,
+                        visible: true,
+                      });
                     }}
                   />
                 </View>

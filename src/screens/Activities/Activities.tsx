@@ -46,7 +46,7 @@ export const Activities = gestureHandlerRootHOC(() => {
         />
       )}
 
-      {(activities?.length && !isLoading) && <ActivitiesList activities={activities} />}
+      {(activities?.length && !isLoading) ? <ActivitiesList activities={activities} /> : null}
 
       <ActionsBar activeScreenName={screenName} />
     </MainWrapper>
