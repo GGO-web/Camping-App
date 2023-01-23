@@ -1,39 +1,39 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   Assets, Avatar, Colors, Text, TouchableOpacity,
 } from 'react-native-ui-lib';
 import {
-  ImageInfo, ImagePickerResult, launchImageLibraryAsync, MediaTypeOptions,
+  ImagePickerResult, launchImageLibraryAsync, MediaTypeOptions,
 } from 'expo-image-picker';
 
-import { useActions } from '../../../../hooks/actions';
-import { useAppSelector } from '../../../../redux/hooks';
-import { userSelector } from '../../../../redux/userConfig/userSlice';
-import { firebaseAuth } from '../../../../firebase/firebase';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import * as FileSystem from 'expo-file-system';
+
 import { AssetsIconsType } from '../../../../matherialUI';
 
-export function ProfileAvatar() {
-  const { avatar } = useAppSelector(userSelector);
+import { useGetUserQuery, useUpdateUserAvatarMutation } from '../../../../redux/api/user';
 
-  const { setProfileAvatar } = useActions();
+export function ProfileAvatar() {
+  const { data: user } = useGetUserQuery();
+
+  const [updateUserAvatar] = useUpdateUserAvatarMutation();
 
   const takeProfileImage = async () => {
-    const pickerResult: ImagePickerResult | ImageInfo = await launchImageLibraryAsync({
+    const pickerResult: ImagePickerResult = await launchImageLibraryAsync({
       mediaTypes: MediaTypeOptions.Images,
       allowsEditing: true,
       quality: 1,
     });
 
     if (!pickerResult.canceled) {
-      setProfileAvatar(pickerResult.assets[0].uri);
+      const avatarBase64 = await FileSystem.readAsStringAsync(
+        pickerResult.assets[0].uri,
+        { encoding: 'base64' },
+      );
+
+      updateUserAvatar(avatarBase64);
     }
   };
-
-  useEffect(() => {
-    if (!avatar) {
-      setProfileAvatar(firebaseAuth.currentUser?.photoURL as string);
-    }
-  }, []);
 
   return (
     <TouchableOpacity
@@ -45,9 +45,9 @@ export function ProfileAvatar() {
     >
       <Avatar
         source={
-          avatar
+          user?.avatar
             ? {
-              uri: avatar,
+              uri: user?.avatar,
             }
             : (Assets.icons as AssetsIconsType).avatar
       }

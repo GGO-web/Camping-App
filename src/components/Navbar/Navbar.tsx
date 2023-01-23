@@ -15,9 +15,6 @@ import {
 } from 'react-native-ui-lib';
 
 import { ScrollView } from 'react-native';
-import { firebaseAuth } from '../../firebase/firebase';
-import { useAppSelector } from '../../redux/hooks';
-import { userSelector } from '../../redux/userConfig/userSlice';
 
 import { globalStyles } from '../../styles/global';
 import { navbarStyles } from './NavbarStyles';
@@ -26,9 +23,11 @@ import { IRoute } from '../../App.models';
 import { expandedNavigationRoutes, mainNavigationRoutes } from '../../constants';
 
 import { useGetActivatedTripQuery } from '../../redux/api/trip';
+import { useGetUserQuery } from '../../redux/api/user';
 
 export function Navbar() {
-  const user = useAppSelector(userSelector);
+  // const user = useAppSelector(userSelector);
+  const { data: user } = useGetUserQuery();
 
   const navigation = useNavigation();
 
@@ -53,9 +52,9 @@ export function Navbar() {
       <View marginB-30 style={navbarStyles.innerContainer}>
         <Avatar
           source={
-            user.avatar || firebaseAuth.currentUser?.photoURL
+            user?.avatar
               ? {
-                uri: user.avatar || firebaseAuth.currentUser?.photoURL,
+                uri: user.avatar,
               }
               : Assets.icons.avatar
           }
@@ -65,7 +64,7 @@ export function Navbar() {
 
         <View marginT-8 marginB-30 style={navbarStyles.profile}>
           <Text white heading4 marginR-16>
-            {user.fullname}
+            {user?.fullname}
           </Text>
 
           <Button
