@@ -12,18 +12,18 @@ import { RemainingDays } from './components/RemainingDays/RemainingDays';
 import { ActivitiesList } from './components/ActivitiesList/ActivitiesList';
 import { NoResults } from '../../components/common/NoResults';
 
-import { useAppSelector } from '../../redux/hooks';
-import { getActivatedTripCollectionItemSelector } from '../../redux/tripsCollection/tripsCollection';
+import { useGetAllActivitiesQuery } from '../../redux/api/trip';
 
 import { AssetsGraphicType, AssetsIconsType } from '../../matherialUI';
+
+import { Loader } from '../../components/Loader/Loader';
 
 export const Activities = gestureHandlerRootHOC(() => {
   const { name: screenName } = useRoute();
 
   const navigation = useNavigation();
 
-  const activatedTrip = useAppSelector(getActivatedTripCollectionItemSelector);
-  const activitiesTasks = activatedTrip?.activities;
+  const { data: activities, isLoading } = useGetAllActivitiesQuery();
 
   return (
     <MainWrapper
@@ -33,14 +33,20 @@ export const Activities = gestureHandlerRootHOC(() => {
     >
       <RemainingDays />
 
-      {!activitiesTasks?.length ? (
+      {isLoading
+        ? <Loader message="Activities is fetching from the server, please wait some time..." />
+        : null}
+
+      {(!activities?.length && !isLoading) && (
         <NoResults
           image={(Assets.graphic as AssetsGraphicType).activitiesTasks}
           text={'You didn\'t add any Activity or Task yet.'}
           buttonText="Add activity"
           buttonCallback={() => navigation.navigate('AddActivity' as never)}
         />
-      ) : <ActivitiesList activities={activitiesTasks} />}
+      )}
+
+      {(activities?.length && !isLoading) ? <ActivitiesList activities={activities} /> : null}
 
       <ActionsBar activeScreenName={screenName} />
     </MainWrapper>

@@ -13,9 +13,9 @@ import { NoResults } from '../../../../components/common/NoResults';
 
 import { useAppSelector } from '../../../../redux/hooks';
 import { teammateSchema } from '../../../../helpers/validationSchema';
+import { IUser } from '../../../../models/User.model';
 
 import { AssetsGraphicType } from '../../../../matherialUI';
-import type { ITeamMate } from '../../../../models/Teammate.model';
 
 import { globalStyles } from '../../../../styles/global';
 
@@ -28,7 +28,7 @@ export function Teammembers() {
     teammateId: '',
   };
 
-  const teammatesList: ITeamMate[] = useAppSelector((store) => store.trip.teammates);
+  const teammatesList: IUser[] = useAppSelector((store) => store.trip.teammates);
   const [isReady, setIsReady] = useState(teammatesList.length > 1);
 
   const navigation = useNavigation();

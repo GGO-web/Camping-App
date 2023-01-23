@@ -6,12 +6,11 @@ import { Formik, FormikHelpers } from 'formik';
 import { AddActivityForm } from './AddActivityForm';
 import { Toast } from '../../../../components/Toast/Toast';
 
-import { useActions } from '../../../../hooks/actions';
-
 import { IActivity } from '../../../../models/Activity.model';
 import { activitiesSchema } from '../../../../helpers/validationSchema';
 
 import { globalStyles } from '../../../../styles/global';
+import { useCreateActivityMutation } from '../../../../redux/api/trip';
 
 export function AddActivity() {
   const formInitialValues: IActivity = {
@@ -25,16 +24,17 @@ export function AddActivity() {
     message: 'Item couldn`t be empty',
   });
 
-  const { addActivity } = useActions();
+  const [addActivity] = useCreateActivityMutation();
 
-  const formSubmitHandler = (values: IActivity, actions: FormikHelpers<IActivity>) => {
+  const formSubmitHandler = async (values: IActivity, actions: FormikHelpers<IActivity>) => {
     setToastParams((prevToast) => ({
       ...prevToast,
       message: 'Activity has been added successfully',
       preset: ToastPresets.SUCCESS,
       visible: true,
     }));
-    addActivity(values);
+
+    await addActivity(values).unwrap();
 
     actions.resetForm();
     actions.setErrors({

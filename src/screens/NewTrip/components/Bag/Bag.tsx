@@ -4,6 +4,7 @@ import {
   Assets, Colors, View, Text,
 } from 'react-native-ui-lib';
 
+import { v4 } from 'uuid';
 import { AddBagItemDialog } from '../../../../components/AddBagItemDialog/AddBagItemDialog';
 
 import { ButtonPrimary } from '../../../../components/Buttons/ButtonPrimary';
@@ -16,6 +17,7 @@ import type { AssetsColorsType, AssetsIconsType } from '../../../../matherialUI'
 import { useAppSelector } from '../../../../redux/hooks';
 
 import { globalStyles } from '../../../../styles/global';
+import { useCompleteTripMutation, useCreateTripMutation } from '../../../../redux/api/trip';
 
 export function Bag() {
   const [bagInputDialogVisible, setBagInputDialogVisible] = useState(false);
@@ -30,12 +32,29 @@ export function Bag() {
 
   const trip = useAppSelector((store) => store.trip);
 
-  const prepareTripHandler = () => {
+  const [createTrip] = useCreateTripMutation();
+  const [completeTrip] = useCompleteTripMutation();
+
+  const prepareTripHandler = async () => {
     // add trip into db and show main page with the trip info
     addNewTripToCollection(trip);
+
+    // create trip in DB, complete & activate it
+    await createTrip(trip).unwrap();
+    await completeTrip().unwrap();
+
     clearTripFormInfo();
 
     navigation.navigate('Activities' as never);
+  };
+
+  const addBagItemCallback = (description: string) => {
+    addBagItem({
+      id: v4(),
+      description,
+      count: 1,
+      checked: true,
+    });
   };
 
   return (
@@ -59,7 +78,7 @@ export function Bag() {
           {...{
             bagInputDialogVisible,
             setBagInputDialogVisible,
-            addBagItemCallback: addBagItem,
+            addBagItemCallback,
           }}
         />
 
@@ -75,6 +94,5 @@ export function Bag() {
         />
       </View>
     </View>
-
   );
 }

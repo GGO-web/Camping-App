@@ -31,7 +31,9 @@ export function Input({
 }) {
   const getFieldStyles = () => {
     switch (true) {
-      case formik.touched[fieldName] && validate:
+      case !formik.touched[fieldName]:
+        return [];
+      case formik.touched[fieldName] && !validate:
         return globalStyles.isError;
       case Boolean(formik.errors[fieldName]):
         return globalStyles.isError;
@@ -42,7 +44,7 @@ export function Input({
 
   const getInputStyles = () => {
     switch (true) {
-      case validate && formik.errors[fieldName]:
+      case !validate && formik.errors[fieldName]:
         return globalStyles.isError;
       case validate && !formik.errors[fieldName]:
         return globalStyles.isValid;

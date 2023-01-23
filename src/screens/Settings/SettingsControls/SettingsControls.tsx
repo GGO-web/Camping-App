@@ -4,12 +4,14 @@ import { Alert } from 'react-native';
 import {
   Colors, Switch, Text, TouchableOpacity, View,
 } from 'react-native-ui-lib';
-import { useActions } from '../../../hooks/actions';
+
+import { useDeleteTripMutation, useGetActivatedTripQuery } from '../../../redux/api/trip';
 
 export function SettingsControls() {
   const [notifications, setNotifications] = useState(true);
 
-  const { destroyTrip } = useActions();
+  const { data: activatedTrip } = useGetActivatedTripQuery();
+  const [destroyTrip] = useDeleteTripMutation();
 
   const navigation = useNavigation();
 
@@ -25,7 +27,7 @@ export function SettingsControls() {
         {
           text: 'Delete',
           onPress: () => {
-            destroyTrip();
+            destroyTrip(activatedTrip?._id as string);
 
             navigation.navigate('Homepage' as never);
           },

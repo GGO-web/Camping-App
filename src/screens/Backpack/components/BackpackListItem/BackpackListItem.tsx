@@ -1,27 +1,44 @@
 import { ImagePickerResult, MediaTypeOptions } from 'expo-image-picker/build/ImagePicker.types';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View, Text, Stepper, Button, Colors, Icon, Image,
 } from 'react-native-ui-lib';
 
 import { launchCameraAsync } from 'expo-image-picker';
 
-import { useActions } from '../../../../hooks/actions';
-
 import { IBagItem } from '../../../../models/BagItem.model';
+import { useUpdateBagItemCountMutation, useUpdateBagItemImageMutation } from '../../../../redux/api/trip';
+import { useDebounce } from '../../../../hooks/debounce';
 
 export function BackpackListItem({ backpackItem }: { backpackItem: IBagItem }) {
-  const { updateBackpackItemCount, setBackpackItemUri } = useActions();
+  const [backpackItemCount, setBackpackItemCount] = useState(backpackItem.count);
+
+  const debouncedBackpackItemCount = useDebounce(backpackItemCount, 3000);
+
+  const [updateBagItemImage] = useUpdateBagItemImageMutation();
+  const [updateBagItemCount] = useUpdateBagItemCountMutation();
+
+  useEffect(() => {
+    updateBagItemCount({
+      bagItemId: backpackItem.id as string,
+      count: debouncedBackpackItemCount,
+    });
+  }, [debouncedBackpackItemCount]);
 
   const takePicture = async () => {
     const pickerResult: ImagePickerResult = await launchCameraAsync({
       mediaTypes: MediaTypeOptions.Images,
       allowsEditing: true,
       quality: 1,
+      base64: true,
     });
 
     if (!pickerResult.canceled) {
-      setBackpackItemUri({ id: backpackItem.id, uri: pickerResult.assets[0].uri });
+      updateBagItemImage({
+        bagItemId: backpackItem.id as string,
+        image: `data:image/jpeg;base64,${
+          pickerResult.assets[0].base64}`,
+      });
     }
   };
 
@@ -44,7 +61,7 @@ export function BackpackListItem({ backpackItem }: { backpackItem: IBagItem }) {
             takePicture();
           }}
         >
-          {!backpackItem.imageUri
+          {!backpackItem.image
             ? (
               <Icon
                 size={24}
@@ -56,28 +73,25 @@ export function BackpackListItem({ backpackItem }: { backpackItem: IBagItem }) {
             )
             : (
               <Image
-                source={{ uri: backpackItem.imageUri }}
+                source={{ uri: backpackItem.image }}
                 style={{ width: 48, height: 48, resizeMode: 'cover' }}
               />
             )}
         </Button>
 
         <Text style={{ width: '100%', maxWidth: 160 }} heading4 numberOfLines={2}>
-          {backpackItem.content}
+          {backpackItem.description}
         </Text>
       </View>
 
       <View flex right>
         <Stepper
-          value={backpackItem.count}
+          value={backpackItemCount}
           minValue={1}
           maxValue={Infinity}
           useCustomTheme
           onValueChange={(newValue: number) => {
-            updateBackpackItemCount({
-              id: backpackItem.id,
-              count: newValue,
-            });
+            setBackpackItemCount(newValue);
           }}
         />
       </View>

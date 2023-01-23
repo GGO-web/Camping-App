@@ -1,39 +1,34 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   Assets, Avatar, Colors, Text, TouchableOpacity,
 } from 'react-native-ui-lib';
 import {
-  ImageInfo, ImagePickerResult, launchImageLibraryAsync, MediaTypeOptions,
+  ImagePickerResult, launchImageLibraryAsync, MediaTypeOptions,
 } from 'expo-image-picker';
 
-import { useActions } from '../../../../hooks/actions';
-import { useAppSelector } from '../../../../redux/hooks';
-import { userSelector } from '../../../../redux/userConfig/userSlice';
-import { firebaseAuth } from '../../../../firebase/firebase';
 import { AssetsIconsType } from '../../../../matherialUI';
 
-export function ProfileAvatar() {
-  const { avatar } = useAppSelector(userSelector);
+import { useGetUserQuery, useUpdateUserAvatarMutation } from '../../../../redux/api/user';
 
-  const { setProfileAvatar } = useActions();
+export function ProfileAvatar() {
+  const { data: user } = useGetUserQuery();
+
+  const [updateUserAvatar] = useUpdateUserAvatarMutation();
 
   const takeProfileImage = async () => {
-    const pickerResult: ImagePickerResult | ImageInfo = await launchImageLibraryAsync({
+    const pickerResult: ImagePickerResult = await launchImageLibraryAsync({
       mediaTypes: MediaTypeOptions.Images,
       allowsEditing: true,
-      quality: 1,
+      base64: true,
     });
 
     if (!pickerResult.canceled) {
-      setProfileAvatar(pickerResult.assets[0].uri);
+      await updateUserAvatar(
+        `data:image/jpeg;base64,${
+          pickerResult.assets[0].base64}`,
+      ).unwrap();
     }
   };
-
-  useEffect(() => {
-    if (!avatar) {
-      setProfileAvatar(firebaseAuth.currentUser?.photoURL as string);
-    }
-  }, []);
 
   return (
     <TouchableOpacity
@@ -45,9 +40,9 @@ export function ProfileAvatar() {
     >
       <Avatar
         source={
-          avatar
+          user?.avatar
             ? {
-              uri: avatar,
+              uri: user?.avatar,
             }
             : (Assets.icons as AssetsIconsType).avatar
       }

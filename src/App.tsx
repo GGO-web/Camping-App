@@ -6,12 +6,8 @@ import { useNavigation } from '@react-navigation/native';
 
 import { useFonts } from 'expo-font';
 
-import { onAuthStateChanged, User } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { firebaseAuth } from './firebase/firebase';
-
-import { useAppDispatch } from './redux/hooks';
-import { signIn } from './redux/userConfig/userSlice';
-import { IUser } from './redux/userConfig/user.model';
 
 import { Hurrey } from './components/common/Hurrey';
 
@@ -48,6 +44,8 @@ import { ExitTrip } from './screens/ExitTrip/ExitTrip';
 import { Notifications } from './screens/Notifications/Notifications';
 import { TeammateProfile } from './screens/Teammates/components/TeammateProfile/TeammateProfile';
 
+import { useLoginWithFirebase } from './firebase/loginWithFirebase';
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -58,20 +56,18 @@ export default function App() {
   });
 
   const navigation = useNavigation();
-  const dispatch = useAppDispatch();
+
+  const loginWithFirebase = useLoginWithFirebase();
 
   const signInWithFirebase = () => {
-    setTimeout(() => {
+    setTimeout(async () => {
       if (firebaseAuth.currentUser) {
-        const user: User = firebaseAuth.currentUser as User;
-
-        dispatch(
-          signIn({
-            email: user.email,
-            fullname: user.displayName,
-          } as IUser),
-        );
-        navigation.navigate('Homepage' as never);
+        try {
+          await loginWithFirebase();
+        } catch (e) {
+          // eslint-disable-next-line no-console
+          console.log(e);
+        }
       } else {
         navigation.navigate('Login' as never);
       }

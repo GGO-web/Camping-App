@@ -1,7 +1,7 @@
 export interface IBagItem {
-  id: string;
-  content: string;
+  id?: string;
+  description: string;
   count: number;
-  checked: boolean;
-  imageUri?: string;
+  checked?: boolean;
+  image?: string;
 }

@@ -6,9 +6,9 @@ import { v4 } from 'uuid';
 import { IBagItem } from '../../models/BagItem.model';
 
 import { ILocation } from '../../models/Locations.model';
-import { ITeamMate } from '../../models/Teammate.model';
 
 import { ITrip, ITripPeriod } from '../../models/Trip.model';
+import { IUser } from '../../models/User.model';
 
 const initialState: ITrip = {
   tripId: '',
@@ -36,7 +36,7 @@ const tripSlice = createSlice({
     setTripPeriod: (state, action: PayloadAction<ITripPeriod>) => {
       state.tripPeriod = action.payload;
     },
-    setTeammates: (state, action: PayloadAction<ITeamMate[]>) => {
+    setTeammates: (state, action: PayloadAction<IUser[]>) => {
       state.teammates = action.payload;
     },
     addLocation: (state, action: PayloadAction<ILocation>) => {

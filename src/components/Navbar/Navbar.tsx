@@ -1,5 +1,7 @@
-import { useNavigation, useRoute } from '@react-navigation/native';
-import React from 'react';
+import {
+  useNavigation, useRoute,
+} from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
 
 import {
   Assets,
@@ -13,27 +15,31 @@ import {
 } from 'react-native-ui-lib';
 
 import { ScrollView } from 'react-native';
-import { firebaseAuth } from '../../firebase/firebase';
-import { useAppSelector } from '../../redux/hooks';
-import { userSelector } from '../../redux/userConfig/userSlice';
 
 import { globalStyles } from '../../styles/global';
 import { navbarStyles } from './NavbarStyles';
 
 import { IRoute } from '../../App.models';
 import { expandedNavigationRoutes, mainNavigationRoutes } from '../../constants';
-import { getActivatedTripCollectionItemSelector } from '../../redux/tripsCollection/tripsCollection';
+
+import { useGetActivatedTripQuery } from '../../redux/api/trip';
+import { useGetUserQuery } from '../../redux/api/user';
 
 export function Navbar() {
-  const user = useAppSelector(userSelector);
+  // const user = useAppSelector(userSelector);
+  const { data: user } = useGetUserQuery();
 
   const navigation = useNavigation();
 
   const route = useRoute();
 
-  const activatedTrip = useAppSelector(getActivatedTripCollectionItemSelector);
+  const { data: activatedTrip } = useGetActivatedTripQuery();
 
-  const routes: IRoute[] = !activatedTrip ? mainNavigationRoutes : expandedNavigationRoutes;
+  const [routes, setRoutes] = useState(mainNavigationRoutes);
+
+  useEffect(() => {
+    setRoutes(activatedTrip ? expandedNavigationRoutes : mainNavigationRoutes);
+  }, [activatedTrip]);
 
   return (
     <View
@@ -46,9 +52,9 @@ export function Navbar() {
       <View marginB-30 style={navbarStyles.innerContainer}>
         <Avatar
           source={
-            user.avatar || firebaseAuth.currentUser?.photoURL
+            user?.avatar
               ? {
-                uri: user.avatar || firebaseAuth.currentUser?.photoURL,
+                uri: user.avatar,
               }
               : Assets.icons.avatar
           }
@@ -58,7 +64,7 @@ export function Navbar() {
 
         <View marginT-8 marginB-30 style={navbarStyles.profile}>
           <Text white heading4 marginR-16>
-            {user.fullname}
+            {user?.fullname}
           </Text>
 
           <Button
@@ -70,7 +76,7 @@ export function Navbar() {
         </View>
 
         <ScrollView>
-          {routes?.map((routeItem: any, index: number) => {
+          {routes?.map((routeItem: IRoute, index: number) => {
             const isActiveRoute = route.name === routeItem.path;
 
             return (
@@ -85,7 +91,7 @@ export function Navbar() {
                   ...navbarStyles.route,
                   ...(isActiveRoute ? navbarStyles.activeRoute : null),
                 }}
-                onPress={() => navigation.navigate(routeItem.path)}
+                onPress={() => navigation.navigate(routeItem.path as never)}
               >
                 <Icon
                   style={{

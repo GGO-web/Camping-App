@@ -13,12 +13,8 @@ import {
 } from 'react-native-ui-lib';
 
 import { FirebaseError } from 'firebase/app';
-import { signInWithEmailAndPassword, User } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { firebaseAuth } from '../../firebase/firebase';
-
-import { useAppDispatch } from '../../redux/hooks';
-import { signIn } from '../../redux/userConfig/userSlice';
-import { IUser } from '../../redux/userConfig/user.model';
 
 import { ILogin } from './Login.model';
 
@@ -30,6 +26,8 @@ import { authStyles } from '../../styles/auth';
 
 import { authConfig } from '../../constants';
 import { loginSchema } from '../../helpers/validationSchema';
+import { useLoginWithFirebase } from '../../firebase/loginWithFirebase';
+import { Loader } from '../../components/Loader/Loader';
 
 export function Login() {
   const [formFeedbackModal, setFormFeedbackModal] = useState(false);
@@ -41,50 +39,55 @@ export function Login() {
 
   const navigation = useNavigation();
 
-  const dispatch = useAppDispatch();
-
   const [, response, promptAsync]: any = Google.useAuthRequest(authConfig);
+
+  const loginWithFirebase = useLoginWithFirebase();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const formSubmitHandler = async (
     values: ILogin,
     actions: FormikHelpers<ILogin>,
   ) => {
     try {
+      setIsLoading(true);
+
       await signInWithEmailAndPassword(
         firebaseAuth,
         values.email,
         values.password,
       );
 
-      const user: User = firebaseAuth.currentUser as User;
+      await loginWithFirebase();
 
-      dispatch(
-        signIn({
-          email: user.email,
-          fullname: user.displayName,
-          avatar: user.photoURL,
-        } as IUser),
-      );
-      navigation.navigate('Homepage' as never);
+      setIsLoading(false);
     } catch (error: any) {
-      const fireError = error as FirebaseError;
-
-      // firebase errors validation
-      if (fireError.message.includes('wrong-password')) {
-        actions.setFieldError('password', 'The entered password is wrong.');
-      } else if (
-        fireError.message.includes('user-not-found')
-            || fireError.message.includes('invalid-email')
-      ) {
-        actions.setFieldError(
-          'email',
-          'The user with the given email is not found.',
-        );
+      if (error instanceof FirebaseError) {
+        // firebase errors validation
+        if (error.message.includes('wrong-password')) {
+          actions.setFieldError('password', 'The entered password is wrong.');
+        } else if (
+          error.message.includes('user-not-found')
+            || error.message.includes('invalid-email')
+        ) {
+          actions.setFieldError(
+            'email',
+            'The user with the given email is not found.',
+          );
+        } else {
+          setFormFeedbackModal(true);
+        }
       } else {
         setFormFeedbackModal(true);
       }
     }
   };
+
+  if (isLoading) {
+    return (
+      <Loader />
+    );
+  }
 
   return (
     <KeyboardAvoidingView

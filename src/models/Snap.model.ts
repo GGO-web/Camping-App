@@ -1,4 +1,6 @@
 export interface ISnap {
-  id?: string;
-  uri: string;
+  image: string;
+  userId: string;
+  tripId: string;
+  [key: string]: any;
 }

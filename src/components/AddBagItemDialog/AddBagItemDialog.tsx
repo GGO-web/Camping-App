@@ -5,8 +5,6 @@ import {
   Dialog, PanningProvider, TextField, ToastPresets,
 } from 'react-native-ui-lib';
 
-import { v4 } from 'uuid';
-
 import { Toast } from '../Toast/Toast';
 import { ButtonIcon } from '../Buttons/ButtonIcon';
 import { ButtonPrimary } from '../Buttons/ButtonPrimary';
@@ -85,13 +83,7 @@ export function AddBagItemDialog({
         buttonText="Add item"
         buttonCallback={() => {
           if (bagItem.length !== 0) {
-            addBagItemCallback({
-              id: v4(),
-              content: bagItem,
-              count: 1,
-              checked: true,
-            });
-
+            addBagItemCallback(bagItem);
             setBagItem('');
             setBagInputDialogVisible(false);
           } else {

@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React from 'react';
 import {
-  Assets, Button, Colors, Text, ToastPresets,
+  Assets, Button, Colors, Text,
 } from 'react-native-ui-lib';
 
 import { ClipboardID } from '../../components/common/ClipboardID';
@@ -10,50 +10,29 @@ import { TripCardList } from './components/TripCardList/TripCardList';
 import { ActionsBar } from '../../components/ActionsBar/ActionsBar';
 import { NoResults } from '../../components/common/NoResults';
 
-import { useAppSelector } from '../../redux/hooks';
-
-import { ITripCollectionItem } from '../../redux/tripsCollection/tripsCollection.model';
-import { getActivatedTripCollectionItemSelector } from '../../redux/tripsCollection/tripsCollection';
-import { Toast } from '../../components/Toast/Toast';
-
 import { AssetsGraphicType } from '../../matherialUI';
 
 import { globalStyles } from '../../styles/global';
+import { useGetActivatedTripQuery, useGetAllTripsQuery } from '../../redux/api/trip';
+import { Loader } from '../../components/Loader/Loader';
 
 export function Home() {
-  const tripsCollection: ITripCollectionItem[] = useAppSelector(
-    (store) => store.tripsCollection.trips,
-  );
-
-  const activatedTrip = useAppSelector(getActivatedTripCollectionItemSelector);
+  const { data: trips, isLoading } = useGetAllTripsQuery();
+  const { data: activatedTrip } = useGetActivatedTripQuery();
 
   const navigation = useNavigation();
 
-  const [toastParams, setToastParams] = useState({
-    visible: false,
-    preset: ToastPresets.SUCCESS,
-    message: 'Your ID has copied successfully',
-  });
+  if (isLoading) {
+    return (
+      <Loader />
+    );
+  }
 
   return (
     <MainWrapper headerTitle="Camping Trips">
-      <Toast
-        visible={toastParams.visible}
-        preset={toastParams.preset}
-        toastMessage={toastParams.message}
-        duration={700}
-        autoDismiss={700}
-        onDismiss={() => {
-          setToastParams((prevToast) => ({ ...prevToast, visible: false }));
-        }}
-      />
+      <ClipboardID />
 
-      <ClipboardID onPressCallback={() => {
-        setToastParams((prevToast) => ({ ...prevToast, visible: true }));
-      }}
-      />
-
-      {tripsCollection.length === 0
+      {!trips?.length
         ? (
           <NoResults
             image={(Assets.graphic as AssetsGraphicType).trips}
@@ -61,7 +40,7 @@ export function Home() {
           />
         )
         : (
-          <TripCardList />
+          <TripCardList trips={trips} />
         )}
 
       <Button
@@ -82,7 +61,7 @@ export function Home() {
         </Text>
       </Button>
 
-      {tripsCollection.length && activatedTrip ? <ActionsBar /> : null}
+      {trips?.length && activatedTrip ? <ActionsBar /> : null}
     </MainWrapper>
   );
 }

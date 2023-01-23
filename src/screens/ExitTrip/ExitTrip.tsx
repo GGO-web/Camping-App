@@ -4,15 +4,16 @@ import { Colors, Text } from 'react-native-ui-lib';
 
 import { MainWrapper } from '../../components/MainWrapper/MainWrapper';
 import { ButtonPrimary } from '../../components/Buttons/ButtonPrimary';
-import { useActions } from '../../hooks/actions';
+
+import { useDeactivateTripMutation } from '../../redux/api/trip';
 
 export function ExitTrip() {
   const navigation = useNavigation();
 
-  const { leaveActivatedTrip } = useActions();
+  const [deactivateTrip] = useDeactivateTripMutation();
 
   const exitTripCallback = () => {
-    leaveActivatedTrip();
+    deactivateTrip();
 
     navigation.navigate('Homepage' as never);
   };

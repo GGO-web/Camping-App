@@ -23,7 +23,8 @@
     "no-return-assign": "off",
     "no-nested-ternary": "warn",
     "global-require": "off",
-    "@typescript-eslint/no-shadow": "off"
+    "@typescript-eslint/no-shadow": "off",
+    "no-underscore-dangle": "off"
   },
   "ignorePatterns": ["postcss.config.ts", "tailwind.config.ts"]
 }

@@ -1,6 +1,6 @@
 import { IBagItem } from './BagItem.model';
 import type { ILocation } from './Locations.model';
-import { ITeamMate } from './Teammate.model';
+import { IUser } from './User.model';
 
 export interface ITripPeriod {
   startDate: string;
@@ -9,12 +9,16 @@ export interface ITripPeriod {
 }
 
 export interface ITrip {
+  userId?: string;
   tripId: string;
   tripName: string;
   selectedLocations: ILocation[];
-  teammates: ITeamMate[];
+  teammates: IUser[];
   tripPeriod: ITripPeriod;
   latestLocation?: string;
   latestLocationsList?: ILocation[];
   bagItems: IBagItem[];
+  completed?: boolean;
+  activated?: boolean;
+  [key: string]: any;
 }

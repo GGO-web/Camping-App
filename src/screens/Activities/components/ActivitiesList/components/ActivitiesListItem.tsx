@@ -6,14 +6,14 @@ import {
   Colors, Drawer, Text, TouchableOpacity, Typography, View,
 } from 'react-native-ui-lib';
 
-import { useActions } from '../../../../../hooks/actions';
-
 import type { IActivity } from '../../../../../models/Activity.model';
+import { useCompleteActivityMutation, useDeleteActivityMutation } from '../../../../../redux/api/trip';
 
 export function ActivitiesListItem({ activity }: { activity: IActivity }) {
   const activityRef = useRef<any>(null);
 
-  const { removeActivity, setCompletedActivity } = useActions();
+  const [setCompletedActivity] = useCompleteActivityMutation();
+  const [removeActivity] = useDeleteActivityMutation();
 
   const navigation = useNavigation();
 
@@ -41,7 +41,7 @@ export function ActivitiesListItem({ activity }: { activity: IActivity }) {
 
     setTimeout(() => {
       removeActivity(activity.id as string);
-    }, 600);
+    }, 1000);
 
     if (activityRef.current) {
       activityRef.current.closeDrawer();

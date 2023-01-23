@@ -8,29 +8,27 @@ import {
 import { ButtonIcon } from '../../../../components/Buttons/ButtonIcon';
 import { ButtonPrimary } from '../../../../components/Buttons/ButtonPrimary';
 
-import { useActions } from '../../../../hooks/actions';
-
 import { useCheckoutTripImages } from '../../../../hooks/checkoutTripImages';
 import { AssetsIconsType } from '../../../../matherialUI';
 
 import type { ILocation, ILocationImage } from '../../../../models/Locations.model';
-
-import type { ITrip } from '../../../../models/Trip.model';
+import { ITripResponse } from '../../../../models/responses/TripResponse';
+import { useSetActivatedTripMutation } from '../../../../redux/api/trip';
 
 export function TripCard({
   trip,
   isActivated,
 }: {
-  trip: ITrip,
+  trip: ITripResponse,
   isActivated: boolean
 }) {
   const tripImages = useCheckoutTripImages({
-    images: trip.selectedLocations.map((location: ILocation) => location.images).flat(2),
+    images: trip.locations.map((location: ILocation) => location.images).flat(2),
   });
 
   const [showTripSelectedDialog, setShowTripSelectedDialog] = useState<boolean>(false);
 
-  const { setActivedTrip } = useActions();
+  const [setActivatedTrip] = useSetActivatedTripMutation();
 
   return (
     <Card
@@ -151,7 +149,7 @@ export function TripCard({
         <View row right>
           <ButtonPrimary
             buttonCallback={() => {
-              setActivedTrip(trip.tripId);
+              setActivatedTrip(trip._id as string);
               setShowTripSelectedDialog(false);
             }}
             buttonText="Enter"

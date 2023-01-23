@@ -1,7 +1,8 @@
 import { Formik } from 'formik';
 import React, { useState } from 'react';
-import { View, Text, ToastPresets } from 'react-native-ui-lib';
+import { Text, ToastPresets } from 'react-native-ui-lib';
 
+import { KeyboardAvoidingView, Platform } from 'react-native';
 import { CrumbsLink } from '../../components/common/CrumbsLink';
 import { ProfileAvatar } from './components/ProfileAvatar/ProfileAvatar';
 
@@ -10,18 +11,19 @@ import { IProfileValues } from './Profile.model';
 import { globalStyles } from '../../styles/global';
 import { profileSchema } from '../../helpers/validationSchema';
 import { ProfileForm } from './components/ProfileForm/ProfileForm';
-import { useActions } from '../../hooks/actions';
-import { useAppSelector } from '../../redux/hooks';
-import { userSelector } from '../../redux/userConfig/userSlice';
+
 import { Toast } from '../../components/Toast/Toast';
 
+import { useGetUserQuery, useUpdateUserProfileMutation } from '../../redux/api/user';
+import { IUser } from '../../models/User.model';
+
 export function Profile() {
-  const userProfile = useAppSelector(userSelector);
+  const { data: userProfile } = useGetUserQuery();
 
   const formInitialValues: IProfileValues = {
-    name: userProfile.fullname || '',
-    bio: userProfile.bio || '',
-    occupation: userProfile.occupation || '',
+    name: userProfile?.fullname || '',
+    bio: userProfile?.bio || '',
+    occupation: userProfile?.occupation || '',
   };
 
   const [toastParams, setToastParams] = useState({
@@ -30,7 +32,8 @@ export function Profile() {
     message: 'Profile info is not saved',
   });
 
-  const { setProfileInfo } = useActions();
+  // const { setProfileInfo } = useActions();
+  const [updateProfileInfo] = useUpdateUserProfileMutation();
 
   const formSubmitHandler = async (
     values: IProfileValues,
@@ -41,11 +44,21 @@ export function Profile() {
       preset: ToastPresets.SUCCESS,
       visible: true,
     }));
-    setProfileInfo(values);
+
+    const newProfile: IUser = {
+      fullname: values.name,
+      occupation: values.occupation,
+      bio: values.bio,
+    };
+
+    updateProfileInfo(newProfile);
   };
 
   return (
-    <View style={{ ...globalStyles.container, ...globalStyles.navcontainer }}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={{ ...globalStyles.container, ...globalStyles.navcontainer }}
+    >
       <CrumbsLink>
         <Text>Edit Profile</Text>
       </CrumbsLink>
@@ -77,6 +90,6 @@ export function Profile() {
           setToastParams((prevToast) => ({ ...prevToast, visible: false }));
         }}
       />
-    </View>
+    </KeyboardAvoidingView>
   );
 }

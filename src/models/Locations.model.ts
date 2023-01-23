@@ -1,4 +1,4 @@
-interface ILocationImage {
+export interface ILocationImage {
   title: string;
   altText: string;
   url: string;
@@ -19,10 +19,5 @@ export interface ILocation {
     line2?: string;
     line3?: string;
   }>;
-  [key: string]: any;
-}
-
-export interface ILocationResponse {
-  data: Array<ILocation>;
   [key: string]: any;
 }

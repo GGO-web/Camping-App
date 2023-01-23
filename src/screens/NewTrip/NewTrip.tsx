@@ -15,7 +15,7 @@ import { useActions } from '../../hooks/actions';
 
 import { ITripPeriod } from '../../models/Trip.model';
 import { IToast } from '../../models/Toast.model';
-import { ITeamMate } from '../../models/Teammate.model';
+import { IUser } from '../../models/User.model';
 
 import { NEW_TRIP_TOAST_MESSAGES } from '../../constants';
 
@@ -24,7 +24,7 @@ import { Toast } from '../../components/Toast/Toast';
 
 export interface INewTrip {
   name: string;
-  teammates: ITeamMate[];
+  teammates: IUser[];
   tripPeriod: ITripPeriod
 }
 

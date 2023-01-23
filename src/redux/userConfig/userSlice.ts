@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IUser } from './user.model';
 import { generateUniqueID } from '../../helpers/generateUniqueID';
+
+import { IUser } from '../../models/User.model';
+
 import type { IProfileValues } from '../../screens/Profile/Profile.model';
 
 export const initialState: IUser = {
   uid: '',
-  email: '',
   fullname: '',
   bio: '',
-  isAuth: false,
   avatar: '',
   occupation: '',
 };
@@ -18,10 +18,8 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     signIn: (state, action: PayloadAction<IUser>) => {
-      state.email = action.payload.email;
       state.fullname = action.payload.fullname;
-      state.isAuth = true;
-      state.uid = generateUniqueID();
+      state.uid = action.payload.uid || generateUniqueID();
     },
     signOut: () => initialState,
     setProfileAvatar: (state, action: PayloadAction<string>) => {

@@ -16,12 +16,12 @@ export function BagListItem({ bagItem }: { bagItem: IBagItem }) {
     <View marginB-16 row top spread>
       <InputCheckbox
         onCheckboxChange={() => {
-          toggleBagItemChecked(bagItem.id);
+          toggleBagItemChecked(bagItem.id as string);
         }}
         styles={{ marginTop: 5, marginRight: 5 }}
       />
 
-      <Text style={{ width: '100%', maxWidth: 180 }} paragraph2>{bagItem.content}</Text>
+      <Text style={{ width: '100%', maxWidth: 180 }} paragraph2>{bagItem.description}</Text>
 
       <View right style={{ minWidth: 130 }}>
         <Stepper
@@ -31,7 +31,7 @@ export function BagListItem({ bagItem }: { bagItem: IBagItem }) {
           useCustomTheme
           onValueChange={(newValue: number) => {
             updateBagItemCount({
-              id: bagItem.id,
+              id: bagItem.id as string,
               count: newValue,
             });
           }}
