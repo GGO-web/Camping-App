@@ -5,5 +5,5 @@ export interface INotification {
   title: string;
   message: string;
   type: NotificationTypes;
-  datetime: Date
+  datetime: string
 }
