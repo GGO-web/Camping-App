@@ -3,7 +3,7 @@ import { ILocation } from '../Locations.model';
 
 import { ITripPeriod } from '../Trip.model';
 
-import { IUser } from '../User.model';
+import IUser from '../User.model';
 
 export interface ITripResponse {
   _id?: string;

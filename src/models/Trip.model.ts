@@ -1,6 +1,6 @@
 import { IBagItem } from './BagItem.model';
 import type { ILocation } from './Locations.model';
-import { IUser } from './User.model';
+import IUser from './User.model';
 
 export interface ITripPeriod {
   startDate: string;

@@ -15,7 +15,7 @@ import { ProfileForm } from './components/ProfileForm/ProfileForm';
 import { Toast } from '../../components/Toast/Toast';
 
 import { useGetUserQuery, useUpdateUserProfileMutation } from '../../redux/api/user';
-import { IUser } from '../../models/User.model';
+import IUser from '../../models/User.model';
 
 export function Profile() {
   const { data: userProfile } = useGetUserQuery();
