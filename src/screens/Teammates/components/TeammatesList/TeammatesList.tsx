@@ -1,15 +1,16 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { teammatesList } from '../../../../constants';
-import { ITeamMate } from '../../../../models/Teammate.model';
+import { IUser } from '../../../../models/User.model';
+
 import { TeammatesListItem } from '../TeammatesListItem/TeammatesListItem';
 
 export function TeammatesList() {
-  const teammates: ITeamMate[] = teammatesList;
+  const teammates: IUser[] = teammatesList;
 
   return (
     <ScrollView>
-      {teammates.map((teammate) => <TeammatesListItem key={teammate.id} teammate={teammate} />)}
+      {teammates.map((teammate) => <TeammatesListItem key={teammate.uid} teammate={teammate} />)}
     </ScrollView>
   );
 }

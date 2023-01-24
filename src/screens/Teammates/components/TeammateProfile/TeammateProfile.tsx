@@ -5,13 +5,12 @@ import {
   Colors, View, Image, Text,
 } from 'react-native-ui-lib';
 import { CrumbsLink } from '../../../../components/common/CrumbsLink';
-
-import { ITeamMate } from '../../../../models/Teammate.model';
+import { IUser } from '../../../../models/User.model';
 
 import { globalStyles } from '../../../../styles/global';
 
 export function TeammateProfile() {
-  const { teammate } = useRoute().params as { teammate: ITeamMate };
+  const { teammate } = useRoute().params as { teammate: IUser };
 
   return (
     <View style={{ ...globalStyles.container, ...globalStyles.navcontainer }}>
@@ -32,17 +31,17 @@ export function TeammateProfile() {
         />
 
         <View flex>
-          <Text marginB-8 heading4>{teammate.name}</Text>
+          <Text marginB-8 heading4>{teammate.fullname}</Text>
 
           {teammate.occupation
             ? <Text paragraph3 gray300 marginB-24>{teammate.occupation}</Text>
             : null}
 
-          {teammate.description
+          {teammate.bio
             ? (
               <>
                 <Text heading4 marginB-8>Description</Text>
-                <Text paragraph2>{teammate.description}</Text>
+                <Text paragraph2>{teammate.bio}</Text>
               </>
             )
             : null}

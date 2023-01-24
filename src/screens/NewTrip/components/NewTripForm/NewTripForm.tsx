@@ -20,9 +20,9 @@ import { useAppSelector } from '../../../../redux/hooks';
 import { useActions } from '../../../../hooks/actions';
 
 import type { INewTrip } from '../../NewTrip';
-import type { ITeamMate } from '../../../../models/Teammate.model';
 
 import { globalStyles } from '../../../../styles/global';
+import { IUser } from '../../../../models/User.model';
 
 export function NewTripForm({
   formSubmitHandler,
@@ -102,9 +102,9 @@ export function NewTripForm({
           horizontal
         >
           {formik.values.teammates.map(
-            (teamMate: ITeamMate) => (
+            (teamMate: IUser) => (
               <View
-                key={teamMate.id}
+                key={teamMate.uid}
                 center
                 style={{ width: 80, height: 80, borderRadius: 12 }}
                 marginR-16
