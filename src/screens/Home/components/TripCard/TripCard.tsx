@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 
 import {
   Assets,
-  Card, Carousel, Colors, Dialog, Image, PanningProvider, Text, TouchableOpacity, View,
+  Card, Carousel, Colors, Dialog, Icon, Image, PanningProvider, Text, TouchableOpacity, View,
 } from 'react-native-ui-lib';
 
 import { ButtonIcon } from '../../../../components/Buttons/ButtonIcon';
 import { ButtonPrimary } from '../../../../components/Buttons/ButtonPrimary';
 
 import { useCheckoutTripImages } from '../../../../hooks/checkoutTripImages';
-import { AssetsIconsType } from '../../../../matherialUI';
+import { AssetsIconsType, AssetsGraphicType } from '../../../../matherialUI';
 
 import type { ILocation, ILocationImage } from '../../../../models/Locations.model';
 import { ITripResponse } from '../../../../models/responses/TripResponse';
@@ -41,7 +41,7 @@ export function TripCard({
         borderRadius: 16,
         overflow: 'hidden',
         borderWidth: 2,
-        borderColor: isActivated ? Colors.primary900 : Colors.primary100,
+        borderColor: isActivated ? Colors.primary500 : Colors.primary100,
       }}
     >
       <Carousel
@@ -72,6 +72,7 @@ export function TripCard({
             source={{
               uri: tripImage.url,
             }}
+            defaultSource={(Assets.graphic as AssetsGraphicType).onboarding1}
           />
         ))}
       </Carousel>
@@ -124,8 +125,11 @@ export function TripCard({
 
       <Text
         textCenter
-        paragraph2
-        style={{ padding: 10 }}
+        heading4
+        style={{
+          padding: 10,
+          letterSpacing: '2px',
+        }}
       >
         {trip.tripName}
       </Text>
@@ -169,6 +173,32 @@ export function TripCard({
           />
         </View>
       </Dialog>
+
+      {trip.activated
+        ? (
+          <View
+            style={{
+              position: 'absolute',
+              left: 0,
+              top: 0,
+              padding: 6,
+              width: 32,
+              height: 32,
+              backgroundColor: Colors.primary,
+            }}
+          >
+            <Icon
+              source={(Assets.icons as AssetsIconsType).reward}
+              style={{
+                width: '100%',
+                height: '100%',
+                tintColor: Colors.white,
+                resizeMode: 'contain',
+              }}
+            />
+          </View>
+        )
+        : null}
     </Card>
   );
 }
