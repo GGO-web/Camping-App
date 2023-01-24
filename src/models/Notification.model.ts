@@ -1,9 +1,9 @@
-export type NotificationTypes = 'badge' | 'info' | 'complete';
+export type NotificationTypes = 'badge' | 'info' | 'success';
 
 export interface INotification {
-  id?: string;
+  id: string;
   title: string;
-  text: string;
-  icon: NotificationTypes;
-  date: Date
+  message: string;
+  type: NotificationTypes;
+  datetime: string
 }

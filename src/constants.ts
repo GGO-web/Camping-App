@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { Assets, ToastPresets } from 'react-native-ui-lib';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -10,9 +9,9 @@ import type {
 } from './matherialUI';
 import type { IActionTab } from './models/ActionsTab.model';
 import { EFitnessTrackerTypes, EFitnessUnits, IFitnessTracker } from './models/FitnessTracker.model';
-import { INotification } from './models/Notification.model';
-import { ITeamMate } from './models/Teammate.model';
+
 import { ITipAndTrick } from './models/TipsAndTricks.model';
+import IUser from './models/User.model';
 
 export const authConfig = {
   clientId: process.env.REACT_APP_CLIENT_ID,
@@ -29,6 +28,11 @@ export const mainNavigationRoutes: IRoute[] = [
     name: 'How to use',
     path: 'HowToUse',
     icon: (Assets.navigation as AssetsNavigationIconsType).question,
+  },
+  {
+    name: 'Notifications',
+    path: 'Notifications',
+    icon: (Assets.navigation as AssetsNavigationIconsType).bell,
   },
   {
     name: 'Language',
@@ -238,48 +242,24 @@ export const howToUseRules: { title: string; text: string }[] = [
   },
 ];
 
-export const notifications: INotification[] = [
+export const teammatesList: IUser[] = [
   {
-    id: v4(),
-    title: 'Congratulations!',
-    text: 'You recieved the welcome badge',
-    icon: 'badge',
-    date: dayjs('14 Feb 2020').toDate(),
-  },
-  {
-    id: v4(),
-    title: 'You didn’t completed the activity.',
-    text: 'Named view of sunset by Emma.',
-    icon: 'info',
-    date: dayjs('14 Feb 2020').toDate(),
-  },
-  {
-    id: v4(),
-    title: 'You completed an activity',
-    text: 'Named Hiking on mountain by Chandler.',
-    icon: 'complete',
-    date: dayjs('15 Feb 2020').toDate(),
-  },
-];
-
-export const teammatesList: ITeamMate[] = [
-  {
-    id: v4(),
+    uid: v4(),
     avatar: require('../assets/teammates/mate-1.png'),
-    name: 'Chandler Hallow',
+    fullname: 'Chandler Hallow',
     occupation: 'Chef',
-    description: 'I’m a Chef and I assist in prep work, such as chopping vegetables, but more often will be involved in cooking specialty dishes. Chooses ingredients and designs a menu based on the seasonal availability of food items. Creates unique dishes that inspire guests to come back again and again to see what is new in the restaurant.',
+    bio: 'I’m a Chef and I assist in prep work, such as chopping vegetables, but more often will be involved in cooking specialty dishes. Chooses ingredients and designs a menu based on the seasonal availability of food items. Creates unique dishes that inspire guests to come back again and again to see what is new in the restaurant.',
   },
   {
-    id: v4(),
+    uid: v4(),
     avatar: require('../assets/teammates/mate-2.png'),
-    name: 'Emma Linch',
+    fullname: 'Emma Linch',
     occupation: 'Environment Expert',
   },
   {
-    id: v4(),
+    uid: v4(),
     avatar: require('../assets/teammates/mate-3.png'),
-    name: 'Mike Alen',
+    fullname: 'Mike Alen',
     occupation: 'Farmer',
   },
 ];

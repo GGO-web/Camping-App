@@ -15,7 +15,7 @@ import { useActions } from '../../hooks/actions';
 
 import { ITripPeriod } from '../../models/Trip.model';
 import { IToast } from '../../models/Toast.model';
-import { IUser } from '../../models/User.model';
+import IUser from '../../models/User.model';
 
 import { NEW_TRIP_TOAST_MESSAGES } from '../../constants';
 
