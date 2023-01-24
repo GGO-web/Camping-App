@@ -1,9 +1,9 @@
 export type NotificationTypes = 'badge' | 'info' | 'success';
 
 export interface INotification {
-  id?: string;
+  id: string;
   title: string;
   message: string;
   type: NotificationTypes;
-  datetime?: Date
+  datetime: Date
 }

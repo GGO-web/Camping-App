@@ -7,18 +7,18 @@ import {
 import { v4 } from 'uuid';
 
 import dayjs from 'dayjs';
-import { MainWrapper } from '../../components/MainWrapper/MainWrapper';
 
-import { notifications as mockedNotifications } from '../../constants';
+import { MainWrapper } from '../../components/MainWrapper/MainWrapper';
 
 import { datesIsDifferent, sortedNotificationsByDate } from '../../helpers/notificationsHelpers';
 
 import { NotificationTypes } from '../../models/Notification.model';
 import { AssetsIconsType } from '../../matherialUI';
+import { useGetAllNotificationsQuery } from '../../redux/api/notification';
+import { Loader } from '../../components/Loader/Loader';
 
 export function Notifications() {
-  const notifications = mockedNotifications;
-  const sortedNotifications = sortedNotificationsByDate(notifications);
+  const { data: notifications, isLoading } = useGetAllNotificationsQuery();
 
   const getNotificationIcon = (iconType: NotificationTypes) => {
     switch (iconType) {
@@ -26,34 +26,39 @@ export function Notifications() {
         return (Assets.icons as AssetsIconsType).reward;
       case 'info':
         return (Assets.icons as AssetsIconsType).info;
-      case 'complete':
+      case 'success':
         return (Assets.icons as AssetsIconsType).checkmark;
       default:
         return (Assets.icons as AssetsIconsType).info;
     }
   };
 
+  if (isLoading) {
+    return <Loader message="Notifications is fetching from the server" />;
+  }
+
+  const sortedNotifications = sortedNotificationsByDate(notifications!);
+
   return (
     <MainWrapper headerTitle="Notifications">
       <ScrollView>
         {sortedNotifications.map((notification, index) => {
           const dateHeading = index === 0 || datesIsDifferent(
-            sortedNotifications[index - 1].date,
-            notification.date,
+            sortedNotifications[index - 1].datetime,
+            notification.datetime,
           );
 
           return (
-            <>
+            <View key={notification.id}>
               {dateHeading
                 ? (
                   <Text key={v4()} paragraph3 textCenter gray300 marginB-16>
-                    {dayjs(notification.date).format('DD MMM YYYY')}
+                    {dayjs(notification.datetime).format('DD MMM YYYY')}
                   </Text>
                 )
                 : null}
 
               <View
-                key={notification.id}
                 backgroundColor={Colors.primary50}
                 style={{ borderRadius: 16 }}
                 row
@@ -74,7 +79,7 @@ export function Notifications() {
                   }}
                 >
                   <Icon
-                    source={getNotificationIcon(notification.icon)}
+                    source={getNotificationIcon(notification.type)}
                     style={{
                       width: 24,
                       height: 24,
@@ -95,11 +100,11 @@ export function Notifications() {
                     paragraph3
                     primary700
                   >
-                    {notification.text}
+                    {notification.message}
                   </Text>
                 </View>
               </View>
-            </>
+            </View>
           );
         })}
       </ScrollView>
