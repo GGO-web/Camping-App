@@ -40,6 +40,11 @@ export const mainNavigationRoutes: IRoute[] = [
     icon: (Assets.navigation as AssetsNavigationIconsType).globe,
   },
   {
+    name: 'Catch Snaps',
+    path: 'Snaps',
+    icon: (Assets.navigation as AssetsNavigationIconsType).camera,
+  },
+  {
     name: 'Log-out',
     path: 'Logout',
     icon: (Assets.navigation as AssetsNavigationIconsType).exit,
