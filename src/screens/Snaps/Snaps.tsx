@@ -8,6 +8,8 @@ import {
 
 import * as Clipboard from 'expo-clipboard';
 
+import * as Permissions from 'expo-permissions';
+
 import { ScrollView } from 'react-native';
 
 import { MainWrapper } from '../../components/MainWrapper/MainWrapper';
@@ -32,6 +34,18 @@ export function Snaps() {
   });
 
   const catchSnap = async () => {
+    const cameraPermission = await Permissions.getAsync(Permissions.MEDIA_LIBRARY);
+
+    if (cameraPermission.status !== 'granted') {
+      setToastParams({
+        visible: true,
+        preset: ToastPresets.FAILURE,
+        message: 'Sorry, we need a camera permissions to make this work',
+      });
+
+      return;
+    }
+
     const pickerResult: ImagePickerResult = await launchCameraAsync({
       mediaTypes: MediaTypeOptions.Images,
       allowsEditing: true,

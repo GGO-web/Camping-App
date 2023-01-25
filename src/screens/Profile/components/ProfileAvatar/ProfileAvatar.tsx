@@ -6,6 +6,8 @@ import {
   ImagePickerResult, launchImageLibraryAsync, MediaTypeOptions,
 } from 'expo-image-picker';
 
+import * as Permissions from 'expo-permissions';
+
 import { AssetsIconsType } from '../../../../matherialUI';
 
 import { useGetUserQuery, useUpdateUserAvatarMutation } from '../../../../redux/api/user';
@@ -16,6 +18,12 @@ export function ProfileAvatar() {
   const [updateUserAvatar] = useUpdateUserAvatarMutation();
 
   const takeProfileImage = async () => {
+    const cameraPermission = await Permissions.getAsync(Permissions.MEDIA_LIBRARY);
+
+    if (cameraPermission.status !== 'granted') {
+      return;
+    }
+
     const pickerResult: ImagePickerResult = await launchImageLibraryAsync({
       mediaTypes: MediaTypeOptions.Images,
       allowsEditing: true,

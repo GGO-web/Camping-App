@@ -6,6 +6,8 @@ import {
 
 import { launchCameraAsync } from 'expo-image-picker';
 
+import * as Permissions from 'expo-permissions';
+
 import { IBagItem } from '../../../../models/BagItem.model';
 import { useUpdateBagItemCountMutation, useUpdateBagItemImageMutation } from '../../../../redux/api/trip';
 import { useDebounce } from '../../../../hooks/debounce';
@@ -26,6 +28,12 @@ export function BackpackListItem({ backpackItem }: { backpackItem: IBagItem }) {
   }, [debouncedBackpackItemCount]);
 
   const takePicture = async () => {
+    const cameraPermission = await Permissions.getAsync(Permissions.MEDIA_LIBRARY);
+
+    if (cameraPermission.status !== 'granted') {
+      return;
+    }
+
     const pickerResult: ImagePickerResult = await launchCameraAsync({
       mediaTypes: MediaTypeOptions.Images,
       allowsEditing: true,
