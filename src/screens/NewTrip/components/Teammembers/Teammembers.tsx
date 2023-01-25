@@ -13,7 +13,7 @@ import { NoResults } from '../../../../components/common/NoResults';
 
 import { useAppSelector } from '../../../../redux/hooks';
 import { teammateSchema } from '../../../../helpers/validationSchema';
-import IUser from '../../../../models/User.model';
+import { IUser } from '../../../../models/User.model';
 
 import { AssetsGraphicType } from '../../../../matherialUI';
 
