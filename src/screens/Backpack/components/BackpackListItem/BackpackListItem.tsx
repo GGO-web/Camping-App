@@ -4,9 +4,7 @@ import {
   View, Text, Stepper, Button, Colors, Icon, Image,
 } from 'react-native-ui-lib';
 
-import { launchCameraAsync } from 'expo-image-picker';
-
-import * as Permissions from 'expo-permissions';
+import { launchCameraAsync, requestCameraPermissionsAsync } from 'expo-image-picker';
 
 import { IBagItem } from '../../../../models/BagItem.model';
 import { useUpdateBagItemCountMutation, useUpdateBagItemImageMutation } from '../../../../redux/api/trip';
@@ -28,7 +26,7 @@ export function BackpackListItem({ backpackItem }: { backpackItem: IBagItem }) {
   }, [debouncedBackpackItemCount]);
 
   const takePicture = async () => {
-    const cameraPermission = await Permissions.getAsync(Permissions.MEDIA_LIBRARY);
+    const cameraPermission = await requestCameraPermissionsAsync();
 
     if (cameraPermission.status !== 'granted') {
       return;

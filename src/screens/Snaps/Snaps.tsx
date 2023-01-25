@@ -3,12 +3,12 @@ import {
   Assets, View, Image, Button, Colors, Icon, ToastPresets,
 } from 'react-native-ui-lib';
 import {
-  ImagePickerResult, launchCameraAsync, MediaTypeOptions,
+  ImagePickerResult, launchCameraAsync, MediaTypeOptions, requestCameraPermissionsAsync,
 } from 'expo-image-picker';
 
 import * as Clipboard from 'expo-clipboard';
 
-import * as Permissions from 'expo-permissions';
+// import * as Permissions from 'expo-permissions';
 
 import { ScrollView } from 'react-native';
 
@@ -34,7 +34,7 @@ export function Snaps() {
   });
 
   const catchSnap = async () => {
-    const cameraPermission = await Permissions.getAsync(Permissions.MEDIA_LIBRARY);
+    const cameraPermission = await requestCameraPermissionsAsync();
 
     if (cameraPermission.status !== 'granted') {
       setToastParams({

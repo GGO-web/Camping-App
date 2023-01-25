@@ -3,10 +3,8 @@ import {
   Assets, Avatar, Colors, Text, TouchableOpacity,
 } from 'react-native-ui-lib';
 import {
-  ImagePickerResult, launchImageLibraryAsync, MediaTypeOptions,
+  ImagePickerResult, launchImageLibraryAsync, MediaTypeOptions, requestMediaLibraryPermissionsAsync,
 } from 'expo-image-picker';
-
-import * as Permissions from 'expo-permissions';
 
 import { AssetsIconsType } from '../../../../matherialUI';
 
@@ -18,7 +16,7 @@ export function ProfileAvatar() {
   const [updateUserAvatar] = useUpdateUserAvatarMutation();
 
   const takeProfileImage = async () => {
-    const cameraPermission = await Permissions.getAsync(Permissions.MEDIA_LIBRARY);
+    const cameraPermission = await requestMediaLibraryPermissionsAsync();
 
     if (cameraPermission.status !== 'granted') {
       return;
