@@ -8,7 +8,7 @@ import { IBagItem } from '../../models/BagItem.model';
 import { ILocation } from '../../models/Locations.model';
 
 import { ITrip, ITripPeriod } from '../../models/Trip.model';
-import IUser from '../../models/User.model';
+import { IUser } from '../../models/User.model';
 
 const initialState: ITrip = {
   tripId: '',

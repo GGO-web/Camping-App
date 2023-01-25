@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { firebaseAuth } from '../../firebase/firebase';
 import { IMessageResponse } from '../../models/responses/MessageResponse';
 
-import IUser from '../../models/User.model';
+import { IUser } from '../../models/User.model';
 
 export const userApi = createApi({
   reducerPath: 'userApi',

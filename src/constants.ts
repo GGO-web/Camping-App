@@ -11,7 +11,7 @@ import type { IActionTab } from './models/ActionsTab.model';
 import { EFitnessTrackerTypes, EFitnessUnits, IFitnessTracker } from './models/FitnessTracker.model';
 
 import { ITipAndTrick } from './models/TipsAndTricks.model';
-import IUser from './models/User.model';
+import { IUser } from './models/User.model';
 
 export const authConfig = {
   clientId: process.env.REACT_APP_CLIENT_ID,

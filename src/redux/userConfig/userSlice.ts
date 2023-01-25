@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { generateUniqueID } from '../../helpers/generateUniqueID';
 
-import IUser from '../../models/User.model';
+import { IUser } from '../../models/User.model';
 
 import type { IProfileValues } from '../../screens/Profile/Profile.model';
 
