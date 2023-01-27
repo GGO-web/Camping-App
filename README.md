@@ -4,7 +4,7 @@ Is a mobile app for two major platform developed using React Native & Expo & Fir
 
 ## Getting started
 
-### 1. Run application locally
+### 1. Run application locally (without building)
 
 * Download [Node.js](https://nodejs.org/uk/) package manager.
 * Clone or download project sources (a green icon in the action bar).
@@ -46,6 +46,12 @@ npm run start
 ### 2. Install application Android bundle APK
 
 * Application for android devices is available or the right panel in this repo below **About section**
+
+### 3. Install development build for Android (without Expo Go app)
+
+* Firstly install build [follow this link](https://expo.dev/accounts/ggo_webdev/projects/camping-app-by-ggo/builds/db6cb34d-3dba-4917-9176-43986752af6d)
+* Install application and [run application locally](https://github.com/GGO-web/Camping-App#1-run-application-locally-without-building) but ***don't install Expo Go application***
+
 
 ## Links & Sources
 
