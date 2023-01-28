@@ -1,5 +1,5 @@
-import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { Alert } from 'react-native';
 import {
   Colors, Switch, Text, TouchableOpacity, View,
@@ -7,13 +7,15 @@ import {
 
 import { useDeleteTripMutation, useGetActivatedTripQuery } from '../../../redux/api/trip';
 
+import { ScreenNavigationProp } from '../../../types';
+
 export function SettingsControls() {
   const [notifications, setNotifications] = useState(true);
 
   const { data: activatedTrip } = useGetActivatedTripQuery();
   const [destroyTrip] = useDeleteTripMutation();
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   const destroyTripCallback = () => {
     Alert.alert(
@@ -29,7 +31,7 @@ export function SettingsControls() {
           onPress: () => {
             destroyTrip(activatedTrip?._id as string);
 
-            navigation.navigate('Homepage' as never);
+            navigation.navigate('Homepage');
           },
         },
       ],

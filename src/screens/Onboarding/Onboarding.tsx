@@ -14,16 +14,18 @@ import { Link, useNavigation } from '@react-navigation/native';
 
 import { v4 } from 'uuid';
 
-import { globalStyles } from '../../styles/global';
-
 import { onboardingScreens } from './OnboardingScreens';
+
+import { globalStyles } from '../../styles/global';
 import { onboardingStyles } from './OnboardingStyles';
+
+import { ScreenNavigationProp } from '../../types';
 
 export function Onboarding() {
   const [currentPage, setCurrentPage] = useState(0);
   const numOfPages = 4;
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   const carousel = useRef<any>(null);
 
@@ -147,7 +149,7 @@ export function Onboarding() {
                 ...{ width: '100%', marginBottom: 16 },
               }}
               mode="contained"
-              onPress={() => navigation.navigate('Login' as never)}
+              onPress={() => navigation.navigate('Login')}
             >
               <Text
                 style={{

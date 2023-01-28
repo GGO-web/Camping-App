@@ -13,6 +13,8 @@ import { ILogin } from '../../Login.model';
 
 import { globalStyles } from '../../../../styles/global';
 
+import { ScreenNavigationProp } from '../../../../types';
+
 export function LoginForm({
   formSubmitHandler,
   formik,
@@ -22,7 +24,7 @@ export function LoginForm({
 }) {
   const actions = useFormikContext();
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   return (
     <View>
@@ -69,7 +71,7 @@ export function LoginForm({
         style={globalStyles.buttonOutlined}
         backgroundColor={Colors.primary}
         mode="outlined"
-        onPress={() => navigation.navigate('SignUp' as never)}
+        onPress={() => navigation.navigate('SignUp')}
       >
         <Text
           style={{

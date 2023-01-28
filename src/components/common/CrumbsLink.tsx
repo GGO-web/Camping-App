@@ -1,12 +1,15 @@
 import React from 'react';
+import { ImageStyle, StyleProp } from 'react-native';
 import {
   Button, ButtonProps, Colors, Icon, Text, View,
 } from 'react-native-ui-lib';
 import { useNavigation } from '@react-navigation/native';
 
-import { ImageStyle, StyleProp } from 'react-native';
-import { AssetsIconsType } from '../../matherialUI';
 import { ButtonIcon } from '../Buttons/ButtonIcon';
+
+import { AssetsIconsType } from '../../matherialUI';
+
+import { ScreenNavigationProp } from '../../types';
 
 export function CrumbsLink({
   children,
@@ -25,7 +28,7 @@ export function CrumbsLink({
   onPressIconRight?: Function,
   buttonIconRightProps?: ButtonProps & typeof Button | any,
 }) {
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   return (
     <View row centerV spread marginB-25>

@@ -10,6 +10,8 @@ import { ButtonIcon } from '../Buttons/ButtonIcon';
 
 import { AssetsIconsType } from '../../matherialUI';
 
+import { ScreenNavigationProp } from '../../types';
+
 export function ActionsTab({
   title,
   isActive = false,
@@ -21,7 +23,7 @@ export function ActionsTab({
   isActive?: boolean,
   iconsStyles?: StyleProp<ViewStyle | Animated.AnimatedProps<ViewStyle>>,
 }) {
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   return (
     <View
@@ -45,7 +47,7 @@ export function ActionsTab({
         }}
         iconSource={iconSource}
         onPressCallback={() => {
-          navigation.navigate(title as never);
+          navigation.navigate(title);
         }}
       />
 

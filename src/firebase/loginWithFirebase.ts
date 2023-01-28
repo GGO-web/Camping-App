@@ -1,12 +1,14 @@
-import { NavigationHelpers, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 import { useLazyGetUserQuery } from '../redux/api/user';
 import { useAppDispatch } from '../redux/hooks';
 
 import { signIn } from '../redux/userConfig/userSlice';
 
+import { ScreenNavigationProp } from '../types';
+
 export function useLoginWithFirebase() {
-  const navigation: NavigationHelpers<Record<string, object | undefined>, any> = useNavigation();
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   const dispatch = useAppDispatch();
 
@@ -23,6 +25,6 @@ export function useLoginWithFirebase() {
       }),
     );
 
-    navigation.navigate('Homepage' as never);
+    navigation.navigate('Homepage');
   };
 }

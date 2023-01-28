@@ -20,9 +20,11 @@ import { useAppSelector } from '../../../../redux/hooks';
 import { useActions } from '../../../../hooks/actions';
 
 import type { INewTrip } from '../../NewTrip';
+import { IUser } from '../../../../models/User.model';
 
 import { globalStyles } from '../../../../styles/global';
-import { IUser } from '../../../../models/User.model';
+
+import { ScreenNavigationProp } from '../../../../types';
 
 export function NewTripForm({
   formSubmitHandler,
@@ -33,7 +35,7 @@ export function NewTripForm({
 }) {
   const actions = useFormikContext();
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   const selectedLocations = useAppSelector(
     (store) => store.trip.selectedLocations.map(
@@ -77,7 +79,7 @@ export function NewTripForm({
             style={globalStyles.buttonOutlined}
             backgroundColor={Colors.primary}
             mode="outlined"
-            onPress={() => navigation.navigate('Locations' as never)}
+            onPress={() => navigation.navigate('Locations')}
           >
             <Text
               style={{
@@ -139,7 +141,7 @@ export function NewTripForm({
                 height: 80,
                 borderRadius: 12,
               }}
-              onPress={() => navigation.navigate('Teammembers' as never)}
+              onPress={() => navigation.navigate('Teammembers')}
             >
               <Icon
                 style={{
@@ -158,7 +160,7 @@ export function NewTripForm({
             style={globalStyles.buttonOutlined}
             backgroundColor={Colors.primary}
             mode="outlined"
-            onPress={() => navigation.navigate('Teammembers' as never)}
+            onPress={() => navigation.navigate('Teammembers')}
           >
             <Text
               style={{

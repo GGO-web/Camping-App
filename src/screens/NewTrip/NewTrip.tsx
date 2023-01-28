@@ -9,6 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { CrumbsLink } from '../../components/common/CrumbsLink';
 import { NewTripForm } from './components/NewTripForm/NewTripForm';
+import { Toast } from '../../components/Toast/Toast';
 
 import { useAppSelector } from '../../redux/hooks';
 import { useActions } from '../../hooks/actions';
@@ -20,7 +21,8 @@ import { IUser } from '../../models/User.model';
 import { NEW_TRIP_TOAST_MESSAGES } from '../../constants';
 
 import { globalStyles } from '../../styles/global';
-import { Toast } from '../../components/Toast/Toast';
+
+import { ScreenNavigationProp } from '../../types';
 
 export interface INewTrip {
   name: string;
@@ -37,7 +39,7 @@ export function NewTrip() {
     tripPeriod: tripData.tripPeriod,
   };
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   const { setTripName, setTeammates } = useActions();
 
@@ -82,7 +84,7 @@ export function NewTrip() {
       });
 
       // when toast preset get SUCCESS - navigate to the bag screen
-      navigation.navigate('Bag' as never);
+      navigation.navigate('Bag');
     }
   };
 

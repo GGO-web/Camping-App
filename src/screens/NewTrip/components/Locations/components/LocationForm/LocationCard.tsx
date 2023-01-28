@@ -8,6 +8,8 @@ import { ILocation } from '../../../../../../models/Locations.model';
 
 import { globalStyles } from '../../../../../../styles/global';
 
+import { ScreenNavigationProp } from '../../../../../../types';
+
 export function LocationCard({ camp }: { camp: ILocation }) {
   const [altImages, setAltImages] = useState(
     [
@@ -16,7 +18,7 @@ export function LocationCard({ camp }: { camp: ILocation }) {
   );
   const [campImageSrc, setCampImageSrc] = useState(altImages[0]);
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   const skipCampImage = () => {
     setAltImages(altImages.slice(1));
@@ -52,10 +54,10 @@ export function LocationCard({ camp }: { camp: ILocation }) {
             backgroundColor={Colors.primary}
             disabledBackgroundColor={Colors.gray400}
             onPress={() => {
-              navigation.navigate('Location' as never, {
+              navigation.navigate('Location', {
                 location: camp,
                 locationImage: campImageSrc,
-              } as never);
+              });
             }}
             mode="contained"
           >

@@ -20,14 +20,16 @@ import { ILogin } from './Login.model';
 
 import { LoginForm } from './components/LoginForm/LoginForm';
 import { LoginProviders } from './components/LoginProviders/LoginProviders';
+import { Loader } from '../../components/Loader/Loader';
+
+import { useLoginWithFirebase } from '../../firebase/loginWithFirebase';
+import { loginSchema } from '../../helpers/validationSchema';
+import { authConfig } from '../../constants';
 
 import { globalStyles } from '../../styles/global';
 import { authStyles } from '../../styles/auth';
 
-import { authConfig } from '../../constants';
-import { loginSchema } from '../../helpers/validationSchema';
-import { useLoginWithFirebase } from '../../firebase/loginWithFirebase';
-import { Loader } from '../../components/Loader/Loader';
+import { ScreenNavigationProp } from '../../types';
 
 export function Login() {
   const [formFeedbackModal, setFormFeedbackModal] = useState(false);
@@ -37,7 +39,7 @@ export function Login() {
     password: '',
   };
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   const [, response, promptAsync]: any = Google.useAuthRequest(authConfig);
 
@@ -101,7 +103,7 @@ export function Login() {
             activeOpacity={0.9}
             style={authStyles.logoWrapper}
             onPress={() => {
-              navigation.navigate('Onboarding' as never);
+              navigation.navigate('Onboarding');
             }}
           >
             <Image

@@ -1,28 +1,30 @@
-import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import {
   Assets, Colors, View, Text,
 } from 'react-native-ui-lib';
 
 import { v4 } from 'uuid';
-import { AddBagItemDialog } from '../../../../components/AddBagItemDialog/AddBagItemDialog';
 
+import { AddBagItemDialog } from '../../../../components/AddBagItemDialog/AddBagItemDialog';
 import { ButtonPrimary } from '../../../../components/Buttons/ButtonPrimary';
 import { CrumbsLink } from '../../../../components/common/CrumbsLink';
 import { BagListItems } from './components/BagListItems/BagListItems';
 
 import { useActions } from '../../../../hooks/actions';
+import { useAppSelector } from '../../../../redux/hooks';
+import { useCompleteTripMutation, useCreateTripMutation } from '../../../../redux/api/trip';
 
 import type { AssetsColorsType, AssetsIconsType } from '../../../../matherialUI';
-import { useAppSelector } from '../../../../redux/hooks';
 
 import { globalStyles } from '../../../../styles/global';
-import { useCompleteTripMutation, useCreateTripMutation } from '../../../../redux/api/trip';
+
+import { ScreenNavigationProp } from '../../../../types';
 
 export function Bag() {
   const [bagInputDialogVisible, setBagInputDialogVisible] = useState(false);
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   const {
     addBagItem,
@@ -45,7 +47,7 @@ export function Bag() {
 
     clearTripFormInfo();
 
-    navigation.navigate('Activities' as never);
+    navigation.navigate('Activities');
   };
 
   const addBagItemCallback = (description: string) => {

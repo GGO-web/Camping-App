@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import {
   Assets, Text, View,
 } from 'react-native-ui-lib';
@@ -19,6 +18,8 @@ import { AssetsGraphicType } from '../../../../matherialUI';
 
 import { globalStyles } from '../../../../styles/global';
 
+import { ScreenNavigationProp } from '../../../../types';
+
 export interface ITeammateId {
   teammateId: string;
 }
@@ -31,7 +32,7 @@ export function Teammembers() {
   const teammatesList: IUser[] = useAppSelector((store) => store.trip.teammates);
   const [isReady, setIsReady] = useState(teammatesList.length > 1);
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   const formSubmitHandler = async (
     values: ITeammateId,

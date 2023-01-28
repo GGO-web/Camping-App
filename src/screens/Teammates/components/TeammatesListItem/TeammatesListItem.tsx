@@ -1,17 +1,19 @@
-import React from "react";
+import React from 'react';
 import {
   View,
   Image,
   Colors,
   Text,
   TouchableOpacity,
-} from "react-native-ui-lib";
+} from 'react-native-ui-lib';
+import { useNavigation } from '@react-navigation/native';
 
-import { useNavigation } from "@react-navigation/native";
-import { IUser } from "../../../../models/User.model";
+import { IUser } from '../../../../models/User.model';
+
+import { ScreenNavigationProp } from '../../../../types';
 
 export function TeammatesListItem({ teammate }: { teammate: IUser }) {
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   return (
     <TouchableOpacity
@@ -19,17 +21,15 @@ export function TeammatesListItem({ teammate }: { teammate: IUser }) {
       row
       centerV
       marginB-24
-      onPress={() =>
-        navigation.navigate("TeammateProfile" as never, { teammate } as never)
-      }
+      onPress={() => navigation.navigate('TeammateProfile', { teammate })}
     >
       <Image
         marginR-16
         source={
-          typeof teammate.avatar === "string"
+          typeof teammate.avatar === 'string'
             ? {
-                uri: teammate.avatar,
-              }
+              uri: teammate.avatar,
+            }
             : teammate.avatar
         }
         style={{

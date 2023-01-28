@@ -10,13 +10,14 @@ import { sendPasswordResetEmail } from 'firebase/auth';
 import { firebaseAuth } from '../../firebase/firebase';
 
 import { CrumbsLink } from '../../components/common/CrumbsLink';
+import { ResetPasswordForm } from './components/ResetPasswordForm/ResetPasswordForm';
 
 import { resetPasswordSchema } from '../../helpers/validationSchema';
 
-import { ResetPasswordForm } from './components/ResetPasswordForm/ResetPasswordForm';
-
 import { globalStyles } from '../../styles/global';
 import { authStyles } from '../../styles/auth';
+
+import { ScreenNavigationProp } from '../../types';
 
 export interface IResetPassword {
   email: string;
@@ -29,7 +30,7 @@ export function ResetPassword() {
     email: '',
   };
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   const formSubmitHandler = async (
     values: IResetPassword,
@@ -39,11 +40,11 @@ export function ResetPassword() {
       await sendPasswordResetEmail(firebaseAuth, values.email);
 
       navigation.navigate(
-        'Hurrey' as never,
+        'Hurrey',
         {
           page: 'Login',
           text: 'Password reset link sent! Go to your email and follow the link',
-        } as never,
+        },
       );
     } catch (error: any) {
       const fireError = error as FirebaseError;

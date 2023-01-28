@@ -7,15 +7,17 @@ import { ButtonPrimary } from '../../components/Buttons/ButtonPrimary';
 
 import { useDeactivateTripMutation } from '../../redux/api/trip';
 
+import { ScreenNavigationProp } from '../../types';
+
 export function ExitTrip() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   const [deactivateTrip] = useDeactivateTripMutation();
 
   const exitTripCallback = () => {
     deactivateTrip();
 
-    navigation.navigate('Homepage' as never);
+    navigation.navigate('Homepage');
   };
 
   return (

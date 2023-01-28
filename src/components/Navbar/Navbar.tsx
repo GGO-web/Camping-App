@@ -16,20 +16,22 @@ import {
 
 import { ScrollView } from 'react-native';
 
-import { globalStyles } from '../../styles/global';
-import { navbarStyles } from './NavbarStyles';
-
 import { IRoute } from '../../App.models';
 import { expandedNavigationRoutes, mainNavigationRoutes } from '../../constants';
 
 import { useGetActivatedTripQuery } from '../../redux/api/trip';
 import { useGetUserQuery } from '../../redux/api/user';
 
+import { globalStyles } from '../../styles/global';
+import { navbarStyles } from './NavbarStyles';
+
+import { ScreenNavigationProp } from '../../types';
+
 export function Navbar() {
   // const user = useAppSelector(userSelector);
   const { data: user } = useGetUserQuery();
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   const route = useRoute();
 
@@ -59,7 +61,7 @@ export function Navbar() {
               : Assets.icons.avatar
           }
           size={64}
-          onPress={() => navigation.navigate({ name: 'Profile' } as never)}
+          onPress={() => navigation.navigate('Profile')}
         />
 
         <View marginT-8 marginB-30 style={navbarStyles.profile}>
@@ -71,7 +73,7 @@ export function Navbar() {
             backgroundColor="transparent"
             iconStyle={{ width: 24, height: 24, resizeMode: 'contain' }}
             iconSource={Assets.icons.pen}
-            onPress={() => navigation.navigate({ name: 'Profile' } as never)}
+            onPress={() => navigation.navigate('Profile')}
           />
         </View>
 
@@ -91,7 +93,7 @@ export function Navbar() {
                   ...navbarStyles.route,
                   ...(isActiveRoute ? navbarStyles.activeRoute : null),
                 }}
-                onPress={() => navigation.navigate(routeItem.path as never)}
+                onPress={() => navigation.navigate(routeItem.path)}
               >
                 <Icon
                   style={{

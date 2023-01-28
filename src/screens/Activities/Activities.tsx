@@ -11,17 +11,18 @@ import { MainWrapper } from '../../components/MainWrapper/MainWrapper';
 import { RemainingDays } from './components/RemainingDays/RemainingDays';
 import { ActivitiesList } from './components/ActivitiesList/ActivitiesList';
 import { NoResults } from '../../components/common/NoResults';
+import { Loader } from '../../components/Loader/Loader';
 
 import { useGetAllActivitiesQuery } from '../../redux/api/trip';
 
 import { AssetsGraphicType, AssetsIconsType } from '../../matherialUI';
 
-import { Loader } from '../../components/Loader/Loader';
+import { ScreenNavigationProp } from '../../types';
 
 export const Activities = gestureHandlerRootHOC(() => {
   const { name: screenName } = useRoute();
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   const { data: activities, isLoading } = useGetAllActivitiesQuery();
 
@@ -29,7 +30,7 @@ export const Activities = gestureHandlerRootHOC(() => {
     <MainWrapper
       headerTitle={screenName}
       iconRight={(Assets.icons as AssetsIconsType).plus}
-      iconRightCallback={() => navigation.navigate('AddActivity' as never)}
+      iconRightCallback={() => navigation.navigate('AddActivity')}
     >
       <RemainingDays />
 
@@ -42,7 +43,7 @@ export const Activities = gestureHandlerRootHOC(() => {
           image={(Assets.graphic as AssetsGraphicType).activitiesTasks}
           text={'You didn\'t add any Activity or Task yet.'}
           buttonText="Add activity"
-          buttonCallback={() => navigation.navigate('AddActivity' as never)}
+          buttonCallback={() => navigation.navigate('AddActivity')}
         />
       )}
 

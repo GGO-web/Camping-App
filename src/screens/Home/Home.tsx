@@ -9,18 +9,21 @@ import { MainWrapper } from '../../components/MainWrapper/MainWrapper';
 import { TripCardList } from './components/TripCardList/TripCardList';
 import { ActionsBar } from '../../components/ActionsBar/ActionsBar';
 import { NoResults } from '../../components/common/NoResults';
+import { Loader } from '../../components/Loader/Loader';
+
+import { useGetActivatedTripQuery, useGetAllTripsQuery } from '../../redux/api/trip';
 
 import { AssetsGraphicType } from '../../matherialUI';
 
 import { globalStyles } from '../../styles/global';
-import { useGetActivatedTripQuery, useGetAllTripsQuery } from '../../redux/api/trip';
-import { Loader } from '../../components/Loader/Loader';
+
+import { ScreenNavigationProp } from '../../types';
 
 export function Home() {
   const { data: trips, isLoading } = useGetAllTripsQuery();
   const { data: activatedTrip } = useGetActivatedTripQuery();
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   if (isLoading) {
     return (
@@ -49,7 +52,7 @@ export function Home() {
         style={globalStyles.button}
         backgroundColor={Colors.primary}
         disabledBackgroundColor={Colors.gray400}
-        onPress={() => navigation.navigate('NewTrip' as never)}
+        onPress={() => navigation.navigate('NewTrip')}
       >
         <Text
           style={{

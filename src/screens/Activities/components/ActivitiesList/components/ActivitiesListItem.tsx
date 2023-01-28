@@ -9,13 +9,15 @@ import {
 import type { IActivity } from '../../../../../models/Activity.model';
 import { useCompleteActivityMutation, useDeleteActivityMutation } from '../../../../../redux/api/trip';
 
+import { ScreenNavigationProp } from '../../../../../types';
+
 export function ActivitiesListItem({ activity }: { activity: IActivity }) {
   const activityRef = useRef<any>(null);
 
   const [setCompletedActivity] = useCompleteActivityMutation();
   const [removeActivity] = useDeleteActivityMutation();
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   const completeActivityHandler = () => {
     setCompletedActivity(activity.id as string);
@@ -59,7 +61,6 @@ export function ActivitiesListItem({ activity }: { activity: IActivity }) {
         ...Typography.heading4,
         color: Colors.white,
       }}
-      // itemsMinWidth={143}
       fullSwipeLeft
       fullSwipeRight
       onFullSwipeLeft={completeActivityHandler}
@@ -68,26 +69,6 @@ export function ActivitiesListItem({ activity }: { activity: IActivity }) {
         background: Colors.success,
         text: 'Complete',
         onPress: completeActivityHandler,
-        // customElement: (
-        //   <View
-        //     flex
-        //     centerH
-        //     centerV
-        //     padding-20
-        //     style={{
-        //       position: 'absolute',
-        //       left: 0,
-        //       right: 0,
-        //       top: 0,
-        //       bottom: 0,
-        //       backgroundColor: Colors.primary,
-        //       borderRadius: 20,
-        //       marginRight: 16,
-        //     }}
-        //   >
-        //     <Text heading4 white>Complete</Text>
-        //   </View>
-        // ),
       }}
       rightItems={[{
         text: 'Delete',
@@ -103,7 +84,7 @@ export function ActivitiesListItem({ activity }: { activity: IActivity }) {
           backgroundColor: activity.completed ? Colors.primary : Colors.gray,
         }}
         onLongPress={() => {
-          navigation.navigate('Activity' as never, { activity } as never);
+          navigation.navigate('Activity', { activity });
         }}
       >
         <View

@@ -46,7 +46,9 @@ import { TeammateProfile } from './screens/Teammates/components/TeammateProfile/
 
 import { useLoginWithFirebase } from './firebase/loginWithFirebase';
 
-const Stack = createNativeStackNavigator();
+import { ScreenNavigationProp, StackNavigatorParamsList } from './types';
+
+const Stack = createNativeStackNavigator<StackNavigatorParamsList>();
 
 export default function App() {
   const [loaded] = useFonts({
@@ -55,7 +57,7 @@ export default function App() {
     SFProRegular: require('../assets/fonts/SFProDisplay-Regular.ttf'),
   });
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   const loginWithFirebase = useLoginWithFirebase();
 
@@ -69,7 +71,7 @@ export default function App() {
           console.log(e);
         }
       } else {
-        navigation.navigate('Login' as never);
+        navigation.navigate('Login');
       }
     }, 1000);
   };

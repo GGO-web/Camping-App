@@ -7,14 +7,16 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { CrumbsLink } from '../../../../../../components/common/CrumbsLink';
 
-import { ILocation, ILocationImage } from '../../../../../../models/Locations.model';
 import { useActions } from '../../../../../../hooks/actions';
+import { ILocation, ILocationImage } from '../../../../../../models/Locations.model';
 
 import { globalStyles } from '../../../../../../styles/global';
 
+import { ScreenNavigationProp } from '../../../../../../types';
+
 export function Location() {
   const route = useRoute();
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   const { location, locationImage } = route.params as {
     location: ILocation,

@@ -6,11 +6,12 @@ import { useNavigation } from '@react-navigation/native';
 import { Formik, FormikHelpers } from 'formik';
 
 import { CrumbsLink } from '../../../../components/common/CrumbsLink';
+import { LocationsForm } from './components/LocationForm/LocationsForm';
 
 import { locationSchema } from '../../../../helpers/validationSchema';
 
 import { globalStyles } from '../../../../styles/global';
-import { LocationsForm } from './components/LocationForm/LocationsForm';
+import { ScreenNavigationProp } from '../../../../types';
 
 export interface ILocationValue {
   location: string;
@@ -21,15 +22,13 @@ export function Locations() {
     location: '',
   };
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   const formSubmitHandler = async (
     values: ILocationValue,
     actions: FormikHelpers<ILocationValue>,
   ) => {
     try {
-      // find person by id on the database and throw the error when it isn't present
-
       navigation.goBack();
     } catch (error) {
       actions.setFieldError(

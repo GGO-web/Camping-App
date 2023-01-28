@@ -16,14 +16,18 @@ import { FirebaseError } from 'firebase/app';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { firebaseAuth } from '../../firebase/firebase';
 
-import { ISignUp } from './SignUp.model';
 import { LoginProviders } from '../Login/components/LoginProviders/LoginProviders';
 import { SignUpForm } from './components/SignUpForm/SignUpForm';
 
-import { globalStyles } from '../../styles/global';
-import { authStyles } from '../../styles/auth';
+import { ISignUp } from './SignUp.model';
+
 import { authConfig } from '../../constants';
 import { signUpSchema } from '../../helpers/validationSchema';
+
+import { globalStyles } from '../../styles/global';
+import { authStyles } from '../../styles/auth';
+
+import { ScreenNavigationProp } from '../../types';
 
 export function SignUp() {
   const [formFeedbackModal, setFormFeedbackModal] = useState(false);
@@ -34,7 +38,7 @@ export function SignUp() {
     password: '',
   };
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   const [, response, promptAsync]: any = Google.useAuthRequest(authConfig);
 
@@ -54,11 +58,11 @@ export function SignUp() {
       });
 
       navigation.navigate(
-        'Hurrey' as never,
+        'Hurrey',
         {
           page: 'Login',
           text: 'Your registration is successful. You will be automatically redirected to the homepage at the moment',
-        } as never,
+        },
       );
 
       actions.resetForm();
@@ -96,7 +100,7 @@ export function SignUp() {
             activeOpacity={0.9}
             style={authStyles.logoWrapper}
             onPress={() => {
-              navigation.navigate('Onboarding' as never);
+              navigation.navigate('Onboarding');
             }}
           >
             <Image
