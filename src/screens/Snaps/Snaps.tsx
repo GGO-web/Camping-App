@@ -8,8 +8,6 @@ import {
 
 import * as Clipboard from 'expo-clipboard';
 
-// import * as Permissions from 'expo-permissions';
-
 import { ScrollView } from 'react-native';
 
 import { MainWrapper } from '../../components/MainWrapper/MainWrapper';
@@ -21,10 +19,8 @@ import { ButtonIcon } from '../../components/Buttons/ButtonIcon';
 import { Toast } from '../../components/Toast/Toast';
 
 export function Snaps() {
-  // const snaps = useAppSelector(getActivatedTripCollectionItemSelector)?.snaps;
   const { data: snaps } = useGetAllSnapsQuery();
 
-  // const { addNewSnap } = useActions();
   const [takeSnap] = useTakeSnapMutation();
 
   const [toastParams, setToastParams] = useState({

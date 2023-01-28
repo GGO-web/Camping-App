@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { generateUniqueID } from '../../helpers/generateUniqueID';
 
 import { IUser } from '../../models/User.model';
 
@@ -19,7 +18,7 @@ const userSlice = createSlice({
   reducers: {
     signIn: (state, action: PayloadAction<IUser>) => {
       state.fullname = action.payload.fullname;
-      state.uid = action.payload.uid || generateUniqueID();
+      state.uid = action.payload.uid;
     },
     signOut: () => initialState,
     setProfileAvatar: (state, action: PayloadAction<string>) => {

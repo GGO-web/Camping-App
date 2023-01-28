@@ -9,27 +9,12 @@ import {
   setTripPeriod,
   setTeammates,
   setLatestLocation,
-  setLatestLocationsList,
   addBagItem,
   updateBagItemCount,
   toggleBagItemChecked,
   clearTripFormInfo,
   setActiveTrip,
 } from '../redux/trip/tripSlice';
-
-import {
-  addNewTripToCollection,
-  setActivedTrip,
-  addActivity,
-  removeActivity,
-  setCompletedActivity,
-  addBackpackItem,
-  updateBackpackItemCount,
-  setBackpackItemUri,
-  addNewSnap,
-  destroyTrip,
-  leaveActivatedTrip,
-} from '../redux/tripsCollection/tripsCollection';
 
 // import {
 //   addActivity,
@@ -43,25 +28,13 @@ const actions = {
   setTripPeriod,
   setTeammates,
   setLatestLocation,
-  setLatestLocationsList,
   addBagItem,
   updateBagItemCount,
-  addNewTripToCollection,
-  setActivedTrip,
   toggleBagItemChecked,
   clearTripFormInfo,
   setActiveTrip,
-  addActivity,
-  removeActivity,
-  setCompletedActivity,
-  addBackpackItem,
-  updateBackpackItemCount,
-  setBackpackItemUri,
   setProfileAvatar,
   setProfileInfo,
-  addNewSnap,
-  destroyTrip,
-  leaveActivatedTrip,
 };
 
 type ActionsType = typeof actions;

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import { Platform, ToastAndroid } from 'react-native';
 import { View } from 'react-native-ui-lib';
 import { ToastPresets } from 'react-native-ui-lib/src/incubator';
 

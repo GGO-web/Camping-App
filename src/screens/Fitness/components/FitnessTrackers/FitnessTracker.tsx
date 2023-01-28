@@ -5,12 +5,11 @@ import {
 } from 'react-native-ui-lib';
 import { Pedometer } from 'expo-sensors';
 
-import { useAppSelector } from '../../../../redux/hooks';
-
 import { EFitnessTrackerTypes, IFitnessTracker } from '../../../../models/FitnessTracker.model';
-import { getActivatedTripCollectionItemSelector } from '../../../../redux/tripsCollection/tripsCollection';
 
 import { MILES_IN_ONE_STEP } from '../../../../constants';
+
+import { useGetActivatedTripQuery } from '../../../../redux/api/trip';
 
 export function FitnessTracker({
   trackerName,
@@ -27,7 +26,8 @@ export function FitnessTracker({
     / tracker.target
   ) * 100, 100).toFixed(2));
 
-  const tripPeriod = useAppSelector(getActivatedTripCollectionItemSelector)?.trip.tripPeriod;
+  const { data: activatedTrip } = useGetActivatedTripQuery();
+  const tripPeriod = activatedTrip?.tripPeriod;
 
   const requestActivityPermission = async () => {
     const granted = await PermissionsAndroid.request(

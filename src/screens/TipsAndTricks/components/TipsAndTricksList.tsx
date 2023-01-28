@@ -4,7 +4,6 @@ import {
   View, Image, Text, Colors,
 } from 'react-native-ui-lib';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { v4 } from 'uuid';
 
 import { tipsAndTricks } from '../../../constants';

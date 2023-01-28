@@ -18,7 +18,6 @@ export function Backpack() {
 
   const { name: screenName } = useRoute();
 
-  // const { addBackpackItem } = useActions();
   const { data: activatedTrip } = useGetActivatedTripQuery();
 
   const [createBackpackItem] = useCreateBagItemMutation();

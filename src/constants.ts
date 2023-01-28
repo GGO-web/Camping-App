@@ -1,6 +1,5 @@
 import { Assets, ToastPresets } from 'react-native-ui-lib';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { v4 } from 'uuid';
 
 import type { IRoute } from './App.models';

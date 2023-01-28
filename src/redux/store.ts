@@ -7,14 +7,12 @@ import { userApi } from './api/user';
 import { notificationApi } from './api/notification';
 
 import { tripReducer } from './trip/tripSlice';
-import { tripsCollectionReducer } from './tripsCollection/tripsCollection';
 
 import { userReducer } from './userConfig/userSlice';
 
 const rootReducer = combineReducers({
   userProfile: userReducer,
   trip: tripReducer,
-  tripsCollection: tripsCollectionReducer,
   activities: activitiesReducer,
   [campingApi.reducerPath]: campingApi.reducer,
   [userApi.reducerPath]: userApi.reducer,

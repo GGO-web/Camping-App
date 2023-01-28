@@ -8,21 +8,20 @@ import { MainWrapper } from '../../components/MainWrapper/MainWrapper';
 
 import { initialLanguage, languagesList } from '../../constants';
 
+function getLanguagesState(initial: Object) {
+  return languagesList.reduce((prev, item) => {
+    if (item in prev) {
+      return prev;
+    }
+
+    return { ...prev, [item]: false };
+  }, initial);
+}
+
 export function Language() {
-  const [checkboxStates, setCheckboxStates]: [Object, Function] = useState(
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  const [checkboxStates, setCheckboxStates]: [{ [key: string]: any }, Function] = useState(
     getLanguagesState(initialLanguage),
   );
-
-  function getLanguagesState(initial: Object) {
-    return languagesList.reduce((prev, item) => {
-      if (item in prev) {
-        return prev;
-      }
-
-      return { ...prev, [item]: false };
-    }, initial);
-  }
 
   return (
     <MainWrapper headerTitle="Language">
@@ -32,16 +31,16 @@ export function Language() {
             <Text>{language}</Text>
             <Checkbox
               outline={Colors.primary}
-              value={checkboxStates[language as never]}
+              value={checkboxStates[language]}
               iconColor={Colors.white}
               iconSouce={Assets.icons.checkmark}
               containerStyle={{
-                backgroundColor: checkboxStates[language as never]
+                backgroundColor: checkboxStates[language]
                   ? Colors.primary500
                   : 'transparent',
               }}
               onValueChange={() => {
-                if (!checkboxStates[language as never]) {
+                if (!checkboxStates[language]) {
                   setCheckboxStates(
                     getLanguagesState({ [language]: true }),
                   );

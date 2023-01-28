@@ -1,16 +1,13 @@
 import React from 'react';
 import { View, Text } from 'react-native-ui-lib';
 
-import { useAppSelector } from '../../../../redux/hooks';
+import { useGetActivatedTripQuery } from '../../../../redux/api/trip';
 
 import { getRemainingDaysNumber } from '../../../../helpers/getRemainingDaysNumber';
 
 export function RemainingDays() {
-  const tripPeriod = useAppSelector(
-    (store) => store.tripsCollection.trips.find(
-      (tripCollectionItem) => tripCollectionItem.activated,
-    ),
-  )?.trip.tripPeriod;
+  const { data: activatedTrip } = useGetActivatedTripQuery();
+  const tripPeriod = activatedTrip?.tripPeriod;
 
   const [dayNumber, remainingDays, remainStatus] = getRemainingDaysNumber(
     tripPeriod?.startDate as string,

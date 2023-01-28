@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { v4 } from 'uuid';
 
 import { IActivity } from '../../models/Activity.model';
