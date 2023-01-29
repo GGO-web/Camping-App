@@ -13,7 +13,8 @@ import { ITipAndTrick } from './models/TipsAndTricks.model';
 import { IUser } from './models/User.model';
 
 export const authConfig = {
-  clientId: process.env.REACT_APP_CLIENT_ID,
+  clientId: process.env.REACT_APP_GOOGLE_WEBCLIENT_ID,
+  androidClientId: process.env.REACT_APP_ANDROID_CLIENT_ID,
   scopes: ['profile', 'email'],
 };
 
