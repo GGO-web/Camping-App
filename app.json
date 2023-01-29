@@ -45,6 +45,11 @@
         }
       ]
     ],
-    "owner": "ggo_webdev"
+    "owner": "ggo_webdev",
+    "extra": {
+      "eas": {
+        "projectId": "986d3904-4518-44d0-b629-97fe7d32efcd"
+      }
+    }
   }
 }

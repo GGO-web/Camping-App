@@ -3,12 +3,7 @@ module.exports = (api) => {
   return {
     presets: ['babel-preset-expo', 'module:metro-react-native-babel-preset'],
     plugins: [
-      [
-        'module:react-native-dotenv',
-        {
-          moduleName: '@dotenv',
-        },
-      ],
+      ['inline-dotenv'],
       'react-native-reanimated/plugin',
     ],
   };

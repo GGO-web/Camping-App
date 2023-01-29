@@ -10,15 +10,17 @@
     "preview": {
       "android": {
         "buildType": "apk"
+      },
+      "env": {
+        "REACT_APP_FIREBASE_API_KEY": "YOUR_FIREBASE_API_KEY",
+        "REACT_APP_FIREBASE_APP_ID": "YOUR_FIREBASE_APP_ID",
+        "REACT_APP_FIREBASE_MESSAGING_SENDER_ID": "YOUR_FIREBASE_MESSAGING_SENDER_ID",
+        "REACT_APP_GOOGLE_WEBCLIENT_ID": "YOUR_GOOGLE_WEBCLIENT_ID",
+        "REACT_APP_ANDROID_CLIENT_ID": "YOUR_ANDROID_CLIENT_ID",
+        "REACT_APP_CAMPING_API_KEY": "YOUR_CAMPING_API_KEY",
+        "REACT_APP_CAMPING_BASE_URL": "https://developer.nps.gov/api/v1/campgrounds",
+        "REACT_APP_BACKEND_URL": "https://camping-api-ggo.onrender.com/api"
       }
-    },
-    "preview2": {
-      "android": {
-        "gradleCommand": ":app:assembleRelease"
-      }
-    },
-    "preview3": {
-      "developmentClient": true
     },
     "production": {}
   },

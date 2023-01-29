@@ -28,7 +28,6 @@ export function Bag() {
 
   const {
     addBagItem,
-    addNewTripToCollection,
     clearTripFormInfo,
   } = useActions();
 
@@ -38,11 +37,14 @@ export function Bag() {
   const [completeTrip] = useCompleteTripMutation();
 
   const prepareTripHandler = async () => {
-    // add trip into db and show main page with the trip info
-    addNewTripToCollection(trip);
+    const newTrip = {
+      ...trip,
+      bagItems: trip.bagItems.filter((bagItem) => bagItem.checked),
+    };
 
     // create trip in DB, complete & activate it
-    await createTrip(trip).unwrap();
+    await createTrip(newTrip).unwrap();
+
     await completeTrip().unwrap();
 
     clearTripFormInfo();
