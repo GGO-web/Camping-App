@@ -9,6 +9,7 @@ import {
   setTripPeriod,
   setTeammates,
   setLatestLocation,
+  setLatestLocationsList,
   addBagItem,
   updateBagItemCount,
   toggleBagItemChecked,
@@ -16,18 +17,13 @@ import {
   setActiveTrip,
 } from '../redux/trip/tripSlice';
 
-// import {
-//   addActivity,
-//   removeActivity,
-//   setCompletedActivity,
-// } from '../redux/activities/activitiesSlice';
-
 const actions = {
   addLocation,
   setTripName,
   setTripPeriod,
   setTeammates,
   setLatestLocation,
+  setLatestLocationsList,
   addBagItem,
   updateBagItemCount,
   toggleBagItemChecked,
