@@ -90,7 +90,10 @@ export const tripApi = createApi({
       }),
       invalidatesTags: ['Trip'],
     }),
-    updateBagItemImage: builder.mutation<IMessageResponse, { bagItemId: string; image: string }>({
+    updateBagItemImage: builder.mutation<
+    IMessageResponse,
+    { bagItemId: string; image: string }
+    >({
       query: ({ bagItemId, image }) => ({
         url: 'bag/image',
         body: {
@@ -102,7 +105,10 @@ export const tripApi = createApi({
       }),
       invalidatesTags: ['Trip'],
     }),
-    updateBagItemCount: builder.mutation<IMessageResponse, { bagItemId: string; count: number }>({
+    updateBagItemCount: builder.mutation<
+    IMessageResponse,
+    { bagItemId: string; count: number }
+    >({
       query: ({ bagItemId, count }) => ({
         url: 'bag/count',
         body: {
@@ -111,6 +117,13 @@ export const tripApi = createApi({
           count,
         },
         method: 'PATCH',
+      }),
+      invalidatesTags: ['Trip'],
+    }),
+    deleteBagItem: builder.mutation<IMessageResponse, string>({
+      query: (bagItemId) => ({
+        url: `bag/delete?userId=${firebaseAuth?.currentUser?.uid}&bagItemId=${bagItemId}`,
+        method: 'DELETE',
       }),
       invalidatesTags: ['Trip'],
     }),
@@ -181,6 +194,7 @@ export const {
   useCreateBagItemMutation,
   useUpdateBagItemImageMutation,
   useUpdateBagItemCountMutation,
+  useDeleteBagItemMutation,
   // Trip Activities hooks
   useGetAllActivitiesQuery,
   useCreateActivityMutation,

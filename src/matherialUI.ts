@@ -96,6 +96,7 @@ const iconsGroup = {
   runningMan: require('../assets/running-man.png'),
   hikingMan: require('../assets/hiking-man.png'),
   reward: require('../assets/reward.png'),
+  garbage: require('../assets/garbage.png'),
 };
 
 export const navigationGroup = {

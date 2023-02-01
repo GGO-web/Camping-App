@@ -1,14 +1,20 @@
 import { ImagePickerResult, MediaTypeOptions } from 'expo-image-picker/build/ImagePicker.types';
 import React, { useEffect, useState } from 'react';
 import {
-  View, Text, Stepper, Button, Colors, Icon, Image,
+  View, Text, Stepper, Button, Colors, Icon, Image, Assets,
 } from 'react-native-ui-lib';
 
 import { launchCameraAsync, requestCameraPermissionsAsync } from 'expo-image-picker';
 
+import { Alert } from 'react-native';
+
+import { ButtonIcon } from '../../../../components/Buttons/ButtonIcon';
+
 import { IBagItem } from '../../../../models/BagItem.model';
-import { useUpdateBagItemCountMutation, useUpdateBagItemImageMutation } from '../../../../redux/api/trip';
+import { useDeleteBagItemMutation, useUpdateBagItemCountMutation, useUpdateBagItemImageMutation } from '../../../../redux/api/trip';
 import { useDebounce } from '../../../../hooks/debounce';
+
+import { AssetsIconsType } from '../../../../matherialUI';
 
 export function BackpackListItem({ backpackItem }: { backpackItem: IBagItem }) {
   const [backpackItemCount, setBackpackItemCount] = useState(backpackItem.count);
@@ -17,6 +23,26 @@ export function BackpackListItem({ backpackItem }: { backpackItem: IBagItem }) {
 
   const [updateBagItemImage] = useUpdateBagItemImageMutation();
   const [updateBagItemCount] = useUpdateBagItemCountMutation();
+  const [deleteBagItem] = useDeleteBagItemMutation();
+
+  const deleteBagItemCallback = () => {
+    Alert.alert(
+      'Are you sure?',
+      'This action will permanently delete bag item from your backpack.',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Delete',
+          onPress: async () => {
+            await deleteBagItem(backpackItem.id as string).unwrap();
+          },
+        },
+      ],
+    );
+  };
 
   useEffect(() => {
     updateBagItemCount({
@@ -49,8 +75,8 @@ export function BackpackListItem({ backpackItem }: { backpackItem: IBagItem }) {
   };
 
   return (
-    <View marginB-16 row centerV spread>
-      <View row centerV>
+    <View marginB-16 style={{ backgroundColor: Colors.primary, padding: 8, borderRadius: 12 }}>
+      <View row centerV marginB-8>
         <Button
           mode="contained"
           backgroundColor={Colors.gray}
@@ -85,9 +111,25 @@ export function BackpackListItem({ backpackItem }: { backpackItem: IBagItem }) {
             )}
         </Button>
 
-        <Text style={{ width: '100%', maxWidth: 160 }} heading4 numberOfLines={2}>
+        <Text flex heading4 white numberOfLines={2}>
           {backpackItem.description}
         </Text>
+
+        <ButtonIcon
+          iconSource={(Assets.icons as AssetsIconsType).garbage}
+          buttonStyles={{
+            marginLeft: 'auto',
+            width: 48,
+            height: 48,
+            padding: 8,
+          }}
+          iconStyles={{
+            width: 32,
+            height: 32,
+            tintColor: Colors.primary50,
+          }}
+          onPressCallback={deleteBagItemCallback}
+        />
       </View>
 
       <View flex right>

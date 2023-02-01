@@ -23,7 +23,7 @@ export function BackpackList() {
       {bagItems.length ? bagItems?.map((bagItem) => (
         <BackpackListItem key={bagItem.id} backpackItem={bagItem} />
       )) : (
-        <Text text40 marginT-20 center>
+        <Text heading3 marginT-20 center>
           There is no items in your backpack, please add some one
         </Text>
       )}
