@@ -1,5 +1,7 @@
 import React from 'react';
-import { Animated, StyleProp, ViewStyle } from 'react-native';
+import {
+  Animated, StyleProp, TextStyle, ViewStyle,
+} from 'react-native';
 
 import {
   Button, ButtonProps, Colors, Text,
@@ -11,26 +13,30 @@ export function ButtonPrimary({
   buttonText,
   buttonCallback,
   buttonStyles,
+  textStyles,
   ...buttonProps
 }: {
   buttonText: string,
   buttonCallback?: Function,
   buttonStyles?: StyleProp<ViewStyle | Animated.AnimatedProps<ViewStyle>>,
+  textStyles?: StyleProp<TextStyle | Animated.AnimatedProps<TextStyle>>,
   buttonProps?: ButtonProps & typeof Button,
 }) {
   return (
     <Button
-      style={{ ...globalStyles.button, ...(buttonStyles as any) }}
+      size={32}
+      style={[globalStyles.button, buttonStyles]}
       backgroundColor={Colors.primary}
       mode="outlined"
       onPress={buttonCallback}
       {...buttonProps}
     >
       <Text
-        style={{
-          ...globalStyles.text,
-          ...globalStyles.buttonText,
-        }}
+        style={[
+          globalStyles.text,
+          globalStyles.buttonText,
+          textStyles,
+        ]}
       >
         {buttonText}
       </Text>

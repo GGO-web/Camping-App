@@ -1,9 +1,10 @@
 import React from 'react';
 import {
-  Stepper, View, Text,
+  View, Text, Colors,
 } from 'react-native-ui-lib';
 
 import { InputCheckbox } from '../../../../../../components/InputCheckbox/InputCheckbox';
+import { Stepper } from '../../../../../../components/Stepper/Stepper';
 
 import { useActions } from '../../../../../../hooks/actions';
 
@@ -18,7 +19,7 @@ export function BagListItem({ bagItem }: { bagItem: IBagItem }) {
         onCheckboxChange={() => {
           toggleBagItemChecked(bagItem.id as string);
         }}
-        styles={{ marginTop: 5, marginRight: 5 }}
+        styles={{ marginTop: 2, marginRight: 5 }}
       />
 
       <Text style={{ width: '100%', maxWidth: 180 }} paragraph2>{bagItem.description}</Text>
@@ -28,12 +29,17 @@ export function BagListItem({ bagItem }: { bagItem: IBagItem }) {
           value={bagItem.count}
           minValue={1}
           maxValue={Infinity}
-          useCustomTheme
           onValueChange={(newValue: number) => {
             updateBagItemCount({
               id: bagItem.id as string,
               count: newValue,
             });
+          }}
+          buttonControlsStyles={{
+            backgroundColor: Colors.primary,
+          }}
+          buttonControlsIconStyles={{
+            tintColor: Colors.white,
           }}
         />
       </View>

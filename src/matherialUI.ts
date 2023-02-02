@@ -89,6 +89,7 @@ const iconsGroup = {
   avatar: require('../assets/avatar.png'),
   pen: require('../assets/pen.png'),
   plus: require('../assets/plus.png'),
+  minus: require('../assets/minus.png'),
   search: require('../assets/search.png'),
   enter: require('../assets/enter.png'),
   failure: require('../assets/failure.png'),

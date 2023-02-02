@@ -1,7 +1,7 @@
 import { ImagePickerResult, MediaTypeOptions } from 'expo-image-picker/build/ImagePicker.types';
 import React, { useEffect, useState } from 'react';
 import {
-  View, Text, Stepper, Button, Colors, Icon, Image, Assets,
+  View, Text, Button, Colors, Icon, Image, Assets,
 } from 'react-native-ui-lib';
 
 import { launchCameraAsync, requestCameraPermissionsAsync } from 'expo-image-picker';
@@ -15,6 +15,7 @@ import { useDeleteBagItemMutation, useUpdateBagItemCountMutation, useUpdateBagIt
 import { useDebounce } from '../../../../hooks/debounce';
 
 import { AssetsIconsType } from '../../../../matherialUI';
+import { Stepper } from '../../../../components/Stepper/Stepper';
 
 export function BackpackListItem({ backpackItem }: { backpackItem: IBagItem }) {
   const [backpackItemCount, setBackpackItemCount] = useState(backpackItem.count);
@@ -137,7 +138,7 @@ export function BackpackListItem({ backpackItem }: { backpackItem: IBagItem }) {
           value={backpackItemCount}
           minValue={1}
           maxValue={Infinity}
-          useCustomTheme
+          textStyle={{ color: Colors.white }}
           onValueChange={(newValue: number) => {
             setBackpackItemCount(newValue);
           }}
