@@ -17,16 +17,24 @@ export function RemainingDays() {
   return (
     <View bottom row spread marginB-32>
       <Text primary900 heading3>
-        {remainStatus ? `Day ${dayNumber}` : `${dayNumber} day's to trip`}
+        {
+        +dayNumber <= 0 ? 'Trip was over'
+          : remainStatus
+            ? `Day ${dayNumber}`
+            : `${dayNumber} day's to trip`
+        }
       </Text>
 
-      <Text paragraph3 gray300>
-        {`${
-          Number.isNaN(+remainingDays) ? '∞' : remainingDays
-        } day's remain ${
-          Number.isNaN(+remainingDays) ? 'till the end' : ''
-        }`}
-      </Text>
+      {+dayNumber > 0
+        ? (
+          <Text paragraph3 gray300>
+            {`${
+              Number.isNaN(+remainingDays) ? '∞' : remainingDays
+            } day's remain ${
+              Number.isNaN(+remainingDays) ? 'till the end' : ''
+            }`}
+          </Text>
+        ) : null}
     </View>
   );
 }
