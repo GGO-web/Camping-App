@@ -21,6 +21,8 @@ import { globalStyles } from '../../../../styles/global';
 
 import { ScreenNavigationProp } from '../../../../types';
 
+import { ITrip } from '../../../../models/Trip.model';
+
 export function Bag() {
   const [bagInputDialogVisible, setBagInputDialogVisible] = useState(false);
 
@@ -37,9 +39,19 @@ export function Bag() {
   const [completeTrip] = useCompleteTripMutation();
 
   const prepareTripHandler = async () => {
-    const newTrip = {
-      ...trip,
+    // filter checked items
+    const newTrip: Omit<ITrip, 'latestLocationsList' | 'latestLocation'> = {
+      tripName: trip.tripName,
+      teammates: trip.teammates,
+      tripPeriod: trip.tripPeriod,
       bagItems: trip.bagItems.filter((bagItem) => bagItem.checked),
+      locations: trip.selectedLocations.map((location) => ({
+        id: location.id,
+        name: location.name,
+        description: location.description,
+        images: location.images,
+        addresses: location.addresses,
+      })),
     };
 
     // create trip in DB, complete & activate it

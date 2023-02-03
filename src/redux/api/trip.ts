@@ -31,14 +31,13 @@ export const tripApi = createApi({
       }),
       providesTags: ['Trip'],
     }),
-    createTrip: builder.mutation<any, ITrip>({
+    createTrip: builder.mutation<any, Omit<ITrip, 'latestLocationsList' | 'latestLocation'>>({
       query: (trip) => ({
         url: 'create',
         body: {
-          userId: firebaseAuth?.currentUser?.uid,
-          locations: trip.selectedLocations,
           ...trip,
-        } as ITripResponse,
+          userId: firebaseAuth?.currentUser?.uid,
+        },
         method: 'POST',
       }),
       invalidatesTags: ['Trip'],
