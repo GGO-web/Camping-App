@@ -76,7 +76,7 @@ export const globalStyles = StyleSheet.create({
   },
   navcontainer: {
     justifyContent: 'flex-start',
-    paddingTop: 45,
+    paddingTop: 15,
     paddingBottom: 15,
   },
 });

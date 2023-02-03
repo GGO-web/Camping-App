@@ -7,7 +7,7 @@
       "developmentClient": true,
       "distribution": "internal"
     },
-    "preview": {
+    "production": {
       "android": {
         "buildType": "apk"
       },
@@ -21,8 +21,7 @@
         "REACT_APP_CAMPING_BASE_URL": "https://developer.nps.gov/api/v1/campgrounds",
         "REACT_APP_BACKEND_URL": "https://camping-api-ggo.onrender.com/api"
       }
-    },
-    "production": {}
+    }
   },
   "submit": {
     "production": {}
