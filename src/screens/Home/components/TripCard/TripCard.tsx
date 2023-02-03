@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 
 import {
   Assets,
-  Card, Carousel, Colors, Dialog, Icon, Image, PanningProvider, Text, TouchableOpacity, View,
+  Card,
+  Carousel, Colors, Dialog, Icon, Image, PanningProvider, Text, TouchableOpacity, View,
 } from 'react-native-ui-lib';
 
 import { ButtonIcon } from '../../../../components/Buttons/ButtonIcon';
@@ -128,7 +129,6 @@ export function TripCard({
         heading4
         style={{
           padding: 10,
-          letterSpacing: '2px',
         }}
       >
         {trip.tripName}
