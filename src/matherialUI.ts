@@ -1,6 +1,4 @@
-import {
-  Assets, Colors, ThemeManager, Typography,
-} from 'react-native-ui-lib';
+import { Assets, Colors, ThemeManager, Typography } from 'react-native-ui-lib';
 
 export const colors = {
   primary: '#84CC16',
@@ -98,6 +96,7 @@ const iconsGroup = {
   hikingMan: require('../assets/hiking-man.png'),
   reward: require('../assets/reward.png'),
   garbage: require('../assets/garbage.png'),
+  bell: require('../assets/bell.png'),
 };
 
 export const navigationGroup = {

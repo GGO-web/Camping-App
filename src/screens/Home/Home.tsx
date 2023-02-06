@@ -11,9 +11,9 @@ import { ActionsBar } from '../../components/ActionsBar/ActionsBar';
 import { NoResults } from '../../components/common/NoResults';
 import { Loader } from '../../components/Loader/Loader';
 
-import { useGetActivatedTripQuery, useGetAllTripsQuery } from '../../redux/api/trip';
+import { useGetAllTripsQuery } from '../../redux/api/trip';
 
-import { AssetsGraphicType } from '../../matherialUI';
+import { AssetsGraphicType, AssetsIconsType } from '../../matherialUI';
 
 import { globalStyles } from '../../styles/global';
 
@@ -32,7 +32,7 @@ export function Home() {
   }
 
   return (
-    <MainWrapper headerTitle="Camping Trips">
+    <MainWrapper headerTitle="Camping Trips" iconRightCallback={() => navigation.navigate('Notifications')} iconRight={(Assets.icons as AssetsIconsType).bell}>
       <ClipboardID />
 
       {!trips?.length
