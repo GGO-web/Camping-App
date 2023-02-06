@@ -21,7 +21,7 @@ import { ScreenNavigationProp } from '../../types';
 
 export function Home() {
   const { data: trips, isLoading } = useGetAllTripsQuery();
-  const { data: activatedTrip } = useGetActivatedTripQuery();
+  const activatedTrip = trips?.find((trip) => trip.activated);
 
   const navigation = useNavigation<ScreenNavigationProp>();
 
@@ -64,7 +64,7 @@ export function Home() {
         </Text>
       </Button>
 
-      {trips?.length && activatedTrip ? <ActionsBar /> : null}
+      {(trips?.length && activatedTrip) ? <ActionsBar /> : null}
     </MainWrapper>
   );
 }

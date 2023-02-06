@@ -14,8 +14,8 @@ export function ExitTrip() {
 
   const [deactivateTrip] = useDeactivateTripMutation();
 
-  const exitTripCallback = () => {
-    deactivateTrip();
+  const exitTripCallback = async () => {
+    await deactivateTrip();
 
     navigation.navigate('Homepage');
   };

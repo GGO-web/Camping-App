@@ -35,13 +35,13 @@ export function Navbar() {
 
   const route = useRoute();
 
-  const { data: activatedTrip } = useGetActivatedTripQuery();
+  const { data: activatedTrip, isError } = useGetActivatedTripQuery();
 
   const [routes, setRoutes] = useState(mainNavigationRoutes);
 
   useEffect(() => {
-    setRoutes(activatedTrip ? expandedNavigationRoutes : mainNavigationRoutes);
-  }, [activatedTrip]);
+    setRoutes(activatedTrip && !isError ? expandedNavigationRoutes : mainNavigationRoutes);
+  }, [activatedTrip, isError]);
 
   return (
     <View

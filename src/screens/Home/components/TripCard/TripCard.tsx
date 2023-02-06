@@ -14,7 +14,7 @@ import { AssetsIconsType, AssetsGraphicType } from '../../../../matherialUI';
 
 import type { ILocation, ILocationImage } from '../../../../models/Locations.model';
 import { ITripResponse } from '../../../../models/responses/TripResponse';
-import { useSetActivatedTripMutation } from '../../../../redux/api/trip';
+import { useDeactivateTripMutation, useSetActivatedTripMutation } from '../../../../redux/api/trip';
 
 export function TripCard({
   trip,
@@ -30,6 +30,7 @@ export function TripCard({
   const [showTripSelectedDialog, setShowTripSelectedDialog] = useState<boolean>(false);
 
   const [setActivatedTrip] = useSetActivatedTripMutation();
+  const [deactivateTrip] = useDeactivateTripMutation();
 
   return (
     <Card
@@ -102,7 +103,7 @@ export function TripCard({
           row
           centerV
           style={{
-            backgroundColor: Colors.dark,
+            backgroundColor: isActivated ? Colors.red : Colors.dark,
             alignSelf: 'flex-end',
             paddingVertical: 4,
             paddingLeft: 16,
@@ -111,7 +112,11 @@ export function TripCard({
           }}
           onPress={() => setShowTripSelectedDialog(true)}
         >
-          <Text paragraph3 white marginR-8>Enter trip</Text>
+          <Text paragraph3 white marginR-8>
+            {isActivated ? 'Exit' : 'Enter'}
+            {' '}
+            trip
+          </Text>
           <ButtonIcon
             iconSource={(Assets.icons as AssetsIconsType).enter}
             iconStyles={{
@@ -147,16 +152,25 @@ export function TripCard({
         panDirection={PanningProvider.Directions.RIGHT}
       >
         <Text heading3 white marginB-16>
-          Do you want to enter this trip?
+          Do you want to
+          {' '}
+          {isActivated ? 'exit' : 'enter'}
+          {' '}
+          this trip?
         </Text>
 
         <View row right>
           <ButtonPrimary
-            buttonCallback={() => {
-              setActivatedTrip(trip._id as string);
+            buttonCallback={async () => {
+              if (isActivated) {
+                await deactivateTrip().unwrap();
+              } else {
+                setActivatedTrip(trip._id as string);
+              }
+
               setShowTripSelectedDialog(false);
             }}
-            buttonText="Enter"
+            buttonText={isActivated ? 'EXIT' : 'ENTER'}
             marginR-8
             flexG-3
           />
