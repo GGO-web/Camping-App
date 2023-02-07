@@ -15,13 +15,14 @@ import { firebaseApp, firebaseAuth, firestore } from './firebase/firebase';
 import './matherialUI';
 
 import App from './App';
+import { navigationRef } from './RootNavigation';
 
 registerRootComponent(() => (
   <FirebaseAppProvider firebaseApp={firebaseApp} suspense>
     <AuthProvider sdk={firebaseAuth}>
       <FirestoreProvider sdk={firestore}>
         <Provider store={store}>
-          <NavigationContainer>
+          <NavigationContainer ref={navigationRef}>
             {/* App component start! */}
             <App />
             {/* App component end! */}
