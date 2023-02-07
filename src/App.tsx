@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -47,7 +47,6 @@ import { TeammateProfile } from './screens/Teammates/components/TeammateProfile/
 import { useLoginWithFirebase } from './firebase/loginWithFirebase';
 
 import { ScreenNavigationProp, StackNavigatorParamsList } from './types';
-import { Loader } from './components/Loader/Loader';
 
 const Stack = createNativeStackNavigator<StackNavigatorParamsList>();
 
@@ -58,8 +57,6 @@ export default function App() {
     SFProRegular: require('../assets/fonts/SFProDisplay-Regular.ttf'),
   });
 
-  const [isRegistrationLoading, setIsRegistrationLoading] = useState(true);
-
   const navigation = useNavigation<ScreenNavigationProp>();
 
   const loginWithFirebase = useLoginWithFirebase();
@@ -68,13 +65,10 @@ export default function App() {
     setTimeout(async () => {
       if (firebaseAuth.currentUser) {
         try {
-          setIsRegistrationLoading(false);
           await loginWithFirebase();
-          setIsRegistrationLoading(true);
         } catch (e) {
           // eslint-disable-next-line no-console
           console.log(e);
-          setIsRegistrationLoading(true);
         }
       } else {
         navigation.navigate('Login');
@@ -88,10 +82,6 @@ export default function App() {
 
   if (!loaded) {
     return <ActivityIndicator animating />;
-  }
-
-  if (!isRegistrationLoading) {
-    return <Loader />;
   }
 
   return (

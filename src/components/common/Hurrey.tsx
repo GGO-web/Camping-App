@@ -1,16 +1,18 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {
   Button, Colors, Image, Text, View,
 } from 'react-native-ui-lib';
 import { globalStyles } from '../../styles/global';
+import { ScreenNavigationProp } from '../../types';
 
 export function Hurrey({
-  navigation,
   route,
 }: {
-  navigation: any;
   route: any;
 }) {
+  const navigation = useNavigation<ScreenNavigationProp>();
+
   return (
     <View style={globalStyles.container}>
       <Image

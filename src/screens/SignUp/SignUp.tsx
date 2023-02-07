@@ -30,7 +30,10 @@ import { authStyles } from '../../styles/auth';
 import { ScreenNavigationProp } from '../../types';
 
 export function SignUp() {
-  const [formFeedbackModal, setFormFeedbackModal] = useState(false);
+  const [formFeedbackModal, setFormFeedbackModal] = useState({
+    visible: false,
+    text: '',
+  });
 
   const formInitialValues: ISignUp = {
     username: '',
@@ -60,31 +63,43 @@ export function SignUp() {
       navigation.navigate(
         'Hurrey',
         {
-          page: 'Login',
+          page: 'Homepage',
           text: 'Your registration is successful. You will be automatically redirected to the homepage at the moment',
         },
       );
 
       actions.resetForm();
     } catch (error: any) {
-      const fireError = error as FirebaseError;
+      let feedbackErrorMessage = error.message;
 
-      // firebase errors validation
-      if (fireError.message.includes('wrong-password')) {
-        actions.setFieldError('password', 'The entered password is wrong.');
-      } else if (
-        fireError.message.includes('user-not-found')
-            || fireError.message.includes('invalid-email')
-      ) {
-        actions.setFieldError(
-          'email',
-          'The user with the given email is not found.',
-        );
-      } else if (fireError.message.includes('email-already-in-use')) {
-        actions.setFieldError('email', 'The given email is already in use');
-      } else {
-        setFormFeedbackModal(true);
+      if (error instanceof FirebaseError) {
+        // firebase errors validation
+        switch (true) {
+          case error.message.includes('auth/email-already-in-use'):
+            feedbackErrorMessage = 'The given email is already in use';
+            actions.setFieldError('email', feedbackErrorMessage);
+            break;
+          case error.message.includes('auth/user-disabled'):
+            feedbackErrorMessage = 'The user is disabled.';
+            actions.setFieldError('email', feedbackErrorMessage);
+            break;
+          case error.message.includes('auth/user-not-found'):
+            feedbackErrorMessage = 'The user with the given email is not found.';
+            actions.setFieldError('email', feedbackErrorMessage);
+            break;
+          case error.message.includes('auth/wrong-password'):
+            feedbackErrorMessage = 'The password is invalid.';
+            actions.setFieldError('password', feedbackErrorMessage);
+            break;
+          default:
+            break;
+        }
       }
+
+      setFormFeedbackModal({
+        visible: true,
+        text: feedbackErrorMessage,
+      });
     }
   };
 
@@ -132,13 +147,13 @@ export function SignUp() {
         </View>
 
         <Toast
-          visible={formFeedbackModal}
+          visible={formFeedbackModal.visible}
           position="bottom"
           autoDismiss={3000}
-          onDismiss={() => setFormFeedbackModal(false)}
+          onDismiss={() => setFormFeedbackModal({ ...formFeedbackModal, visible: false })}
         >
           <Text style={{ ...globalStyles.text, ...authStyles.feedback }}>
-            Ooops something went wrong. Please try again
+            {formFeedbackModal.text}
           </Text>
         </Toast>
       </View>
