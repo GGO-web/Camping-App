@@ -1,16 +1,21 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
-import { teammatesList } from '../../../../constants';
-import { IUser } from '../../../../models/User.model';
+import { Loader } from '../../../../components/Loader/Loader';
+
+import { useGetAllTeammatesQuery } from '../../../../redux/api/teammates';
 
 import { TeammatesListItem } from '../TeammatesListItem/TeammatesListItem';
 
 export function TeammatesList() {
-  const teammates: IUser[] = teammatesList;
+  const { data: teammates, isLoading } = useGetAllTeammatesQuery();
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <ScrollView>
-      {teammates.map((teammate) => <TeammatesListItem key={teammate.uid} teammate={teammate} />)}
+      {teammates?.map((teammate) => <TeammatesListItem key={teammate.uid} teammate={teammate} />)}
     </ScrollView>
   );
 }
