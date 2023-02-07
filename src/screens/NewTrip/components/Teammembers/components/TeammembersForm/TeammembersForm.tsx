@@ -5,9 +5,11 @@ import {
 
 import { FormikProps, useFormikContext } from 'formik';
 
-import type { ITeammateId } from '../../Teammembers';
-import { globalStyles } from '../../../../../../styles/global';
 import { Input } from '../../../../../../components/Input/Input';
+
+import type { ITeammateId } from '../../Teammembers';
+
+import { globalStyles } from '../../../../../../styles/global';
 
 export function TeammembersForm({
   formSubmitHandler,

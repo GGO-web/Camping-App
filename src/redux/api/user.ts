@@ -11,9 +11,9 @@ export const userApi = createApi({
   }),
   tagTypes: ['User'],
   endpoints: (builder) => ({
-    getUser: builder.query<IUser, void>({
-      query: () => ({
-        url: `/${firebaseAuth.currentUser?.uid}`,
+    getUser: builder.query<IUser, string | undefined>({
+      query: (userId = firebaseAuth.currentUser?.uid) => ({
+        url: `/${userId}`,
       }),
       providesTags: ['User'],
     }),

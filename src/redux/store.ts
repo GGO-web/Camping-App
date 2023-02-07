@@ -24,13 +24,12 @@ const rootReducer = combineReducers({
 
 export const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware()
-      .concat(campingApi.middleware)
-      .concat(userApi.middleware)
-      .concat(tripApi.middleware)
-      .concat(notificationApi.middleware)
-      .concat(teammatesApi.middleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware()
+    .concat(campingApi.middleware)
+    .concat(userApi.middleware)
+    .concat(tripApi.middleware)
+    .concat(notificationApi.middleware)
+    .concat(teammatesApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
