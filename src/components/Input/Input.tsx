@@ -86,7 +86,7 @@ export function Input({
       enableErrors
       validateOnChange
       validateOnBlur
-      onBlur={formik.handleBlur(fieldName)}
+      onBlur={() => formik.handleBlur(fieldName)}
       validate={[() => false]}
       validationMessage={[formik.errors[fieldName]]}
       style={getInputStyles()}

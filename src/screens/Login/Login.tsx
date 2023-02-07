@@ -32,7 +32,10 @@ import { authStyles } from '../../styles/auth';
 import { ScreenNavigationProp } from '../../types';
 
 export function Login() {
-  const [formFeedbackModal, setFormFeedbackModal] = useState(false);
+  const [formFeedbackModal, setFormFeedbackModal] = useState({
+    visible: false,
+    text: '',
+  });
 
   const formInitialValues: ILogin = {
     email: '',
@@ -52,36 +55,49 @@ export function Login() {
     actions: FormikHelpers<ILogin>,
   ) => {
     try {
-      setIsLoading(true);
-
       await signInWithEmailAndPassword(
         firebaseAuth,
         values.email,
         values.password,
       );
 
+      setIsLoading(true);
+
       await loginWithFirebase();
 
       setIsLoading(false);
     } catch (error: any) {
+      let feedbackErrorMessage = error.message;
+
       if (error instanceof FirebaseError) {
         // firebase errors validation
-        if (error.message.includes('wrong-password')) {
-          actions.setFieldError('password', 'The entered password is wrong.');
-        } else if (
-          error.message.includes('user-not-found')
-            || error.message.includes('invalid-email')
-        ) {
-          actions.setFieldError(
-            'email',
-            'The user with the given email is not found.',
-          );
-        } else {
-          setFormFeedbackModal(true);
+        switch (true) {
+          case error.message.includes('auth/invalid-email'):
+            feedbackErrorMessage = 'The email address is not valid.';
+            actions.setFieldError('email', feedbackErrorMessage);
+            break;
+          case error.message.includes('auth/user-disabled'):
+            feedbackErrorMessage = 'The user is disabled.';
+            actions.setFieldError('email', feedbackErrorMessage);
+            break;
+          case error.message.includes('auth/user-not-found'):
+            feedbackErrorMessage = 'The user with the given email is not found.';
+            actions.setFieldError('email', feedbackErrorMessage);
+            break;
+          case error.message.includes('auth/wrong-password'):
+            feedbackErrorMessage = 'The password is invalid.';
+            actions.setFieldError('password', feedbackErrorMessage);
+            break;
+          default:
+            break;
         }
-      } else {
-        setFormFeedbackModal(true);
       }
+
+      setFormFeedbackModal({
+        visible: true,
+        text: feedbackErrorMessage,
+      });
+      setIsLoading(false);
     }
   };
 
@@ -122,7 +138,6 @@ export function Login() {
           >
             {(formik) => (
               <LoginForm
-                formSubmitHandler={formSubmitHandler}
                 formik={formik}
               />
             )}
@@ -132,13 +147,13 @@ export function Login() {
         </View>
 
         <Toast
-          visible={formFeedbackModal}
+          visible={formFeedbackModal.visible}
           position="bottom"
           autoDismiss={3000}
-          onDismiss={() => setFormFeedbackModal(false)}
+          onDismiss={() => setFormFeedbackModal({ ...formFeedbackModal, visible: false })}
         >
           <Text style={{ ...globalStyles.text, ...authStyles.feedback }}>
-            Ooops something went wrong. Please try again
+            {formFeedbackModal.text}
           </Text>
         </Toast>
       </View>

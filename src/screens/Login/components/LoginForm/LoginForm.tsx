@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { FormikProps, useFormikContext } from 'formik';
+import { FormikProps } from 'formik';
 
 import {
   Button, Colors, Text, Typography,
@@ -16,14 +16,10 @@ import { globalStyles } from '../../../../styles/global';
 import { ScreenNavigationProp } from '../../../../types';
 
 export function LoginForm({
-  formSubmitHandler,
   formik,
 }: {
-  formSubmitHandler: Function;
   formik: FormikProps<ILogin>;
 }) {
-  const actions = useFormikContext();
-
   const navigation = useNavigation<ScreenNavigationProp>();
 
   return (
@@ -60,7 +56,7 @@ export function LoginForm({
         backgroundColor={Colors.primary}
         disabledBackgroundColor={Colors.gray400}
         disabled={!formik.isValid}
-        onPress={() => formSubmitHandler(formik.values, actions)}
+        onPress={() => formik.submitForm()}
       >
         <Text style={{ ...globalStyles.text, ...globalStyles.buttonText }}>
           Log In
