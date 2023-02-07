@@ -42,7 +42,7 @@ export function Bag() {
     // filter checked items
     const newTrip: Omit<ITrip, 'latestLocationsList' | 'latestLocation'> = {
       tripName: trip.tripName,
-      teammates: trip.teammates,
+      teammates: trip.teammates.map((teammate) => teammate.uid), // string of teammates ids
       tripPeriod: trip.tripPeriod,
       bagItems: trip.bagItems.filter((bagItem) => bagItem.checked),
       locations: trip.selectedLocations.map((location) => ({
