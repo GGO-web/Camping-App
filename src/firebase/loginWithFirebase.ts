@@ -14,17 +14,23 @@ export function useLoginWithFirebase() {
 
   const [getUserRequest] = useLazyGetUserQuery();
 
-  return async () => {
-    const userDB = await getUserRequest().unwrap();
+  const loginRequest = async () => {
+    try {
+      const userDB = await getUserRequest().unwrap();
 
-    dispatch(
-      signIn({
-        uid: userDB.uid,
-        fullname: userDB.fullname,
-        avatar: userDB.avatar,
-      }),
-    );
+      dispatch(
+        signIn({
+          uid: userDB.uid,
+          fullname: userDB.fullname,
+          avatar: userDB.avatar,
+        }),
+      );
 
-    navigation.navigate('Homepage');
+      navigation.navigate('Homepage');
+    } catch (e: any) {
+      console.log(e.error);
+    }
   };
+
+  return loginRequest;
 }
