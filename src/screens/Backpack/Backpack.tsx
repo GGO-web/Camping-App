@@ -22,14 +22,14 @@ export function Backpack() {
 
   const [createBackpackItem] = useCreateBagItemMutation();
 
-  const addBagItemCallback = (description: string) => {
-    createBackpackItem({
+  const addBagItemCallback = async (description: string) => {
+    await createBackpackItem({
       tripId: activatedTrip?._id as string,
       bagItem: {
         description,
         count: 1,
       },
-    });
+    }).unwrap();
   };
 
   return (

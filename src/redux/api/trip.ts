@@ -86,7 +86,10 @@ export const tripApi = createApi({
     createBagItem: builder.mutation<IMessageResponse, IAddBagItemRequest>({
       query: ({ tripId, bagItem }) => ({
         url: `bag/${tripId}`,
-        body: bagItem,
+        body: {
+          ...bagItem,
+          userId: firebaseAuth?.currentUser?.uid,
+        },
         method: 'POST',
       }),
       invalidatesTags: ['Trip'],

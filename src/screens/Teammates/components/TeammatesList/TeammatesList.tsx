@@ -28,7 +28,7 @@ export function TeammatesList() {
   const [addTeammate] = useAddTeammateMutation();
 
   if (isLoading) {
-    return <Loader />;
+    return <Loader message="Teammates is fetching from the server" />;
   }
 
   const addNewTeammateHandler = async (
