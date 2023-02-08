@@ -55,13 +55,13 @@ export function Teammembers() {
 
       if (userIsAlreadyAdded) {
         throw new Error('User is already added');
+      } else {
+        const user = await getUser(values.teammateId).unwrap();
+
+        addTeammate(user);
+
+        navigation.goBack();
       }
-
-      const user = await getUser(values.teammateId).unwrap();
-
-      addTeammate(user);
-
-      navigation.goBack();
     } catch (error: any) {
       const errorMessage = error.message;
 
@@ -98,6 +98,7 @@ export function Teammembers() {
             <ButtonPrimary
               buttonCallback={() => setIsReady(true)}
               buttonText="Add teammate"
+              marginB-20
             />
           </>
         )
