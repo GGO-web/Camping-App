@@ -5,15 +5,32 @@ import {
   Colors,
   Text,
   TouchableOpacity,
+  Assets,
 } from 'react-native-ui-lib';
 import { useNavigation } from '@react-navigation/native';
 
 import { IUser } from '../../../../models/User.model';
 
 import { ScreenNavigationProp } from '../../../../types';
+import { ButtonIcon } from '../../../../components/Buttons/ButtonIcon';
+import { AssetsIconsType } from '../../../../matherialUI';
+import { useDeleteTeammateMutation } from '../../../../redux/api/teammates';
+import { useGetActivatedTripQuery } from '../../../../redux/api/trip';
+import { firebaseAuth } from '../../../../firebase/firebase';
 
 export function TeammatesListItem({ teammate }: { teammate: IUser }) {
   const navigation = useNavigation<ScreenNavigationProp>();
+
+  const { data: activatedTrip } = useGetActivatedTripQuery();
+  const [deleteTeammate] = useDeleteTeammateMutation();
+
+  const deleteTeammateHandler = async () => {
+    try {
+      await deleteTeammate(teammate.uid).unwrap();
+    } catch (e: any) {
+      console.log(e);
+    }
+  };
 
   return (
     <TouchableOpacity
@@ -51,6 +68,24 @@ export function TeammatesListItem({ teammate }: { teammate: IUser }) {
           </Text>
         ) : null}
       </View>
+
+      {activatedTrip?.userId === firebaseAuth.currentUser?.uid ? (
+        <ButtonIcon
+          iconSource={(Assets.icons as AssetsIconsType).garbage}
+          buttonStyles={{
+            marginLeft: 'auto',
+            width: 48,
+            height: 48,
+            padding: 8,
+          }}
+          iconStyles={{
+            width: 32,
+            height: 32,
+            tintColor: Colors.primary900,
+          }}
+          onPressCallback={deleteTeammateHandler}
+        />
+      ) : null}
     </TouchableOpacity>
   );
 }
