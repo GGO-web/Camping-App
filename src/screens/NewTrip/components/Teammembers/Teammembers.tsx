@@ -120,7 +120,6 @@ export function Teammembers() {
             >
               {(formik) => (
                 <TeammembersForm
-                  formSubmitHandler={formSubmitHandler}
                   formik={formik}
                 />
               )}
