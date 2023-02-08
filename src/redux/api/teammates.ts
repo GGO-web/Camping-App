@@ -15,6 +15,7 @@ export const teammatesApi = createApi({
       query: () => ({
         url: `/all/${firebaseAuth.currentUser?.uid}`,
       }),
+      keepUnusedDataFor: 0,
       providesTags: ['Teammates'],
     }),
     addTeammate: builder.mutation<IMessageResponse, string>({
