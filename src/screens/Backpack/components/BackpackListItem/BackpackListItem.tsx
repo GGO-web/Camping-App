@@ -41,6 +41,7 @@ export function BackpackListItem({ backpackItem }: { backpackItem: IBagItem }) {
     backpackItem.count,
   );
   const { data: user } = useGetUserQuery();
+  const { data: backpackItemUser } = useGetUserQuery(backpackItem.userId);
   const { data: activatedTrip } = useGetActivatedTripQuery();
 
   const debouncedBackpackItemCount = useDebounce(backpackItemCount, 3000);
@@ -165,7 +166,7 @@ export function BackpackListItem({ backpackItem }: { backpackItem: IBagItem }) {
         <Text paragraph3 white>
           By
           {' '}
-          {isBagItemOwner ? 'You' : user?.fullname}
+          {isBagItemOwner ? 'You' : backpackItemUser?.fullname}
         </Text>
 
         <View flex right>
