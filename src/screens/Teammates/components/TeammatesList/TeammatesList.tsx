@@ -16,6 +16,8 @@ import {
   useAddTeammateMutation,
   useGetAllTeammatesQuery,
 } from '../../../../redux/api/teammates';
+import { useGetUserQuery } from '../../../../redux/api/user';
+import { useGetActivatedTripQuery } from '../../../../redux/api/trip';
 
 export function TeammatesList() {
   const formInitialValues: { teammateId: string } = {
@@ -23,6 +25,8 @@ export function TeammatesList() {
   };
 
   const { data: teammates, isLoading } = useGetAllTeammatesQuery();
+  const { data: activatedTrip } = useGetActivatedTripQuery();
+  const { data: user } = useGetUserQuery(activatedTrip?.userId);
 
   const [isReady, setIsReady] = React.useState(false);
   const [addTeammate] = useAddTeammateMutation();
@@ -30,6 +34,8 @@ export function TeammatesList() {
   if (isLoading) {
     return <Loader message="Teammates is fetching from the server" />;
   }
+
+  const teammatesList = [...teammates!, user!];
 
   const addNewTeammateHandler = async (
     teammateId: string,
@@ -55,8 +61,12 @@ export function TeammatesList() {
     ) : (
       <>
         <ScrollView>
-          {teammates?.map((teammate) => (
-            <TeammatesListItem key={teammate.uid} teammate={teammate} />
+          {teammatesList.map((teammate) => (
+            <TeammatesListItem
+              key={teammate.uid}
+              teammate={teammate}
+              activatedTrip={activatedTrip}
+            />
           ))}
         </ScrollView>
 
