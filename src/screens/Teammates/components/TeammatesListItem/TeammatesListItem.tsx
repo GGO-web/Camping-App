@@ -1,11 +1,12 @@
 import React from 'react';
 import {
   View,
-  Image,
   Colors,
   Text,
   TouchableOpacity,
   Assets,
+  Avatar,
+  Typography,
 } from 'react-native-ui-lib';
 import { useNavigation } from '@react-navigation/native';
 
@@ -15,14 +16,23 @@ import { ScreenNavigationProp } from '../../../../types';
 import { ButtonIcon } from '../../../../components/Buttons/ButtonIcon';
 import { AssetsIconsType } from '../../../../matherialUI';
 import { useDeleteTeammateMutation } from '../../../../redux/api/teammates';
-import { useGetActivatedTripQuery } from '../../../../redux/api/trip';
-import { firebaseAuth } from '../../../../firebase/firebase';
 
-export function TeammatesListItem({ teammate }: { teammate: IUser }) {
+import { ITripResponse } from '../../../../models/responses/TripResponse';
+import { firebaseAuth } from '../../../../firebase/firebase';
+import { useGetUserQuery } from '../../../../redux/api/user';
+
+export function TeammatesListItem(
+  { teammate, activatedTrip }:
+  { teammate: IUser, activatedTrip: ITripResponse | undefined },
+) {
+  const { data: user } = useGetUserQuery();
+
   const navigation = useNavigation<ScreenNavigationProp>();
 
-  const { data: activatedTrip } = useGetActivatedTripQuery();
   const [deleteTeammate] = useDeleteTeammateMutation();
+
+  const isTripOwner = activatedTrip?.userId === teammate.uid;
+  const isUserAdmin = user?.uid === activatedTrip?.userId;
 
   const deleteTeammateHandler = async () => {
     try {
@@ -40,8 +50,7 @@ export function TeammatesListItem({ teammate }: { teammate: IUser }) {
       marginB-24
       onPress={() => navigation.navigate('TeammateProfile', { teammate })}
     >
-      <Image
-        marginR-16
+      <Avatar
         source={
           typeof teammate.avatar === 'string'
             ? {
@@ -49,11 +58,20 @@ export function TeammatesListItem({ teammate }: { teammate: IUser }) {
             }
             : teammate.avatar
         }
-        style={{
-          width: 100,
-          height: 100,
+        size={100}
+        imageStyle={{
           borderRadius: 16,
           backgroundColor: Colors.gray100,
+        }}
+        containerStyle={{
+          marginRight: 16,
+        }}
+        ribbonLabel={isTripOwner ? 'Scout' : ''}
+        ribbonLabelStyle={{ ...Typography.paragraph3 }}
+        ribbonStyle={{
+          backgroundColor: Colors.primary900,
+          top: -8,
+          marginLeft: 8,
         }}
       />
 
@@ -69,7 +87,7 @@ export function TeammatesListItem({ teammate }: { teammate: IUser }) {
         ) : null}
       </View>
 
-      {activatedTrip?.userId === firebaseAuth.currentUser?.uid ? (
+      {(isUserAdmin && !isTripOwner) ? (
         <ButtonIcon
           iconSource={(Assets.icons as AssetsIconsType).garbage}
           buttonStyles={{
