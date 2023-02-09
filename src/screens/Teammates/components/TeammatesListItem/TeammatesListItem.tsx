@@ -18,16 +18,21 @@ import { AssetsIconsType } from '../../../../matherialUI';
 import { useDeleteTeammateMutation } from '../../../../redux/api/teammates';
 
 import { ITripResponse } from '../../../../models/responses/TripResponse';
+import { firebaseAuth } from '../../../../firebase/firebase';
+import { useGetUserQuery } from '../../../../redux/api/user';
 
 export function TeammatesListItem(
   { teammate, activatedTrip }:
   { teammate: IUser, activatedTrip: ITripResponse | undefined },
 ) {
+  const { data: user } = useGetUserQuery();
+
   const navigation = useNavigation<ScreenNavigationProp>();
 
   const [deleteTeammate] = useDeleteTeammateMutation();
 
-  const isTripOwner = activatedTrip?.userId === teammate?.uid;
+  const isTripOwner = activatedTrip?.userId === teammate.uid;
+  const isUserAdmin = user?.uid === activatedTrip?.userId;
 
   const deleteTeammateHandler = async () => {
     try {
@@ -82,7 +87,7 @@ export function TeammatesListItem(
         ) : null}
       </View>
 
-      {isTripOwner ? (
+      {(isUserAdmin && !isTripOwner) ? (
         <ButtonIcon
           iconSource={(Assets.icons as AssetsIconsType).garbage}
           buttonStyles={{
