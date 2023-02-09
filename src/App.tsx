@@ -64,12 +64,7 @@ export default function App() {
   const signInWithFirebase = () => {
     setTimeout(async () => {
       if (firebaseAuth.currentUser) {
-        try {
-          await loginWithFirebase();
-        } catch (e) {
-          // eslint-disable-next-line no-console
-          console.log(e);
-        }
+        await loginWithFirebase();
       } else {
         navigation.navigate('Login');
       }

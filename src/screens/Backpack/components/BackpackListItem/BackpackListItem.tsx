@@ -1,30 +1,57 @@
-import { ImagePickerResult, MediaTypeOptions } from 'expo-image-picker/build/ImagePicker.types';
+import {
+  ImagePickerResult,
+  MediaTypeOptions,
+} from 'expo-image-picker/build/ImagePicker.types';
 import React, { useEffect, useState } from 'react';
 import {
-  View, Text, Button, Colors, Icon, Image, Assets,
+  View,
+  Text,
+  Button,
+  Colors,
+  Icon,
+  Image,
+  Assets,
 } from 'react-native-ui-lib';
 
-import { launchCameraAsync, requestCameraPermissionsAsync } from 'expo-image-picker';
+import {
+  launchCameraAsync,
+  requestCameraPermissionsAsync,
+} from 'expo-image-picker';
 
 import { Alert } from 'react-native';
 
 import { ButtonIcon } from '../../../../components/Buttons/ButtonIcon';
 
 import { IBagItem } from '../../../../models/BagItem.model';
-import { useDeleteBagItemMutation, useUpdateBagItemCountMutation, useUpdateBagItemImageMutation } from '../../../../redux/api/trip';
+import {
+  useDeleteBagItemMutation,
+  useGetActivatedTripQuery,
+  useUpdateBagItemCountMutation,
+  useUpdateBagItemImageMutation,
+} from '../../../../redux/api/trip';
 import { useDebounce } from '../../../../hooks/debounce';
 
 import { AssetsIconsType } from '../../../../matherialUI';
 import { Stepper } from '../../../../components/Stepper/Stepper';
 
+import { useGetUserQuery } from '../../../../redux/api/user';
+
 export function BackpackListItem({ backpackItem }: { backpackItem: IBagItem }) {
-  const [backpackItemCount, setBackpackItemCount] = useState(backpackItem.count);
+  const [backpackItemCount, setBackpackItemCount] = useState(
+    backpackItem.count,
+  );
+  const { data: user } = useGetUserQuery();
+  const { data: backpackItemUser } = useGetUserQuery(backpackItem.userId);
+  const { data: activatedTrip } = useGetActivatedTripQuery();
 
   const debouncedBackpackItemCount = useDebounce(backpackItemCount, 3000);
 
   const [updateBagItemImage] = useUpdateBagItemImageMutation();
   const [updateBagItemCount] = useUpdateBagItemCountMutation();
   const [deleteBagItem] = useDeleteBagItemMutation();
+
+  const isBagItemOwner = backpackItem.userId === user?.uid;
+  const isTripOwner = activatedTrip?.userId === user?.uid;
 
   const deleteBagItemCallback = () => {
     Alert.alert(
@@ -69,14 +96,16 @@ export function BackpackListItem({ backpackItem }: { backpackItem: IBagItem }) {
     if (!pickerResult.canceled) {
       updateBagItemImage({
         bagItemId: backpackItem.id as string,
-        image: `data:image/jpeg;base64,${
-          pickerResult.assets[0].base64}`,
+        image: `data:image/jpeg;base64,${pickerResult.assets[0].base64}`,
       });
     }
   };
 
   return (
-    <View marginB-16 style={{ backgroundColor: Colors.primary, padding: 8, borderRadius: 12 }}>
+    <View
+      marginB-16
+      style={{ backgroundColor: Colors.primary, padding: 8, borderRadius: 12 }}
+    >
       <View row centerV marginB-8>
         <Button
           mode="contained"
@@ -94,55 +123,64 @@ export function BackpackListItem({ backpackItem }: { backpackItem: IBagItem }) {
             takePicture();
           }}
         >
-          {!backpackItem.image
-            ? (
-              <Icon
-                size={24}
-                style={{
-                  resizeMode: 'cover',
-                }}
-                assetName="plus"
-              />
-            )
-            : (
-              <Image
-                source={{ uri: backpackItem.image }}
-                style={{ width: 48, height: 48, resizeMode: 'cover' }}
-              />
-            )}
+          {!backpackItem.image ? (
+            <Icon
+              size={24}
+              style={{
+                resizeMode: 'cover',
+              }}
+              assetName="plus"
+            />
+          ) : (
+            <Image
+              source={{ uri: backpackItem.image }}
+              style={{ width: 48, height: 48, resizeMode: 'cover' }}
+            />
+          )}
         </Button>
 
         <Text flex heading4 white numberOfLines={2}>
           {backpackItem.description}
         </Text>
 
-        <ButtonIcon
-          iconSource={(Assets.icons as AssetsIconsType).garbage}
-          buttonStyles={{
-            marginLeft: 'auto',
-            width: 48,
-            height: 48,
-            padding: 8,
-          }}
-          iconStyles={{
-            width: 32,
-            height: 32,
-            tintColor: Colors.primary50,
-          }}
-          onPressCallback={deleteBagItemCallback}
-        />
+        {(isBagItemOwner || isTripOwner) ? (
+          <ButtonIcon
+            iconSource={(Assets.icons as AssetsIconsType).garbage}
+            buttonStyles={{
+              marginLeft: 'auto',
+              width: 48,
+              height: 48,
+              padding: 8,
+            }}
+            iconStyles={{
+              width: 32,
+              height: 32,
+              tintColor: Colors.primary50,
+            }}
+            onPressCallback={deleteBagItemCallback}
+          />
+        ) : null}
       </View>
 
-      <View flex right>
-        <Stepper
-          value={backpackItemCount}
-          minValue={1}
-          maxValue={Infinity}
-          textStyle={{ color: Colors.white }}
-          onValueChange={(newValue: number) => {
-            setBackpackItemCount(newValue);
-          }}
-        />
+      <View row centerV>
+        <Text paragraph3 white>
+          By
+          {' '}
+          {isBagItemOwner ? 'You' : backpackItemUser?.fullname}
+        </Text>
+
+        <View flex right>
+          <Stepper
+            value={backpackItemCount}
+            minValue={1}
+            maxValue={Infinity}
+            textStyle={{ color: Colors.white }}
+            onValueChange={(newValue: number) => {
+              setBackpackItemCount(newValue);
+            }}
+            disabled={!(isBagItemOwner || isTripOwner)}
+          />
+        </View>
       </View>
     </View>
   );

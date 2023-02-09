@@ -21,6 +21,7 @@ export interface StepperProps {
   buttonControlsIconStyles?: StyleProp<ImageStyle>,
   textStyle?: StyleProp<TextStyle | Animated.AnimatedProps<TextStyle>>;
   onValueChange: (value: number) => void;
+  disabled?: boolean;
 }
 
 export function Stepper({
@@ -31,6 +32,7 @@ export function Stepper({
   textStyle,
   buttonControlsStyles,
   buttonControlsIconStyles,
+  disabled = false,
 }: StepperProps) {
   const [stepperValue, setStepperValue] = React.useState(value);
 
@@ -56,7 +58,7 @@ export function Stepper({
           minWidth: 32,
           padding: 8,
           borderRadius: 100,
-          backgroundColor: Colors.white,
+          backgroundColor: disabled ? Colors.primary700 : Colors.white,
         },
         ...(buttonControlsStyles as any),
       }}
@@ -64,11 +66,12 @@ export function Stepper({
         ...{
           width: 16,
           height: 16,
-          tintColor: Colors.black,
+          tintColor: disabled ? Colors.white : Colors.black,
         },
         ...(buttonControlsIconStyles as any),
       }}
       onPressCallback={buttonCallback}
+      disabled={disabled}
     />
   );
 

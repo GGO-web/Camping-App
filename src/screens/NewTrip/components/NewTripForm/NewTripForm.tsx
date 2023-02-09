@@ -43,6 +43,8 @@ export function NewTripForm({
     ),
   );
 
+  const teammates = useAppSelector((store) => store.trip.teammates);
+
   const { setTripPeriod, setTripName } = useActions();
 
   return (
@@ -103,7 +105,7 @@ export function NewTripForm({
           style={{ paddingHorizontal: 0, marginBottom: 16 }}
           horizontal
         >
-          {formik.values.teammates.map(
+          {teammates.map(
             (teamMate: IUser) => (
               <View
                 key={teamMate.uid}

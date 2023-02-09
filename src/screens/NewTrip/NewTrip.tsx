@@ -15,7 +15,6 @@ import { useActions } from '../../hooks/actions';
 
 import { ITripPeriod } from '../../models/Trip.model';
 import { IToast } from '../../models/Toast.model';
-import { IUser } from '../../models/User.model';
 
 import { NEW_TRIP_TOAST_MESSAGES } from '../../constants';
 
@@ -25,7 +24,6 @@ import { ScreenNavigationProp } from '../../types';
 
 export interface INewTrip {
   name: string;
-  teammates: IUser[];
   tripPeriod: ITripPeriod
 }
 
@@ -34,13 +32,12 @@ export function NewTrip() {
 
   const formInitialValues: INewTrip = {
     name: tripData.tripName,
-    teammates: tripData.teammates,
     tripPeriod: tripData.tripPeriod,
   };
 
   const navigation = useNavigation<ScreenNavigationProp>();
 
-  const { setTripName, setTeammates } = useActions();
+  const { setTripName } = useActions();
 
   const [toastParams, setToastParams] = useState<IToast>({
     visible: false,
@@ -74,7 +71,6 @@ export function NewTrip() {
       }));
     } else {
       setTripName(values.name);
-      setTeammates(values.teammates);
 
       setToastParams({
         message: NEW_TRIP_TOAST_MESSAGES.tripSuccess.message,

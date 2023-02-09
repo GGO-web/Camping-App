@@ -5,6 +5,7 @@ import { campingApi } from './api/camping';
 import { tripApi } from './api/trip';
 import { userApi } from './api/user';
 import { notificationApi } from './api/notification';
+import { teammatesApi } from './api/teammates';
 
 import { tripReducer } from './trip/tripSlice';
 
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   [userApi.reducerPath]: userApi.reducer,
   [tripApi.reducerPath]: tripApi.reducer,
   [notificationApi.reducerPath]: notificationApi.reducer,
+  [teammatesApi.reducerPath]: teammatesApi.reducer,
 });
 
 export const store = configureStore({
@@ -26,7 +28,8 @@ export const store = configureStore({
     .concat(campingApi.middleware)
     .concat(userApi.middleware)
     .concat(tripApi.middleware)
-    .concat(notificationApi.middleware),
+    .concat(notificationApi.middleware)
+    .concat(teammatesApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

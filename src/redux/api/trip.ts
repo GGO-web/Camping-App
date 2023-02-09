@@ -24,12 +24,14 @@ export const tripApi = createApi({
         url: `all/${firebaseAuth?.currentUser?.uid}`,
       }),
       providesTags: ['Trip'],
+      keepUnusedDataFor: 0,
     }),
     getActivatedTrip: builder.query<ITripResponse, void>({
       query: () => ({
         url: `activated/${firebaseAuth?.currentUser?.uid}`,
       }),
       providesTags: ['Trip'],
+      keepUnusedDataFor: 0,
     }),
     createTrip: builder.mutation<any, Omit<ITrip, 'latestLocationsList' | 'latestLocation'>>({
       query: (trip) => ({
@@ -84,7 +86,10 @@ export const tripApi = createApi({
     createBagItem: builder.mutation<IMessageResponse, IAddBagItemRequest>({
       query: ({ tripId, bagItem }) => ({
         url: `bag/${tripId}`,
-        body: bagItem,
+        body: {
+          ...bagItem,
+          userId: firebaseAuth?.currentUser?.uid,
+        },
         method: 'POST',
       }),
       invalidatesTags: ['Trip'],

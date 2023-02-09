@@ -4,4 +4,5 @@ export interface IBagItem {
   count: number;
   checked?: boolean;
   image?: string;
+  userId?: string;
 }

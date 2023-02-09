@@ -3,4 +3,5 @@ export interface IActivity {
   heading: string;
   description: string;
   completed?: boolean;
+  userId?: string;
 }

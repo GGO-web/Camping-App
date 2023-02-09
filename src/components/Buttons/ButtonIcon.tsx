@@ -21,7 +21,7 @@ export function ButtonIcon({
   buttonStyles?: StyleProp<ViewStyle | Animated.AnimatedProps<ViewStyle>>,
   iconStyles?: StyleProp<ImageStyle>,
   onPressCallback?: Function,
-  buttonProps?: ButtonProps & typeof Button,
+  [key: string]: React.ComponentClass<ButtonProps, any> & typeof Button | any,
 }) {
   return (
     <Button
@@ -35,7 +35,7 @@ export function ButtonIcon({
       onPress={(e: GestureEvent) => {
         if (onPressCallback) onPressCallback(e);
       }}
-      {...(buttonProps as any)}
+      {...buttonProps}
     />
   );
 }

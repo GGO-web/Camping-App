@@ -8,43 +8,25 @@ import { ClipboardID } from '../../components/common/ClipboardID';
 import { MainWrapper } from '../../components/MainWrapper/MainWrapper';
 import { TripCardList } from './components/TripCardList/TripCardList';
 import { ActionsBar } from '../../components/ActionsBar/ActionsBar';
-import { NoResults } from '../../components/common/NoResults';
-import { Loader } from '../../components/Loader/Loader';
 
-import { useGetAllTripsQuery } from '../../redux/api/trip';
+import { useGetActivatedTripQuery } from '../../redux/api/trip';
 
-import { AssetsGraphicType, AssetsIconsType } from '../../matherialUI';
+import { AssetsIconsType } from '../../matherialUI';
 
 import { globalStyles } from '../../styles/global';
 
 import { ScreenNavigationProp } from '../../types';
 
 export function Home() {
-  const { data: trips, isLoading } = useGetAllTripsQuery();
-  const activatedTrip = trips?.find((trip) => trip.activated);
+  const { data: activatedTrip, isError } = useGetActivatedTripQuery();
 
   const navigation = useNavigation<ScreenNavigationProp>();
-
-  if (isLoading) {
-    return (
-      <Loader />
-    );
-  }
 
   return (
     <MainWrapper headerTitle="Camping Trips" iconRightCallback={() => navigation.navigate('Notifications')} iconRight={(Assets.icons as AssetsIconsType).bell}>
       <ClipboardID />
 
-      {!trips?.length
-        ? (
-          <NoResults
-            image={(Assets.graphic as AssetsGraphicType).trips}
-            text="You didn’t add any trips before."
-          />
-        )
-        : (
-          <TripCardList trips={trips} />
-        )}
+      <TripCardList />
 
       <Button
         marginB-16
@@ -64,7 +46,7 @@ export function Home() {
         </Text>
       </Button>
 
-      {(trips?.length && activatedTrip) ? <ActionsBar /> : null}
+      {(activatedTrip && !isError) ? <ActionsBar /> : null}
     </MainWrapper>
   );
 }

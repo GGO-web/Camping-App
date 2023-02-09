@@ -7,11 +7,16 @@ import {
 } from 'react-native-ui-lib';
 
 import type { IActivity } from '../../../../../models/Activity.model';
-import { useCompleteActivityMutation, useDeleteActivityMutation } from '../../../../../redux/api/trip';
+import { useCompleteActivityMutation, useDeleteActivityMutation, useGetActivatedTripQuery } from '../../../../../redux/api/trip';
+import { useGetUserQuery } from '../../../../../redux/api/user';
 
 import { ScreenNavigationProp } from '../../../../../types';
 
 export function ActivitiesListItem({ activity }: { activity: IActivity }) {
+  const { data: user } = useGetUserQuery();
+  const { data: activityUser } = useGetUserQuery(activity.userId);
+  const { data: activatedTrip } = useGetActivatedTripQuery();
+
   const activityRef = useRef<any>(null);
 
   const [setCompletedActivity] = useCompleteActivityMutation();
@@ -19,8 +24,13 @@ export function ActivitiesListItem({ activity }: { activity: IActivity }) {
 
   const navigation = useNavigation<ScreenNavigationProp>();
 
+  const isActivityOwner = activity.userId === user?.uid;
+  const isTripOwner = activatedTrip?.userId === user?.uid;
+
   const completeActivityHandler = () => {
-    setCompletedActivity(activity.id as string);
+    if (isActivityOwner || isTripOwner) {
+      setCompletedActivity(activity.id as string);
+    }
 
     if (activityRef.current) {
       activityRef.current.closeDrawer();
@@ -41,9 +51,11 @@ export function ActivitiesListItem({ activity }: { activity: IActivity }) {
       duration: 400,
     });
 
-    setTimeout(() => {
-      removeActivity(activity.id as string);
-    }, 1000);
+    if (isActivityOwner || isTripOwner) {
+      setTimeout(() => {
+        removeActivity(activity.id as string);
+      }, 1000);
+    }
 
     if (activityRef.current) {
       activityRef.current.closeDrawer();
@@ -111,7 +123,9 @@ export function ActivitiesListItem({ activity }: { activity: IActivity }) {
               color: activity.completed ? Colors.white : Colors.gray300,
             }}
           >
-            By you
+            By
+            {' '}
+            {isActivityOwner ? 'you' : activityUser?.fullname}
           </Text>
         </View>
 

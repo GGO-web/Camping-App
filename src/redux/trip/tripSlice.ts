@@ -35,6 +35,15 @@ const tripSlice = createSlice({
     setTripPeriod: (state, action: PayloadAction<ITripPeriod>) => {
       state.tripPeriod = action.payload;
     },
+    addTeammate: (state, action: PayloadAction<IUser>) => {
+      const teammateAlreadyInStorage = state.teammates.some(
+        (teammate) => teammate.uid === action.payload.uid,
+      );
+
+      if (!teammateAlreadyInStorage) {
+        state.teammates.push(action.payload);
+      }
+    },
     setTeammates: (state, action: PayloadAction<IUser[]>) => {
       state.teammates = action.payload;
     },
@@ -56,31 +65,32 @@ const tripSlice = createSlice({
     addBagItem: (state, action: PayloadAction<IBagItem>) => {
       state.bagItems.push(action.payload);
     },
-    updateBagItemCount: (state, action: PayloadAction<{ id: string, count: number }>) => {
-      state.bagItems = state.bagItems.map((bagItem) => (
-        bagItem.id === action.payload.id ? {
+    updateBagItemCount: (
+      state,
+      action: PayloadAction<{ id: string; count: number }>,
+    ) => {
+      state.bagItems = state.bagItems.map((bagItem) => (bagItem.id === action.payload.id
+        ? {
           ...bagItem,
           count: action.payload.count,
-        } : bagItem));
+        }
+        : bagItem));
     },
     toggleBagItemChecked: (state, action: PayloadAction<string>) => {
-      state.bagItems = state.bagItems.map((bagItem) => (
-        bagItem.id === action.payload ? {
+      state.bagItems = state.bagItems.map((bagItem) => (bagItem.id === action.payload
+        ? {
           ...bagItem,
           checked: !bagItem.checked,
-        } : bagItem));
+        }
+        : bagItem));
     },
-    clearTripFormInfo: (state) => (
-      state = {
-        ...initialState,
-        teammates: state.teammates,
-        latestLocation: state.latestLocation,
-        latestLocationsList: state.latestLocationsList,
-      }
-    ),
-    setActiveTrip: (state, action: PayloadAction<ITrip>) => (
-      state = action.payload
-    ),
+    clearTripFormInfo: (state) => (state = {
+      ...initialState,
+      teammates: state.teammates,
+      latestLocation: state.latestLocation,
+      latestLocationsList: state.latestLocationsList,
+    }),
+    setActiveTrip: (state, action: PayloadAction<ITrip>) => (state = action.payload),
   },
 });
 
@@ -88,6 +98,7 @@ export const {
   addLocation,
   setTripName,
   setTripPeriod,
+  addTeammate,
   setTeammates,
   setLatestLocation,
   setLatestLocationsList,
