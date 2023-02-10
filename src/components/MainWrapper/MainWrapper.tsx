@@ -25,7 +25,7 @@ export function MainWrapper({
   const scaleValue = useRef(new Animated.Value(1)).current;
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, height: '100%' }}>
       <Navbar />
 
       <Animated.View

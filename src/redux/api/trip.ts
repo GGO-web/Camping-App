@@ -189,6 +189,7 @@ export const {
   useCreateTripMutation,
   useCompleteTripMutation,
   useGetAllTripsQuery,
+  useLazyGetActivatedTripQuery,
   useGetActivatedTripQuery,
   useSetActivatedTripMutation,
   useDeactivateTripMutation,

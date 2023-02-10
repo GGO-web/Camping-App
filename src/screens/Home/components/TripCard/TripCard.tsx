@@ -189,7 +189,7 @@ export function TripCard({
         </View>
       </Dialog>
 
-      {trip.activated
+      {isActivated
         ? (
           <View
             style={{

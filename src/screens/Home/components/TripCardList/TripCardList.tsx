@@ -7,13 +7,14 @@ import { AssetsGraphicType } from '../../../../matherialUI';
 
 import { ITripResponse } from '../../../../models/responses/TripResponse';
 
-import { useGetAllTripsQuery } from '../../../../redux/api/trip';
-
 import { TripCard } from '../TripCard/TripCard';
 
-export function TripCardList({ activatedTrip }: { activatedTrip: ITripResponse | undefined }) {
-  const { data: trips } = useGetAllTripsQuery();
-
+export function TripCardList({
+  trips, activatedTrip,
+}: {
+  trips: ITripResponse[] | undefined,
+  activatedTrip: ITripResponse | undefined
+}) {
   return !trips?.length
     ? (
       <NoResults
