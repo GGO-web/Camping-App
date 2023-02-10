@@ -3,7 +3,7 @@
   "version": "1.2.1",
   "main": "src/index.tsx",
   "scripts": {
-    "start": "expo start",
+    "start": "expo start --clear",
     "build": "eas build --profile production --platform android",
     "android": "expo run:android",
     "ios": "expo run:ios",

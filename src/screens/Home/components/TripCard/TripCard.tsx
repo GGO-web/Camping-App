@@ -18,19 +18,20 @@ import { useDeactivateTripMutation, useSetActivatedTripMutation } from '../../..
 
 export function TripCard({
   trip,
-  isActivated,
+  activatedTrip,
 }: {
   trip: ITripResponse,
-  isActivated: boolean
+  activatedTrip: ITripResponse | undefined,
 }) {
   const tripImages = useCheckoutTripImages({
     images: trip.locations.map((location: ILocation) => location.images).flat(2),
   });
-
   const [showTripSelectedDialog, setShowTripSelectedDialog] = useState<boolean>(false);
 
   const [setActivatedTrip] = useSetActivatedTripMutation();
   const [deactivateTrip] = useDeactivateTripMutation();
+
+  const isActivated = activatedTrip && activatedTrip?._id === trip._id;
 
   return (
     <Card

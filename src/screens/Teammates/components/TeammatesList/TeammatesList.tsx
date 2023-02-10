@@ -35,7 +35,7 @@ export function TeammatesList() {
     return <Loader message="Teammates is fetching from the server" />;
   }
 
-  const teammatesList = [...teammates!, user!];
+  const teammatesList = teammates ? [...teammates!, user!] : [user!];
 
   const addNewTeammateHandler = async (
     teammateId: string,

@@ -26,7 +26,7 @@ export function Home() {
     <MainWrapper headerTitle="Camping Trips" iconRightCallback={() => navigation.navigate('Notifications')} iconRight={(Assets.icons as AssetsIconsType).bell}>
       <ClipboardID />
 
-      <TripCardList />
+      <TripCardList activatedTrip={activatedTrip} />
 
       <Button
         marginB-16

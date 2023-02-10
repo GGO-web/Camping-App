@@ -11,7 +11,7 @@ import { useGetAllTripsQuery } from '../../../../redux/api/trip';
 
 import { TripCard } from '../TripCard/TripCard';
 
-export function TripCardList() {
+export function TripCardList({ activatedTrip }: { activatedTrip: ITripResponse | undefined }) {
   const { data: trips } = useGetAllTripsQuery();
 
   return !trips?.length
@@ -31,8 +31,8 @@ export function TripCardList() {
         {trips?.map((trip: ITripResponse) => (
           <TripCard
             key={trip._id}
-            isActivated={!!trip.activated}
             trip={trip}
+            activatedTrip={activatedTrip}
           />
         ))}
       </ScrollView>
