@@ -86,7 +86,6 @@ const tripSlice = createSlice({
     },
     clearTripFormInfo: (state) => (state = {
       ...initialState,
-      teammates: state.teammates,
       latestLocation: state.latestLocation,
       latestLocationsList: state.latestLocationsList,
     }),

@@ -23,6 +23,8 @@ import { ScreenNavigationProp } from '../../../../types';
 
 import { ITrip } from '../../../../models/Trip.model';
 
+import { firebaseAuth } from '../../../../firebase/firebase';
+
 export function Bag() {
   const [bagInputDialogVisible, setBagInputDialogVisible] = useState(false);
 
@@ -44,7 +46,10 @@ export function Bag() {
       tripName: trip.tripName,
       teammates: trip.teammates.map((teammate) => teammate.uid), // string of teammates ids
       tripPeriod: trip.tripPeriod,
-      bagItems: trip.bagItems.filter((bagItem) => bagItem.checked),
+      bagItems: trip.bagItems.filter((bagItem) => bagItem.checked).map((bagItem) => ({
+        ...bagItem,
+        userId: firebaseAuth.currentUser?.uid,
+      })),
       locations: trip.selectedLocations.map((location) => ({
         id: location.id,
         name: location.name,

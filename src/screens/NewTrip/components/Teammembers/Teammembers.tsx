@@ -24,6 +24,7 @@ import { useActions } from '../../../../hooks/actions';
 import { useLazyGetUserQuery } from '../../../../redux/api/user';
 import { TeammatesListItem } from '../../../Teammates/components/TeammatesListItem/TeammatesListItem';
 import { ButtonPrimary } from '../../../../components/Buttons/ButtonPrimary';
+import { firebaseAuth } from '../../../../firebase/firebase';
 
 export interface ITeammateId {
   teammateId: string;
@@ -53,15 +54,19 @@ export function Teammembers() {
         (teammate) => teammate.uid === values.teammateId,
       );
 
+      if (values.teammateId === firebaseAuth.currentUser?.uid) {
+        throw new Error('You can not add yourself as a teammate');
+      }
+
       if (userIsAlreadyAdded) {
         throw new Error('User is already added');
-      } else {
-        const user = await getUser(values.teammateId).unwrap();
-
-        addTeammate(user);
-
-        navigation.goBack();
       }
+
+      const user = await getUser(values.teammateId).unwrap();
+
+      addTeammate(user);
+
+      navigation.goBack();
     } catch (error: any) {
       const errorMessage = error.message;
 

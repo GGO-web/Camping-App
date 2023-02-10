@@ -18,12 +18,12 @@ import { AssetsIconsType } from '../../../../matherialUI';
 import { useDeleteTeammateMutation } from '../../../../redux/api/teammates';
 
 import { ITripResponse } from '../../../../models/responses/TripResponse';
-import { firebaseAuth } from '../../../../firebase/firebase';
+
 import { useGetUserQuery } from '../../../../redux/api/user';
 
 export function TeammatesListItem(
   { teammate, activatedTrip }:
-  { teammate: IUser, activatedTrip: ITripResponse | undefined },
+  { teammate: IUser, activatedTrip?: ITripResponse | undefined },
 ) {
   const { data: user } = useGetUserQuery();
 
