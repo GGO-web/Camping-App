@@ -10,6 +10,7 @@ import {
 } from 'react-native-ui-lib';
 import { useNavigation } from '@react-navigation/native';
 
+import { BadgePosition } from 'react-native-ui-lib/src/components/avatar';
 import { IUser } from '../../../../models/User.model';
 
 import { ScreenNavigationProp } from '../../../../types';
@@ -33,6 +34,8 @@ export function TeammatesListItem(
 
   const isTripOwner = activatedTrip?.userId === teammate.uid;
   const isUserAdmin = user?.uid === activatedTrip?.userId;
+
+  const isOnline = activatedTrip?.teammates.find((t) => t.userId === teammate.uid)?.isOnline;
 
   const deleteTeammateHandler = async () => {
     try {
@@ -73,6 +76,15 @@ export function TeammatesListItem(
           top: -8,
           marginLeft: 8,
         }}
+        {...(!isTripOwner ? {
+          badgePosition: BadgePosition.TOP_LEFT,
+          badgeProps: {
+            size: 10,
+            backgroundColor: isOnline
+              ? Colors.primary
+              : Colors.red,
+          },
+        } : {})}
       />
 
       <View flex>
