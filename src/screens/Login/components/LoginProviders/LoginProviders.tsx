@@ -17,9 +17,11 @@ import { ScreenNavigationProp } from '../../../../types';
 export function LoginProviders({
   response,
   promptAsync,
+  setIsLoading,
 }: {
   response: any;
   promptAsync: any;
+  setIsLoading: Function
 }) {
   const loginWithFirebase = useLoginWithFirebase();
 
@@ -44,10 +46,14 @@ export function LoginProviders({
         response.params.access_token,
       );
 
+      setIsLoading(true);
+
       // Sign-in the user with the credential
       await signInWithCredential(firebaseAuth, googleCredential);
 
       await loginWithFirebase();
+
+      setIsLoading(false);
 
       navigation.navigate(
         'Hurrey',

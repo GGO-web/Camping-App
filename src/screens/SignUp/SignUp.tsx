@@ -28,6 +28,7 @@ import { globalStyles } from '../../styles/global';
 import { authStyles } from '../../styles/auth';
 
 import { ScreenNavigationProp } from '../../types';
+import { Loader } from '../../components/Loader/Loader';
 
 export function SignUp() {
   const [formFeedbackModal, setFormFeedbackModal] = useState({
@@ -45,11 +46,15 @@ export function SignUp() {
 
   const [, response, promptAsync]: any = Google.useAuthRequest(authConfig);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const formSubmitHandler = async (
     values: ISignUp,
     actions: FormikHelpers<ISignUp>,
   ) => {
     try {
+      setIsLoading(true);
+
       const result = await createUserWithEmailAndPassword(
         firebaseAuth,
         values.email,
@@ -59,6 +64,8 @@ export function SignUp() {
       await updateProfile(result.user, {
         displayName: values.username,
       });
+
+      setIsLoading(false);
 
       navigation.navigate(
         'Hurrey',
@@ -103,6 +110,14 @@ export function SignUp() {
     }
   };
 
+  if (isLoading) {
+    return (
+      <Loader
+        message="Registration is in progress, please wait a second..."
+      />
+    );
+  }
+
   return (
     <KeyboardAvoidingView
       enabled={false}
@@ -141,6 +156,7 @@ export function SignUp() {
           </Formik>
 
           <LoginProviders
+            setIsLoading={setIsLoading}
             response={response}
             promptAsync={promptAsync}
           />

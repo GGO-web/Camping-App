@@ -103,7 +103,7 @@ export function Login() {
 
   if (isLoading) {
     return (
-      <Loader />
+      <Loader message="We are proccess your data, please hold on a minute" />
     );
   }
 
@@ -143,7 +143,10 @@ export function Login() {
             )}
           </Formik>
 
-          <LoginProviders {...{ response, promptAsync }} />
+          <LoginProviders {...{
+            response, promptAsync, isLoading, setIsLoading,
+          }}
+          />
         </View>
 
         <Toast
