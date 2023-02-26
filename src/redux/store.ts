@@ -10,6 +10,7 @@ import { teammatesApi } from './api/teammates';
 import { tripReducer } from './trip/tripSlice';
 
 import { userReducer } from './userConfig/userSlice';
+import { feedbackApi } from './api/feedback';
 
 const rootReducer = combineReducers({
   userProfile: userReducer,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   [tripApi.reducerPath]: tripApi.reducer,
   [notificationApi.reducerPath]: notificationApi.reducer,
   [teammatesApi.reducerPath]: teammatesApi.reducer,
+  [feedbackApi.reducerPath]: feedbackApi.reducer,
 });
 
 export const store = configureStore({
@@ -29,7 +31,8 @@ export const store = configureStore({
     .concat(userApi.middleware)
     .concat(tripApi.middleware)
     .concat(notificationApi.middleware)
-    .concat(teammatesApi.middleware),
+    .concat(teammatesApi.middleware)
+    .concat(feedbackApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

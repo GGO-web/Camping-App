@@ -9,6 +9,8 @@ import { DismissKeyboardView } from '../../components/common/DismissKeyboardView
 
 import { feedbackSchema } from '../../helpers/validationSchema';
 
+import { useCreateFeedbackMutation } from '../../redux/api/feedback';
+
 export interface IFeedbackValues {
   message: string;
 }
@@ -18,20 +20,37 @@ export function Feedback() {
     message: '',
   };
 
+  const [createFeedback] = useCreateFeedbackMutation();
+
   const [toastParams, setToastParams] = useState({
     visible: false,
     preset: ToastPresets.FAILURE,
     message: 'Feedback hasn`t sended',
   });
 
-  const formSubmitHandler = (values: IFeedbackValues, actions: FormikHelpers<IFeedbackValues>) => {
-    setToastParams((prevToast) => ({
-      ...prevToast,
-      preset: ToastPresets.SUCCESS,
-      message: 'Thank you for submitting your valuable review. We will read your message soon.',
-      visible: true,
-    }));
-    actions.resetForm();
+  const formSubmitHandler = async (
+    values: IFeedbackValues,
+    actions: FormikHelpers<IFeedbackValues>,
+  ) => {
+    try {
+      await createFeedback(values.message);
+
+      setToastParams((prevToast) => ({
+        ...prevToast,
+        preset: ToastPresets.SUCCESS,
+        message: 'Thank you for submitting your valuable review. We will read your message soon.',
+        visible: true,
+      }));
+
+      actions.resetForm();
+    } catch (err) {
+      setToastParams((prevToast) => ({
+        ...prevToast,
+        preset: ToastPresets.FAILURE,
+        message: 'Message has not been sent. Please try again later.',
+        visible: true,
+      }));
+    }
   };
 
   return (
