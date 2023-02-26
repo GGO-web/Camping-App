@@ -7,6 +7,7 @@ export function Loader({ message }: { message?: string }) {
     <LoaderScreen
       message={message || 'Sorry for the delay, service is starting up'}
       color={Colors.primary500}
+      messageStyle={{ maxWidth: '90%', textAlign: 'center' }}
     />
   );
 }

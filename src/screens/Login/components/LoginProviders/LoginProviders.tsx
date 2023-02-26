@@ -4,15 +4,12 @@ import { Image, TouchableOpacity, View } from 'react-native';
 import { Text } from 'react-native-ui-lib';
 
 import { GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
-import { useNavigation } from '@react-navigation/native';
 
 import { useLoginWithFirebase } from '../../../../firebase/loginWithFirebase';
 import { firebaseAuth } from '../../../../firebase/firebase';
 
 import { loginProvidersStyles } from './LoginProvidersStyle';
 import { globalStyles } from '../../../../styles/global';
-
-import { ScreenNavigationProp } from '../../../../types';
 
 export function LoginProviders({
   response,
@@ -24,8 +21,6 @@ export function LoginProviders({
   setIsLoading: Function
 }) {
   const loginWithFirebase = useLoginWithFirebase();
-
-  const navigation = useNavigation<ScreenNavigationProp>();
 
   const loginWithGoogle = async () => {
     // Get the users ID token
@@ -54,14 +49,6 @@ export function LoginProviders({
       await loginWithFirebase();
 
       setIsLoading(false);
-
-      navigation.navigate(
-        'Hurrey',
-        {
-          page: 'Homepage',
-          text: 'Your registration is successful. You will be automatically redirected to the homepage at the moment',
-        },
-      );
     }
   };
 

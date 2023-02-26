@@ -62,13 +62,17 @@ export default function App() {
   const loginWithFirebase = useLoginWithFirebase();
 
   const signInWithFirebase = () => {
-    setTimeout(async () => {
+    const timeout = setTimeout(async () => {
       if (firebaseAuth.currentUser) {
         await loginWithFirebase();
       } else {
         navigation.navigate('Login');
       }
     }, 1000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
   };
 
   useEffect(() => {
