@@ -7,7 +7,7 @@ import { IUser } from '../../models/User.model';
 export const teammatesApi = createApi({
   reducerPath: 'teammatesApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: `${process.env.REACT_APP_BACKEND_URL}/trip/teammates`,
+    baseUrl: `${process.env.REACT_APP_BACKEND_URL}/teammates`,
   }),
   tagTypes: ['Teammates'],
   endpoints: (builder) => ({

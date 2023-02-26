@@ -15,19 +15,19 @@ import { ITrip } from '../../models/Trip.model';
 export const tripApi = createApi({
   reducerPath: 'tripApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: `${process.env.REACT_APP_BACKEND_URL}/trip/`,
+    baseUrl: `${process.env.REACT_APP_BACKEND_URL}/`,
   }),
   tagTypes: ['Trip'],
   endpoints: (builder) => ({
     getAllTrips: builder.query<ITripResponse[], void>({
       query: () => ({
-        url: `all/${firebaseAuth?.currentUser?.uid}`,
+        url: `trip/all/${firebaseAuth?.currentUser?.uid}`,
       }),
       providesTags: ['Trip'],
     }),
     getActivatedTrip: builder.query<ITripResponse, void>({
       query: () => ({
-        url: `activated/${firebaseAuth?.currentUser?.uid}`,
+        url: `trip/activated/${firebaseAuth?.currentUser?.uid}`,
       }),
       providesTags: ['Trip'],
     }),
@@ -36,7 +36,7 @@ export const tripApi = createApi({
     Omit<ITrip, 'latestLocationsList' | 'latestLocation'>
     >({
       query: (trip) => ({
-        url: 'create',
+        url: 'trip/create',
         body: {
           ...trip,
           userId: firebaseAuth?.currentUser?.uid,
@@ -47,14 +47,14 @@ export const tripApi = createApi({
     }),
     completeTrip: builder.mutation<IMessageResponse, void>({
       query: () => ({
-        url: `complete/${firebaseAuth?.currentUser?.uid}`,
+        url: `trip/complete/${firebaseAuth?.currentUser?.uid}`,
         method: 'PATCH',
       }),
       invalidatesTags: ['Trip'],
     }),
     setActivatedTrip: builder.mutation<IMessageResponse, string>({
       query: (tripId) => ({
-        url: 'activate',
+        url: 'trip/activate',
         body: {
           userId: firebaseAuth?.currentUser?.uid,
           tripId,
@@ -65,14 +65,14 @@ export const tripApi = createApi({
     }),
     deactivateTrip: builder.mutation<IMessageResponse, void>({
       query: () => ({
-        url: `deactivate/${firebaseAuth?.currentUser?.uid}`,
+        url: `trip/deactivate/${firebaseAuth?.currentUser?.uid}`,
         method: 'PATCH',
       }),
       invalidatesTags: ['Trip'],
     }),
     deleteTrip: builder.mutation<IMessageResponse, string>({
       query: (tripId) => ({
-        url: `delete?userId=${firebaseAuth?.currentUser?.uid}&tripId=${tripId}`,
+        url: `trip/delete?userId=${firebaseAuth?.currentUser?.uid}&tripId=${tripId}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Trip'],

@@ -103,7 +103,7 @@ export function Login() {
 
   if (isLoading) {
     return (
-      <Loader message="We are proccess your data, please hold on a minute" />
+      <Loader message="We are processing your data, please hold on a minute" />
     );
   }
 
